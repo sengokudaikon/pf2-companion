@@ -37,3 +37,9 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-java-time:0.40.1")
     implementation("io.ktor:ktor-server-status-pages:2.3.1")
 }
+detekt {
+    buildUponDefaultConfig = true
+    parallel = true
+    autoCorrect = true
+    config.setFrom(files("$rootDir/detekt.yaml"))
+}

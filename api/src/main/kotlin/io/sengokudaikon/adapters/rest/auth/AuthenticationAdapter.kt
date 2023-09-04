@@ -22,7 +22,7 @@ class AuthenticationAdapter(
         val command = call.receive<UserCommand.Create>()
         try {
             validate(command)
-        } catch (e: Exception) {
+        } catch (e: IllegalArgumentException) {
             call.respond(HttpStatusCode.BadRequest, e.message ?: "Error during registration")
         }
 
@@ -49,7 +49,7 @@ class AuthenticationAdapter(
         val command = call.receive<UserCommand.SignIn>()
         try {
             validate(command)
-        } catch (e: Exception) {
+        } catch (e: IllegalArgumentException) {
             call.respond(HttpStatusCode.BadRequest, e.message ?: "Error during registration")
         }
 

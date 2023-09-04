@@ -4,3 +4,9 @@ dependencies {
 plugins {
     `kotlin-dsl`
 }
+detekt {
+    buildUponDefaultConfig = true
+    parallel = true
+    autoCorrect = true
+    config.setFrom(files("$rootDir/detekt.yaml"))
+}

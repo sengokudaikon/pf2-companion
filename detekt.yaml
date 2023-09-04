@@ -15,7 +15,7 @@ complexity:
     thresholdInClasses: 20
     thresholdInFiles: 20
     thresholdInObjects: 20
-  ComplexMethod:
+  CyclomaticComplexMethod:
     active: true
     threshold: 20
 exceptions:

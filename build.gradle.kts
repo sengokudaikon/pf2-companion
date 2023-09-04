@@ -11,13 +11,6 @@ plugins {
 group = "io.sengokudaikon"
 version = "0.0.1"
 
-detekt {
-    buildUponDefaultConfig = true
-    parallel = true
-    autoCorrect = true
-    config = files("$rootDir/detekt.yaml")
-}
-
 buildscript {
     dependencies {
         classpath("io.github.cdimascio:java-dotenv:5.2.2")
@@ -48,7 +41,12 @@ kotlin {
         kotlin.srcDir("build/generated/ksp/test/kotlin")
     }
 }
-
+detekt {
+    buildUponDefaultConfig = true
+    parallel = true
+    autoCorrect = true
+    config.setFrom(files("$rootDir/detekt.yaml"))
+}
 allprojects {
     apply(plugin = "kotlin")
     apply(plugin = "org.jetbrains.kotlin.plugin.serialization")
