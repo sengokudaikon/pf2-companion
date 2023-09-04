@@ -57,10 +57,6 @@ allprojects {
     apply(plugin = "jacoco")
 
     repositories {
-        flatDir{
-            dirs("../libs")
-            dirs("libs")
-        }
         mavenCentral()
         maven { url = uri("https://jitpack.io") }
     }
@@ -117,8 +113,6 @@ allprojects {
         implementation("io.ktor:ktor-server-status-pages:2.3.1")
         testImplementation("io.ktor:ktor-server-tests:2.3.1")
         testImplementation("org.jetbrains.kotlin:kotlin-test-junit:1.8.20-RC")
-        implementation("graphql-kotlin-server:7.0.0-alpha.5@jar")
-        implementation("graphql-kotlin-ktor-server:7.0.0-alpha.6@jar")
     }
 }
 
