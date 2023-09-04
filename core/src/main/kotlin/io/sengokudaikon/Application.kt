@@ -27,7 +27,7 @@ fun Application.module() {
     val dotenv = dotenv()
     val config = DbConfig(
         driver = dotenv["DB_DRIVER"],
-        url = dotenv["DB_URL"],
+        url = "jdbc:postgresql://".plus(dotenv["DB_HOST"]).plus(":").plus(dotenv["DB_PORT"]).plus("/").plus(dotenv["DB_NAME"]),
         username = dotenv["DB_USER"],
         password = dotenv["DB_PASSWORD"],
     )
