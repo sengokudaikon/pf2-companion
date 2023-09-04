@@ -5,6 +5,7 @@ import io.github.cdimascio.dotenv.dotenv
 import io.ktor.server.application.*
 import io.ktor.server.cio.*
 import io.ktor.server.engine.*
+import io.sengokudaikon.infrastructure.ApiModule
 import io.sengokudaikon.infrastructure.CoreModule
 import io.sengokudaikon.infrastructure.DatabaseFactory
 import io.sengokudaikon.infrastructure.DbConfig
@@ -16,13 +17,20 @@ import org.koin.ksp.generated.module
 import org.koin.ktor.plugin.Koin
 
 fun main() {
-    embeddedServer(CIO, port = 8080, host = "0.0.0.0", module = Application::module)
+    embeddedServer(CIO, port = 8080, host = "0.0.0.0") {
+        extracted()
+    }
         .start(wait = true)
+}
+
+private fun Application.extracted() {
+    module()
+    coreModule()
 }
 
 fun Application.module() {
     install(Koin) {
-        modules(CoreModule().module)
+        modules(CoreModule().module, ApiModule().module)
     }
     val dotenv = dotenv()
     val config = DbConfig(

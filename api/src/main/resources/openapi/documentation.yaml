@@ -1,0 +1,84 @@
+openapi: "3.0.3"
+info:
+  title: "pathfinder_app API"
+  description: "pathfinder_app API"
+  version: "1.0.0"
+servers:
+- url: "https://pathfinder_app"
+paths:
+  /api/auth:
+    post:
+      description: ""
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: "#/components/schemas/SignIn"
+        required: true
+      responses:
+        "400":
+          description: "Bad Request"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+              examples:
+                Example#1:
+                  value: "User doesn't exist"
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Function1_? super Throwable"
+  /api/register:
+    post:
+      description: ""
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: "#/components/schemas/Create"
+        required: true
+      responses:
+        "400":
+          description: "Bad Request"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+              examples:
+                Example#1:
+                  value: "User already exists"
+        "201":
+          description: "Created"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Map_String"
+components:
+  schemas:
+    SignIn:
+      type: "object"
+      properties:
+        email:
+          type: "string"
+        username:
+          type: "string"
+    Function1:
+      type: "object"
+      properties: {}
+    Function1_? super Throwable:
+      type: "object"
+    Create:
+      type: "object"
+      properties:
+        email:
+          type: "string"
+        username:
+          type: "string"
+    Map:
+      type: "object"
+      properties: {}
+    Map_String:
+      type: "string"

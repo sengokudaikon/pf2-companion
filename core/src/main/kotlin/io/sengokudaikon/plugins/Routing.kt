@@ -19,16 +19,12 @@ fun Application.configureRouting() {
         get("/") {
             call.respondText("Hello World!")
         }
-        File("openapi/documentation.yaml").takeIf { it.exists() }?.let {
-            swaggerUI(path = "/api/docs", swaggerFile = "openapi/documentation.yaml") {
-                version = "4.15.5"
-                configLoaders
-            }
-            openAPI(path = "/api/openapi", swaggerFile = "openapi/documentation.yaml") {
-                codegen = StaticHtmlCodegen()
-            }
-        } ?: run {
-            error("OpenAPI configuration file is missing. Please check its existence at the defined location.")
+        swaggerUI(path = "/api/docs", swaggerFile = "openapi/documentation.yaml") {
+            version = "4.15.5"
+            configLoaders
+        }
+        openAPI(path = "/api/openapi", swaggerFile = "openapi/documentation.yaml") {
+            codegen = StaticHtmlCodegen()
         }
 
         get("/api/health") {

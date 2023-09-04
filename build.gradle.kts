@@ -47,6 +47,10 @@ detekt {
     autoCorrect = true
     config.setFrom(files("$rootDir/detekt.yaml"))
 }
+dependencies {
+    implementation(project(mapOf("path" to ":api")))
+    implementation(project(mapOf("path" to ":core")))
+}
 allprojects {
     apply(plugin = "kotlin")
     apply(plugin = "org.jetbrains.kotlin.plugin.serialization")
