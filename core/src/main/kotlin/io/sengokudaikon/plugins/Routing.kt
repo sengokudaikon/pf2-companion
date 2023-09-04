@@ -23,9 +23,9 @@ fun Application.configureRouting() {
             version = "4.15.5"
             configLoaders
         }
-        openAPI(path = "/api/openapi", swaggerFile = "openapi/documentation.yaml") {
-            codegen = StaticHtmlCodegen()
-        }
+//        openAPI(path = "/api/openapi", swaggerFile = "openapi/documentation.yaml") {
+//            codegen = StaticHtmlCodegen()
+//        }
 
         get("/api/health") {
             call.respond(HttpStatusCode.OK, "Healthy")
