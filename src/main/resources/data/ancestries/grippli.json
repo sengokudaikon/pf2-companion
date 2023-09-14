@@ -1,0 +1,40 @@
+{
+    "img": "systems/pf2e/icons/default-icons/alternatives/ancestries/grippli.svg",
+    "name": "Grippli",
+        "additionalLanguages": [
+                "abyssal",
+                "boggard",
+                "draconic",
+                "elven",
+                "fey",
+                "iruxi",
+                "thalassic"
+            ],
+        "boosts": [
+                "dex",
+                "wis",
+          "Anything"
+                ],
+        "description": "<p><em>Gripplis are a shy and cautious people who generally seek to avoid being drawn into the complicated and dangerous affairs of others. Despite their outlook and small stature, gripplis often take bold and noble action when the situation demands it.</em></p>\n<hr />\n<p>Reclusive and canny, gripplis are treetop survivalists who harvest their homes' bounty and defend themselves against terrible threats. Their reliance on cunning and simple tools has led to gripplis being mischaracterized as primitive, yet this overlooks their shaping of the land with hidden orchards and camouflaged causeways that allow gripplis to live in prosperous peace. Gripplis are most likely to emerge from their forest homes to trade, explore, and combat threats that would despoil the world.</p>",
+        "flaws": [
+          "str"
+        ],
+  "hp": 6,
+        "items": [],
+        "languages": [
+                "common",
+                "grippli"
+            ],
+        "reach": 5,
+        "rules": [],
+        "size": "small",
+        "source": "Pathfinder Lost Omens: The Mwangi Expanse",
+        "speed": 25,
+    "rarity": "uncommon",
+        "traits":  [
+                "grippli",
+                "humanoid"
+            ],
+        "vision": "lowLightVision",
+    "type": "ancestry"
+}

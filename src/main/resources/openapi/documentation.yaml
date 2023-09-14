@@ -1,0 +1,348 @@
+openapi: "3.0.3"
+info:
+  title: "pathfinder_app API"
+  description: "pathfinder_app API"
+  version: "1.0.0"
+servers:
+- url: "http://0.0.0.0:8000"
+paths:
+  /api/ancestry/{name}:
+    get:
+      description: ""
+      parameters:
+      - name: "name"
+        in: "path"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        "400":
+          description: "Bad Request"
+          content:
+            text/plain:
+              schema:
+                type: "string"
+              examples:
+                Example#1:
+                  value: ""
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Ancestry"
+  /api/ancestry/list/{page}/{size}:
+    get:
+      description: ""
+      parameters:
+      - name: "page"
+        in: "path"
+        required: true
+        schema:
+          type: "string"
+      - name: "size"
+        in: "path"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Ancestry"
+  /api/auth:
+    post:
+      description: ""
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SignIn"
+        required: true
+      responses:
+        "400":
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                type: "string"
+              examples:
+                Example#1:
+                  value: "User doesn't exist"
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Function1_? super Throwable"
+  /api/register:
+    post:
+      description: ""
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Create"
+        required: true
+      responses:
+        "400":
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                type: "string"
+              examples:
+                Example#1:
+                  value: "User already exists"
+        "201":
+          description: "Created"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Map_String"
+  /metrics-http:
+    get:
+      description: ""
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/MetricSnapshot"
+  /metrics-micrometer:
+    get:
+      description: ""
+      responses:
+        "200":
+          description: "OK"
+          content:
+           application/json:
+              schema:
+                type: "string"
+  /:
+    get:
+      description: ""
+      responses:
+        "200":
+          description: "OK"
+          content:
+            text/plain:
+              schema:
+                type: "string"
+              examples:
+                Example#1:
+                  value: "Hello World!"
+  /api/health:
+    get:
+      description: ""
+      responses:
+        "200":
+          description: "OK"
+          content:
+           application/json:
+              schema:
+                type: "string"
+              examples:
+                Example#1:
+                  value: "Healthy"
+components:
+  schemas:
+    StackTraceElement:
+      type: "object"
+      properties:
+        classLoaderName:
+          type: "string"
+        moduleName:
+          type: "string"
+        moduleVersion:
+          type: "string"
+        methodName:
+          type: "string"
+        fileName:
+          type: "string"
+        lineNumber:
+          type: "integer"
+          format: "int32"
+    Throwable:
+      type: "object"
+      properties:
+        cause:
+          $ref: "#/components/schemas/Throwable"
+        stackTrace:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/StackTraceElement"
+    VisionSense:
+      type: "object"
+      properties:
+        name:
+          type: "string"
+          enum:
+          - "NORMAL"
+          - "LOW_LIGHT"
+          - "DARKVISION"
+          - "TREMORSENSE"
+          - "LIFESIGHT"
+          - "BLINDSENSE"
+          - "BLINDSIGHT"
+        range:
+          type: "integer"
+          format: "int32"
+    AbilityBoost:
+      type: "object"
+      properties:
+        attribute:
+          type: "string"
+        value:
+          type: "integer"
+          format: "int32"
+    AbilityFlaw:
+      type: "object"
+      properties:
+        attribute:
+          type: "string"
+        value:
+          type: "integer"
+          format: "int32"
+    Language:
+      type: "object"
+      properties:
+        name:
+          type: "string"
+        description:
+          type: "string"
+    Trait:
+      type: "object"
+      properties:
+        name:
+          type: "string"
+        description:
+          type: "string"
+        contentSrc:
+          type: "string"
+        homebrewID:
+          type: "integer"
+          format: "int32"
+    AncestryPhysicalFeature:
+      type: "object"
+      properties:
+        name:
+          type: "string"
+        description:
+          type: "string"
+        img:
+          type: "string"
+        level:
+          type: "integer"
+          format: "int32"
+        traits:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/Trait"
+    AncestryRule:
+      type: "object"
+      properties:
+        name:
+          type: "string"
+        description:
+          type: "string"
+    Ancestry:
+      type: "object"
+      properties:
+        id:
+          type: "string"
+        name:
+          type: "string"
+        description:
+          type: "string"
+        rarity:
+          type: "string"
+        hp:
+          type: "integer"
+          format: "int32"
+        size:
+          type: "string"
+        speed:
+          type: "integer"
+          format: "int32"
+        visionSense:
+          $ref: "#/components/schemas/VisionSense"
+        additionalSense:
+          $ref: "#/components/schemas/VisionSense"
+        artworkURL:
+          type: "string"
+        contentSrc:
+          type: "string"
+        homebrewID:
+          type: "integer"
+          format: "int32"
+        version:
+          type: "string"
+        abilityBoosts:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/AbilityBoost"
+        abilityFlaws:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/AbilityFlaw"
+        languages:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/Language"
+        physicalFeatures:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/AncestryPhysicalFeature"
+        traits:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/Trait"
+        rules:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/AncestryRule"
+    UserIdentifier:
+      type: "object"
+      properties: {}
+    SignIn:
+      type: "object"
+      properties:
+        identifier:
+          $ref: "#/components/schemas/UserIdentifier"
+        password:
+          type: "string"
+    Function1:
+      type: "object"
+      properties: {}
+    Function1_? super Throwable:
+      type: "object"
+    Create:
+      type: "object"
+      properties:
+        email:
+          type: "string"
+        username:
+          type: "string"
+        password:
+          type: "string"
+    Map:
+      type: "object"
+      properties: {}
+    Map_String:
+      type: "string"
+    MetricSnapshot:
+      type: "object"
+      properties:
+        name:
+          type: "string"
+        value:
+          type: "number"
+          format: "double"

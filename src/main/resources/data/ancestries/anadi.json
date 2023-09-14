@@ -1,0 +1,51 @@
+{
+    "img": "systems/pf2e/icons/default-icons/alternatives/ancestries/anadi.svg",
+    "name": "Anadi",
+        "additionalLanguages": [
+                "draconic",
+                "elven",
+                "fey",
+                "gnoll",
+                "iruxi",
+                "orcish"
+            ],
+        "boosts": [
+            "dex",
+            "wis",
+            "Anything"
+        ],
+        "description": "<p><em>Anadi people are reclusive, sapient spiders who hail from the jungles of southern Garund. Though they act in many ways like natural-born shapeshifters, their twin forms actually stem from carefully developed magic.</em></p>\n<hr />\n<p>As a communal and peaceful people, anadi ancestors endeavored to establish trade with the neighbors of ttheir homeland. However, these anadi soon learned that most others found their appearance to be extremely objectionable. Wishing to avoid conflict, ancient anadi retreated into isolation until they could find a solution. The answer came when their greatest scholars innovated a fusion of transmutation and illusion magic that allowed them to assume a humanoid form. The technique was developed, perfected, and eventually taught to the overwhelming majority of anadi.</p>\n<p>Early efforts with their new approach to diplomacy have yielded much better results, though sporadic contact means that some outsiders whisper false legends about anadi, such as claims that they are humans who transform into monstrous spiders at moonrise. Even contemporary explorers have reported anadi as human-spider hybrids. The anadi people of the current day strive to slowly but surely create a world where they no longer need to hide their true nature.</p>",
+        "flaws": [
+            "con"
+        ],
+        "hp": 8,
+        "items": [{
+                "img": "systems/pf2e/icons/default-icons/feat.svg",
+                "level": 1,
+                "name": "Change Shape (Anadi)",
+                "uuid": "Compendium.pf2e.ancestryfeatures.Item.Change Shape (Anadi)"
+            },
+            {
+                "img": "systems/pf2e/icons/default-icons/feat.svg",
+                "level": 0,
+                "name": "Fangs",
+                "uuid": "Compendium.pf2e.ancestryfeatures.Item.Fangs"
+            }
+        ],
+        "languages": [
+                "anadi",
+                "mwangi"
+            ],
+        "reach": 5,
+        "rules": [],
+        "size": "medium",
+        "source": "Pathfinder Lost Omens: The Mwangi Expanse",
+        "speed": 25,
+        "rarity": "rare",
+        "traits": [
+                "anadi",
+                "humanoid"
+            ],
+        "vision": "normal",
+    "type": "ancestry"
+}

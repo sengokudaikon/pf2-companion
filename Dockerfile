@@ -14,13 +14,13 @@ COPY .env ./.env
 RUN ./gradlew build --no-daemon
 
 # Copy the application source code to the container
-COPY core ./core
+COPY src ./src
 
 # Build the application
 RUN ./gradlew buildFatJar --no-daemon
 
 # Expose the application port
 EXPOSE 8080
-RUN echo "$FIREBASE_SERVICE_ACCOUNT" | base64 -d > ./core/src/main/resources/adminsdk.json
+RUN echo "$FIREBASE_SERVICE_ACCOUNT" | base64 -d > ./src/main/resources/adminsdk.json
 # Run the application
 CMD ["java", "-jar", "build/libs/pf2companion.jar"]

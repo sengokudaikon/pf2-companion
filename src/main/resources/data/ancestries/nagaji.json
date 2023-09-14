@@ -1,0 +1,47 @@
+{
+    "img": "systems/pf2e/icons/default-icons/ancestry.svg",
+    "name": "Nagaji",
+        "additionalLanguages": [
+                "aklo",
+                "amurrun",
+                "celestial",
+                "draconic",
+                "shadowtongue",
+                "tengu",
+                "thalassic",
+                "undercommon",
+                "vanara"
+            ],
+        "boosts": [
+                "str",
+          "free"
+                ],
+        "description": "<p>With humanoid figures and serpentine heads, nagaji are heralds, companions, and servitors of powerful nagas. They hold a deep reverence for holy areas and spiritual truths, an aspect many others find as intimidating as a nagaji's appearance.</p>\n<p>Nagaji are creations of the goddess Nalinivati, who was inspired by both humans and nagas. This inspiration, alongside nagaji's devotion to nagas, has led many to claim nagaji were created to be servants. However, Nalinivati created nagaji simply for the sake of creating. She envisioned a world where nagas and nagaji worked together to succeed, with nagas serving as sacred guardians, and nagaji living as mortals upon Golarion, respecting nagas for their strength and wisdom. Nagaji live up to this expectation, forming nations, temples, and villages with as many varied governments, societies, and traditions as there are scales on a serpent's back. If nagaji can be said to share any trait, it's devotion, be it to a community, a temple, a concept, or a lifestyle. Most nagaji are also drawn to the spiritual in all its expressions, even the darker aspects of philosophies and religions.</p>\n<p>If you want a character who combines the crushing strength and the sinuous mystery of a serpent, you should play a nagaji.</p>",
+        "flaws": [
+                ],
+        "hp": 10,
+        "items": [
+            {
+                "img": "systems/pf2e/icons/unarmed-attacks/fangs.webp",
+                "level": 0,
+                "name": "Fangs (Nagaji)",
+                "uuid": "Compendium.pf2e.ancestryfeatures.Item.Fangs (Nagaji)"
+            }
+        ],
+        "languages": [
+                "common",
+                "nagaji"
+            ],
+        "reach": 5,
+        "rules": [],
+        "size": "medium",
+        "source": "Pathfinder Lost Omens: Impossible Lands",
+    "rarity": "uncommon",
+        "speed": 25,
+        "traits":  [
+                "humanoid",
+                "nagaji"
+            ],
+        "vision": "lowLightVision",
+    "type": "ancestry"
+}

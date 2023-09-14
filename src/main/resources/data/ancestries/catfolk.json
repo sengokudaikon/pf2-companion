@@ -1,0 +1,48 @@
+{
+    "img": "systems/pf2e/icons/default-icons/alternatives/ancestries/catfolk.svg",
+    "name": "Catfolk",
+        "additionalLanguages": [
+                "draconic",
+                "elven",
+                "fey",
+                "gnomish",
+                "goblin",
+                "halfling",
+                "iruxi",
+                "jotun"
+            ],
+        "boosts": [
+          "dex",
+          "cha",
+          "Anything"
+        ],
+        "description": "<p><em>Curious and gregarious wanderers, catfolk combine features of felines and humanoids in both appearance and temperament. They enjoy learning new things, collecting new tales and trinkets, and ensuring their loved ones are safe and happy. Catfolk view themselves as chosen guardians of natural places in the world and are often recklessly brave, even in the face of overwhelming opposition.</em></p>\n<hr />\n<p>Catfolk are outgoing, active humanoids who delight in discovery, whether of hidden ruins or a comfortable place to nap. They are exceptionally social, both within their tight-knit communities and with other creatures they meet. Remarkably brave, catfolk see themselves as guardians of the world against forces that would assail it, and they believe that strong communities, breadth of experience, and continual self-improvement aid them in this fight.</p>\n<p>Catfolk have fast reflexes and are even able to twist themselves in the air while falling to land on their feet. As quick as these reflexes are, catfolk have quicker tempers, shifting from effusive glee to aggrieved fury in an instant. Like mundane felines, catfolk involuntarily purr when pleased and growl when surprised or angry.</p>\n<p>If you want a character who is curious, brave, friendly, and nimble in body and mind, you should play a catfolk.</p>",
+        "flaws": [
+          "wis"
+        ],
+        "hp": 8,
+        "items": [
+          {
+                "img": "systems/pf2e/icons/features/ancestry/land-on-your-feet.webp",
+                "level": "1",
+                "name": "Land on Your Feet",
+                "uuid": "Compendium.pf2e.ancestryfeatures.Item.Land on Your Feet"
+            }
+        ],
+        "languages": [
+                "amurrun",
+                "common"
+            ],
+        "reach": 5,
+        "rules": [],
+        "size": "medium",
+        "source": "Pathfinder Advanced Player's Guide",
+        "speed": 25,
+    "rarity": "uncommon",
+        "traits": [
+                "catfolk",
+                "humanoid"
+            ],
+        "vision": "lowLightVision",
+    "type": "ancestry"
+}

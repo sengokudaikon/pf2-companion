@@ -1,0 +1,43 @@
+{
+    "img": "systems/pf2e/icons/default-icons/alternatives/ancestries/tengu.svg",
+    "name": "Tengu",
+        "additionalLanguages": [
+                "dwarven",
+                "elven",
+                "fey",
+                "gnomish",
+                "goblin",
+                "halfling"
+            ],
+        "boosts": [
+                "dex",
+                "free"
+            ],
+        "description": "<p><em>Tengus are a gregarious and resourceful people that have spread far and wide from their ancestral home in Tian Xia, collecting and combining whatever innovations and traditions they happen across with those from their own long history.</em></p>\n<hr />\n<p>Tengus are survivalists and conversationalists, equally at home living off the wilderness and finding a niche in dense cities. They accumulate knowledge, tools, and companions, adding them to their collection as they travel.</p>\n<p>The tengu diaspora has spread across Golarion in search of a better life, bringing their skill with blade crafting to lands far from their home. In maritime regions, tengus notably work as fishers, blacksmiths, and 'jinx eaters'—members of ships' crews who are believed, accurately or otherwise, to absorb misfortune. Having lived in a variety of conditions and locations, tengus tend to be nonjudgmental, especially with regard to social station, though their willingness to associate with lawbreakers has often led some to look at them with suspicion.</p>\n<p>If you want to play a character hailing from a rich history of artisanship and tradition, but who happily picks up new practices, companions, words, and items as needed, you should play a tengu.</p>",
+        "flaws":  [],
+        "hp": 6,
+        "items": [
+            {
+                "img": "systems/pf2e/icons/features/ancestry/sharp-beak.webp",
+                "level": 0,
+                "name": "Sharp Beak",
+                "uuid": "Compendium.pf2e.ancestryfeatures.Item.Sharp Beak"
+            }
+        ],
+        "languages": [
+                "common",
+                "tengu"
+            ],
+        "reach": 5,
+        "rules": [],
+        "size": "medium",
+        "source": "Pathfinder Advanced Player's Guide",
+        "speed": 25,
+    "rarity": "uncommon",
+        "traits": [
+                "humanoid",
+                "tengu"
+            ],
+        "vision": "lowLightVision",
+    "type": "ancestry"
+}

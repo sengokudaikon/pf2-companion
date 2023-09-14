@@ -1,0 +1,45 @@
+{
+    "img": "systems/pf2e/icons/default-icons/alternatives/ancestries/goloma.svg",
+    "name": "Goloma",
+        "additionalLanguages": [
+                "abyssal",
+                "aklo",
+                "draconic",
+                "elven",
+                "fey",
+                "halfling",
+                "necril",
+                "orcish"
+            ],
+        "boosts": [
+                "wis",
+                "Anything"
+                ],
+        "description": "<p><em>Golomas fear most other people and deliberately use their unusual biology to frighten off those they consider to be dangerous predators. Rarely seen and poorly understood, golomas' many-eyed and wooden faced visages instill terror in most they meet.</em></p>\n<hr />\n<p>Though just as capable of being dangerous as any intelligent creature on Golarion, golomas have a deep-rooted psychological understanding that they are prey, and that all two-eyed people are predators. As a result, golomas rarely reveal themselves to others, and when they do, they often adopt threatening personas as a means to protect themselves. Even those few golomas who venture out into greater Mwangi society often have trouble relating to other ancestries, due to their strong differences in perception and mindset.</p>",
+        "flaws": [],
+        "hp": 8,
+        "items": [
+          {
+                "img": "systems/pf2e/icons/default-icons/feat.svg",
+                "level": 1,
+                "name": "Eyes in Back",
+                "uuid": "Compendium.pf2e.ancestryfeatures.Item.Eyes in Back"
+            }
+        ],
+        "languages": [
+                "goloma",
+                "mwangi"
+            ],
+        "reach": 5,
+        "rules": [],
+        "size": "medium",
+        "source": "Pathfinder Lost Omens: The Mwangi Expanse",
+        "speed": 30,
+    "rarity": "rare",
+        "traits": [
+                "goloma",
+                "humanoid"
+            ],
+        "vision": "normal",
+    "type": "ancestry"
+}

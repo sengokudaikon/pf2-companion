@@ -1,0 +1,46 @@
+{
+    "img": "systems/pf2e/icons/default-icons/alternatives/ancestries/sprite.svg",
+    "name": "Sprite",
+        "additionalLanguages": [
+                "celestial",
+                "draconic",
+                "elven",
+                "gnomish",
+                "goblin",
+                "jotun"
+            ],
+        "boosts": [
+          "dex",
+          "int",
+            "free"
+              ],
+        "description": "<p><em>Sprites are diminutive, whimsical, and exuberant creatures from the fey realm known as the First World. They love playing pranks, exploring new things, and embracing everything to do with magic.</em></p>\n<hr />\n<p>When most people picture a fey, chances are they're thinking of a sprite. The majority of sprites remain in the First World, where they are essentially immortal, reincarnating to a new form of fey when their life eventually comes to an end. Some even meld together with others to form a more substantial body or split apart into multiple smaller fey. However, sprites are incredibly curious about all forms of magic, leading a significant number to risk the mortal world to explore the new possibilities offered by the unusually static nature of mortal existence. These creatures mix in with other, smaller groups of Material Plane comrades, including exiles from the First World, those whose family swore pacts to mortals, and even contemplative individuals curious to enter the mortal cycle of souls.</p>\n<p>The first generation of Material Plane sprites were content to guard magical locations or objects, learn music, and play pranks on the unsuspecting. Panic struck when children born in the mortal world didn't form wings upon adulthood-some sprites transitioning to the mortal world likewise lost their wings after a time. Believing this to be a sign that the mortal world was too alien for them to live there, many of the initial sprite explorers returned to the safety of the First World.</p>\n<p>However, their wingless children exhibited a potential unmatched by any of their ancestors, as well as a particular magical affinity for the mortal world. They became the mightiest of sprite heroes, but also, on occasion, the most dangerous villains. As they came close to reaching their full strength, many of them did grow their wings at long last: larger, unique, and more vibrant than any from the First World had seen before, a sign of their limitless potential.</p>\n<p>If you want a character who is tiny, mercurial, and curious, you should play a sprite.</p>",
+        "flaws": [
+          "str"
+        ],
+        "hp": 6,
+        "items": [
+            {
+                "img": "systems/pf2e/icons/default-icons/feat.svg",
+                "level": 1,
+                "name": "Magical Strikes",
+                "uuid": "Compendium.pf2e.ancestryfeatures.Item.Magical Strikes"
+            }
+        ],
+        "languages": [
+                "common",
+                "fey"
+            ],
+        "reach": 0,
+        "rules": [],
+        "size": "tiny",
+        "source": "Pathfinder Lost Omens: Ancestry Guide",
+        "speed": 20,
+    "rarity": "rare",
+        "traits": [
+                "fey",
+                "sprite"
+            ],
+        "vision": "lowLightVision",
+    "type": "ancestry"
+}

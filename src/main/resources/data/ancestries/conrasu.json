@@ -1,0 +1,59 @@
+{
+    "img": "systems/pf2e/icons/default-icons/alternatives/ancestries/conrasu.svg",
+    "name": "Conrasu",
+        "additionalLanguages": [
+                "celestial",
+                "elven",
+                "fey",
+                "iruxi",
+                "petran",
+                "utopian"
+            ],
+        "boosts": [
+                "con",
+                "wis",
+                "Anything"
+        ],
+        "description": "<p><em>Conrasus are shards of cosmic force given consciousness who construct intricate exoskeletons to interface with the mortal world. Both an integral part of the underlying processes of the universe and strangely set apart, conrasus look to aeons to understand their existence.</em></p>\n<hr />\n<p>Conrasus aren't entirely clear on their own origins. Some historians think them a failed experiment of a wizardly cabal—possibly a splinter of artificers from the ancient Jitska Imperium—who desperately hoped to bind a pleroma to bolster their army but who accidentally conjured shattered scraps of the aeon instead. Others believe conrasus were built by their ancestors using an accelerated, iterative evolution process as natural as one designed by those who build portions of their own bodies could ever hope to achieve. Most likely, it is a mix of the two.</p>",
+        "flaws": [
+          "cha"
+        ],
+  "hp": 10,
+        "items": [
+            {
+                "img": "systems/pf2e/icons/default-icons/feat.svg",
+                "level": 1,
+                "name": "Sunlight Healing",
+                "uuid": "Compendium.pf2e.ancestryfeatures.Item.Sunlight Healing"
+            },
+            {
+                "img": "systems/pf2e/icons/default-icons/feat.svg",
+                "level": 1,
+                "name": "Conrasu Claw",
+                "uuid": "Compendium.pf2e.ancestryfeatures.Item.Conrasu Claw"
+            },
+            {
+                "img": "systems/pf2e/icons/default-icons/feat.svg",
+                "level": 1,
+                "name": "Conrasu Branch",
+                "uuid": "Compendium.pf2e.ancestryfeatures.Item.Conrasu Branch"
+            }
+        ],
+        "languages": [
+                "mwangi",
+                "rasu"
+            ],
+        "reach": 5,
+        "rules": [],
+        "size": "medium",
+        "source": "Pathfinder Lost Omens: The Mwangi Expanse",
+        "speed": 25,
+    "rarity": "rare",
+        "traits": [
+                "aeon",
+                "conrasu",
+                "plant"
+            ],
+        "vision": "normal",
+    "type": "ancestry"
+}

@@ -1,0 +1,43 @@
+{
+    "img": "systems/pf2e/icons/default-icons/ancestry.svg",
+    "name": "Ghoran",
+        "additionalLanguages": [
+                "aklo",
+                "draconic",
+                "elven",
+                "gnomish",
+                "jotun"
+            ],
+        "boosts": [
+          "con",
+          "Anything"
+        ],
+        "description": "<p>These intelligent plant people, created by a long-dead druid, possess a sort of immortality through their seeds—unless these are destroyed by external events other than merely the ravages of time.</p>\n<p>During the height of the wars between Geb and Nex long ago, the archmage Nex asked the renegade druid Ghorus to create a plant that would feed his people even in the most inhospitable land. Ghorus did so, developing a flower that would adapt to every environment and withstand every sort of magecraft and spellworking. He succeeded too well. In the strange soil of the Impossible Lands, the flower grew and soon began to think—and then to walk and speak. These were the first ghorans. Despite their new awareness, ghorans found that many other peoples were adept at ignoring inconvenient truths, especially those involving where their next meal might come from. Bit by bit, seed by seed, ghorans grew themselves into humanoid forms, hoping to engender sympathy by mirroring the appearance of humanoids. It eventually worked, and the ghorans won citizenship and protected status in the nation of Nex. Even so, time and predation has taken its toll; the population of ghorans is small and ever dwindling.</p>\n<p>Each ghoran is essentially an ancient spark of life that inhabits, successively, a series of plantlike bodies. Every twenty years or so, a ghoran produces a seed. Their old body withers away as their soul enters the seed, which then swiftly produces a new body. The process brings with it minor changes in personality and some loss of more distant memories, such that each new ghoran is related to their predecessor while still being a different individual. The art of creating more ghorans died with the druid Ghorus, so they're a tiny but stable minority in the Impossible Lands, dwindling bit by bit over the centuries as a few of them fall to violence and mischance.</p>\n<p>If you want a character who's an ancient and alien soul, trying to survive and thrive in a strange and hostile world, you should play a ghoran.</p>",
+        "flaws": [],
+        "hp": 8,
+        "items": [
+          {
+                "img": "systems/pf2e/icons/features/ancestry/plant-nourishment.webp",
+                "level": 0,
+                "name": "Photosynthesis",
+                "uuid": "Compendium.pf2e.ancestryfeatures.Item.Photosynthesis"
+            }
+        ],
+        "languages": [
+                "common",
+                "fey"
+            ],
+        "reach": 5,
+        "rules": [],
+        "size": "medium",
+        "source": "Pathfinder Lost Omens: Impossible Lands",
+        "speed": 25,
+    "rarity": "rare",
+        "traits": [
+                "ghoran",
+                "humanoid",
+                "plant"
+            ],
+        "vision": "lowLightVision",
+    "type": "ancestry"
+}
