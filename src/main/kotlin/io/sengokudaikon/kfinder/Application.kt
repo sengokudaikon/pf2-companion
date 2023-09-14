@@ -22,7 +22,7 @@ import org.koin.ktor.plugin.Koin
 @OptIn(DelicateCoroutinesApi::class)
 fun main() {
     val server = GlobalScope.launch {
-        embeddedServer(Netty, port = 8000, host = "0.0.0.0") {
+        embeddedServer(Netty, port = 8000, host = "localhost") {
             launch { module() }
         }.start(wait = true)
     }
