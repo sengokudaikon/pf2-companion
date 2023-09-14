@@ -35,25 +35,33 @@ class AncestryFixtureLoader(
         val ancestryFixtures = setUpFixtures()
         val existingAncestries = ancestryRepository.findAllNames().toSet()
         val newAncestryFixtures = ancestryFixtures.filter { it.name !in existingAncestries }
-        val dbVisionSenses = suspendedTransactionAsync { io.sengokudaikon.dbfinder.domain.character.ancestry.entity.VisionSense.all().map { it.name } }.await()
+        val dbVisionSenses = suspendedTransactionAsync {
+            io.sengokudaikon.dbfinder.domain.character.ancestry.entity.VisionSense.all().map { it.name }
+        }.await()
         newAncestryFixtures.flatMap {
             listOfNotNull(it.vision, it.additionalSense)
         }.filter { it.name !in dbVisionSenses }.apply {
             insertMultipleVisionSenses(this.toSet())
         }
-        val dbLanguages = suspendedTransactionAsync { io.sengokudaikon.dbfinder.domain.world.entity.Language.all().map { it.name } }.await()
+        val dbLanguages = suspendedTransactionAsync {
+            io.sengokudaikon.dbfinder.domain.world.entity.Language.all().map { it.name }
+        }.await()
         newAncestryFixtures.flatMap {
             it.languages.plus(it.additionalLanguages.values)
         }.filter { it.name !in dbLanguages }.apply {
             insertMultipleLanguages(this.toSet())
         }
-        val dbTraits = suspendedTransactionAsync { io.sengokudaikon.dbfinder.domain.world.entity.Trait.all().map { it.name } }.await()
+        val dbTraits = suspendedTransactionAsync {
+            io.sengokudaikon.dbfinder.domain.world.entity.Trait.all().map { it.name }
+        }.await()
         newAncestryFixtures.flatMap {
             it.traits
         }.filter { it.name !in dbTraits }.apply {
             insertMultipleTraits(this.toSet())
         }
-        val dbRules = suspendedTransactionAsync { io.sengokudaikon.dbfinder.domain.world.entity.Rule.all().map { it.name } }.await()
+        val dbRules = suspendedTransactionAsync {
+            io.sengokudaikon.dbfinder.domain.world.entity.Rule.all().map { it.name }
+        }.await()
         newAncestryFixtures.flatMap {
             it.rules
         }.filter { it.key !in dbRules }.apply {
@@ -70,7 +78,8 @@ class AncestryFixtureLoader(
             VisionSenses.batchInsert(visionSenses) { visionSense ->
                 this[VisionSenses.name] = visionSense.name
                 this[VisionSenses.visionRange] = visionSense.range
-                this[VisionSenses.precision] = if (visionSense.isPrecise) VisionSenses.Precision.PRECISE else VisionSenses.Precision.IMPRECISE
+                this[VisionSenses.precision] =
+                    if (visionSense.isPrecise) VisionSenses.Precision.PRECISE else VisionSenses.Precision.IMPRECISE
             }
         }.await()
     }
@@ -131,6 +140,7 @@ class AncestryFixtureLoader(
 
         return fixtures
     }
+
     private fun generateFromJson(string: String): AncestryFixture {
         val data = Json.decodeFromString<AncestryJson>(string)
 
@@ -188,15 +198,10 @@ class AncestryFixtureLoader(
                 val ability = fixedAbilities[flaw] ?: Ability.None
                 ability
             }
-
             val fixedSize = size.toSizeEnum()
-
             val fixedVisionSense = VisionSense(vision.toVisionEnum(), 0, false)
-
             val fixedLanguages = languages.map { Language(it) }
-
             val fixedTraits = traits.map { Trait(it, "", false, "") }
-
             val physicalFeatures = items.map {
                 AncestryPhysicalFeature(
                     name = it.name,

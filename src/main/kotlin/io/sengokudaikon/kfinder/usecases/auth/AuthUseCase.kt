@@ -30,12 +30,14 @@ class AuthUseCase(
             user.leftOrNull()?.left() ?: UserException.Invalid("Error during registration").left()
         }
     }
+
     override suspend fun findUserByIdentifier(identifier: UserIdentifier): Either<Throwable, EntityUser> =
         when (identifier) {
             is UserIdentifier.Email -> userRepository.findByEmail(identifier.email)
             is UserIdentifier.Uid -> userRepository.findByUid(identifier.uid)
             is UserIdentifier.Username -> userRepository.findByUsername(identifier.username)
         }
+
     override suspend fun authenticate(command: UserCommand): Either<Exception, UserToken> {
         command as UserCommand.SignIn
         val user = findUserByIdentifier(command.identifier).getOrElse { return Either.Left(UserException.NotFound()) }

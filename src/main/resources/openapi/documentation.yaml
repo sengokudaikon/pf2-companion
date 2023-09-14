@@ -4,17 +4,17 @@ info:
   description: "pathfinder_app API"
   version: "1.0.0"
 servers:
-- url: "http://0.0.0.0:8000"
+  - url: "http://0.0.0.0:8000"
 paths:
   /api/ancestry/{name}:
     get:
       description: ""
       parameters:
-      - name: "name"
-        in: "path"
-        required: true
-        schema:
-          type: "string"
+        - name: "name"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
       responses:
         "400":
           description: "Bad Request"
@@ -35,16 +35,16 @@ paths:
     get:
       description: ""
       parameters:
-      - name: "page"
-        in: "path"
-        required: true
-        schema:
-          type: "string"
-      - name: "size"
-        in: "path"
-        required: true
-        schema:
-          type: "string"
+        - name: "page"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+        - name: "size"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
       responses:
         "200":
           description: "OK"
@@ -123,7 +123,7 @@ paths:
         "200":
           description: "OK"
           content:
-           application/json:
+            application/json:
               schema:
                 type: "string"
   /:
@@ -146,7 +146,7 @@ paths:
         "200":
           description: "OK"
           content:
-           application/json:
+            application/json:
               schema:
                 type: "string"
               examples:
@@ -185,13 +185,13 @@ components:
         name:
           type: "string"
           enum:
-          - "NORMAL"
-          - "LOW_LIGHT"
-          - "DARKVISION"
-          - "TREMORSENSE"
-          - "LIFESIGHT"
-          - "BLINDSENSE"
-          - "BLINDSIGHT"
+            - "NORMAL"
+            - "LOW_LIGHT"
+            - "DARKVISION"
+            - "TREMORSENSE"
+            - "LIFESIGHT"
+            - "BLINDSENSE"
+            - "BLINDSIGHT"
         range:
           type: "integer"
           format: "int32"
@@ -311,7 +311,7 @@ components:
             $ref: "#/components/schemas/AncestryRule"
     UserIdentifier:
       type: "object"
-      properties: {}
+      properties: { }
     SignIn:
       type: "object"
       properties:
@@ -321,7 +321,7 @@ components:
           type: "string"
     Function1:
       type: "object"
-      properties: {}
+      properties: { }
     Function1_? super Throwable:
       type: "object"
     Create:
@@ -335,7 +335,7 @@ components:
           type: "string"
     Map:
       type: "object"
-      properties: {}
+      properties: { }
     Map_String:
       type: "string"
     MetricSnapshot:

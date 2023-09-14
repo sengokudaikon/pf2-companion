@@ -1,6 +1,7 @@
 package io.sengokudaikon.kfinder
 
-import com.codahale.metrics.*
+import com.codahale.metrics.Slf4jReporter
+import com.codahale.metrics.Timer
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.metrics.dropwizard.*
@@ -12,9 +13,10 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.micrometer.core.instrument.DistributionSummary
 import io.micrometer.core.instrument.LongTaskTimer
-import io.micrometer.prometheus.*
+import io.micrometer.prometheus.PrometheusConfig
+import io.micrometer.prometheus.PrometheusMeterRegistry
 import kotlinx.serialization.Serializable
-import org.slf4j.event.*
+import org.slf4j.event.Level
 import java.util.concurrent.TimeUnit
 
 fun Application.configureMonitoring() {
@@ -55,16 +57,19 @@ fun Application.configureMonitoring() {
                             MetricSnapshot(measurement.statistic.name, measurement.value)
                         }
                     }
+
                     is DistributionSummary -> meter.takeIf { it.count() > 0 }?.let {
                         it.measure().map { measurement ->
                             MetricSnapshot(measurement.statistic.name, measurement.value)
                         }
                     }
+
                     is LongTaskTimer -> meter.takeIf { it.activeTasks() > 0 }?.let {
                         it.measure().map { measurement ->
                             MetricSnapshot(measurement.statistic.name, measurement.value)
                         }
                     }
+
                     else -> null
                 } ?: emptyList()
             }

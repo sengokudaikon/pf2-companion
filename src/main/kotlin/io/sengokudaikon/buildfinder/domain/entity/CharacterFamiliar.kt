@@ -9,6 +9,7 @@ import org.jetbrains.exposed.dao.id.EntityID
 
 class CharacterFamiliar(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
     companion object : KotlinxUUIDEntityClass<CharacterFamiliar>(CharacterFamiliars)
+
     val character by Character optionalReferencedOn CharacterFamiliars.characterID
     val familiar by Familiar referencedOn CharacterFamiliars.familiarID
 }

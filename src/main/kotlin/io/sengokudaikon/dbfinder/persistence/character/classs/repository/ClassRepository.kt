@@ -10,7 +10,8 @@ import org.koin.core.annotation.Single
 
 @Single
 class ClassRepository : AbstractRepository(), ClassRepositoryPort {
-    override suspend fun findAll(page: Int, limit: Int): Either<Throwable, List<Class>> = query { Class.all().limit(limit, (page - 1).toLong()).toList() }
+    override suspend fun findAll(page: Int, limit: Int): Either<Throwable, List<Class>> =
+        query { Class.all().limit(limit, (page - 1).toLong()).toList() }
 
     override suspend fun findByName(name: String): Either<Throwable, Class> =
         query { Class.find { Classes.name eq name }.first() }

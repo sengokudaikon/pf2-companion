@@ -8,6 +8,7 @@ import org.jetbrains.exposed.dao.id.EntityID
 
 class RuleChoice(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
     companion object : KotlinxUUIDEntityClass<RuleChoice>(RuleChoices)
+
     var ruleId by Rule referencedOn RuleChoices.ruleId
     var name by RuleChoices.name
     var value by RuleChoices.value

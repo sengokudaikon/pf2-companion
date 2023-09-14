@@ -17,6 +17,7 @@ import io.sengokudaikon.dbfinder.domain.world.entity.Rule
 import io.sengokudaikon.dbfinder.domain.world.entity.RuleChoice
 import io.sengokudaikon.dbfinder.domain.world.entity.Trait
 import io.sengokudaikon.dbfinder.operations.character.ancestry.command.AncestryCommand
+import io.sengokudaikon.dbfinder.persistence.character.ancestry.cache.AncestryCache
 import io.sengokudaikon.dbfinder.persistence.character.ancestry.entity.Ancestries
 import io.sengokudaikon.dbfinder.persistence.character.ancestry.entity.AncestryBoosts
 import io.sengokudaikon.dbfinder.persistence.character.ancestry.entity.AncestryFlaws
@@ -39,7 +40,7 @@ import org.jetbrains.exposed.sql.transactions.experimental.suspendedTransactionA
 import org.koin.core.annotation.Single
 
 @Single(binds = [AncestryRepositoryPort::class])
-class AncestryRepository() : AbstractRepository(), AncestryRepositoryPort {
+class AncestryRepository : AbstractRepository(), AncestryRepositoryPort {
     override suspend fun findByName(name: String): Either<Throwable, Ancestry> =
         suspendedTransactionAsync {
             val entity = Ancestry.find { Ancestries.name eq name }.firstOrNull()
@@ -93,22 +94,27 @@ class AncestryRepository() : AbstractRepository(), AncestryRepositoryPort {
                     this.name = it.name
                     this.description = it.description
                 }
-                val languages = AncestryLanguage.find { AncestryLanguages.ancestryID eq ancestry.id }.firstOrNull() ?: AncestryLanguage.new {
-                    this.language = language
-                    this.ancestryID = ancestry
-                }
+                val languages = AncestryLanguage.find { AncestryLanguages.ancestryID eq ancestry.id }.firstOrNull()
+                    ?: AncestryLanguage.new {
+                        this.language = language
+                        this.ancestryID = ancestry
+                    }
                 ancestry.languages.plus(languages)
             }
 
             val boosts = dto.boosts.map {
-                AncestryBoost.find { AncestryBoosts.ancestryID eq ancestry.id and(AncestryBoosts.boostedAbility eq it) }.firstOrNull() ?: AncestryBoost.new {
+                AncestryBoost.find {
+                    AncestryBoosts.ancestryID eq ancestry.id and (AncestryBoosts.boostedAbility eq it)
+                }
+                    .firstOrNull() ?: AncestryBoost.new {
                     this.ancestryID = ancestry
                     this.boost = it
                 }
             }
             ancestry.abilityBoosts.plus(boosts)
             val abilityFlaws = dto.flaws.map {
-                AncestryFlaw.find { AncestryFlaws.ancestryID eq ancestry.id and(AncestryFlaws.flawedAbility eq it) }.firstOrNull() ?: AncestryFlaw.new {
+                AncestryFlaw.find { AncestryFlaws.ancestryID eq ancestry.id and (AncestryFlaws.flawedAbility eq it) }
+                    .firstOrNull() ?: AncestryFlaw.new {
                     this.ancestryID = ancestry
                     flaw = it
                 }
@@ -121,14 +127,18 @@ class AncestryRepository() : AbstractRepository(), AncestryRepositoryPort {
                     isImportant = it.isImportant
                     contentSrc = it.contentSrc
                 }
-                AncestryTrait.find { AncestryTraits.ancestryID eq ancestry.id and(AncestryTraits.trait eq trait.id) }.firstOrNull() ?: AncestryTrait.new {
+                AncestryTrait.find { AncestryTraits.ancestryID eq ancestry.id and (AncestryTraits.trait eq trait.id) }
+                    .firstOrNull() ?: AncestryTrait.new {
                     this.ancestryID = ancestry
                     this.trait = trait
                 }
             }
             ancestry.traits.plus(traits)
             val physicalFeatures = dto.physicalFeatures.map {
-                AncestryPhysicalFeature.find { AncestryPhysicalFeatures.ancestryID eq ancestry.id and(AncestryPhysicalFeatures.name eq it.name) }.firstOrNull() ?: AncestryPhysicalFeature.new {
+                AncestryPhysicalFeature.find {
+                    AncestryPhysicalFeatures.ancestryID eq ancestry.id and (AncestryPhysicalFeatures.name eq it.name)
+                }
+                    .firstOrNull() ?: AncestryPhysicalFeature.new {
                     this.ancestry = ancestry
                     description = it.description
                     img = it.img

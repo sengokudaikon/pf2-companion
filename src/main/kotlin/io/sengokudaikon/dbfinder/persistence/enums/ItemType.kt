@@ -1,4 +1,5 @@
 package io.sengokudaikon.dbfinder.persistence.enums
+
 enum class ItemType {
     POTION,
     ARTIFACT,

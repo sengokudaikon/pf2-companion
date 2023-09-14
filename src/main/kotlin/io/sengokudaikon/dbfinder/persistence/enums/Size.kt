@@ -3,6 +3,7 @@ package io.sengokudaikon.dbfinder.persistence.enums
 enum class Size {
     TINY, SMALL, MEDIUM, LARGE, HUGE, GARGANTUAN
 }
+
 fun String.toSizeEnum(): Size {
     return when (this.lowercase()) {
         "tiny" -> Size.TINY

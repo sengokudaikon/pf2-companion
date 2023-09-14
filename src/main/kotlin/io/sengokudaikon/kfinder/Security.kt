@@ -1,4 +1,4 @@
-package io.sengokudaikon.plugins
+package io.sengokudaikon.kfinder
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm

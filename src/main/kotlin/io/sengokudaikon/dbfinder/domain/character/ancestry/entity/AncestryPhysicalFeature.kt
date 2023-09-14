@@ -9,6 +9,7 @@ import io.sengokudaikon.dbfinder.domain.character.ancestry.model.AncestryPhysica
 
 class AncestryPhysicalFeature(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
     companion object : KotlinxUUIDEntityClass<AncestryPhysicalFeature>(AncestryPhysicalFeatures)
+
     var ancestry by Ancestry referencedOn AncestryPhysicalFeatures.ancestryID
     var name by AncestryPhysicalFeatures.name
     var description by AncestryPhysicalFeatures.description

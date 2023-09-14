@@ -8,6 +8,7 @@ import org.jetbrains.exposed.dao.id.EntityID
 
 class ClassSavingThrow(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
     companion object : KotlinxUUIDEntityClass<ClassSavingThrow>(ClassSavingThrows)
+
     var classID by ClassSavingThrows.classID
     var savingThrow by ClassSavingThrows.savingThrow
     var proficiency by ClassSavingThrows.proficiency

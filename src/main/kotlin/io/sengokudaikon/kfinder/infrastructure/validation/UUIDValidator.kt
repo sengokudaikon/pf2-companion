@@ -1,4 +1,4 @@
-package io.sengokudaikon.infrastructure.validation
+package io.sengokudaikon.kfinder.infrastructure.validation
 
 import kotlinx.uuid.UUID
 

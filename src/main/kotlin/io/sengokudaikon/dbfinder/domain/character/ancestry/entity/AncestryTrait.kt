@@ -10,6 +10,7 @@ import io.sengokudaikon.dbfinder.domain.world.model.Trait as ModelTrait
 
 class AncestryTrait(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
     companion object : KotlinxUUIDEntityClass<AncestryTrait>(AncestryTraits)
+
     var ancestryID by Ancestry referencedOn AncestryTraits.ancestryID
     var trait by Trait referencedOn AncestryTraits.trait
 

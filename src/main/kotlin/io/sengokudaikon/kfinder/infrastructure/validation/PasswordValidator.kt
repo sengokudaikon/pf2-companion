@@ -1,4 +1,4 @@
-package io.sengokudaikon.infrastructure.validation
+package io.sengokudaikon.kfinder.infrastructure.validation
 
 class PasswordValidator : Validator<String> {
     override fun validate(value: String): Boolean {

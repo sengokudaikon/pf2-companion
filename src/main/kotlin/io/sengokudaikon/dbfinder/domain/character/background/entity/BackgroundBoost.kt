@@ -8,6 +8,7 @@ import org.jetbrains.exposed.dao.id.EntityID
 
 class BackgroundBoost(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
     companion object : KotlinxUUIDEntityClass<BackgroundBoost>(BackgroundBoosts)
+
     var backgroundId by BackgroundBoosts.backgroundId
     var boostedAbility by BackgroundBoosts.boostedAbility
     var homebrewID by BackgroundBoosts.homebrewID

@@ -12,6 +12,7 @@ import org.jetbrains.exposed.dao.id.EntityID
 
 class Class(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
     companion object : KotlinxUUIDEntityClass<Class>(Classes)
+
     var name by Classes.name
     var description by Classes.description
     var hitPoints by Classes.hitPoints

@@ -1,20 +1,21 @@
+package io.sengokudaikon.dbfinder.persistence.character.ancestry.cache
+
 import com.github.benmanes.caffeine.cache.AsyncCacheLoader
 import com.github.benmanes.caffeine.cache.AsyncLoadingCache
 import com.github.benmanes.caffeine.cache.Caffeine
 import io.sengokudaikon.dbfinder.domain.character.ancestry.entity.Ancestry
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.future.asCompletableFuture
+import kotlinx.coroutines.launch
 import org.jetbrains.exposed.dao.with
 import org.jetbrains.exposed.sql.transactions.experimental.suspendedTransactionAsync
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
-import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 
 object AncestryCache {
-    private val executor: Executor = Executors.newSingleThreadExecutor()
-
     val cache: AsyncLoadingCache<String, List<Ancestry>> = Caffeine.newBuilder()
         .maximumSize(100)
         .expireAfterWrite(60, TimeUnit.MINUTES)

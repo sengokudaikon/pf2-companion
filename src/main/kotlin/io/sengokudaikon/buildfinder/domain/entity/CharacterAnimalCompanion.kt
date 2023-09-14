@@ -9,6 +9,7 @@ import org.jetbrains.exposed.dao.id.EntityID
 
 class CharacterAnimalCompanion(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
     companion object : KotlinxUUIDEntityClass<CharacterAnimalCompanion>(CharacterAnimalCompanions)
+
     val character by Character optionalReferencedOn CharacterAnimalCompanions.characterID
     val animalCompanion by AnimalCompanion referencedOn CharacterAnimalCompanions.animalCompanionID
 }

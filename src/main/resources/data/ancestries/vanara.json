@@ -1,17 +1,17 @@
 {
-    "img": "systems/pf2e/icons/default-icons/ancestry.svg",
-    "name": "Vanara",
-        "additionalLanguages": [
-                "elven",
-                "fey",
-                "gnomish",
-                "goblin",
-                "infernal"
-            ],
-        "boosts": [
-                "dex",
-                "free"
-        ],
+  "img": "systems/pf2e/icons/default-icons/ancestry.svg",
+  "name": "Vanara",
+  "additionalLanguages": [
+    "elven",
+    "fey",
+    "gnomish",
+    "goblin",
+    "infernal"
+  ],
+  "boosts": [
+    "dex",
+    "free"
+  ],
   "description": "<p>Vanaras are inquisitive and mischievous monkey-like humanoids with short, soft fur, expressive eyes, and long, prehensile tails. Their handlike feet and agile builds serve them well in the jungle realms where most vanaras live.</p>\n<p>Vanaras were born of the monkey god Ragdya's ambitious folly ages ago, to spread and applaud his mischief and to serve as ba-sadhak, blessed seekers of fortune who would draw their creator's eye to the cruelly hoarded treasure of mortal lords and immortal fiends. They earned the enmity of ancient rakshasa maharajahs for their derring-do, the scorn of the naga empire for their valor, and the friendship of many rural Vudrani who viewed them as a wild folk of deep divine portent. Such is the history of vanaras and their long survival against their many foes, from within the mahajanapadas of the deep jungle lands, the mountain ghats of Vudra, and the Impossible Lands. If you want to play a character who embodies the struggle between self-betterment and self-expression, you should play a vanara.</p>",
   "flaws": [],
   "hp": 6,

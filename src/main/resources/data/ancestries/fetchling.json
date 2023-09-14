@@ -1,44 +1,44 @@
 {
-    "img": "systems/pf2e/icons/default-icons/alternatives/ancestries/fetchling.svg",
-    "name": "Fetchling",
-    "additionalLanguages": [
-            "aklo",
-            "draconic",
-            "dziriak",
-            "necril",
-            "undercommon"
-        ],
-    "boosts": [
-        "dex",
-        "Anything"
-    ],
-    "description": "<p><em>Once human and now something apart, fetchlings display the Shadow Plane's ancient influence through monochrome complexions, glowing eyes, and the casting of supernatural shadows.</em></p>\n<hr />\n<p>Fetchlings are a striking people whose skin appears entirely drained of color. These lithe and shadowy beings seem to sink and vanish into the gloom. They see in darkness, exercise control over shadows, and have strange occult powers. Some fetchlings develop their powers enough to pass between the Shadow and Material Planes, leaving other ancestries to whisper about figures that emerge from shaded corners and then vanish without a trace. Through magic and other means, they've spread across Golarion and the planes beyond, as adaptable as the humans they once were.</p>\n<p>The first fetchlings were refugees. Ages ago, when Earthfall destroyed ancient Azlant and cast the world into darkness, one small group of Azlanti pleaded for rescue. A mysterious hooded figure known as the Widow answered their call, slicing open a passage into the Shadow Plane. The Azlanti stepped through, trading the darkness of Earthfall for a deep shadow. As they navigated the plane's strange environs and dangerous inhabitants, its nature slowly worked monumental changes on the survivors.</p>\n<p>If you want a character more at home in a mirror world of shadow, infused with umbral gloom, and who embodies the dualities of light and darkness, you should play a fetchling.</p>",
-    "flaws": [],
-    "hp": 8,
-    "items": [],
-    "languages": [
-            "common",
-            "shadowtongue"
-        ],
-    "reach": 5,
-    "rules": [
-        {
-            "key": "ColorDarkvisionActive",
-            "mode": "override",
-            "path": "flags.pf2e.colorDarkvision",
-            "value": {
-                "PF2E.SpecificRule.DarkvisionColor": "true"
-            }
-        }
-    ],
-    "size": "medium",
-    "source": "Pathfinder Lost Omens: Ancestry Guide",
-    "speed": 25,
-    "rarity": "uncommon",
-    "traits": [
-        "fetchling",
-        "humanoid"
-    ],
-    "vision": "darkvision",
-    "type": "ancestry"
+  "img": "systems/pf2e/icons/default-icons/alternatives/ancestries/fetchling.svg",
+  "name": "Fetchling",
+  "additionalLanguages": [
+    "aklo",
+    "draconic",
+    "dziriak",
+    "necril",
+    "undercommon"
+  ],
+  "boosts": [
+    "dex",
+    "Anything"
+  ],
+  "description": "<p><em>Once human and now something apart, fetchlings display the Shadow Plane's ancient influence through monochrome complexions, glowing eyes, and the casting of supernatural shadows.</em></p>\n<hr />\n<p>Fetchlings are a striking people whose skin appears entirely drained of color. These lithe and shadowy beings seem to sink and vanish into the gloom. They see in darkness, exercise control over shadows, and have strange occult powers. Some fetchlings develop their powers enough to pass between the Shadow and Material Planes, leaving other ancestries to whisper about figures that emerge from shaded corners and then vanish without a trace. Through magic and other means, they've spread across Golarion and the planes beyond, as adaptable as the humans they once were.</p>\n<p>The first fetchlings were refugees. Ages ago, when Earthfall destroyed ancient Azlant and cast the world into darkness, one small group of Azlanti pleaded for rescue. A mysterious hooded figure known as the Widow answered their call, slicing open a passage into the Shadow Plane. The Azlanti stepped through, trading the darkness of Earthfall for a deep shadow. As they navigated the plane's strange environs and dangerous inhabitants, its nature slowly worked monumental changes on the survivors.</p>\n<p>If you want a character more at home in a mirror world of shadow, infused with umbral gloom, and who embodies the dualities of light and darkness, you should play a fetchling.</p>",
+  "flaws": [],
+  "hp": 8,
+  "items": [],
+  "languages": [
+    "common",
+    "shadowtongue"
+  ],
+  "reach": 5,
+  "rules": [
+    {
+      "key": "ColorDarkvisionActive",
+      "mode": "override",
+      "path": "flags.pf2e.colorDarkvision",
+      "value": {
+        "PF2E.SpecificRule.DarkvisionColor": "true"
+      }
+    }
+  ],
+  "size": "medium",
+  "source": "Pathfinder Lost Omens: Ancestry Guide",
+  "speed": 25,
+  "rarity": "uncommon",
+  "traits": [
+    "fetchling",
+    "humanoid"
+  ],
+  "vision": "darkvision",
+  "type": "ancestry"
 }

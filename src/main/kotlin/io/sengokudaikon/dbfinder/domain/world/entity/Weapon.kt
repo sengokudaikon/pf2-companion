@@ -8,6 +8,7 @@ import org.jetbrains.exposed.dao.id.EntityID
 
 class Weapon(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
     companion object : KotlinxUUIDEntityClass<Weapon>(Weapons)
+
     var name by Weapons.name
     var itemId by Weapons.itemId
     var damageType by Weapons.damageType

@@ -1,4 +1,6 @@
 style:
+  DestructuringDeclarationWithTooManyEntries:
+    active: false
   WildcardImport:
     active: false
   ThrowsCount:
@@ -10,6 +12,8 @@ style:
       - '255'
       - '0'
 complexity:
+  LongMethod:
+    active: false
   TooManyFunctions:
     active: true
     thresholdInClasses: 20

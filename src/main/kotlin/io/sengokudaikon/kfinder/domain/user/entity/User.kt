@@ -10,6 +10,7 @@ class User(
     id: EntityID<UUID>,
 ) : KotlinxUUIDEntity(id) {
     companion object : KotlinxUUIDEntityClass<User>(Users)
+
     var uid by Users.uid
     var email by Users.email
     var username by Users.username

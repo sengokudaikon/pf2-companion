@@ -8,6 +8,7 @@ import org.jetbrains.exposed.dao.id.EntityID
 
 class CharacterSpellSlot(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
     companion object : KotlinxUUIDEntityClass<CharacterSpellSlot>(CharacterSpellSlots)
+
     var character by Character referencedOn CharacterSpellSlots.characterID
     var spellLevel by CharacterSpellSlots.spellLevel
     var maxSlots by CharacterSpellSlots.maxSlots

@@ -10,6 +10,7 @@ import io.sengokudaikon.dbfinder.domain.character.ancestry.model.AncestryRule as
 
 class AncestryRule(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
     companion object : KotlinxUUIDEntityClass<AncestryRule>(AncestryRules)
+
     var ancestryID by Ancestry referencedOn AncestryRules.ancestryID
     var ruleID by Rule referencedOn AncestryRules.ruleID
     fun toModel(): ModelAncestryRule {

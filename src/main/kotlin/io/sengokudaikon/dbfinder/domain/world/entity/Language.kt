@@ -9,6 +9,7 @@ import io.sengokudaikon.dbfinder.domain.world.model.Language as ModelLanguage
 
 class Language(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
     companion object : KotlinxUUIDEntityClass<Language>(Languages)
+
     var name by Languages.name
     var description by Languages.description
     var homebrewID by Languages.homebrewID

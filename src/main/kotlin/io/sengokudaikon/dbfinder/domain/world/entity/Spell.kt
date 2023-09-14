@@ -8,6 +8,7 @@ import org.jetbrains.exposed.dao.id.EntityID
 
 class Spell(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
     companion object : KotlinxUUIDEntityClass<Spell>(Spells)
+
     var name by Spells.name
     var description by Spells.description
     var level by Spells.level

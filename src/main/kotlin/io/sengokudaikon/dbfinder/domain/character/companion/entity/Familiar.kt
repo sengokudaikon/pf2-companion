@@ -9,6 +9,7 @@ import org.jetbrains.exposed.dao.id.EntityID
 
 class Familiar(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
     companion object : KotlinxUUIDEntityClass<Familiar>(Familiars)
+
     var name by Familiars.name
     var description by Familiars.description
     var hp by Familiars.hp

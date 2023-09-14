@@ -8,6 +8,7 @@ import org.jetbrains.exposed.dao.id.EntityID
 
 class CharacterSpellcasting(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
     companion object : KotlinxUUIDEntityClass<CharacterSpellcasting>(CharacterSpellcastings)
+
     var character by Character referencedOn CharacterSpellcastings.characterID
     var spellcasting by CharacterSpellcastings.spellcastingTradition
 }

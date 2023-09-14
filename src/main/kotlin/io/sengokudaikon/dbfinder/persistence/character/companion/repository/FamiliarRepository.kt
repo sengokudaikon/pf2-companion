@@ -13,5 +13,6 @@ class FamiliarRepository : AbstractRepository(), FamiliarRepositoryPort {
 
     override suspend fun findById(id: UUID): Either<Throwable, Familiar> = query { Familiar.findById(id) }
 
-    override suspend fun findAll(page: Int, limit: Int): Either<Throwable, List<Familiar>> = query { Familiar.all().limit(limit, (page - 1).toLong()).toList() }
+    override suspend fun findAll(page: Int, limit: Int): Either<Throwable, List<Familiar>> =
+        query { Familiar.all().limit(limit, (page - 1).toLong()).toList() }
 }

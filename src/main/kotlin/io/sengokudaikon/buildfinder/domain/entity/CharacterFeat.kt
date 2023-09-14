@@ -9,6 +9,7 @@ import org.jetbrains.exposed.dao.id.EntityID
 
 class CharacterFeat(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
     companion object : KotlinxUUIDEntityClass<CharacterFeat>(CharacterFeats)
+
     var character by Character referencedOn CharacterFeats.characterID
     var feat by Feat referencedOn CharacterFeats.featID
     var takenAtLevel by CharacterFeats.takenAtLevel

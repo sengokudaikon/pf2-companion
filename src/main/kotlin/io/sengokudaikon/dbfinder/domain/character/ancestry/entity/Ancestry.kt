@@ -18,6 +18,7 @@ class Ancestry(
     id: EntityID<UUID>,
 ) : KotlinxUUIDEntity(id) {
     companion object : KotlinxUUIDEntityClass<Ancestry>(Ancestries)
+
     var name by Ancestries.name
     var description by Ancestries.description
     var rarity by Ancestries.rarity

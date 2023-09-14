@@ -9,6 +9,7 @@ enum class VisionType {
     BLINDSENSE,
     BLINDSIGHT,
 }
+
 fun String.toVisionEnum(): VisionType {
     return when (this.lowercase()) {
         "darkvision" -> VisionType.DARKVISION

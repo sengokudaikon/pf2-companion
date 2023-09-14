@@ -10,6 +10,7 @@ class UserToken(
     id: EntityID<UUID>,
 ) : KotlinxUUIDEntity(id) {
     companion object : KotlinxUUIDEntityClass<UserToken>(UserTokens)
+
     var userId by UserTokens.userId
     var token by UserTokens.token
 }

@@ -8,6 +8,7 @@ import org.jetbrains.exposed.dao.id.EntityID
 
 class Background(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
     companion object : KotlinxUUIDEntityClass<Background>(Backgrounds)
+
     var name by Backgrounds.name
     var rarity by Backgrounds.rarity
     var description by Backgrounds.description

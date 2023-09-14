@@ -9,6 +9,7 @@ import org.jetbrains.exposed.dao.id.EntityID
 
 class AncestryBoost(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
     companion object : KotlinxUUIDEntityClass<AncestryBoost>(AncestryBoosts)
+
     var ancestryID by Ancestry referencedOn AncestryBoosts.ancestryID
     var boost by AncestryBoosts.boostedAbility
     var homebrewID by AncestryBoosts.homebrewID

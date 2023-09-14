@@ -1,40 +1,40 @@
 {
-    "img": "systems/pf2e/icons/default-icons/alternatives/ancestries/elf.svg",
-    "name": "Elf",
-        "additionalLanguages": [
-                "celestial",
-                "draconic",
-                "fey",
-                "gnoll",
-                "gnomish",
-                "goblin",
-                "orcish"
-            ],
-        "boosts": [
-          "dex",
-          "int",
-          "Anything"
-        ],
-        "description": "<p><em>As an ancient people, elves have seen great change and have the perspective that can come only from watching the arc of history. After leaving the world in ancient times, they returned to a changed land, and they still struggle to reclaim their ancestral homes, most notably from terrible demons that have invaded parts of their lands. To some, the elves are objects of awe—graceful and beautiful, with immense talent and knowledge. Among themselves, however, the elves place far more importance on personal freedom than on living up to these ideals.</em></p>\n<hr />\n<p>Elves combine otherworldly grace, sharp intellect, and mysterious charm in a way that is practically magnetic to members of other ancestries. They are often voraciously intellectual, though their studies delve into a level of detail that most shorter-lived peoples find excessive or inefficient. Valuing kindness and beauty, elves ever strive to improve their manners, appearance, and culture.</p>\n<p>Elves are often rather private people, steeped in the secrets of their groves and kinship groups. They're slow to build friendships outside their kinsfolk, but for a specific reason: they subtly and deeply attune to their environment and their companions. There's a physical element to this attunement, but it isn't only superficial. Elves who spend their lives among shorter‑lived peoples often develop a skewed perception of their own mortality and tend to become morose after watching generation after generation of companions age and die. These elves are called the Forlorn.</p>\n<p>If you want a character who is magical, mystical, and mysterious, you should play an elf.</p>",
-        "flaws": [
-          "con"
-        ],
-        "hp": 6,
-        "items": [],
-        "languages": [
-                "common",
-                "elven"
-            ],
-        "reach": 5,
-        "rules": [],
-        "size": "medium",
-        "source": "Pathfinder Core Rulebook",
-        "speed": 30,
-        "rarity": "common",
-        "traits": [
-                "elf",
-                "humanoid"
-            ],
-        "vision": "lowLightVision",
-    "type": "ancestry"
+  "img": "systems/pf2e/icons/default-icons/alternatives/ancestries/elf.svg",
+  "name": "Elf",
+  "additionalLanguages": [
+    "celestial",
+    "draconic",
+    "fey",
+    "gnoll",
+    "gnomish",
+    "goblin",
+    "orcish"
+  ],
+  "boosts": [
+    "dex",
+    "int",
+    "Anything"
+  ],
+  "description": "<p><em>As an ancient people, elves have seen great change and have the perspective that can come only from watching the arc of history. After leaving the world in ancient times, they returned to a changed land, and they still struggle to reclaim their ancestral homes, most notably from terrible demons that have invaded parts of their lands. To some, the elves are objects of awe—graceful and beautiful, with immense talent and knowledge. Among themselves, however, the elves place far more importance on personal freedom than on living up to these ideals.</em></p>\n<hr />\n<p>Elves combine otherworldly grace, sharp intellect, and mysterious charm in a way that is practically magnetic to members of other ancestries. They are often voraciously intellectual, though their studies delve into a level of detail that most shorter-lived peoples find excessive or inefficient. Valuing kindness and beauty, elves ever strive to improve their manners, appearance, and culture.</p>\n<p>Elves are often rather private people, steeped in the secrets of their groves and kinship groups. They're slow to build friendships outside their kinsfolk, but for a specific reason: they subtly and deeply attune to their environment and their companions. There's a physical element to this attunement, but it isn't only superficial. Elves who spend their lives among shorter‑lived peoples often develop a skewed perception of their own mortality and tend to become morose after watching generation after generation of companions age and die. These elves are called the Forlorn.</p>\n<p>If you want a character who is magical, mystical, and mysterious, you should play an elf.</p>",
+  "flaws": [
+    "con"
+  ],
+  "hp": 6,
+  "items": [],
+  "languages": [
+    "common",
+    "elven"
+  ],
+  "reach": 5,
+  "rules": [],
+  "size": "medium",
+  "source": "Pathfinder Core Rulebook",
+  "speed": 30,
+  "rarity": "common",
+  "traits": [
+    "elf",
+    "humanoid"
+  ],
+  "vision": "lowLightVision",
+  "type": "ancestry"
 }

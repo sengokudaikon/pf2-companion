@@ -1,9 +1,9 @@
 package io.sengokudaikon.kfinder.operations.user.command
 
-import io.sengokudaikon.infrastructure.validation.constraints.ValidEmail
-import io.sengokudaikon.infrastructure.validation.constraints.ValidPassword
-import io.sengokudaikon.infrastructure.validation.constraints.ValidUsername
 import io.sengokudaikon.kfinder.domain.user.model.UserRole
+import io.sengokudaikon.kfinder.infrastructure.validation.constraints.ValidEmail
+import io.sengokudaikon.kfinder.infrastructure.validation.constraints.ValidPassword
+import io.sengokudaikon.kfinder.infrastructure.validation.constraints.ValidUsername
 import io.sengokudaikon.kfinder.operations.user.UserIdentifier
 import kotlinx.serialization.Serializable
 import kotlinx.uuid.UUID

@@ -1,46 +1,46 @@
 {
-    "img": "systems/pf2e/icons/default-icons/alternatives/ancestries/leshy.svg",
-    "name": "Leshy",
-        "additionalLanguages": [
-                "draconic",
-                "elven",
-                "gnomish",
-                "goblin",
-                "halfling",
-                "undercommon"
-            ],
-        "boosts": [
-          "con",
-            "wis",
-            "free"
-                ],
-        "description": "<p><em>Guardians and emissaries of the environment, leshies are immortal spirits of nature temporarily granted a physical form.</em></p>\n<hr />\n<p>Leshies are 'born' when a skilled druid or other master of primal magic conducts a ritual to create a suitable vessel, and then a spirit chooses that vessel to be their temporary home. Leshies are self-sufficient from the moment the ritual ends, and so they do not depend upon these druids for care, though</p>\n<p>Not all leshies have a strong enough spirit to strike off completely on their own, however. Weaker nature spirits can form only tenuous bonds that are just strong enough to animate Tiny bodies. These spirits become leshy familiars, acting as companions to their druid creators. Independent leshies are often protective of such leshy familiars, advocating for them to be treated with dignity and respect.</p>",
+  "img": "systems/pf2e/icons/default-icons/alternatives/ancestries/leshy.svg",
+  "name": "Leshy",
+  "additionalLanguages": [
+    "draconic",
+    "elven",
+    "gnomish",
+    "goblin",
+    "halfling",
+    "undercommon"
+  ],
+  "boosts": [
+    "con",
+    "wis",
+    "free"
+  ],
+  "description": "<p><em>Guardians and emissaries of the environment, leshies are immortal spirits of nature temporarily granted a physical form.</em></p>\n<hr />\n<p>Leshies are 'born' when a skilled druid or other master of primal magic conducts a ritual to create a suitable vessel, and then a spirit chooses that vessel to be their temporary home. Leshies are self-sufficient from the moment the ritual ends, and so they do not depend upon these druids for care, though</p>\n<p>Not all leshies have a strong enough spirit to strike off completely on their own, however. Weaker nature spirits can form only tenuous bonds that are just strong enough to animate Tiny bodies. These spirits become leshy familiars, acting as companions to their druid creators. Independent leshies are often protective of such leshy familiars, advocating for them to be treated with dignity and respect.</p>",
   "flaws": [
     "int"
   ],
   "hp": 8,
-        "items": [
-          {
-                "img": "systems/pf2e/icons/features/ancestry/plant-nourishment.webp",
-                "level": "1",
-                "name": "Plant Nourishment",
-                "uuid": "Compendium.pf2e.ancestryfeatures.Item.Plant Nourishment"
-            }
-        ],
-        "languages": [
-                "common",
-                "fey"
-            ],
-        "reach": 5,
-        "rules": [],
-        "size": "small",
-        "source": "Pathfinder Lost Omens: Character Guide",
-        "speed": 25,
-    "rarity": "uncommon",
-        "traits": [
-                "leshy",
-                "plant"
-            ],
-        "vision": "lowLightVision",
-    "type": "ancestry"
+  "items": [
+    {
+      "img": "systems/pf2e/icons/features/ancestry/plant-nourishment.webp",
+      "level": "1",
+      "name": "Plant Nourishment",
+      "uuid": "Compendium.pf2e.ancestryfeatures.Item.Plant Nourishment"
+    }
+  ],
+  "languages": [
+    "common",
+    "fey"
+  ],
+  "reach": 5,
+  "rules": [],
+  "size": "small",
+  "source": "Pathfinder Lost Omens: Character Guide",
+  "speed": 25,
+  "rarity": "uncommon",
+  "traits": [
+    "leshy",
+    "plant"
+  ],
+  "vision": "lowLightVision",
+  "type": "ancestry"
 }

@@ -8,6 +8,7 @@ import org.jetbrains.exposed.dao.id.EntityID
 
 class Trait(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
     companion object : KotlinxUUIDEntityClass<Trait>(Traits)
+
     var name by Traits.name
     var description by Traits.description
     var isImportant by Traits.isImportant

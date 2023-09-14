@@ -8,6 +8,7 @@ import org.jetbrains.exposed.dao.id.EntityID
 
 class FamiliarAbility(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
     companion object : KotlinxUUIDEntityClass<FamiliarAbility>(FamiliarAbilities)
+
     var name by FamiliarAbilities.name
     var description by FamiliarAbilities.description
     var prerequisites by FamiliarAbilities.prerequisites

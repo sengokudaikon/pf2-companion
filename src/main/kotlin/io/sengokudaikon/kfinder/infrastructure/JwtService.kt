@@ -1,4 +1,5 @@
 package io.sengokudaikon.kfinder.infrastructure
+
 import arrow.core.Either
 import com.auth0.jwt.JWT
 import com.auth0.jwt.JWTVerifier
@@ -38,6 +39,7 @@ class JwtService(
     private suspend fun saveToken(id: String, token: String): Either<Throwable, UserToken> {
         return userTokenRepository.saveToken(io.sengokudaikon.kfinder.domain.user.model.UserToken(id, token))
     }
+
     private fun getExpiration() = Date(System.currentTimeMillis() + validityInMs)
 
     suspend fun validateToken(token: String): Either<Throwable, UserToken> {

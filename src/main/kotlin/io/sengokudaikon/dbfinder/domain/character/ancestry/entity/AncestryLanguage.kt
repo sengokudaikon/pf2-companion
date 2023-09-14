@@ -10,6 +10,7 @@ import io.sengokudaikon.dbfinder.domain.world.model.Language as ModelLanguage
 
 class AncestryLanguage(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
     companion object : KotlinxUUIDEntityClass<AncestryLanguage>(AncestryLanguages)
+
     var ancestryID by Ancestry referencedOn AncestryLanguages.ancestryID
     var language by Language referencedOn AncestryLanguages.languageID
     var isBonus by AncestryLanguages.isBonus

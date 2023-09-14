@@ -8,6 +8,7 @@ import org.jetbrains.exposed.dao.id.EntityID
 
 class VisionSense(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
     companion object : KotlinxUUIDEntityClass<VisionSense>(VisionSenses)
+
     var name by VisionSenses.name
     var visionRange by VisionSenses.visionRange
     var precision by VisionSenses.precision

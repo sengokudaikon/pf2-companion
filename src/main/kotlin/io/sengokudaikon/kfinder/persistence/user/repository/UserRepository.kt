@@ -52,7 +52,9 @@ class UserRepository : AbstractRepository(), UserRepositoryPort {
         user.delete().let { true }
     }
 
-    override suspend fun findByName(name: String): Either<Throwable, User> = query { User.find { Users.username eq name }.firstOrNull() }
+    override suspend fun findByName(name: String): Either<Throwable, User> =
+        query { User.find { Users.username eq name }.firstOrNull() }
 
-    override suspend fun findAll(page: Int, limit: Int): Either<Throwable, List<User>> = query { User.all().limit(limit, (page - 1).toLong()).toList() }
+    override suspend fun findAll(page: Int, limit: Int): Either<Throwable, List<User>> =
+        query { User.all().limit(limit, (page - 1).toLong()).toList() }
 }

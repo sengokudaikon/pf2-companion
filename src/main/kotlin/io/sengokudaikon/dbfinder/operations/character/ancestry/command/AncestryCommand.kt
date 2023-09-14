@@ -6,5 +6,6 @@ import io.sengokudaikon.shared.operations.Command
 
 interface AncestryCommand : Command<AncestryDTO, Ancestry> {
     val dto: AncestryDTO
+
     class Create(override val dto: AncestryDTO) : AncestryCommand
 }

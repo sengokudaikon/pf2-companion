@@ -9,6 +9,7 @@ import org.jetbrains.exposed.dao.id.EntityID
 
 class CharacterLanguage(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
     companion object : KotlinxUUIDEntityClass<CharacterLanguage>(CharacterLanguages)
+
     var character by Character referencedOn CharacterLanguages.characterID
     var language by Language referencedOn CharacterLanguages.languageID
 }

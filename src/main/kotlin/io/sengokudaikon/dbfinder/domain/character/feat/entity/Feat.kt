@@ -11,6 +11,7 @@ import io.sengokudaikon.dbfinder.domain.character.feat.model.Feat as ModelFeat
 
 class Feat(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
     companion object : KotlinxUUIDEntityClass<Feat>(Feats)
+
     var name by Feats.name
     var description by Feats.description
     var rarity by Feats.rarity

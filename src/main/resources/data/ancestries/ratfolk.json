@@ -1,42 +1,42 @@
 {
-    "img": "systems/pf2e/icons/default-icons/alternatives/ancestries/ratfolk.svg",
-    "name": "Ratfolk",
-        "additionalLanguages": [
-                "aklo",
-                "draconic",
-                "dwarven",
-                "gnoll",
-                "gnomish",
-                "goblin",
-                "halfling",
-                "orcish",
-                "undercommon"
-            ],
-        "boosts": [
-                "dex",
-                "int",
-          "free"
-                ],
-        "description": "<p><em>Ysoki—as ratfolk call themselves—are a clever, adaptable, and fastidious ancestry who happily crowd their large families into the smallest of living spaces.</em></p>\n<hr />\n<p>Most surface-dwelling humanoids call ysoki 'ratfolk' and know them as a communal people who prefer cramped conditions, with up to 100 individuals living in a given house. If they can't find homes in town, ysoki may instead live in caves and cavern complexes, as these provide great storage for the many and varied goods they bring back from trading expeditions.</p>\n<p>Ratfolk love to travel, and they can often be found on the road in merchant caravans. They're good with their hands and have a keen eye for spotting anything out of the ordinary, from threats to treasures. They're also inveterate hoarders; ysoki warrens are crammed full of unusual odds and ends gathered by previous generations and stowed away in preparation for some future emergency.</p>\n<p>If you want a character who is smart, fast, well-traveled, and adaptable, try playing a ysoki!</p>",
+  "img": "systems/pf2e/icons/default-icons/alternatives/ancestries/ratfolk.svg",
+  "name": "Ratfolk",
+  "additionalLanguages": [
+    "aklo",
+    "draconic",
+    "dwarven",
+    "gnoll",
+    "gnomish",
+    "goblin",
+    "halfling",
+    "orcish",
+    "undercommon"
+  ],
+  "boosts": [
+    "dex",
+    "int",
+    "free"
+  ],
+  "description": "<p><em>Ysoki—as ratfolk call themselves—are a clever, adaptable, and fastidious ancestry who happily crowd their large families into the smallest of living spaces.</em></p>\n<hr />\n<p>Most surface-dwelling humanoids call ysoki 'ratfolk' and know them as a communal people who prefer cramped conditions, with up to 100 individuals living in a given house. If they can't find homes in town, ysoki may instead live in caves and cavern complexes, as these provide great storage for the many and varied goods they bring back from trading expeditions.</p>\n<p>Ratfolk love to travel, and they can often be found on the road in merchant caravans. They're good with their hands and have a keen eye for spotting anything out of the ordinary, from threats to treasures. They're also inveterate hoarders; ysoki warrens are crammed full of unusual odds and ends gathered by previous generations and stowed away in preparation for some future emergency.</p>\n<p>If you want a character who is smart, fast, well-traveled, and adaptable, try playing a ysoki!</p>",
   "flaws": [
     "str"
   ],
-        "hp": 6,
-        "items": [],
-        "languages": [
-                "common",
-                "ysoki"
-            ],
-        "reach": 5,
-        "rules": [],
-        "size": "small",
-        "source": "Pathfinder Advanced Player's Guide",
-        "speed": 25,
-    "rarity": "uncommon",
-        "traits":[
-                "humanoid",
-                "ratfolk"
-            ],
-        "vision": "lowLightVision",
-    "type": "ancestry"
+  "hp": 6,
+  "items": [],
+  "languages": [
+    "common",
+    "ysoki"
+  ],
+  "reach": 5,
+  "rules": [],
+  "size": "small",
+  "source": "Pathfinder Advanced Player's Guide",
+  "speed": 25,
+  "rarity": "uncommon",
+  "traits": [
+    "humanoid",
+    "ratfolk"
+  ],
+  "vision": "lowLightVision",
+  "type": "ancestry"
 }

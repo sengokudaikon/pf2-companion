@@ -37,6 +37,7 @@ object AncestryModelCache {
                         is Either.Right -> {
                             result.complete(ancestryResponse.value.map { it.toModel() })
                         }
+
                         is Either.Left -> {
                             result.completeExceptionally(ancestryResponse.value)
                         }

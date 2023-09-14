@@ -3,6 +3,7 @@ package io.sengokudaikon.dbfinder.persistence.character.ancestry.entity
 import io.sengokudaikon.dbfinder.persistence.enums.Rarity
 import io.sengokudaikon.dbfinder.persistence.enums.Size
 import kotlinx.uuid.exposed.KotlinxUUIDTable
+
 object Ancestries : KotlinxUUIDTable("char_ancestries") {
     val img = varchar("img", length = 100)
     val name = varchar("name", length = 50)

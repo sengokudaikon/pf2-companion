@@ -11,7 +11,6 @@ import io.sengokudaikon.dbfinder.persistence.character.ancestry.repository.Ances
 import io.sengokudaikon.kfinder.infrastructure.CoreModule
 import io.sengokudaikon.kfinder.infrastructure.DatabaseFactory
 import io.sengokudaikon.kfinder.infrastructure.DbConfig
-import io.sengokudaikon.plugins.configureSecurity
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

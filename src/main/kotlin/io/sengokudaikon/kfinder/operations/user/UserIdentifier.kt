@@ -1,7 +1,7 @@
 package io.sengokudaikon.kfinder.operations.user
 
-import io.sengokudaikon.infrastructure.validation.constraints.ValidEmail
-import io.sengokudaikon.infrastructure.validation.constraints.ValidUsername
+import io.sengokudaikon.kfinder.infrastructure.validation.constraints.ValidEmail
+import io.sengokudaikon.kfinder.infrastructure.validation.constraints.ValidUsername
 import kotlinx.serialization.Serializable
 
 @Serializable
