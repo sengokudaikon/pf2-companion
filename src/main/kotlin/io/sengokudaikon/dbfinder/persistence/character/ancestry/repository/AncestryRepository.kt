@@ -94,7 +94,9 @@ class AncestryRepository : AbstractRepository(), AncestryRepositoryPort {
                     this.name = it.name
                     this.description = it.description
                 }
-                val languages = AncestryLanguage.find { AncestryLanguages.ancestryID eq ancestry.id and(AncestryLanguages.languageID eq language.id) }.firstOrNull()
+                val languages = AncestryLanguage.find {
+                    AncestryLanguages.ancestryID eq ancestry.id and(AncestryLanguages.languageID eq language.id)
+                }.firstOrNull()
                     ?: AncestryLanguage.new {
                         this.language = language
                         this.ancestryID = ancestry
