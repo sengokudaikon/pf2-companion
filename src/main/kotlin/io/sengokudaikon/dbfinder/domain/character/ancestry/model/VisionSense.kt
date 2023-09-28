@@ -1,6 +1,6 @@
 package io.sengokudaikon.dbfinder.domain.character.ancestry.model
 
-import io.sengokudaikon.dbfinder.persistence.enums.VisionType
+import io.sengokudaikon.dbfinder.infrastructure.enums.VisionType
 import kotlinx.serialization.Serializable
 
 @Serializable

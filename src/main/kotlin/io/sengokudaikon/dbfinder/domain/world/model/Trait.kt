@@ -6,8 +6,8 @@ import kotlinx.serialization.Serializable
 data class Trait(
     val name: String,
     val description: String,
-    val isImportant: Boolean,
     val contentSrc: String,
+    val type: TraitType,
     val isHidden: Boolean = false,
     val isArchived: Boolean = false,
     val homebrewID: Int? = null,

@@ -9,4 +9,7 @@ interface Query<T> {
 
     @Serializable
     data class FindById<T>(val id: UUID) : Query<T>
+
+    @Serializable
+    data class FindByName<T>(val name: String) : Query<T>
 }

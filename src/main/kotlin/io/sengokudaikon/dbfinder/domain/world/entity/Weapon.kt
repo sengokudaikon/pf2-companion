@@ -5,6 +5,7 @@ import kotlinx.uuid.UUID
 import kotlinx.uuid.exposed.KotlinxUUIDEntity
 import kotlinx.uuid.exposed.KotlinxUUIDEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
+import io.sengokudaikon.dbfinder.domain.world.model.Weapon as ModelWeapon
 
 class Weapon(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
     companion object : KotlinxUUIDEntityClass<Weapon>(Weapons)
@@ -17,4 +18,17 @@ class Weapon(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
     var weaponType by Weapons.weaponType
     var range by Weapons.range
     var reload by Weapons.reload
+
+    fun toModel(): ModelWeapon {
+        return ModelWeapon(
+            name = this.name,
+            itemId = this.itemId.toString(),
+            damageType = this.damageType,
+            damageDice = this.damageDice,
+            weaponClass = this.weaponClass,
+            weaponType = this.weaponType,
+            range = this.range,
+            reload = this.reload,
+        )
+    }
 }

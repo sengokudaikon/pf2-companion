@@ -5,6 +5,7 @@ import kotlinx.uuid.UUID
 import kotlinx.uuid.exposed.KotlinxUUIDEntity
 import kotlinx.uuid.exposed.KotlinxUUIDEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
+import io.sengokudaikon.dbfinder.domain.world.model.Item as ModelItem
 
 class Item(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
     companion object : KotlinxUUIDEntityClass<Item>(Items)
@@ -21,4 +22,21 @@ class Item(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
     var hands by Items.hands
     var size by Items.size
     var homebrewID by Items.homebrewID
+
+    fun toModel(): ModelItem {
+        return ModelItem(
+            name = this.name,
+            description = this.description,
+            price = this.price,
+            bulk = this.bulk,
+            level = this.level,
+            rarity = this.rarity,
+            itemType = this.itemType,
+            craftRequirements = this.craftRequirements,
+            usage = this.usage,
+            hands = this.hands,
+            size = this.size,
+            homebrewID = this.homebrewID,
+        )
+    }
 }

@@ -1,4 +1,4 @@
-CREATE TABLE languages
+CREATE TABLE IF NOT EXISTS languages
 (
     id          UUID PRIMARY KEY,
     name        VARCHAR(50) NOT NULL,

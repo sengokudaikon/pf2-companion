@@ -1,9 +1,9 @@
 package io.sengokudaikon.dbfinder.persistence.character.background.entity
 
-import io.sengokudaikon.dbfinder.operations.character.dto.Ability
+import io.sengokudaikon.dbfinder.infrastructure.enums.Ability
 import kotlinx.uuid.exposed.KotlinxUUIDTable
 
-object BackgroundBoosts : KotlinxUUIDTable("char_background_boosts") {
+object BackgroundBoosts : KotlinxUUIDTable("background_boosts") {
     val backgroundId = reference("background_id", Backgrounds)
     val boostedAbility = enumerationByName<Ability>(
         "boosted_ability",

@@ -1,6 +1,6 @@
 package io.sengokudaikon.buildfinder.persistence.entity
 
-import io.sengokudaikon.dbfinder.persistence.character.feats.entity.Feats
+import io.sengokudaikon.dbfinder.persistence.world.entity.Feats
 import kotlinx.uuid.exposed.KotlinxUUIDTable
 
 object CharacterFeats : KotlinxUUIDTable("char_feats") {

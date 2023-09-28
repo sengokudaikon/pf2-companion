@@ -6,6 +6,8 @@ import kotlinx.uuid.UUID
 import kotlinx.uuid.exposed.KotlinxUUIDEntity
 import kotlinx.uuid.exposed.KotlinxUUIDEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
+import org.jetbrains.exposed.sql.transactions.experimental.suspendedTransactionAsync
+import io.sengokudaikon.dbfinder.domain.character.companion.model.Familiar as ModelFamiliar
 
 class Familiar(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
     companion object : KotlinxUUIDEntityClass<Familiar>(Familiars)
@@ -17,4 +19,17 @@ class Familiar(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
     var type by Familiars.type
     val abilities by FamiliarAbility referrersOn FamiliarAbilities.familiar
     var homebrewID by Familiars.homebrewID
+
+    suspend fun toModel(): ModelFamiliar {
+        return suspendedTransactionAsync {
+            ModelFamiliar(
+                name = name,
+                description = description,
+                hp = hp,
+                rarity = rarity.name,
+                type = type,
+                abilities = abilities.map { it.toModel() },
+            )
+        }.await()
+    }
 }

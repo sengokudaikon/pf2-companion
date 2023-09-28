@@ -35,7 +35,7 @@ class AuthUseCase(
         when (identifier) {
             is UserIdentifier.Email -> userRepository.findByEmail(identifier.email)
             is UserIdentifier.Uid -> userRepository.findByUid(identifier.uid)
-            is UserIdentifier.Username -> userRepository.findByUsername(identifier.username)
+            is UserIdentifier.Username -> userRepository.findByName(identifier.username)
         }
 
     override suspend fun authenticate(command: UserCommand): Either<Exception, UserToken> {

@@ -1,6 +1,6 @@
 package io.sengokudaikon.dbfinder.persistence.character.ancestry.entity
 
-import io.sengokudaikon.dbfinder.operations.character.dto.Ability
+import io.sengokudaikon.dbfinder.infrastructure.enums.Ability
 import kotlinx.uuid.exposed.KotlinxUUIDTable
 
 object AncestryBoosts : KotlinxUUIDTable("char_ancestry_boosts") {

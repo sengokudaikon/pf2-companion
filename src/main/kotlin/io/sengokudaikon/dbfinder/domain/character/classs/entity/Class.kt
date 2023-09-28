@@ -9,6 +9,8 @@ import kotlinx.uuid.UUID
 import kotlinx.uuid.exposed.KotlinxUUIDEntity
 import kotlinx.uuid.exposed.KotlinxUUIDEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
+import org.jetbrains.exposed.sql.transactions.experimental.suspendedTransactionAsync
+import io.sengokudaikon.dbfinder.domain.character.classs.model.Class as ModelClass
 
 class Class(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
     companion object : KotlinxUUIDEntityClass<Class>(Classes)
@@ -26,4 +28,22 @@ class Class(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
     val armours by ClassArmour referrersOn ClassArmours.classID
     var homebrewID by Classes.homebrewID
     var version by Classes.version
+
+    suspend fun toModel(): ModelClass {
+        return suspendedTransactionAsync {
+            ModelClass(
+                name = this@Class.name,
+                description = this@Class.description,
+                hitPoints = this@Class.hitPoints,
+                keyAttribute = this@Class.keyAttribute.name,
+                rarity = this@Class.rarity.name,
+                classDC = classDC,
+                proficiencies = skillProficiencies.map { it.proficiency.name to it.skillID.name }.toMap(),
+                savingThrows = savingThrows.map { it.proficiency.name to it.savingThrow.name }.toMap(),
+                weapons = weapons.map { it.proficiency.name to it.weaponClass.name }.toMap(),
+                additionalWeapons = weapons.map { it.weaponIDs.map { it.weapon.name } }.flatten(),
+                armours = armours.map { it.proficiency.name to it.armour.name }.toMap(),
+            )
+        }.await()
+    }
 }

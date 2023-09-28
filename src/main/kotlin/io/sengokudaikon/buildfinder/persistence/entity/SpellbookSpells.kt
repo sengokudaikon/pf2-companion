@@ -1,6 +1,6 @@
 package io.sengokudaikon.buildfinder.persistence.entity
 
-import io.sengokudaikon.dbfinder.persistence.enums.SpellTraditions
+import io.sengokudaikon.dbfinder.infrastructure.enums.SpellTraditions
 import io.sengokudaikon.dbfinder.persistence.world.entity.Spells
 import kotlinx.uuid.exposed.KotlinxUUIDTable
 

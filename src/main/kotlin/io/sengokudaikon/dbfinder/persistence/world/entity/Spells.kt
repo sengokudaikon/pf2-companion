@@ -1,9 +1,9 @@
 package io.sengokudaikon.dbfinder.persistence.world.entity
 
-import io.sengokudaikon.dbfinder.persistence.enums.DamageDice
-import io.sengokudaikon.dbfinder.persistence.enums.DamageType
-import io.sengokudaikon.dbfinder.persistence.enums.Rarity
-import io.sengokudaikon.dbfinder.persistence.enums.SavingThrows
+import io.sengokudaikon.dbfinder.infrastructure.enums.DamageDice
+import io.sengokudaikon.dbfinder.infrastructure.enums.DamageType
+import io.sengokudaikon.dbfinder.infrastructure.enums.Rarity
+import io.sengokudaikon.dbfinder.infrastructure.enums.SavingThrows
 import kotlinx.uuid.exposed.KotlinxUUIDTable
 
 object Spells : KotlinxUUIDTable("spells") {
@@ -21,10 +21,19 @@ object Spells : KotlinxUUIDTable("spells") {
     val saves = enumerationByName<SavingThrows>("saves", length = 20)
     val rarity = enumerationByName<Rarity>("rarity", length = 10)
     val description = text("description")
-    val damageDice = enumerationByName<DamageDice>("damageDice", length = 10).nullable()
-    val damageType = enumerationByName<DamageType>("damageType", length = 10).nullable()
+    val damageDice = enumerationByName<DamageDice>(
+        "damageDice",
+        length = 10,
+    ).nullable()
+    val damageType = enumerationByName<DamageType>(
+        "damageType",
+        length = 10,
+    ).nullable()
     val heightenEvery = integer("heightenEvery").nullable()
-    val heightenDice = enumerationByName<DamageDice>("heightenDice", length = 10).nullable()
+    val heightenDice = enumerationByName<DamageDice>(
+        "heightenDice",
+        length = 10,
+    ).nullable()
     val heightenMultiplier = integer("heightenMultiplier").nullable()
     val isFocus = bool("isFocus").default(false)
     val isArchived = bool("is_archived").default(false)

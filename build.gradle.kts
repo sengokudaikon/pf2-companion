@@ -80,7 +80,7 @@ dependencies {
     implementation("net.bytebuddy:byte-buddy:1.14.2")
     implementation("org.jetbrains.exposed:exposed-java-time:0.40.1")
     implementation("app.softwork:kotlinx-uuid-core:0.0.19")
-    // native
+    // ktor
     api("io.ktor:ktor-server-core:2.3.1")
     implementation("io.ktor:ktor-server-netty:2.3.1")
     api("org.jetbrains.kotlin:kotlin-reflect:1.8.20-RC")
@@ -113,6 +113,9 @@ dependencies {
     implementation("io.github.classgraph:classgraph:4.8.161")
     implementation("com.github.ben-manes.caffeine:caffeine:3.1.5")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-guava:1.7.2")
+    implementation("org.jsoup:jsoup:1.16.1")
+    implementation("com.redis:redis-smart-cache-jdbc:0.3.1")
+    implementation("io.github.crackthecodeabhi:kreds:0.9.0")
     testImplementation("io.ktor:ktor-server-tests-jvm:2.3.0")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:1.8.20-RC")
     ksp("io.insert-koin:koin-ksp-compiler:1.2.2")
@@ -141,4 +144,15 @@ detekt {
     parallel = true
     autoCorrect = true
     config.setFrom(files("$rootDir/detekt.yaml"))
+}
+
+tasks.withType<Test>().configureEach {
+    useJUnitPlatform()
+    testLogging {
+        events("passed", "skipped", "failed")
+    }
+}
+
+tasks.shadowJar {
+    isZip64 = true
 }

@@ -1,6 +1,6 @@
 package io.sengokudaikon.buildfinder.persistence.entity
 
-import io.sengokudaikon.dbfinder.operations.character.dto.Ability
+import io.sengokudaikon.dbfinder.infrastructure.enums.Ability
 import kotlinx.uuid.exposed.KotlinxUUIDTable
 
 object CharacterAttributes : KotlinxUUIDTable("char_attributes") {

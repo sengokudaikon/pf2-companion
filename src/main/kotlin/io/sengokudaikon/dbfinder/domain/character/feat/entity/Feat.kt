@@ -1,8 +1,7 @@
 package io.sengokudaikon.dbfinder.domain.character.feat.entity
 
-import io.sengokudaikon.dbfinder.persistence.character.feats.entity.Feats
-import io.sengokudaikon.dbfinder.persistence.enums.Proficiency
-import io.sengokudaikon.dbfinder.persistence.enums.Skills
+import io.sengokudaikon.dbfinder.infrastructure.enums.Skills
+import io.sengokudaikon.dbfinder.persistence.world.entity.Feats
 import kotlinx.uuid.UUID
 import kotlinx.uuid.exposed.KotlinxUUIDEntity
 import kotlinx.uuid.exposed.KotlinxUUIDEntityClass
@@ -33,9 +32,9 @@ class Feat(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
         return ModelFeat(
             this.name,
             this.description,
-            this.rarity.name,
+            this.rarity,
             this.actions,
-            this.type.name,
+            this.type,
             this.requirements,
             this.level,
             this.frequency,
@@ -43,7 +42,7 @@ class Feat(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
             this.canSelectMultiple,
             this.isDefault,
             this.skillId ?: Skills.ACROBATICS,
-            this.proficiencyId ?: Proficiency.UNTRAINED,
+            this.proficiencyId ?: io.sengokudaikon.dbfinder.infrastructure.enums.Proficiency.UNTRAINED,
             this.contentSrc,
             this.homebrewID,
             this.version,

@@ -1,6 +1,6 @@
 package io.sengokudaikon.dbfinder.persistence.character.companion.entity
 
-import io.sengokudaikon.dbfinder.operations.character.dto.Ability
+import io.sengokudaikon.dbfinder.infrastructure.enums.Ability
 import kotlinx.uuid.exposed.KotlinxUUIDTable
 
 object AnimalCompanionAttributes : KotlinxUUIDTable("animal_companion_attributes") {

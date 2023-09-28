@@ -10,5 +10,6 @@ class ClassArmour(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
     companion object : KotlinxUUIDEntityClass<ClassArmour>(EntityClassArmour)
 
     var classID by Class referencedOn EntityClassArmour.classID
-    var proficiencyArmour by EntityClassArmour.proficiencyArmour
+    var armour by EntityClassArmour.armour
+    var proficiency by EntityClassArmour.proficiency
 }

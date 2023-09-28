@@ -1,7 +1,7 @@
 package io.sengokudaikon.dbfinder.persistence.character.classs.entity
 
-import io.sengokudaikon.dbfinder.persistence.enums.Proficiency
-import io.sengokudaikon.dbfinder.persistence.enums.WeaponClass
+import io.sengokudaikon.dbfinder.infrastructure.enums.Proficiency
+import io.sengokudaikon.dbfinder.infrastructure.enums.WeaponClass
 import kotlinx.uuid.exposed.KotlinxUUIDTable
 
 object ClassWeapons : KotlinxUUIDTable("char_class_weapons") {

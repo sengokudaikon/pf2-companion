@@ -1,17 +1,15 @@
 package io.sengokudaikon.dbfinder.domain.character.feat.model
 
-import io.sengokudaikon.dbfinder.persistence.enums.ActionTypes
-import io.sengokudaikon.dbfinder.persistence.enums.Proficiency
-import io.sengokudaikon.dbfinder.persistence.enums.Skills
+import io.sengokudaikon.dbfinder.infrastructure.enums.Skills
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class Feat(
     val name: String,
     val description: String,
-    val rarity: String,
-    val actions: ActionTypes,
-    val type: String,
+    val rarity: io.sengokudaikon.dbfinder.infrastructure.enums.Rarity,
+    val actions: io.sengokudaikon.dbfinder.infrastructure.enums.ActionTypes,
+    val type: io.sengokudaikon.dbfinder.infrastructure.enums.FeatTypes,
     val requirements: String,
     val level: Int,
     val frequency: String,
@@ -19,8 +17,8 @@ data class Feat(
     val canSelectMultiple: Boolean,
     val isDefault: Boolean,
     val skillId: Skills,
-    val proficiencyId: Proficiency,
+    val proficiencyId: io.sengokudaikon.dbfinder.infrastructure.enums.Proficiency,
     val contentSrc: String,
     val homebrewID: Int?,
     val version: String,
-)
+) : Item

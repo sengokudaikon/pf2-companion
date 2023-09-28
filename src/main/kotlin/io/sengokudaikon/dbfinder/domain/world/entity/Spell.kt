@@ -5,6 +5,7 @@ import kotlinx.uuid.UUID
 import kotlinx.uuid.exposed.KotlinxUUIDEntity
 import kotlinx.uuid.exposed.KotlinxUUIDEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
+import io.sengokudaikon.dbfinder.domain.world.model.Spell as ModelSpell
 
 class Spell(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
     companion object : KotlinxUUIDEntityClass<Spell>(Spells)
@@ -33,4 +34,32 @@ class Spell(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
     var contentSrc by Spells.contentSrc
     var homebrewID by Spells.homebrewID
     var version by Spells.version
+
+    fun toModel(): ModelSpell {
+        return ModelSpell(
+            name = this.name,
+            description = this.description,
+            level = this.level,
+            school = this.school,
+            castTime = this.castTime,
+            components = this.components,
+            range = this.range,
+            cost = this.cost,
+            trigger = this.trigger,
+            requirements = this.requirements,
+            targets = this.targets,
+            duration = this.duration,
+            saves = this.saves,
+            rarity = this.rarity,
+            damageDice = this.damageDice,
+            damageType = this.damageType,
+            heightenEvery = this.heightenEvery,
+            heightenDice = this.heightenDice,
+            heightenMultiplier = this.heightenMultiplier,
+            isFocus = this.isFocus,
+            contentSrc = this.contentSrc,
+            isArchived = this.isArchived,
+            homebrewID = this.homebrewID,
+        )
+    }
 }

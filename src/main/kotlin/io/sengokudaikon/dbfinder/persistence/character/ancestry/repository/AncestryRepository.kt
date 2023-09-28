@@ -17,7 +17,6 @@ import io.sengokudaikon.dbfinder.domain.world.entity.Rule
 import io.sengokudaikon.dbfinder.domain.world.entity.RuleChoice
 import io.sengokudaikon.dbfinder.domain.world.entity.Trait
 import io.sengokudaikon.dbfinder.operations.character.ancestry.command.AncestryCommand
-import io.sengokudaikon.dbfinder.persistence.character.ancestry.cache.AncestryCache
 import io.sengokudaikon.dbfinder.persistence.character.ancestry.entity.Ancestries
 import io.sengokudaikon.dbfinder.persistence.character.ancestry.entity.AncestryBoosts
 import io.sengokudaikon.dbfinder.persistence.character.ancestry.entity.AncestryFlaws
@@ -25,41 +24,69 @@ import io.sengokudaikon.dbfinder.persistence.character.ancestry.entity.AncestryL
 import io.sengokudaikon.dbfinder.persistence.character.ancestry.entity.AncestryPhysicalFeatures
 import io.sengokudaikon.dbfinder.persistence.character.ancestry.entity.AncestryTraits
 import io.sengokudaikon.dbfinder.persistence.character.ancestry.entity.VisionSenses
-import io.sengokudaikon.dbfinder.persistence.enums.RuleMode
 import io.sengokudaikon.dbfinder.persistence.world.entity.Languages
 import io.sengokudaikon.dbfinder.persistence.world.entity.Rules
 import io.sengokudaikon.dbfinder.persistence.world.entity.Traits
 import io.sengokudaikon.kfinder.infrastructure.errors.DatabaseException
-import io.sengokudaikon.shared.persistence.repository.AbstractRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import kotlinx.uuid.UUID
+import org.jetbrains.exposed.dao.with
 import org.jetbrains.exposed.sql.and
+import org.jetbrains.exposed.sql.batchInsert
 import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.experimental.suspendedTransactionAsync
 import org.koin.core.annotation.Single
 
 @Single(binds = [AncestryRepositoryPort::class])
-class AncestryRepository : AbstractRepository(), AncestryRepositoryPort {
+class AncestryRepository : AncestryRepositoryPort {
     override suspend fun findByName(name: String): Either<Throwable, Ancestry> =
         suspendedTransactionAsync {
             val entity = Ancestry.find { Ancestries.name eq name }.firstOrNull()
             entity?.right() ?: DatabaseException.NotFound().left()
         }.await()
 
-    override suspend fun findById(id: UUID): Either<Throwable, Ancestry> = query { Ancestry.findById(id) }
+    override suspend fun findById(id: UUID): Either<Throwable, Ancestry> {
+        return suspendedTransactionAsync { Ancestry.findById(id) }.await()
+            .let {
+                it?.right() ?: DatabaseException.NotFound().left()
+            }
+    }
 
     override suspend fun findAll(page: Int, limit: Int): Either<Throwable, List<Ancestry>> {
-        val cacheKey = "ancestry:all:$page:$limit"
-        val ancList = withContext(Dispatchers.IO) {
-            AncestryCache.cache.get(cacheKey).get()
-        }
+        val offset = (page - 1).toLong()
+        val ancList = Ancestry.all()
+            .with(
+                Ancestry::abilityBoosts,
+                Ancestry::abilityFlaws,
+                Ancestry::traits,
+                Ancestry::languages,
+                Ancestry::physicalFeatures,
+                Ancestry::rules,
+            )
+            .limit(limit, offset)
+            .toList()
         return ancList.right()
     }
 
-    suspend fun findAllNames(): List<String> = suspendedTransactionAsync {
+    override suspend fun findAllNames(): List<String> = suspendedTransactionAsync {
         Ancestries.slice(Ancestries.name).selectAll().map { it[Ancestries.name] }
     }.await()
+
+    override suspend fun batchInsert(models: Set<AncestryCommand>) {
+        suspendedTransactionAsync {
+            Ancestries.batchInsert(models) { ancestry ->
+                ancestry as AncestryCommand.Create
+                val dto = ancestry.dto
+                this[Ancestries.name] = dto.name
+                this[Ancestries.description] = dto.description
+                this[Ancestries.rarity] = dto.rarity
+                this[Ancestries.hitPoints] = dto.hp
+                this[Ancestries.size] = dto.size
+                this[Ancestries.speed] = dto.speed
+                this[Ancestries.img] = dto.img
+                this[Ancestries.contentSrc] = dto.source
+            }
+        }.await()
+    }
 
     override suspend fun create(command: AncestryCommand): Either<Throwable, Ancestry> {
         command as AncestryCommand.Create
@@ -95,7 +122,7 @@ class AncestryRepository : AbstractRepository(), AncestryRepositoryPort {
                     this.description = it.description
                 }
                 val languages = AncestryLanguage.find {
-                    AncestryLanguages.ancestryID eq ancestry.id and(AncestryLanguages.languageID eq language.id)
+                    AncestryLanguages.ancestryID eq ancestry.id and (AncestryLanguages.languageID eq language.id)
                 }.firstOrNull()
                     ?: AncestryLanguage.new {
                         this.language = language
@@ -126,8 +153,8 @@ class AncestryRepository : AbstractRepository(), AncestryRepositoryPort {
                 val trait = Trait.find { Traits.name eq it.name }.firstOrNull() ?: Trait.new {
                     name = it.name
                     description = it.description
-                    isImportant = it.isImportant
                     contentSrc = it.contentSrc
+                    type = it.type
                 }
                 AncestryTrait.find { AncestryTraits.ancestryID eq ancestry.id and (AncestryTraits.trait eq trait.id) }
                     .firstOrNull() ?: AncestryTrait.new {
@@ -156,14 +183,14 @@ class AncestryRepository : AbstractRepository(), AncestryRepositoryPort {
             }
 
             val rules = dto.rules.map {
-                val rule = Rule.find { Rules.name eq it.key }.firstOrNull() ?: Rule.new {
-                    this.name = it.key
-                    this.mode = RuleMode.valueOf(it.mode.uppercase())
-                    this.priority = it.priority ?: 0
+                val rule = Rule.find { Rules.name eq it.name }.firstOrNull() ?: Rule.new {
+                    this.name = it.name
+                    this.mode = it.mode
+                    this.priority = it.priority
                     this.prompt = it.prompt
                     this.description = "Refer to the ${ancestry.name} ancestry rules for more information."
                 }
-                for ((key, choice) in it.value) {
+                for ((key, choice) in it.ruleChoices) {
                     val ruleChoice = RuleChoice.new {
                         this.ruleId = rule
                         this.name = key
@@ -181,13 +208,5 @@ class AncestryRepository : AbstractRepository(), AncestryRepositoryPort {
             commit()
             ancestry
         }.await().right()
-    }
-
-    override suspend fun update(command: AncestryCommand): Either<Throwable, Ancestry> {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun delete(command: AncestryCommand): Either<Throwable, Boolean> {
-        TODO("Not yet implemented")
     }
 }

@@ -1,4 +1,4 @@
-CREATE TABLE char_ancestry_traits
+CREATE TABLE IF NOT EXISTS char_ancestry_traits
 (
     id          UUID PRIMARY KEY,
     ancestry_id UUID REFERENCES char_ancestries (id) DEFAULT NULL,

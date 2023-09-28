@@ -1,32 +1,31 @@
 package io.sengokudaikon.dbfinder.fixtures
 
 import io.sengokudaikon.dbfinder.domain.character.ancestry.model.AdditionalLanguages
-import io.sengokudaikon.dbfinder.domain.character.ancestry.model.AncestryDTO
 import io.sengokudaikon.dbfinder.domain.character.ancestry.model.AncestryPhysicalFeature
 import io.sengokudaikon.dbfinder.domain.character.ancestry.model.VisionSense
 import io.sengokudaikon.dbfinder.domain.world.model.Language
+import io.sengokudaikon.dbfinder.domain.world.model.Rule
 import io.sengokudaikon.dbfinder.domain.world.model.Trait
-import io.sengokudaikon.dbfinder.operations.character.dto.Ability
-import io.sengokudaikon.dbfinder.persistence.enums.Rarity
-import io.sengokudaikon.dbfinder.persistence.enums.Size
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class AncestryFixture(
-    override val img: String,
-    override val name: String,
-    override val rarity: Rarity,
-    override val additionalLanguages: AdditionalLanguages,
-    override val boosts: List<Ability>,
-    override val description: String,
-    override val flaws: List<Ability>,
-    override val hp: Int,
-    override val languages: List<Language>,
-    override val reach: Int,
-    override val rules: List<AncestryFixtureLoader.JsonRules>,
-    override val size: Size,
-    override val source: String,
-    override val speed: Int,
-    override val traits: List<Trait>,
-    override val vision: VisionSense,
-    override val additionalSense: VisionSense?,
-    override val physicalFeatures: List<AncestryPhysicalFeature>,
-) : AncestryDTO
+    val img: String,
+    val name: String,
+    val rarity: io.sengokudaikon.dbfinder.infrastructure.enums.Rarity,
+    val additionalLanguages: AdditionalLanguages,
+    val boosts: List<io.sengokudaikon.dbfinder.infrastructure.enums.Ability>,
+    val description: String,
+    val flaws: List<io.sengokudaikon.dbfinder.infrastructure.enums.Ability>,
+    val hp: Int,
+    val languages: List<Language>,
+    val reach: Int,
+    val rules: List<Rule>,
+    val size: io.sengokudaikon.dbfinder.infrastructure.enums.Size,
+    val source: String,
+    val speed: Int,
+    val traits: List<Trait>,
+    val vision: VisionSense,
+    val additionalSense: VisionSense?,
+    val physicalFeatures: List<AncestryPhysicalFeature>,
+)

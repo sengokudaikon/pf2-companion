@@ -11,7 +11,7 @@ class Trait(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
 
     var name by Traits.name
     var description by Traits.description
-    var isImportant by Traits.isImportant
+    var type by Traits.type
     var isHidden by Traits.isHidden
     var isArchived by Traits.isArchived
     var contentSrc by Traits.contentSrc
@@ -21,8 +21,8 @@ class Trait(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
         return io.sengokudaikon.dbfinder.domain.world.model.Trait(
             this.name,
             this.description,
-            this.isImportant,
             this.contentSrc,
+            this.type,
             this.isHidden,
             this.isArchived,
             this.homebrewID,

@@ -1,11 +1,11 @@
-CREATE TABLE traits
+CREATE TABLE IF NOT EXISTS traits
 (
     id           UUID PRIMARY KEY,
-    name         VARCHAR(50) NOT NULL,
+    name         VARCHAR(100) NOT NULL,
     description  TEXT        NOT NULL,
-    is_important BOOLEAN     NOT NULL,
+    type         varchar(50) NOT NULL,
     is_hidden    BOOLEAN DEFAULT false,
     is_archived  BOOLEAN DEFAULT false,
-    source       VARCHAR(50) NOT NULL,
+    source       VARCHAR(255) NOT NULL,
     homebrew_id  INTEGER DEFAULT NULL
 );

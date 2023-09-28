@@ -1,6 +1,6 @@
 package io.sengokudaikon.dbfinder.persistence.character.companion.entity
 
-import io.sengokudaikon.dbfinder.persistence.enums.Rarity
+import io.sengokudaikon.dbfinder.infrastructure.enums.Rarity
 import kotlinx.uuid.exposed.KotlinxUUIDTable
 
 object Familiars : KotlinxUUIDTable("char_familiars") {

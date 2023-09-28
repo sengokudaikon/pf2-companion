@@ -1,6 +1,6 @@
 package io.sengokudaikon.dbfinder.persistence.character.ancestry.entity
 
-import io.sengokudaikon.dbfinder.persistence.enums.VisionType
+import io.sengokudaikon.dbfinder.infrastructure.enums.VisionType
 import kotlinx.uuid.exposed.KotlinxUUIDTable
 
 object VisionSenses : KotlinxUUIDTable("char_ancestry_senses") {
