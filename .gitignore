@@ -35,3 +35,5 @@ out/
 ### VS Code ###
 .vscode/
 /src/main/resources/data/
+/src/main/resources/data/ancestries/
+/src/main/resources/data/backgrounds/
