@@ -12,7 +12,6 @@ class AncestryBoost(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
 
     var ancestryID by Ancestry referencedOn AncestryBoosts.ancestryID
     var boost by AncestryBoosts.boostedAbility
-    var homebrewID by AncestryBoosts.homebrewID
 
     fun toModel(): AbilityBoost {
         return AbilityBoost(

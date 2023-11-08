@@ -1,0 +1,3 @@
+package io.sengokudaikon.dbfinder.persistence.character.companion.repository
+
+class FamiliarAbilityRepository

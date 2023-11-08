@@ -3,8 +3,8 @@ package io.sengokudaikon.dbfinder.usecases.world
 import arrow.core.Either
 import arrow.core.left
 import arrow.core.right
-import io.sengokudaikon.dbfinder.domain.world.model.Trait
-import io.sengokudaikon.dbfinder.domain.world.repository.TraitRepositoryPort
+import io.sengokudaikon.dbfinder.domain.world.global.model.Trait
+import io.sengokudaikon.dbfinder.domain.world.global.repository.TraitRepositoryPort
 import io.sengokudaikon.dbfinder.operations.world.trait.query.TraitQuery
 import io.sengokudaikon.dbfinder.ports.world.TraitPort
 import io.sengokudaikon.dbfinder.usecases.CachingUseCase

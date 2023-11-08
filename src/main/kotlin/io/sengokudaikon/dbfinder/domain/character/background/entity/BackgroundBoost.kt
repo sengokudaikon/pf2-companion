@@ -19,5 +19,4 @@ class BackgroundBoost(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
 
     var backgroundId by Background referencedOn BackgroundBoosts.backgroundId
     var boostedAbility by BackgroundBoosts.boostedAbility
-    var homebrewID by BackgroundBoosts.homebrewID
 }

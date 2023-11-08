@@ -10,5 +10,4 @@ object Familiars : KotlinxUUIDTable("char_familiars") {
     val hp = integer("hp")
     val contentSrc = varchar("content_src", 100)
     val description = varchar("description", 500)
-    val homebrewID = integer("homebrew_id").nullable().default(null)
 }

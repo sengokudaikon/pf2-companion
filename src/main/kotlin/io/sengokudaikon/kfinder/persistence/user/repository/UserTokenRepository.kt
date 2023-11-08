@@ -6,10 +6,10 @@ import arrow.core.right
 import io.sengokudaikon.kfinder.domain.user.entity.User
 import io.sengokudaikon.kfinder.domain.user.entity.UserToken
 import io.sengokudaikon.kfinder.domain.user.repository.UserTokenRepositoryPort
-import io.sengokudaikon.kfinder.infrastructure.errors.DatabaseException
-import io.sengokudaikon.kfinder.infrastructure.errors.UserException
 import io.sengokudaikon.kfinder.persistence.user.entity.UserTokens
 import io.sengokudaikon.kfinder.persistence.user.entity.Users
+import io.sengokudaikon.shared.infrastructure.errors.DatabaseException
+import io.sengokudaikon.shared.infrastructure.errors.UserException
 import kotlinx.uuid.UUID
 import org.jetbrains.exposed.sql.transactions.experimental.suspendedTransactionAsync
 import org.koin.core.annotation.Single

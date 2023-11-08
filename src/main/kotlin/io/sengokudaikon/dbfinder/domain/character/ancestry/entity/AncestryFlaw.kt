@@ -12,7 +12,6 @@ class AncestryFlaw(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
 
     var ancestryID by Ancestry referencedOn AncestryFlaws.ancestryID
     var flaw by AncestryFlaws.flawedAbility
-    var homebrewID by AncestryFlaws.homebrewID
 
     fun toModel(): AbilityFlaw {
         return AbilityFlaw(

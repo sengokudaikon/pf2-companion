@@ -2,10 +2,9 @@ package io.sengokudaikon.dbfinder.domain.character.ancestry.entity
 
 import io.sengokudaikon.dbfinder.persistence.character.ancestry.entity.Ancestries
 import io.sengokudaikon.dbfinder.persistence.character.ancestry.entity.AncestryBoosts
+import io.sengokudaikon.dbfinder.persistence.character.ancestry.entity.AncestryFeatures
 import io.sengokudaikon.dbfinder.persistence.character.ancestry.entity.AncestryFlaws
 import io.sengokudaikon.dbfinder.persistence.character.ancestry.entity.AncestryLanguages
-import io.sengokudaikon.dbfinder.persistence.character.ancestry.entity.AncestryPhysicalFeatures
-import io.sengokudaikon.dbfinder.persistence.character.ancestry.entity.AncestryRules
 import io.sengokudaikon.dbfinder.persistence.character.ancestry.entity.AncestryTraits
 import kotlinx.uuid.UUID
 import kotlinx.uuid.exposed.KotlinxUUIDEntity
@@ -28,16 +27,14 @@ class Ancestry(
     var img by Ancestries.img
     var isArchived by Ancestries.isArchived
     var contentSrc by Ancestries.contentSrc
-    var homebrewID by Ancestries.homebrewID
-    var version by Ancestries.version
     var visionSense by VisionSense referencedOn Ancestries.visionSenseID
     var additionalSense by VisionSense optionalReferencedOn Ancestries.additionalSenseID
-    val physicalFeatures by AncestryPhysicalFeature referrersOn AncestryPhysicalFeatures.ancestryID
+    val features by AncestryFeature referrersOn AncestryFeatures.ancestryID
     val abilityBoosts by AncestryBoost referrersOn AncestryBoosts.ancestryID
     val abilityFlaws by AncestryFlaw referrersOn AncestryFlaws.ancestryID
     val languages by AncestryLanguage referrersOn AncestryLanguages.ancestryID
     val traits by AncestryTrait referrersOn AncestryTraits.ancestryID
-    val rules by AncestryRule referrersOn AncestryRules.ancestryID
+    var rules by Ancestries.rules
 
     suspend fun toModel(): ModelAncestry {
         return suspendedTransactionAsync {
@@ -52,8 +49,6 @@ class Ancestry(
                 artworkURL = this@Ancestry.img,
                 isArchived = this@Ancestry.isArchived,
                 contentSrc = this@Ancestry.contentSrc,
-                homebrewID = this@Ancestry.homebrewID,
-                version = this@Ancestry.version,
             )
             model.visionSense = this@Ancestry.visionSense.toModel()
             when {
@@ -77,18 +72,13 @@ class Ancestry(
                 }
             }
             when {
-                !this@Ancestry.physicalFeatures.empty() -> {
-                    model.physicalFeatures = this@Ancestry.physicalFeatures.map(AncestryPhysicalFeature::toModel)
+                !this@Ancestry.features.empty() -> {
+                    model.physicalFeatures = this@Ancestry.features.map(AncestryFeature::toModel)
                 }
             }
             when {
                 !this@Ancestry.traits.empty() -> {
                     model.traits = this@Ancestry.traits.map(AncestryTrait::toModel)
-                }
-            }
-            when {
-                !this@Ancestry.rules.empty() -> {
-                    model.rules = this@Ancestry.rules.map(AncestryRule::toModel)
                 }
             }
             model

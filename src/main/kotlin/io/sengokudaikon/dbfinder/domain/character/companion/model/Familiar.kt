@@ -10,5 +10,4 @@ data class Familiar(
     val rarity: String,
     val type: String,
     val abilities: List<FamiliarAbility>,
-    val homebrewID: String? = null,
 )

@@ -1,7 +1,7 @@
 package io.sengokudaikon.buildfinder.persistence.entity
 
 import io.sengokudaikon.dbfinder.infrastructure.enums.SpellTraditions
-import io.sengokudaikon.dbfinder.persistence.world.entity.Spells
+import io.sengokudaikon.dbfinder.persistence.items.entity.Spells
 import kotlinx.uuid.exposed.KotlinxUUIDTable
 
 object SpellbookSpells : KotlinxUUIDTable("char_spellbook_spells") {
@@ -13,5 +13,4 @@ object SpellbookSpells : KotlinxUUIDTable("char_spellbook_spells") {
     val traditionID = enumerationByName<SpellTraditions>("tradition", length = 10)
     val spellType = varchar("spell_type", 50)
     val structureHashed = text("structure_hashed")
-    val homebrewID = integer("homebrew_id").nullable().default(null)
 }

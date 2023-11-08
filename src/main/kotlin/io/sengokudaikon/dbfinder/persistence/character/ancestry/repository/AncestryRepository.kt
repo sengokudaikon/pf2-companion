@@ -7,37 +7,32 @@ import io.sengokudaikon.dbfinder.domain.character.ancestry.entity.Ancestry
 import io.sengokudaikon.dbfinder.domain.character.ancestry.entity.AncestryBoost
 import io.sengokudaikon.dbfinder.domain.character.ancestry.entity.AncestryFlaw
 import io.sengokudaikon.dbfinder.domain.character.ancestry.entity.AncestryLanguage
-import io.sengokudaikon.dbfinder.domain.character.ancestry.entity.AncestryPhysicalFeature
-import io.sengokudaikon.dbfinder.domain.character.ancestry.entity.AncestryRule
 import io.sengokudaikon.dbfinder.domain.character.ancestry.entity.AncestryTrait
-import io.sengokudaikon.dbfinder.domain.character.ancestry.entity.VisionSense
 import io.sengokudaikon.dbfinder.domain.character.ancestry.repository.AncestryRepositoryPort
-import io.sengokudaikon.dbfinder.domain.world.entity.Language
-import io.sengokudaikon.dbfinder.domain.world.entity.Rule
-import io.sengokudaikon.dbfinder.domain.world.entity.RuleChoice
-import io.sengokudaikon.dbfinder.domain.world.entity.Trait
+import io.sengokudaikon.dbfinder.domain.character.ancestry.repository.VisionSenseRepositoryPort
+import io.sengokudaikon.dbfinder.domain.world.global.repository.LanguageRepositoryPort
+import io.sengokudaikon.dbfinder.domain.world.global.repository.TraitRepositoryPort
+import io.sengokudaikon.dbfinder.infrastructure.enums.Ability
+import io.sengokudaikon.dbfinder.infrastructure.enums.Rarity
+import io.sengokudaikon.dbfinder.infrastructure.enums.toSizeEnum
 import io.sengokudaikon.dbfinder.operations.character.ancestry.command.AncestryCommand
 import io.sengokudaikon.dbfinder.persistence.character.ancestry.entity.Ancestries
-import io.sengokudaikon.dbfinder.persistence.character.ancestry.entity.AncestryBoosts
-import io.sengokudaikon.dbfinder.persistence.character.ancestry.entity.AncestryFlaws
 import io.sengokudaikon.dbfinder.persistence.character.ancestry.entity.AncestryLanguages
-import io.sengokudaikon.dbfinder.persistence.character.ancestry.entity.AncestryPhysicalFeatures
 import io.sengokudaikon.dbfinder.persistence.character.ancestry.entity.AncestryTraits
-import io.sengokudaikon.dbfinder.persistence.character.ancestry.entity.VisionSenses
-import io.sengokudaikon.dbfinder.persistence.world.entity.Languages
-import io.sengokudaikon.dbfinder.persistence.world.entity.Rules
-import io.sengokudaikon.dbfinder.persistence.world.entity.Traits
-import io.sengokudaikon.kfinder.infrastructure.errors.DatabaseException
+import io.sengokudaikon.shared.infrastructure.errors.DatabaseException
 import kotlinx.uuid.UUID
 import org.jetbrains.exposed.dao.with
 import org.jetbrains.exposed.sql.and
-import org.jetbrains.exposed.sql.batchInsert
 import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.experimental.suspendedTransactionAsync
 import org.koin.core.annotation.Single
 
 @Single(binds = [AncestryRepositoryPort::class])
-class AncestryRepository : AncestryRepositoryPort {
+class AncestryRepository(
+    private val visionSenseRepository: VisionSenseRepositoryPort,
+    private val languageRepository: LanguageRepositoryPort,
+    private val traitRepositoryPort: TraitRepositoryPort,
+) : AncestryRepositoryPort {
     override suspend fun findByName(name: String): Either<Throwable, Ancestry> =
         suspendedTransactionAsync {
             val entity = Ancestry.find { Ancestries.name eq name }.firstOrNull()
@@ -59,7 +54,7 @@ class AncestryRepository : AncestryRepositoryPort {
                 Ancestry::abilityFlaws,
                 Ancestry::traits,
                 Ancestry::languages,
-                Ancestry::physicalFeatures,
+                Ancestry::features,
                 Ancestry::rules,
             )
             .limit(limit, offset)
@@ -72,20 +67,7 @@ class AncestryRepository : AncestryRepositoryPort {
     }.await()
 
     override suspend fun batchInsert(models: Set<AncestryCommand>) {
-        suspendedTransactionAsync {
-            Ancestries.batchInsert(models) { ancestry ->
-                ancestry as AncestryCommand.Create
-                val dto = ancestry.dto
-                this[Ancestries.name] = dto.name
-                this[Ancestries.description] = dto.description
-                this[Ancestries.rarity] = dto.rarity
-                this[Ancestries.hitPoints] = dto.hp
-                this[Ancestries.size] = dto.size
-                this[Ancestries.speed] = dto.speed
-                this[Ancestries.img] = dto.img
-                this[Ancestries.contentSrc] = dto.source
-            }
-        }.await()
+        // ignored
     }
 
     override suspend fun create(command: AncestryCommand): Either<Throwable, Ancestry> {
@@ -95,32 +77,22 @@ class AncestryRepository : AncestryRepositoryPort {
             val ancestry = Ancestry.new {
                 img = dto.img
                 name = dto.name
-                description = dto.description
-                rarity = dto.rarity
-                hp = dto.hp
-                size = dto.size
-                speed = dto.speed
-                contentSrc = dto.source
-                homebrewID = null
-                version = 1.toString()
-                visionSense = dto.vision.let {
-                    VisionSense.find { VisionSenses.name eq it.name }.firstOrNull() ?: VisionSense.new {
-                        this.name = it.name
-                        this.visionRange = it.range
-                    }
-                }
-                additionalSense = dto.additionalSense?.let {
-                    VisionSense.find { VisionSenses.name eq it.name }.firstOrNull() ?: VisionSense.new {
-                        this.name = it.name
-                        this.visionRange = it.range
-                    }
-                }
+                description = dto.system.description
+                rarity = Rarity.valueOf(dto.system.rarity.uppercase())
+                hp = dto.system.hp
+                size = dto.system.size.toSizeEnum()
+                speed = dto.system.speed
+                contentSrc = dto.system.source
+                rules = dto.system.rules.toString()
             }
-            dto.languages.forEach {
-                val language = Language.find { Languages.name eq it.name }.firstOrNull() ?: Language.new {
-                    this.name = it.name
-                    this.description = it.description
-                }
+            ancestry.visionSense = dto.system.vision.let {
+                visionSenseRepository.findByName(it).fold({ throw it }, { it })
+            }
+            ancestry.additionalSense = dto.system.additionalSense?.let {
+                visionSenseRepository.findByName(it).fold({ throw it }, { it })
+            }
+            dto.system.languages.value.forEach {
+                val language = languageRepository.findByName(it).fold({ throw it }, { it })
                 val languages = AncestryLanguage.find {
                     AncestryLanguages.ancestryID eq ancestry.id and (AncestryLanguages.languageID eq language.id)
                 }.firstOrNull()
@@ -131,31 +103,33 @@ class AncestryRepository : AncestryRepositoryPort {
                 ancestry.languages.plus(languages)
             }
 
-            val boosts = dto.boosts.map {
-                AncestryBoost.find {
-                    AncestryBoosts.ancestryID eq ancestry.id and (AncestryBoosts.boostedAbility eq it)
-                }
-                    .firstOrNull() ?: AncestryBoost.new {
-                    this.ancestryID = ancestry
-                    this.boost = it
+            val boosts = dto.system.boosts.forEach { (key, value) ->
+                if ((value.value.size > 2) || (value.value.isEmpty())) {
+                    AncestryBoost.new {
+                        this.ancestryID = ancestry
+                        this.boost = Ability.Anything
+                    }
+                } else {
+                    value.value.map { boost ->
+                        AncestryBoost.new {
+                            this.ancestryID = ancestry
+                            this.boost = Ability.valueOf(boost)
+                        }
+                    }
                 }
             }
             ancestry.abilityBoosts.plus(boosts)
-            val abilityFlaws = dto.flaws.map {
-                AncestryFlaw.find { AncestryFlaws.ancestryID eq ancestry.id and (AncestryFlaws.flawedAbility eq it) }
-                    .firstOrNull() ?: AncestryFlaw.new {
-                    this.ancestryID = ancestry
-                    flaw = it
+            val abilityFlaws = dto.system.flaws.forEach { (key, value) ->
+                value.value.map { boost ->
+                    AncestryFlaw.new {
+                        this.ancestryID = ancestry
+                        this.flaw = Ability.valueOf(boost)
+                    }
                 }
             }
             ancestry.abilityFlaws.plus(abilityFlaws)
-            val traits = dto.traits.map {
-                val trait = Trait.find { Traits.name eq it.name }.firstOrNull() ?: Trait.new {
-                    name = it.name
-                    description = it.description
-                    contentSrc = it.contentSrc
-                    type = it.type
-                }
+            val traits = dto.system.traits.value.map {
+                val trait = traitRepositoryPort.findByName(it).fold({ throw it }, { it })
                 AncestryTrait.find { AncestryTraits.ancestryID eq ancestry.id and (AncestryTraits.trait eq trait.id) }
                     .firstOrNull() ?: AncestryTrait.new {
                     this.ancestryID = ancestry
@@ -163,47 +137,6 @@ class AncestryRepository : AncestryRepositoryPort {
                 }
             }
             ancestry.traits.plus(traits)
-            val physicalFeatures = dto.physicalFeatures.map {
-                AncestryPhysicalFeature.find {
-                    AncestryPhysicalFeatures.ancestryID eq ancestry.id and (AncestryPhysicalFeatures.name eq it.name)
-                }
-                    .firstOrNull() ?: AncestryPhysicalFeature.new {
-                    this.ancestry = ancestry
-                    description = it.description
-                    img = it.img
-                    level = it.level
-                    name = it.name
-                }
-            }
-            ancestry.physicalFeatures.plus(physicalFeatures)
-            if (dto.rules.isEmpty()) {
-                ancestry.flush()
-                commit()
-                return@suspendedTransactionAsync ancestry
-            }
-
-            val rules = dto.rules.map {
-                val rule = Rule.find { Rules.name eq it.name }.firstOrNull() ?: Rule.new {
-                    this.name = it.name
-                    this.mode = it.mode
-                    this.priority = it.priority
-                    this.prompt = it.prompt
-                    this.description = "Refer to the ${ancestry.name} ancestry rules for more information."
-                }
-                for ((key, choice) in it.ruleChoices) {
-                    val ruleChoice = RuleChoice.new {
-                        this.ruleId = rule
-                        this.name = key
-                        this.value = choice
-                    }
-                    rule.ruleChoices.plus(ruleChoice)
-                }
-                AncestryRule.new {
-                    this.ancestryID = ancestry
-                    this.ruleID = rule
-                }
-            }
-            ancestry.rules.plus(rules)
             ancestry.flush()
             commit()
             ancestry

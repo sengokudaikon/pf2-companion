@@ -23,6 +23,4 @@ object Feats : KotlinxUUIDTable("feats") {
     val proficiencyId = enumerationByName<Proficiency>("proficiency_id", length = 20).nullable()
     val contentSrc = varchar("content_src", length = 100)
     val isArchived = bool("is_archived").default(false)
-    val version = varchar("version", length = 10)
-    val homebrewID = integer("homebrew_id").nullable().default(null)
 }

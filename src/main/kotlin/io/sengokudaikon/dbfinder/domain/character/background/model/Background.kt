@@ -2,7 +2,7 @@ package io.sengokudaikon.dbfinder.domain.character.background.model
 
 import io.sengokudaikon.dbfinder.domain.character.ancestry.model.AbilityBoost
 import io.sengokudaikon.dbfinder.domain.character.feat.model.Item
-import io.sengokudaikon.dbfinder.domain.world.model.Rule
+import io.sengokudaikon.dbfinder.domain.world.global.model.Trait
 import io.sengokudaikon.dbfinder.infrastructure.enums.Skills
 import kotlinx.serialization.Serializable
 
@@ -15,7 +15,8 @@ data class Background(
     val code: String,
     val boosts: List<AbilityBoost> = listOf(),
     val items: List<Item> = listOf(),
-    val rules: List<Rule> = listOf(),
+    val rules: String? = null,
+    val traits: List<Trait> = listOf(),
     val trainedLore: String? = null,
     val trainedSkills: List<Skills> = listOf(),
 )

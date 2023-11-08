@@ -6,7 +6,7 @@ import arrow.core.right
 import io.sengokudaikon.dbfinder.domain.character.feat.entity.Feat
 import io.sengokudaikon.dbfinder.domain.character.feat.repository.FeatRepositoryPort
 import io.sengokudaikon.dbfinder.persistence.world.entity.Feats
-import io.sengokudaikon.kfinder.infrastructure.errors.DatabaseException
+import io.sengokudaikon.shared.infrastructure.errors.DatabaseException
 import kotlinx.uuid.UUID
 import org.jetbrains.exposed.sql.batchInsert
 import org.jetbrains.exposed.sql.selectAll
@@ -51,7 +51,6 @@ class FeatRepository : FeatRepositoryPort {
                 this[Feats.frequency] = feat.frequency
                 this[Feats.proficiencyId] = feat.proficiencyId
                 this[Feats.canSelectMultiple] = feat.canSelectMultiple
-                this[Feats.version] = feat.version
             }
         }.await()
     }
@@ -72,7 +71,6 @@ class FeatRepository : FeatRepositoryPort {
                 frequency = command.frequency
                 proficiencyId = command.proficiencyId
                 canSelectMultiple = command.canSelectMultiple
-                version = command.version
             }
             feat
         }.await().right()

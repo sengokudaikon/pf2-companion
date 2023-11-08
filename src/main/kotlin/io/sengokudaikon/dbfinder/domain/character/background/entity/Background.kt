@@ -2,8 +2,8 @@ package io.sengokudaikon.dbfinder.domain.character.background.entity
 
 import io.sengokudaikon.dbfinder.persistence.character.background.entity.BackgroundBoosts
 import io.sengokudaikon.dbfinder.persistence.character.background.entity.BackgroundItems
-import io.sengokudaikon.dbfinder.persistence.character.background.entity.BackgroundRules
 import io.sengokudaikon.dbfinder.persistence.character.background.entity.BackgroundSkills
+import io.sengokudaikon.dbfinder.persistence.character.background.entity.BackgroundTraits
 import io.sengokudaikon.dbfinder.persistence.character.background.entity.Backgrounds
 import kotlinx.uuid.UUID
 import kotlinx.uuid.exposed.KotlinxUUIDEntity
@@ -21,10 +21,11 @@ class Background(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
     var code by Backgrounds.code
     var contentSrc by Backgrounds.contentSrc
     var trainedLore by Backgrounds.trainedLore
+    var rules by Backgrounds.rules
     val trainedSkills by BackgroundSkill referrersOn BackgroundSkills.background
     val boosts by BackgroundBoost referrersOn BackgroundBoosts.backgroundId
     val items by BackgroundItem referrersOn BackgroundItems.background
-    val rules by BackgroundRule referrersOn BackgroundRules.background
+    val traits by BackgroundTrait referrersOn BackgroundTraits.background
 
     suspend fun toModel(): ModelBackground {
         return suspendedTransactionAsync {
@@ -36,7 +37,8 @@ class Background(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
                 code = this@Background.code,
                 boosts = this@Background.boosts.map { it.toModel() },
                 items = this@Background.items.map { it.toModel() },
-                rules = this@Background.rules.map { it.toModel() },
+                rules = this@Background.rules,
+                traits = this@Background.traits.map { it.toModel() },
                 trainedLore = this@Background.trainedLore,
                 trainedSkills = this@Background.trainedSkills.toList().map { it.skillId },
             )

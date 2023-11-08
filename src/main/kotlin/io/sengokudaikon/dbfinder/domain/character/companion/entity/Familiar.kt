@@ -18,7 +18,6 @@ class Familiar(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
     var rarity by Familiars.rarity
     var type by Familiars.type
     val abilities by FamiliarAbility referrersOn FamiliarAbilities.familiar
-    var homebrewID by Familiars.homebrewID
 
     suspend fun toModel(): ModelFamiliar {
         return suspendedTransactionAsync {

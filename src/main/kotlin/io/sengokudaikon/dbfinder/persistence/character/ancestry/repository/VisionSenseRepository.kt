@@ -7,7 +7,7 @@ import io.sengokudaikon.dbfinder.domain.character.ancestry.entity.VisionSense
 import io.sengokudaikon.dbfinder.domain.character.ancestry.repository.VisionSenseRepositoryPort
 import io.sengokudaikon.dbfinder.infrastructure.enums.VisionType
 import io.sengokudaikon.dbfinder.persistence.character.ancestry.entity.VisionSenses
-import io.sengokudaikon.kfinder.infrastructure.errors.DatabaseException
+import io.sengokudaikon.shared.infrastructure.errors.DatabaseException
 import kotlinx.uuid.UUID
 import org.jetbrains.exposed.sql.batchInsert
 import org.jetbrains.exposed.sql.selectAll
@@ -20,14 +20,14 @@ class VisionSenseRepository : VisionSenseRepositoryPort {
     override suspend fun findByName(name: String): Either<Throwable, VisionSense> {
         return suspendedTransactionAsync {
             val entity = VisionSense.find { VisionSenses.name eq VisionType.valueOf(name) }.firstOrNull()
-            entity?.right() ?: DatabaseException.NotFound("Vision sense not found").left()
+            entity?.right() ?: DatabaseException.NotFound("Vision sense '$name' not found").left()
         }.await()
     }
 
     override suspend fun findById(id: UUID): Either<Throwable, VisionSense> {
         return suspendedTransactionAsync {
             val entity = VisionSense.findById(id)
-            entity?.right() ?: DatabaseException.NotFound("Vision sense not found").left()
+            entity?.right() ?: DatabaseException.NotFound("Vision sense '$id' not found").left()
         }.await()
     }
 

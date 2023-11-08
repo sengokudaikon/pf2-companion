@@ -8,5 +8,4 @@ data class FamiliarAbility(
     val description: String,
     val prerequisites: String,
     val requirements: String,
-    val homebrewID: String? = null,
 )

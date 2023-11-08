@@ -6,21 +6,18 @@ import arrow.core.right
 import io.sengokudaikon.dbfinder.domain.character.background.entity.Background
 import io.sengokudaikon.dbfinder.domain.character.background.entity.BackgroundBoost
 import io.sengokudaikon.dbfinder.domain.character.background.entity.BackgroundItem
-import io.sengokudaikon.dbfinder.domain.character.background.entity.BackgroundRule
 import io.sengokudaikon.dbfinder.domain.character.background.entity.BackgroundSkill
+import io.sengokudaikon.dbfinder.domain.character.background.entity.BackgroundTrait
 import io.sengokudaikon.dbfinder.domain.character.background.repository.BackgroundRepositoryPort
-import io.sengokudaikon.dbfinder.domain.character.feat.entity.Feat
-import io.sengokudaikon.dbfinder.domain.world.entity.Action
-import io.sengokudaikon.dbfinder.domain.world.entity.Rule
-import io.sengokudaikon.dbfinder.domain.world.entity.Spell
-import io.sengokudaikon.dbfinder.fixtures.BackgroundFixture
+import io.sengokudaikon.dbfinder.domain.character.feat.repository.FeatRepositoryPort
+import io.sengokudaikon.dbfinder.domain.world.action.repository.ActionRepositoryPort
+import io.sengokudaikon.dbfinder.domain.world.global.repository.TraitRepositoryPort
+import io.sengokudaikon.dbfinder.infrastructure.enums.Ability
+import io.sengokudaikon.dbfinder.infrastructure.enums.Rarity
+import io.sengokudaikon.dbfinder.infrastructure.enums.Skills
 import io.sengokudaikon.dbfinder.persistence.character.background.entity.Backgrounds
-import io.sengokudaikon.dbfinder.persistence.world.entity.Actions
-import io.sengokudaikon.dbfinder.persistence.world.entity.Feats
-import io.sengokudaikon.dbfinder.persistence.world.entity.Rules
-import io.sengokudaikon.dbfinder.persistence.world.entity.Spells
-import io.sengokudaikon.dbfinder.persistence.world.repository.RuleRepository
-import io.sengokudaikon.kfinder.infrastructure.errors.DatabaseException
+import io.sengokudaikon.fixtureloader.fixtures.model.BackgroundFixture
+import io.sengokudaikon.shared.infrastructure.errors.DatabaseException
 import kotlinx.uuid.UUID
 import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.experimental.suspendedTransactionAsync
@@ -28,19 +25,21 @@ import org.koin.core.annotation.Single
 
 @Single(binds = [BackgroundRepositoryPort::class])
 class BackgroundRepository(
-    private val ruleRepository: RuleRepository,
+    private val featRepository: FeatRepositoryPort,
+    private val actionRepository: ActionRepositoryPort,
+    private val traitRepository: TraitRepositoryPort,
 ) : BackgroundRepositoryPort {
     override suspend fun findByName(name: String): Either<Throwable, Background> {
         return suspendedTransactionAsync {
             val entity = Background.find { Backgrounds.name eq name }.firstOrNull()
-            entity?.right() ?: DatabaseException.NotFound("Background not found").left()
+            entity?.right() ?: DatabaseException.NotFound("Background '$name' not found").left()
         }.await()
     }
 
     override suspend fun findById(id: UUID): Either<Throwable, Background> {
         return suspendedTransactionAsync {
             val entity = Background.findById(id)
-            entity?.right() ?: DatabaseException.NotFound("Background not found").left()
+            entity?.right() ?: DatabaseException.NotFound("Background '$id' not found").left()
         }.await()
     }
 
@@ -62,69 +61,59 @@ class BackgroundRepository(
         return suspendedTransactionAsync {
             val entity = Background.new {
                 name = command.name
-                description = command.description
-                rarity = command.rarity
-                trainedLore = command.trainedLore
-                contentSrc = command.source
+                description = command.system.description.toString()
+                rarity = Rarity.valueOf(command.system.traits.rarity)
+                trainedLore = command.system.trainedLore
+                contentSrc = command.system.publication.title
+                rules = command.system.rules.toString()
             }
             val boosts = mutableListOf<BackgroundBoost>()
-            command.boosts.map { boost ->
-                boost.values().forEach {
-                    boosts.add(
+            command.system.boosts.forEach { (key, value) ->
+                if ((value.value.size > 2) || (value.value.isEmpty())) {
+                    BackgroundBoost.new {
+                        this.backgroundId = entity
+                        this.boostedAbility = Ability.Anything
+                    }
+                } else {
+                    value.value.map { boost ->
                         BackgroundBoost.new {
                             this.backgroundId = entity
-                            this.boostedAbility = it
-                        },
-                    )
-                }
-            }
-
-            val featItems = command.items.filter {
-                it.uuid.startsWith("Feat.")
-            }.map {
-                val name = it.name ?: it.uuid.replace("Feat.", "")
-                val feat = Feat.find { Feats.name eq name }.firstOrNull()
-                    ?: throw DatabaseException.NotFound("Feat not found")
-                BackgroundItem.new { background = entity; this.feat = feat }
-            }
-            val actionItems = command.items.filter {
-                it.uuid.startsWith("Action.")
-            }.map {
-                val name = it.name ?: it.uuid.replace("Action.", "")
-                val action = Action.find { Actions.name eq name }.firstOrNull()
-                    ?: throw DatabaseException.NotFound("Action not found")
-                BackgroundItem.new { background = entity; this.action = action }
-            }
-            val spellItems = command.items.filter {
-                it.uuid.startsWith("Spell.")
-            }.map {
-                val name = it.name ?: it.uuid.replace("Spell.", "")
-                val spell = Spell.find { Spells.name eq name }.firstOrNull()
-                    ?: throw DatabaseException.NotFound("Spell not found")
-                BackgroundItem.new { background = entity; this.spell = spell }
-            }
-
-            val rules = command.rules.map { rules ->
-                val rule = Rule.find { Rules.name eq rules.key }.firstOrNull()
-                    ?: ruleRepository.create(rules.toModel()).fold({ throw it }, { it })
-                BackgroundRule.new {
-                    background = entity
-                    this.rule = rule
-                }
-            }
-
-            val skills = command.trainedSkills.map { skill ->
-                skill.values().forEach {
-                    BackgroundSkill.new {
-                        this.backgroundId = entity
-                        this.skillId = it
+                            this.boostedAbility = Ability.valueOf(boost)
+                        }
                     }
                 }
             }
-            entity.trainedSkills.plus(skills)
-            entity.rules.plus(rules)
-            entity.items.plus(featItems).plus(actionItems).plus(spellItems)
             entity.boosts.plus(boosts)
+            val skills = command.system.trainedSkills.value.map { skill ->
+                BackgroundSkill.new {
+                    this.backgroundId = entity
+                    this.skillId = Skills.valueOf(skill)
+                }
+            }
+            entity.trainedSkills.plus(skills)
+            val featItems = command.system.items.filter {
+                it.value.uuid.startsWith("Feat.")
+            }.map {
+                val name = it.value.name ?: it.value.uuid.replace("Feat.", "")
+                val feat = featRepository.findByName(name).fold({ throw it }, { it })
+                BackgroundItem.new { background = entity; this.feat = feat }
+            }
+            val actionItems = command.system.items.filter {
+                it.value.uuid.startsWith("Action.")
+            }.map {
+                val name = it.value.name ?: it.value.uuid.replace("Action.", "")
+                val action = actionRepository.findByName(name).fold({ throw it }, { it })
+                BackgroundItem.new { background = entity; this.action = action }
+            }
+            val traits = command.system.traits.value.map {
+                val trait = traitRepository.findByName(it).fold({ throw it }, { it })
+                BackgroundTrait.new {
+                    this.backgroundId = entity
+                    this.traitId = trait
+                }
+            }
+            entity.traits.plus(traits)
+            entity.items.plus(featItems).plus(actionItems)
             entity.right()
         }.await()
     }

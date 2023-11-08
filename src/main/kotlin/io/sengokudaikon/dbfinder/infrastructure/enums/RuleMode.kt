@@ -4,9 +4,6 @@ enum class RuleMode {
     ADDITION,
     UPGRADE,
     OVERRIDE,
-    REMOVE,
-    MULTIPLIER,
     MODIFIER,
     SELECTOR,
-    PREDICATE,
 }

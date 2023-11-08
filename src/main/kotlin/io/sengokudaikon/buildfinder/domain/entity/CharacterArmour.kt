@@ -1,7 +1,7 @@
 package io.sengokudaikon.buildfinder.domain.entity
 
 import io.sengokudaikon.buildfinder.persistence.entity.CharacterArmours
-import io.sengokudaikon.dbfinder.domain.world.entity.Armour
+import io.sengokudaikon.dbfinder.domain.world.item.entity.Armour
 import kotlinx.uuid.UUID
 import kotlinx.uuid.exposed.KotlinxUUIDEntity
 import kotlinx.uuid.exposed.KotlinxUUIDEntityClass

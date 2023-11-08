@@ -8,10 +8,10 @@ import io.sengokudaikon.kfinder.domain.user.model.UserToken
 import io.sengokudaikon.kfinder.domain.user.repository.UserRepositoryPort
 import io.sengokudaikon.kfinder.infrastructure.Argon2PasswordEncoder
 import io.sengokudaikon.kfinder.infrastructure.JwtService
-import io.sengokudaikon.kfinder.infrastructure.errors.UserException
 import io.sengokudaikon.kfinder.operations.user.UserIdentifier
 import io.sengokudaikon.kfinder.operations.user.command.UserCommand
 import io.sengokudaikon.kfinder.ports.auth.AuthPort
+import io.sengokudaikon.shared.infrastructure.errors.UserException
 import io.sengokudaikon.kfinder.domain.user.entity.User as EntityUser
 
 class AuthUseCase(

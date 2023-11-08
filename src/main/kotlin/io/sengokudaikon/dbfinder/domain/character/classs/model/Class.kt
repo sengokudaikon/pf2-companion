@@ -15,5 +15,4 @@ data class Class(
     val weapons: Map<String, String>,
     val additionalWeapons: List<String> = emptyList(),
     val armours: Map<String, String>,
-    val homebrewID: String? = null,
 )

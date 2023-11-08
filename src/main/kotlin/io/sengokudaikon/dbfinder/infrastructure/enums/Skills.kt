@@ -18,5 +18,30 @@ enum class Skills {
     STEALTH,
     SURVIVAL,
     THIEVERY,
-    LORE,
+    LORE, ;
+
+    companion object {
+        fun from(value: String): Skills {
+            return when (value) {
+                "acr" -> ACROBATICS
+                "arc" -> ARCANA
+                "ath" -> ATHLETICS
+                "cra" -> CRAFTING
+                "dec" -> DECEPTION
+                "dip" -> DIPLOMACY
+                "int" -> INTIMIDATION
+                "med" -> MEDICINE
+                "nat" -> NATURE
+                "occ" -> OCCULTISM
+                "per" -> PERFORMANCE
+                "rel" -> RELIGION
+                "soc" -> SOCIETY
+                "ste" -> STEALTH
+                "sur" -> SURVIVAL
+                "thi" -> THIEVERY
+                "lor" -> LORE
+                else -> ANY
+            }
+        }
+    }
 }

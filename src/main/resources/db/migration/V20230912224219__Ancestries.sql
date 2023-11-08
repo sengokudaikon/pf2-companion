@@ -12,6 +12,5 @@ CREATE TABLE IF NOT EXISTS char_ancestries
     additional_sense_id uuid                  DEFAULT NULL,
     is_archived         BOOLEAN      NOT NULL DEFAULT FALSE,
     content_src         VARCHAR(100) NOT NULL,
-    homebrew_id         INTEGER               DEFAULT NULL,
-    version             VARCHAR(10)  NOT NULL
+    rules               jsonb
 );

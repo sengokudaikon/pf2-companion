@@ -1,6 +1,6 @@
 package io.sengokudaikon.buildfinder.persistence.entity
 
-import io.sengokudaikon.dbfinder.persistence.world.entity.Spells
+import io.sengokudaikon.dbfinder.persistence.items.entity.Spells
 import kotlinx.uuid.exposed.KotlinxUUIDTable
 
 object CharacterKnownSpells : KotlinxUUIDTable("char_known_spells") {

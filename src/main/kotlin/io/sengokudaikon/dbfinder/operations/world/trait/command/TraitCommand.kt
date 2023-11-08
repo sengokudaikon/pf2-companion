@@ -1,7 +1,7 @@
 package io.sengokudaikon.dbfinder.operations.world.trait.command
 
-import io.sengokudaikon.dbfinder.fixtures.AncestryFixture
 import io.sengokudaikon.dbfinder.operations.character.ancestry.command.AncestryCommand
+import io.sengokudaikon.fixtureloader.fixtures.model.AncestryFixture
 import kotlinx.serialization.Serializable
 
 interface TraitCommand {

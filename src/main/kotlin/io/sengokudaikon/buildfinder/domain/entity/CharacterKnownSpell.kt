@@ -1,7 +1,7 @@
 package io.sengokudaikon.buildfinder.domain.entity
 
 import io.sengokudaikon.buildfinder.persistence.entity.CharacterKnownSpells
-import io.sengokudaikon.dbfinder.domain.world.entity.Spell
+import io.sengokudaikon.dbfinder.domain.world.item.entity.Spell
 import kotlinx.uuid.UUID
 import kotlinx.uuid.exposed.KotlinxUUIDEntity
 import kotlinx.uuid.exposed.KotlinxUUIDEntityClass

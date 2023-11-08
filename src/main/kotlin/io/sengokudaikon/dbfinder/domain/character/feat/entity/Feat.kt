@@ -25,8 +25,6 @@ class Feat(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
     var skillId by Feats.skillId
     var proficiencyId by Feats.proficiencyId
     var contentSrc by Feats.contentSrc
-    var homebrewID by Feats.homebrewID
-    var version by Feats.version
 
     fun toModel(): ModelFeat {
         return ModelFeat(
@@ -44,8 +42,6 @@ class Feat(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
             this.skillId ?: Skills.ACROBATICS,
             this.proficiencyId ?: io.sengokudaikon.dbfinder.infrastructure.enums.Proficiency.UNTRAINED,
             this.contentSrc,
-            this.homebrewID,
-            this.version,
         )
     }
 }

@@ -1,20 +1,19 @@
 package io.sengokudaikon.dbfinder.persistence.world.repository
 
 import arrow.core.Either
-import arrow.core.left
 import arrow.core.right
-import io.sengokudaikon.dbfinder.domain.world.entity.Trait
-import io.sengokudaikon.dbfinder.domain.world.model.toTraitType
-import io.sengokudaikon.dbfinder.domain.world.repository.TraitRepositoryPort
-import io.sengokudaikon.dbfinder.fixtures.TraitFixture
+import io.sengokudaikon.dbfinder.domain.world.global.entity.Trait
+import io.sengokudaikon.dbfinder.domain.world.global.model.toTraitType
+import io.sengokudaikon.dbfinder.domain.world.global.repository.TraitRepositoryPort
 import io.sengokudaikon.dbfinder.persistence.world.entity.Traits
-import io.sengokudaikon.kfinder.infrastructure.errors.DatabaseException
+import io.sengokudaikon.fixtureloader.fixtures.model.TraitFixture
+import io.sengokudaikon.shared.persistence.repository.executeFindOperation
 import kotlinx.uuid.UUID
 import org.jetbrains.exposed.sql.batchInsert
 import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.experimental.suspendedTransactionAsync
 import org.koin.core.annotation.Single
-import io.sengokudaikon.dbfinder.domain.world.model.Trait as ModelTrait
+import io.sengokudaikon.dbfinder.domain.world.global.model.Trait as ModelTrait
 
 @Single(binds = [TraitRepositoryPort::class])
 class TraitRepository : TraitRepositoryPort {
@@ -42,17 +41,15 @@ class TraitRepository : TraitRepositoryPort {
     }
 
     override suspend fun findByName(name: String): Either<Throwable, Trait> {
-        return suspendedTransactionAsync {
-            val entity = Trait.find { Traits.name eq name }.firstOrNull()
-            entity?.right() ?: DatabaseException.NotFound("Trait not found").left()
-        }.await()
+        return executeFindOperation(name) {
+            Trait.find { Traits.name eq name }.firstOrNull()
+        }
     }
 
     override suspend fun findById(id: UUID): Either<Throwable, Trait> {
-        return suspendedTransactionAsync {
-            val entity = Trait.findById(id)
-            entity?.right() ?: DatabaseException.NotFound("Trait not found").left()
-        }.await()
+        return executeFindOperation(id) {
+            Trait.findById(id)
+        }
     }
 
     override suspend fun findAllNames(): List<String> = suspendedTransactionAsync {

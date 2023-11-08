@@ -7,18 +7,19 @@ import arrow.core.right
 import io.sengokudaikon.dbfinder.domain.character.companion.entity.Familiar
 import io.sengokudaikon.dbfinder.domain.character.companion.repository.FamiliarRepositoryPort
 import io.sengokudaikon.dbfinder.persistence.character.companion.entity.Familiars
-import io.sengokudaikon.kfinder.infrastructure.errors.DatabaseException
+import io.sengokudaikon.shared.infrastructure.errors.DatabaseException
 import kotlinx.uuid.UUID
 import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.experimental.suspendedTransactionAsync
 
 class FamiliarRepository : FamiliarRepositoryPort {
     override suspend fun findByName(name: String): Either<Throwable, Familiar> =
-        suspendedTransactionAsync { Familiar.find { Familiars.name eq name }.first() }.await().right()
+        suspendedTransactionAsync { Familiar.find { Familiars.name eq name }.firstOrNull() }.await()?.right()
+            ?: DatabaseException.NotFound("Familiar '$name' not found").left()
 
     override suspend fun findById(id: UUID): Either<Throwable, Familiar> =
         suspendedTransactionAsync { Familiar.findById(id) }.await()?.right()
-            ?: DatabaseException.NotFound("Familiar not found").left()
+            ?: DatabaseException.NotFound("Familiar '$id' not found").left()
 
     override suspend fun findAll(page: Int, limit: Int): Either<Throwable, List<Familiar>> =
         suspendedTransactionAsync { Familiar.all().limit(limit, (page - 1).toLong()).toList() }.await().right()

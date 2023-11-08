@@ -1,7 +1,7 @@
 package io.sengokudaikon.dbfinder.domain.character.ancestry.model
 
-import io.sengokudaikon.dbfinder.domain.world.model.Language
-import io.sengokudaikon.dbfinder.domain.world.model.Trait
+import io.sengokudaikon.dbfinder.domain.world.global.model.Language
+import io.sengokudaikon.dbfinder.domain.world.global.model.Trait
 import io.sengokudaikon.shared.operations.Response
 import kotlinx.serialization.Serializable
 
@@ -19,12 +19,10 @@ data class Ancestry(
     val artworkURL: String,
     val isArchived: Boolean,
     val contentSrc: String,
-    val homebrewID: Int?,
-    val version: String,
+    val rules: String? = null,
     var abilityBoosts: List<AbilityBoost> = emptyList(),
     var abilityFlaws: List<AbilityFlaw> = emptyList(),
     var languages: List<Language> = emptyList(),
-    var physicalFeatures: List<AncestryPhysicalFeature> = emptyList(),
+    var physicalFeatures: List<AncestryFeature> = emptyList(),
     var traits: List<Trait> = emptyList(),
-    var rules: List<AncestryRule> = emptyList(),
 ) : Response

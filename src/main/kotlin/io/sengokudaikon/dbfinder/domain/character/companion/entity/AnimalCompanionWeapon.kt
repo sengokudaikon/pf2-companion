@@ -1,6 +1,6 @@
 package io.sengokudaikon.dbfinder.domain.character.companion.entity
 
-import io.sengokudaikon.dbfinder.domain.world.entity.Weapon
+import io.sengokudaikon.dbfinder.domain.world.item.entity.Weapon
 import io.sengokudaikon.dbfinder.persistence.character.companion.entity.AnimalCompanionWeapons
 import kotlinx.uuid.UUID
 import kotlinx.uuid.exposed.KotlinxUUIDEntity

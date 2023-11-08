@@ -1,6 +1,6 @@
 package io.sengokudaikon.buildfinder.persistence.entity
 
-import io.sengokudaikon.dbfinder.persistence.inventory.entity.Weapons
+import io.sengokudaikon.dbfinder.persistence.items.entity.Weapons
 import kotlinx.uuid.exposed.KotlinxUUIDTable
 
 object CharacterWeapons : KotlinxUUIDTable("char_weapons") {

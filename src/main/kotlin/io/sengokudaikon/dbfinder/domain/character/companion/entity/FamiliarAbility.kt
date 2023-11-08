@@ -15,7 +15,6 @@ class FamiliarAbility(id: EntityID<UUID>) : KotlinxUUIDEntity(id) {
     var description by FamiliarAbilities.description
     var prerequisites by FamiliarAbilities.prerequisites
     var requirements by FamiliarAbilities.requirements
-    var homebrewID by FamiliarAbilities.homebrewID
 
     fun toModel(): ModelFamiliarAbility {
         return ModelFamiliarAbility(

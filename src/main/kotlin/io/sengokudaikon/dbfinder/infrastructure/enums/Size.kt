@@ -7,11 +7,11 @@ enum class Size {
 fun String.toSizeEnum(): Size {
     return when (this.lowercase()) {
         "tiny" -> Size.TINY
-        "small" -> Size.SMALL
-        "medium" -> Size.MEDIUM
-        "large" -> Size.LARGE
-        "huge" -> Size.HUGE
-        "gargantuan" -> Size.GARGANTUAN
+        "sm", "small" -> Size.SMALL
+        "med", "medium" -> Size.MEDIUM
+        "lg", "large" -> Size.LARGE
+        "hg", "huge" -> Size.HUGE
+        "grg", "gargantuan" -> Size.GARGANTUAN
         else -> throw IllegalArgumentException("Cannot transform $this into Size enum")
     }
 }

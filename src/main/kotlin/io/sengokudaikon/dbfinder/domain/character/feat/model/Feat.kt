@@ -19,6 +19,4 @@ data class Feat(
     val skillId: Skills,
     val proficiencyId: io.sengokudaikon.dbfinder.infrastructure.enums.Proficiency,
     val contentSrc: String,
-    val homebrewID: Int?,
-    val version: String,
 ) : Item

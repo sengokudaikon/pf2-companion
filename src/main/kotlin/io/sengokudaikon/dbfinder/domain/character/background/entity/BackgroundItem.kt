@@ -2,10 +2,10 @@ package io.sengokudaikon.dbfinder.domain.character.background.entity
 
 import io.sengokudaikon.dbfinder.domain.character.feat.entity.Feat
 import io.sengokudaikon.dbfinder.domain.character.feat.model.Item
-import io.sengokudaikon.dbfinder.domain.world.entity.Action
-import io.sengokudaikon.dbfinder.domain.world.entity.Spell
+import io.sengokudaikon.dbfinder.domain.world.action.entity.Action
+import io.sengokudaikon.dbfinder.domain.world.item.entity.Spell
 import io.sengokudaikon.dbfinder.persistence.character.background.entity.BackgroundItems
-import io.sengokudaikon.kfinder.infrastructure.errors.DatabaseException
+import io.sengokudaikon.shared.infrastructure.errors.DatabaseException
 import kotlinx.uuid.UUID
 import kotlinx.uuid.exposed.KotlinxUUIDEntity
 import kotlinx.uuid.exposed.KotlinxUUIDEntityClass

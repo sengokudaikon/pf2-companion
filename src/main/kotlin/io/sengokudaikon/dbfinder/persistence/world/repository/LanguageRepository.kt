@@ -3,15 +3,15 @@ package io.sengokudaikon.dbfinder.persistence.world.repository
 import arrow.core.Either
 import arrow.core.left
 import arrow.core.right
-import io.sengokudaikon.dbfinder.domain.world.entity.Language
-import io.sengokudaikon.dbfinder.domain.world.repository.LanguageRepositoryPort
+import io.sengokudaikon.dbfinder.domain.world.global.entity.Language
+import io.sengokudaikon.dbfinder.domain.world.global.repository.LanguageRepositoryPort
 import io.sengokudaikon.dbfinder.persistence.world.entity.Languages
 import kotlinx.uuid.UUID
 import org.jetbrains.exposed.sql.batchInsert
 import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.experimental.suspendedTransactionAsync
 import org.koin.core.annotation.Single
-import io.sengokudaikon.dbfinder.domain.world.model.Language as ModelLanguage
+import io.sengokudaikon.dbfinder.domain.world.global.model.Language as ModelLanguage
 
 @Single(binds = [LanguageRepositoryPort::class])
 class LanguageRepository : LanguageRepositoryPort {
@@ -26,13 +26,13 @@ class LanguageRepository : LanguageRepositoryPort {
 
     override suspend fun findByName(name: String): Either<Throwable, Language> {
         return suspendedTransactionAsync { Language.find { Languages.name eq name }.firstOrNull() }.await().let {
-            it?.right() ?: Throwable("Language not found").left()
+            it?.right() ?: Throwable("Language '$name' not found").left()
         }
     }
 
     override suspend fun findById(id: UUID): Either<Throwable, Language> {
         return suspendedTransactionAsync { Language.findById(id) }.await().let {
-            it?.right() ?: Throwable("Language not found").left()
+            it?.right() ?: Throwable("Language '$id' not found").left()
         }
     }
 
@@ -48,7 +48,7 @@ class LanguageRepository : LanguageRepositoryPort {
         }.await()
     }
 
-    override suspend fun batchInsert(models: Set<io.sengokudaikon.dbfinder.domain.world.model.Language>) {
+    override suspend fun batchInsert(models: Set<io.sengokudaikon.dbfinder.domain.world.global.model.Language>) {
         suspendedTransactionAsync {
             Languages.batchInsert(models) { language ->
                 this[Languages.name] = language.name

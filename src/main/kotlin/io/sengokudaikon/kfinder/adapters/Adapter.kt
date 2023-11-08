@@ -5,7 +5,7 @@ import io.ktor.server.auth.*
 import io.ktor.server.auth.jwt.*
 import io.sengokudaikon.kfinder.domain.user.model.UserRole
 import io.sengokudaikon.kfinder.infrastructure.AuthorizationService
-import io.sengokudaikon.kfinder.infrastructure.errors.UserException
+import io.sengokudaikon.shared.infrastructure.errors.UserException
 import kotlinx.uuid.UUID
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject

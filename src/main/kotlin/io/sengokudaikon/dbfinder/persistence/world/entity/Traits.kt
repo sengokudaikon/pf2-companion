@@ -1,6 +1,6 @@
 package io.sengokudaikon.dbfinder.persistence.world.entity
 
-import io.sengokudaikon.dbfinder.domain.world.model.TraitType
+import io.sengokudaikon.dbfinder.domain.world.global.model.TraitType
 import kotlinx.uuid.exposed.KotlinxUUIDTable
 
 object Traits : KotlinxUUIDTable("traits") {
@@ -10,5 +10,4 @@ object Traits : KotlinxUUIDTable("traits") {
     val isHidden = bool("is_hidden").default(false)
     val isArchived = bool("is_archived").default(false)
     val contentSrc = varchar("source", 255)
-    val homebrewID = integer("homebrew_id").nullable().default(null)
 }

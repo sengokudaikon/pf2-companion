@@ -1,6 +1,6 @@
 package io.sengokudaikon.dbfinder.domain.character.classs.entity
 
-import io.sengokudaikon.dbfinder.domain.world.entity.Weapon
+import io.sengokudaikon.dbfinder.domain.world.item.entity.Weapon
 import io.sengokudaikon.dbfinder.persistence.character.classs.entity.ClassSpecificWeapons
 import kotlinx.uuid.UUID
 import kotlinx.uuid.exposed.KotlinxUUIDEntity

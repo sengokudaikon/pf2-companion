@@ -8,14 +8,13 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.asExecutor
 import kotlinx.coroutines.future.await
 import kotlinx.coroutines.launch
-import org.koin.core.component.KoinComponent
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
 import java.util.concurrent.TimeUnit
 
 class InMemoryCache<T>(
     private val loaderFunc: suspend () -> T,
-) : KoinComponent, Cache<T> {
+) : Cache<T> {
 
     val runner: AsyncLoadingCache<String, T> = Caffeine.newBuilder()
         .maximumSize(100)

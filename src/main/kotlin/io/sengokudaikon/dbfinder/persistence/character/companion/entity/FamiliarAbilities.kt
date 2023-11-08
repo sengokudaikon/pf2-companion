@@ -9,7 +9,5 @@ object FamiliarAbilities : KotlinxUUIDTable("char_familiar_abilities") {
     val prerequisites = varchar("prerequisite", 50)
     val requirements = varchar("requirement", 50)
     val isMaster = bool("is_master").default(false)
-    val code = varchar("code", 10)
     val contentSrc = varchar("content_src", 100)
-    val homebrewID = integer("homebrew_id").nullable().default(null)
 }

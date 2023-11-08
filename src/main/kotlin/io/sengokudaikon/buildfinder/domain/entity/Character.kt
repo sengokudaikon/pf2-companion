@@ -13,10 +13,10 @@ import io.sengokudaikon.buildfinder.persistence.entity.CharacterSpellSlots
 import io.sengokudaikon.buildfinder.persistence.entity.CharacterSpellcastings
 import io.sengokudaikon.buildfinder.persistence.entity.CharacterWeapons
 import io.sengokudaikon.buildfinder.persistence.entity.Characters
+import io.sengokudaikon.buildfinder.persistence.entity.Inventory
 import io.sengokudaikon.dbfinder.domain.character.ancestry.entity.Ancestry
 import io.sengokudaikon.dbfinder.domain.character.background.entity.Background
 import io.sengokudaikon.dbfinder.domain.character.classs.entity.Class
-import io.sengokudaikon.dbfinder.persistence.inventory.entity.Inventory
 import io.sengokudaikon.kfinder.domain.user.entity.User
 import kotlinx.uuid.UUID
 import kotlinx.uuid.exposed.KotlinxUUIDEntity

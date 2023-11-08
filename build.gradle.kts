@@ -116,6 +116,8 @@ dependencies {
     implementation("org.jsoup:jsoup:1.16.1")
     implementation("com.redis:redis-smart-cache-jdbc:0.3.1")
     implementation("io.github.crackthecodeabhi:kreds:0.9.0")
+    implementation("org.jetbrains.exposed:exposed-jodatime:0.41.1")
+    implementation("org.codehaus.janino:janino:3.1.10")
     testImplementation("io.ktor:ktor-server-tests-jvm:2.3.0")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:1.8.20-RC")
     ksp("io.insert-koin:koin-ksp-compiler:1.2.2")
