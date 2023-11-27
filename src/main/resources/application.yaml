@@ -1,6 +1,6 @@
 ktor:
   application:
     modules:
-      - io.sengokudaikon.kfinder.ApplicationKt.module
+      - io.sengokudaikon.isn.ApplicationKt.module
   deployment:
-    port: 8080
+    port: ${APP_PORT}

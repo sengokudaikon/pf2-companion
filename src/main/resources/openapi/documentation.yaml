@@ -4,7 +4,7 @@ info:
   description: "pathfinder_app API"
   version: "1.0.0"
 servers:
-  - url: "http://0.0.0.0:8080"
+  - url: "http://0.0.0.0:8081"
   - url: "https://pf2-companion.up.railway.app"
 paths:
   /api/ancestry/{name}:

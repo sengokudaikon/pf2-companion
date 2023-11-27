@@ -1,3 +1,0 @@
-package io.sengokudaikon.dbfinder.persistence.character.ancestry.repository
-
-class AncestryFeatureRepository

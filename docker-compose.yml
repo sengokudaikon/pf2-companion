@@ -1,0 +1,64 @@
+version: '3'
+services:
+  prometheus:
+    image: prom/prometheus:v2.31.1
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    networks:
+      - default
+
+  grafana:
+    image: grafana/grafana:8.3.3
+    ports:
+      - "3000:3000"
+    networks:
+      - default
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - ${APP_PORT}:8081
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+    networks:
+      - default
+
+  loki:
+    image: grafana/loki:2.4.1
+    ports:
+      - "3100:3100"
+    volumes:
+      - ./loki-data:/loki
+      - ./loki.yml:/etc/loki/local-config.yml
+    command:
+      - '-config.file=/etc/loki/local-config.yml'
+    networks:
+      - default
+
+  promtail:
+    image: grafana/promtail:2.4.1
+    ports:
+      - "9080:9080"
+    volumes:
+      - ./promtail.yml:/etc/promtail/promtail.yml
+      - ./var/log:/var/log
+    command:
+      - '-config.file=/etc/promtail/promtail.yml'
+    networks:
+      - default
+volumes:
+  loki-data:
+      driver: local
+networks:
+  default:
+    driver: bridge

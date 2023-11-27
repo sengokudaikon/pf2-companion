@@ -23,4 +23,4 @@ RUN ./gradlew buildFatJar --no-daemon
 EXPOSE 8080
 RUN echo "$FIREBASE_SERVICE_ACCOUNT" | base64 -d > ./src/main/resources/adminsdk.json
 # Run the application
-CMD ["java", "-jar", "build/libs/pf2companion.jar"]
+CMD ["java", "-jar", "build/libs/pf2isn.jar"]

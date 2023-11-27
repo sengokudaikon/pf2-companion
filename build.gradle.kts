@@ -11,7 +11,7 @@ plugins {
     id("org.flywaydb.flyway") version "9.22.1"
 }
 
-group = "io.sengokudaikon.kfinder"
+group = "io.sengokudaikon.isn-backend"
 version = "0.0.1"
 buildscript {
     dependencies {
@@ -30,7 +30,7 @@ flyway {
     password = flywayPassword
 }
 application {
-    mainClass.set("io.sengokudaikon.kfinder.ApplicationKt")
+    mainClass.set("io.sengokudaikon.isn.ApplicationKt")
 
     val isDevelopment: Boolean = project.ext.has("development")
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
@@ -45,7 +45,7 @@ repositories {
 
 ktor {
     fatJar {
-        archiveFileName.set("pf2companion.jar")
+        archiveFileName.set("pf2isn.jar")
     }
 }
 ksp {
@@ -118,6 +118,8 @@ dependencies {
     implementation("io.github.crackthecodeabhi:kreds:0.9.0")
     implementation("org.jetbrains.exposed:exposed-jodatime:0.41.1")
     implementation("org.codehaus.janino:janino:3.1.10")
+    implementation("com.google.firebase:firebase-admin:9.1.1")
+    implementation("net.logstash.logback:logstash-logback-encoder:7.4")
     testImplementation("io.ktor:ktor-server-tests-jvm:2.3.0")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:1.8.20-RC")
     ksp("io.insert-koin:koin-ksp-compiler:1.2.2")
