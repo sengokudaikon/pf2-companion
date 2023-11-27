@@ -41,5 +41,5 @@ Usecases encapsulate specific functionalities of the application, spanning from 
 
 ## Dependencies
 
-Depends on [Fixture Loader](../fixtureloader/readme.md) for data generation, Redis for caching and PostgreSQL for data
+Depends on [Fixture Loader](../builder/readme.md) for data generation, Redis for caching and PostgreSQL for data
 storage

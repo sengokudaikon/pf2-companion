@@ -26,4 +26,4 @@ It ensures that the Database module starts each test cycle with a well-defined, 
 
 ## Dependencies
 
-Depends on [Database](../dbfinder/readme.md) for data storage, and providing entities and objects to populate.
+Depends on [Database](../compendium/readme.md) for data storage, and providing entities and objects to populate.
