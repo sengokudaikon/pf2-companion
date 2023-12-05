@@ -3,7 +3,6 @@ package io.sengokudaikon.isn.infrastructure.validation
 import io.sengokudaikon.isn.infrastructure.validation.constraints.ValidEmail
 import io.sengokudaikon.isn.infrastructure.validation.constraints.ValidPassword
 import io.sengokudaikon.isn.infrastructure.validation.constraints.ValidPlayerName
-import io.sengokudaikon.isn.infrastructure.validation.constraints.ValidUUID
 import io.sengokudaikon.isn.infrastructure.validation.constraints.ValidUsername
 import kotlin.reflect.KProperty1
 import kotlin.reflect.full.declaredMemberProperties
@@ -34,11 +33,6 @@ fun validate(obj: Any) {
                 is ValidUsername -> {
                     val validator = UsernameValidator()
                     requireValidation(value as String, validator::validate, "Invalid username format")
-                }
-
-                is ValidUUID -> {
-                    val validator = UUIDValidator()
-                    requireValidation(value as String, validator::validate, "Invalid UUID format")
                 }
             }
         }

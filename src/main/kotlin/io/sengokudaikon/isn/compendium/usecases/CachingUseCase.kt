@@ -1,6 +1,5 @@
 package io.sengokudaikon.isn.compendium.usecases
 
-import com.github.kittinunf.result.runCatching
 import io.sengokudaikon.isn.compendium.persistence.cache.CacheManager
 import io.sengokudaikon.isn.compendium.persistence.cache.InMemoryCache
 import kotlinx.coroutines.Dispatchers
@@ -25,6 +24,6 @@ open class CachingUseCase : KoinComponent {
                 val result: T = cache.get(cacheKey) ?: loaderFunc()
                 result
             }
-        }.get() ?: loaderFunc()
+        }.getOrNull() ?: loaderFunc()
     }
 }

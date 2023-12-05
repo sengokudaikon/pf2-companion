@@ -1,9 +1,7 @@
 package io.sengokudaikon.isn.infrastructure.ports
 
-import arrow.core.Either
-
 interface CrudPort<C, Q, R> : ReadPort<Q, R> {
-    suspend fun create(command: C): Either<Throwable, R>
-    suspend fun update(command: C): Either<Throwable, R>
-    suspend fun delete(command: C): Either<Throwable, Boolean>
+    suspend fun create(command: C): Result<R>
+    suspend fun update(command: C): Result<R>
+    suspend fun delete(command: C): Result<Boolean>
 }

@@ -33,8 +33,10 @@ class AuthenticationAdapter(
         }
         val result = authUseCase.register(command)
         return result.fold(
-            { error -> call.respond(HttpStatusCode.BadRequest, error.message ?: "Error during registration") },
-            {
+            onFailure = { error ->
+                call.respond(HttpStatusCode.BadRequest, error.localizedMessage ?: "Error during registration")
+            },
+            onSuccess = {
                 call.respond(
                     HttpStatusCode.Created,
                     message = mapOf(
@@ -54,8 +56,10 @@ class AuthenticationAdapter(
         }
         val result = authUseCase.authenticate(UserCommand.SignIn(uid))
         return result.fold(
-            { error -> call.respond(HttpStatusCode.BadRequest, error.message ?: "Error during registration") },
-            { user ->
+            onFailure = { error ->
+                call.respond(HttpStatusCode.BadRequest, error.message ?: "Error during registration")
+            },
+            onSuccess = { user ->
                 call.respond(
                     HttpStatusCode.OK,
                     message = user,

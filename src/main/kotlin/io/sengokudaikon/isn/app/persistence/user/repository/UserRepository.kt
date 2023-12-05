@@ -1,7 +1,5 @@
 package io.sengokudaikon.isn.app.persistence.user.repository
 
-import arrow.core.Either
-import arrow.core.right
 import com.mongodb.client.model.Filters.eq
 import com.mongodb.kotlin.client.coroutine.MongoCollection
 import io.sengokudaikon.isn.app.domain.user.User
@@ -13,7 +11,7 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
-import kotlinx.uuid.UUID
+import org.bson.types.ObjectId
 import org.koin.core.annotation.Single
 import kotlin.reflect.KCallable
 
@@ -26,17 +24,17 @@ class UserRepository : UserRepositoryPort {
 
     override suspend fun findByUid(uid: String): Result<User> = find(User::uid, uid)
 
-    override suspend fun create(command: UserCommand): Either<Throwable, User> {
+    override suspend fun create(command: UserCommand): Result<User> = runCatching {
         command as UserCommand.Create
         val user = User(
-            id = UUID().toString(),
+            id = ObjectId().toString(),
             email = command.email,
             uid = command.uid,
             role = command.role,
             name = command.name,
         )
         collection.insertOne(user)
-        return user.right()
+        user
     }
 
     override suspend fun update(command: UserCommand): Result<User> = runCatching {

@@ -4,7 +4,6 @@ import io.sengokudaikon.isn.app.domain.user.UserRole
 import io.sengokudaikon.isn.infrastructure.validation.constraints.ValidEmail
 import io.sengokudaikon.isn.infrastructure.validation.constraints.ValidUsername
 import kotlinx.serialization.Serializable
-import kotlinx.uuid.UUID
 
 interface UserCommand {
     @Serializable
@@ -23,7 +22,7 @@ interface UserCommand {
 
     @Serializable
     data class Update(
-        val id: UUID,
+        val id: String,
         val role: UserRole?,
         val email: String?,
         val username: String?,
@@ -31,6 +30,6 @@ interface UserCommand {
 
     @Serializable
     data class Delete(
-        val id: UUID,
+        val id: String,
     ) : UserCommand
 }

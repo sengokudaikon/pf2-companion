@@ -7,6 +7,7 @@ plugins {
     id("io.gitlab.arturbosch.detekt") version "1.23.0"
     id("jacoco")
     id("org.flywaydb.flyway") version "9.22.1"
+    id("ca.cutterslade.analyze") version "1.9.1"
 }
 
 group = "io.sengokudaikon.isn-backend"
@@ -47,27 +48,13 @@ dependencies {
     implementation("io.swagger.codegen.v3:swagger-codegen-generators:1.0.40")
     implementation("io.github.cdimascio:dotenv-kotlin:6.4.0")
     implementation("io.ktor:ktor-server-status-pages:2.3.1")
-    implementation("io.arrow-kt:arrow-continuations:1.2.0")
     implementation("io.insert-koin:koin-ktor:3.3.1")
     implementation("io.insert-koin:koin-core:3.3.3")
-    implementation("de.nycode:bcrypt:2.3.0")
     implementation("io.insert-koin:koin-logger-slf4j:3.3.1")
     implementation("io.insert-koin:koin-annotations:1.1.1")
-    implementation("io.arrow-kt:arrow-core:1.2.0-RC")
-    implementation("io.arrow-kt:arrow-fx-coroutines:1.2.0-RC")
-    implementation("app.softwork:kotlinx-uuid-exposed:0.0.17")
-    // db
-
-    implementation("org.testng:testng:7.7.0")
-    implementation("com.zaxxer:HikariCP:5.0.1")
-    implementation("org.bouncycastle:bcprov-jdk18on:1.72")
-    implementation("net.bytebuddy:byte-buddy:1.14.2")
     // ktor
     api("io.ktor:ktor-server-core:2.3.1")
-    implementation("io.ktor:ktor-server-netty:2.3.1") {
-        exclude(group = "io.netty", module = "netty-resolver-dns-native-macos")
-    }
-    implementation("org.mongodb:bson-kotlin:4.11.0")
+    implementation("io.ktor:ktor-server-netty:2.3.1")
     implementation("org.mongodb:bson-kotlinx:4.11.0")
     api("org.jetbrains.kotlin:kotlin-reflect:1.8.20-RC")
     api("io.ktor:ktor-server-auth:2.3.1")
@@ -96,45 +83,24 @@ dependencies {
     implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.1")
     implementation("ch.qos.logback:logback-classic:1.4.7")
     implementation("io.ktor:ktor-server-config-yaml:2.3.4")
-    implementation("io.github.classgraph:classgraph:4.8.161")
     implementation("com.github.ben-manes.caffeine:caffeine:3.1.5")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-guava:1.7.2")
-    implementation("org.jsoup:jsoup:1.16.1")
-    implementation("com.redis:redis-smart-cache-jdbc:0.3.1")
     implementation("io.github.crackthecodeabhi:kreds:0.9.0")
-    implementation("org.jetbrains.exposed:exposed-jodatime:0.41.1")
-    implementation("org.codehaus.janino:janino:3.1.10")
     implementation("com.google.firebase:firebase-admin:9.1.1")
-    implementation("net.logstash.logback:logstash-logback-encoder:7.4")
     implementation("org.mongodb:mongodb-driver-kotlin-coroutine:4.11.0")
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
     implementation("io.mockk:mockk:1.13.5")
-    implementation("io.netty:netty-resolver-dns-native-macos:4.1.95.Final") {
-        artifact {
-            classifier = "osx-aarch_64"
-        }
-    }
     testImplementation("io.ktor:ktor-server-tests-jvm:2.3.0")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:1.8.20-RC")
     ksp("io.insert-koin:koin-ksp-compiler:1.2.2")
-    ksp("io.arrow-kt:arrow-optics-ksp-plugin:1.2.0")
     ksp("com.github.dimitark.ktor-annotations:processor:0.0.3")
-    api("io.konform:konform-jvm:0.4.0")
     implementation("at.favre.lib:bcrypt:0.10.2")
     implementation("com.vdurmont:semver4j:3.1.0")
-    api("io.ktor:ktor-client-cio-jvm:2.3.1")
-    api("io.ktor:ktor-client-logging-jvm:2.3.1")
-    api("io.ktor:ktor-client-serialization-jvm:2.3.1")
     implementation("io.ktor:ktor-client-content-negotiation:2.3.1")
     api("io.opentelemetry:opentelemetry-api:1.28.0")
     api("io.opentelemetry:opentelemetry-extension-kotlin:1.28.0")
     api("io.opentelemetry:opentelemetry-semconv:1.28.0-alpha")
     api("io.opentelemetry.instrumentation:opentelemetry-instrumentation-annotations:1.28.0")
     implementation("io.github.microutils:kotlin-logging:3.0.5")
-    // =============== utils - general ===============
-    implementation("com.github.kittinunf.result:result:5.4.0")
-    implementation("com.github.kittinunf.result:result-coroutines:4.0.0")
-    implementation("org.apache.commons:commons-text:1.10.0")
 }
 
 detekt {
