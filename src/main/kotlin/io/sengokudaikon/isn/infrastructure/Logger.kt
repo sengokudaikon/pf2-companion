@@ -11,6 +11,7 @@ import java.io.OutputStream
 val logger: Logger = LoggerFactory.getLogger("GlobalLogger")
 val exceptionLogger: Logger = LoggerFactory.getLogger("ExceptionLogger")
 
+@Suppress("unused")
 class LogFmtEncoder : EncoderBase<ILoggingEvent>() {
     private var outputStream: OutputStream? = null
 

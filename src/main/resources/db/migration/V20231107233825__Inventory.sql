@@ -1,8 +1,0 @@
--- create table if not exists char_inventory(
---     id uuid primary key,
---     character_id uuid references characters(id),
---     platinum int,
---     gold int,
---     silver int,
---     copper int
--- )

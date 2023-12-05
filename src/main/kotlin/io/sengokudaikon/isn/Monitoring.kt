@@ -49,7 +49,7 @@ fun Application.configureMonitoring() {
             call.respond(appMicrometerRegistry.scrape())
         }
         get("/metrics-http") {
-            val meters = appMicrometerRegistry.find("http.server.requests").meters()
+            val meters = appMicrometerRegistry.find("ktor.http.server.requests.active").meters()
             val snapshots = meters.flatMap { meter ->
                 when (meter) {
                     is Timer -> meter.takeIf { it.count > 0 }?.let {

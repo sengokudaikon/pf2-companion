@@ -1,5 +1,3 @@
-import io.github.cdimascio.dotenv.Dotenv
-
 plugins {
     kotlin("jvm") version "1.9.10"
     id("io.ktor.plugin") version "2.3.4"
@@ -19,16 +17,6 @@ buildscript {
     }
 }
 
-val dotenv = Dotenv.configure().ignoreIfMissing().load()
-val flywayUrl = "jdbc:postgresql://" + dotenv["DB_HOST"] + ":" + dotenv["DB_PORT"] + "/" + dotenv["DB_NAME"]
-val flywayUser = dotenv["DB_USER"]
-val flywayPassword = dotenv["DB_PASSWORD"]
-
-flyway {
-    url = flywayUrl
-    user = flywayUser
-    password = flywayPassword
-}
 application {
     mainClass.set("io.sengokudaikon.isn.ApplicationKt")
 
@@ -69,20 +57,18 @@ dependencies {
     implementation("io.arrow-kt:arrow-fx-coroutines:1.2.0-RC")
     implementation("app.softwork:kotlinx-uuid-exposed:0.0.17")
     // db
-    implementation("org.jetbrains.exposed:exposed-core:0.40.1")
-    implementation("org.jetbrains.exposed:exposed-jdbc:0.40.1")
-    implementation("org.jetbrains.exposed:exposed-dao:0.40.1")
-    implementation("org.postgresql:postgresql:42.5.4")
+
     implementation("org.testng:testng:7.7.0")
-    implementation("org.flywaydb:flyway-core:9.16.0")
     implementation("com.zaxxer:HikariCP:5.0.1")
     implementation("org.bouncycastle:bcprov-jdk18on:1.72")
     implementation("net.bytebuddy:byte-buddy:1.14.2")
-    implementation("org.jetbrains.exposed:exposed-java-time:0.40.1")
-    implementation("app.softwork:kotlinx-uuid-core:0.0.19")
     // ktor
     api("io.ktor:ktor-server-core:2.3.1")
-    implementation("io.ktor:ktor-server-netty:2.3.1")
+    implementation("io.ktor:ktor-server-netty:2.3.1") {
+        exclude(group = "io.netty", module = "netty-resolver-dns-native-macos")
+    }
+    implementation("org.mongodb:bson-kotlin:4.11.0")
+    implementation("org.mongodb:bson-kotlinx:4.11.0")
     api("org.jetbrains.kotlin:kotlin-reflect:1.8.20-RC")
     api("io.ktor:ktor-server-auth:2.3.1")
     api("io.ktor:ktor-server-auth-jwt:2.3.1")
@@ -120,6 +106,14 @@ dependencies {
     implementation("org.codehaus.janino:janino:3.1.10")
     implementation("com.google.firebase:firebase-admin:9.1.1")
     implementation("net.logstash.logback:logstash-logback-encoder:7.4")
+    implementation("org.mongodb:mongodb-driver-kotlin-coroutine:4.11.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
+    implementation("io.mockk:mockk:1.13.5")
+    implementation("io.netty:netty-resolver-dns-native-macos:4.1.95.Final") {
+        artifact {
+            classifier = "osx-aarch_64"
+        }
+    }
     testImplementation("io.ktor:ktor-server-tests-jvm:2.3.0")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:1.8.20-RC")
     ksp("io.insert-koin:koin-ksp-compiler:1.2.2")

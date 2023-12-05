@@ -1,31 +1,14 @@
 package io.sengokudaikon.isn.compendium.persistence.cache
 
-import io.github.crackthecodeabhi.kreds.connection.Endpoint
 import io.github.crackthecodeabhi.kreds.connection.KredsClient
-import io.github.crackthecodeabhi.kreds.connection.newClient
-import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.KSerializer
-import org.jetbrains.exposed.sql.exposedLogger
 import org.koin.core.annotation.Single
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 @Single
-class CacheManager(private val redisConfig: RedisConfig) {
-    val redisClient: KredsClient? = runBlocking { initRedis() }
-    private suspend fun initRedis(): KredsClient? {
-        val client = newClient(
-            Endpoint(redisConfig.host, redisConfig.port),
-        )
-        runCatching { client.auth(redisConfig.user, redisConfig.password) }
-            .onFailure {
-                exposedLogger.error(it.stackTraceToString())
-                throw InitializationError("Failed to connect to Redis!", it)
-            }
-            .onSuccess {
-                exposedLogger.info("Successfully connected to Redis!")
-                return client
-            }
-        return null
-    }
+class CacheManager : KoinComponent {
+    val redisClient: KredsClient by inject()
 
     fun <T> createRedisCache(serializer: KSerializer<T>, loaderFunc: suspend () -> T): RedisCache<T> {
         return RedisCache(redisClient, serializer, loaderFunc)

@@ -2,11 +2,10 @@ package io.sengokudaikon.isn.app.adapters
 
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
-import io.sengokudaikon.isn.app.domain.user.model.UserRole
+import io.sengokudaikon.isn.app.domain.user.UserRole
 import io.sengokudaikon.isn.infrastructure.AuthorizationService
 import io.sengokudaikon.isn.infrastructure.auth.FirebasePrincipal
 import io.sengokudaikon.isn.infrastructure.errors.UserException
-import kotlinx.uuid.UUID
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -20,7 +19,7 @@ abstract class Adapter : KoinComponent {
         return authorization.authorize(call, requiredRoles, block)
     }
 
-    protected suspend fun fromUid(call: ApplicationCall): UUID {
+    protected suspend fun fromUid(call: ApplicationCall): String {
         return authorization.getUserId(call)
     }
 

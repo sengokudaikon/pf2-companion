@@ -1,6 +1,7 @@
 ktor:
+  development: true
   application:
     modules:
-      - io.sengokudaikon.isn.ApplicationKt.module
+      - io.sengokudaikon.isn.ApplicationKt.exec
   deployment:
     port: ${APP_PORT}

@@ -1,51 +1,48 @@
 openapi: "3.0.3"
 info:
-  title: "pathfinder_app API"
-  description: "pathfinder_app API"
+  title: "pf2_companion_backend API"
+  description: "pf2_companion_backend API"
   version: "1.0.0"
 servers:
-  - url: "http://0.0.0.0:8081"
+  - url: "http://localhost:8081"
   - url: "https://pf2-companion.up.railway.app"
 paths:
   /api/ancestry/{name}:
     get:
       description: ""
       parameters:
-        - name: "name"
-          in: "path"
-          required: true
-          schema:
-            type: "string"
+      - name: "name"
+        in: "path"
+        required: true
+        schema:
+          type: "string"
       responses:
         "400":
           description: "Bad Request"
           content:
-            text/plain:
+            application/json:
               schema:
                 type: "string"
-              examples:
-                Example#1:
-                  value: ""
         "200":
           description: "OK"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Ancestry"
+                $ref: "#/components/schemas/AncestryResponse"
   /api/ancestry/list/{page}/{size}:
     get:
       description: ""
       parameters:
-        - name: "page"
-          in: "path"
-          required: true
-          schema:
-            type: "string"
-        - name: "size"
-          in: "path"
-          required: true
-          schema:
-            type: "string"
+      - name: "page"
+        in: "path"
+        required: true
+        schema:
+          type: "string"
+      - name: "size"
+        in: "path"
+        required: true
+        schema:
+          type: "string"
       responses:
         "200":
           description: "OK"
@@ -54,32 +51,7 @@ paths:
               schema:
                 type: "array"
                 items:
-                  $ref: "#/components/schemas/Ancestry"
-  /api/auth:
-    post:
-      description: ""
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/SignIn"
-        required: true
-      responses:
-        "400":
-          description: "Bad Request"
-          content:
-            application/json:
-              schema:
-                type: "string"
-              examples:
-                Example#1:
-                  value: "User doesn't exist"
-        "200":
-          description: "OK"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Function1_? super Throwable"
+                  $ref: "#/components/schemas/AncestryResponse"
   /api/register:
     post:
       description: ""
@@ -90,6 +62,12 @@ paths:
               $ref: "#/components/schemas/Create"
         required: true
       responses:
+        "500":
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                type: "string"
         "400":
           description: "Bad Request"
           content:
@@ -105,6 +83,52 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Map_String"
+  /api/search/{query}:
+    get:
+      description: ""
+      parameters:
+      - name: "query"
+        in: "path"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        "400":
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                type: "string"
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema: {}
+  /api/usecases:
+    post:
+      description: ""
+      responses:
+        "500":
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                type: "string"
+        "400":
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                type: "string"
+              examples:
+                Example#1:
+                  value: "User doesn't exist"
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Function1_? super Throwable"
   /metrics-http:
     get:
       description: ""
@@ -155,6 +179,216 @@ paths:
                   value: "Healthy"
 components:
   schemas:
+    ObjectId:
+      type: "object"
+      properties:
+        timestamp:
+          type: "integer"
+          format: "int32"
+    DescriptionType:
+      type: "object"
+      properties:
+        value:
+          type: "string"
+    SubOption:
+      type: "object"
+      properties:
+        label:
+          type: "string"
+        value:
+          type: "string"
+    DamageTypeInner:
+      type: "object"
+      properties:
+        damageType:
+          type: "string"
+        dice:
+          type: "integer"
+          format: "int32"
+        die:
+          type: "string"
+    DamageType:
+      type: "object"
+      properties:
+        base:
+          $ref: "#/components/schemas/DamageTypeInner"
+    RuleEffect:
+      type: "object"
+      properties:
+        affects:
+          type: "string"
+        events:
+          type: "array"
+          items:
+            type: "string"
+        includesSelf:
+          type: "boolean"
+        predicate:
+          type: "array"
+          items:
+            type: "string"
+        uuid:
+          type: "string"
+    BsonValue:
+      type: "object"
+      properties: {}
+    Choice:
+      type: "object"
+      properties:
+        label:
+          type: "string"
+        value:
+          type: "string"
+    GenericRule:
+      type: "object"
+      properties:
+        domain:
+          type: "string"
+        key:
+          type: "string"
+        label:
+          type: "string"
+        mode:
+          type: "string"
+        type:
+          type: "string"
+        option:
+          type: "string"
+        suboptions:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/SubOption"
+        category:
+          type: "string"
+        toggleable:
+          type: "boolean"
+        damage:
+          $ref: "#/components/schemas/DamageType"
+        damageDice:
+          type: "string"
+        damageType:
+          type: "string"
+        overrides:
+          type: "array"
+          items:
+            type: "string"
+        adjustment:
+          type: "string"
+        effects:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/RuleEffect"
+        range:
+          type: "string"
+        predicate:
+          $ref: "#/components/schemas/BsonValue"
+        hasHands:
+          type: "boolean"
+        selector:
+          type: "string"
+        slug:
+          type: "string"
+        choices:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/Choice"
+        flag:
+          type: "string"
+        prompt:
+          type: "string"
+        value:
+          $ref: "#/components/schemas/BsonValue"
+    Traits:
+      type: "object"
+      properties:
+        otherTags:
+          type: "array"
+          items:
+            type: "string"
+        rarity:
+          type: "string"
+        value:
+          type: "array"
+          items:
+            type: "string"
+        selected:
+          $ref: "#/components/schemas/BsonValue"
+    Publication:
+      type: "object"
+      properties:
+        license:
+          type: "string"
+        remaster:
+          type: "boolean"
+        title:
+          type: "string"
+    Languages:
+      type: "object"
+      properties:
+        count:
+          type: "integer"
+          format: "int32"
+        custom:
+          type: "string"
+        value:
+          type: "array"
+          items:
+            type: "string"
+    SystemProperty:
+      type: "object"
+      properties:
+        description:
+          $ref: "#/components/schemas/DescriptionType"
+        rules:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/GenericRule"
+        traits:
+          $ref: "#/components/schemas/Traits"
+        publication:
+          $ref: "#/components/schemas/Publication"
+        additionalLanguages:
+          $ref: "#/components/schemas/Languages"
+        boosts:
+          type: "string"
+        flaws:
+          type: "string"
+        hp:
+          type: "integer"
+          format: "int32"
+        languages:
+          $ref: "#/components/schemas/Languages"
+        reach:
+          type: "integer"
+          format: "int32"
+        size:
+          type: "string"
+        source:
+          type: "string"
+        speed:
+          type: "integer"
+          format: "int32"
+        items:
+          type: "string"
+        vision:
+          type: "string"
+        additionalSense:
+          type: "string"
+    AncestryModel:
+      type: "object"
+      properties:
+        id:
+          $ref: "#/components/schemas/ObjectId"
+        img:
+          type: "string"
+        name:
+          type: "string"
+        type:
+          type: "string"
+        system:
+          $ref: "#/components/schemas/SystemProperty"
+        ancestryFeatures:
+          type: "string"
     StackTraceElement:
       type: "object"
       properties:
@@ -180,151 +414,155 @@ components:
           type: "array"
           items:
             $ref: "#/components/schemas/StackTraceElement"
-    VisionSense:
+    RuleResponse:
       type: "object"
       properties:
-        name:
+        domain:
           type: "string"
-          enum:
-            - "NORMAL"
-            - "LOW_LIGHT"
-            - "DARKVISION"
-            - "TREMORSENSE"
-            - "LIFESIGHT"
-            - "BLINDSENSE"
-            - "BLINDSIGHT"
-        range:
-          type: "integer"
-          format: "int32"
-    AbilityBoost:
-      type: "object"
-      properties:
-        attribute:
+        key:
           type: "string"
-        value:
-          type: "integer"
-          format: "int32"
-    AbilityFlaw:
-      type: "object"
-      properties:
-        attribute:
+        label:
           type: "string"
-        value:
-          type: "integer"
-          format: "int32"
-    Language:
-      type: "object"
-      properties:
-        name:
+        mode:
           type: "string"
-        description:
+        type:
           type: "string"
-    Trait:
-      type: "object"
-      properties:
-        name:
+        option:
           type: "string"
-        description:
-          type: "string"
-        contentSrc:
-          type: "string"
-        homebrewID:
-          type: "integer"
-          format: "int32"
-    AncestryPhysicalFeature:
-      type: "object"
-      properties:
-        name:
-          type: "string"
-        description:
-          type: "string"
-        img:
-          type: "string"
-        level:
-          type: "integer"
-          format: "int32"
-        traits:
+        suboptions:
           type: "array"
           items:
-            $ref: "#/components/schemas/Trait"
-    AncestryRule:
+            $ref: "#/components/schemas/SubOption"
+        category:
+          type: "string"
+        toggleable:
+          type: "boolean"
+        damage:
+          $ref: "#/components/schemas/DamageType"
+        damageDice:
+          type: "string"
+        damageType:
+          type: "string"
+        overrides:
+          type: "array"
+          items:
+            type: "string"
+        adjustment:
+          type: "string"
+        effects:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/RuleEffect"
+        range:
+          type: "string"
+        predicate:
+          type: "string"
+        hasHands:
+          type: "boolean"
+        selector:
+          type: "string"
+        slug:
+          type: "string"
+        choices:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/Choice"
+        flag:
+          type: "string"
+        prompt:
+          type: "string"
+        value:
+          type: "string"
+    TraitsResponse:
       type: "object"
       properties:
-        name:
+        otherTags:
+          type: "array"
+          items:
+            type: "string"
+        rarity:
           type: "string"
+        value:
+          type: "array"
+          items:
+            type: "string"
+        selected:
+          type: "string"
+    SystemResponse:
+      type: "object"
+      properties:
         description:
           type: "string"
-    Ancestry:
+        rules:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/RuleResponse"
+        traits:
+          $ref: "#/components/schemas/TraitsResponse"
+        publication:
+          $ref: "#/components/schemas/Publication"
+        additionalLanguages:
+          $ref: "#/components/schemas/Languages"
+        boosts:
+          type: "array"
+          items:
+            type: "string"
+            enum:
+            - "None"
+            - "Anything"
+            - "Strength"
+            - "Dexterity"
+            - "Constitution"
+            - "Intelligence"
+            - "Wisdom"
+            - "Charisma"
+        flaws:
+          type: "array"
+          items:
+            type: "string"
+            enum:
+            - "None"
+            - "Anything"
+            - "Strength"
+            - "Dexterity"
+            - "Constitution"
+            - "Intelligence"
+            - "Wisdom"
+            - "Charisma"
+        hp:
+          type: "integer"
+          format: "int32"
+        languages:
+          $ref: "#/components/schemas/Languages"
+        reach:
+          type: "integer"
+          format: "int32"
+        size:
+          type: "string"
+        source:
+          type: "string"
+        speed:
+          type: "integer"
+          format: "int32"
+        items:
+          type: "string"
+        vision:
+          type: "string"
+        additionalSense:
+          type: "string"
+    AncestryResponse:
       type: "object"
       properties:
         id:
           type: "string"
         name:
           type: "string"
-        description:
+        type:
           type: "string"
-        rarity:
+        system:
+          $ref: "#/components/schemas/SystemResponse"
+        ancestryFeatures:
           type: "string"
-        hp:
-          type: "integer"
-          format: "int32"
-        size:
-          type: "string"
-        speed:
-          type: "integer"
-          format: "int32"
-        visionSense:
-          $ref: "#/components/schemas/VisionSense"
-        additionalSense:
-          $ref: "#/components/schemas/VisionSense"
-        artworkURL:
-          type: "string"
-        contentSrc:
-          type: "string"
-        homebrewID:
-          type: "integer"
-          format: "int32"
-        version:
-          type: "string"
-        abilityBoosts:
-          type: "array"
-          items:
-            $ref: "#/components/schemas/AbilityBoost"
-        abilityFlaws:
-          type: "array"
-          items:
-            $ref: "#/components/schemas/AbilityFlaw"
-        languages:
-          type: "array"
-          items:
-            $ref: "#/components/schemas/Language"
-        physicalFeatures:
-          type: "array"
-          items:
-            $ref: "#/components/schemas/AncestryPhysicalFeature"
-        traits:
-          type: "array"
-          items:
-            $ref: "#/components/schemas/Trait"
-        rules:
-          type: "array"
-          items:
-            $ref: "#/components/schemas/AncestryRule"
-    UserIdentifier:
-      type: "object"
-      properties: { }
-    SignIn:
-      type: "object"
-      properties:
-        identifier:
-          $ref: "#/components/schemas/UserIdentifier"
-        password:
-          type: "string"
-    Function1:
-      type: "object"
-      properties: { }
-    Function1_? super Throwable:
-      type: "object"
     Create:
       type: "object"
       properties:
@@ -332,13 +570,32 @@ components:
           type: "string"
         username:
           type: "string"
-        password:
+        name:
           type: "string"
+        uid:
+          type: "string"
+        role:
+          type: "string"
+          enum:
+          - "USER"
+          - "GAMEMASTER"
+          - "ADMIN"
+          - "OWNER"
     Map:
       type: "object"
-      properties: { }
+      properties: {}
     Map_String:
       type: "string"
+    Flow:
+      type: "object"
+      properties: {}
+    Flow_? extends SearchResult:
+      type: "object"
+    Function1:
+      type: "object"
+      properties: {}
+    Function1_? super Throwable:
+      type: "object"
     MetricSnapshot:
       type: "object"
       properties:

@@ -13,8 +13,8 @@ style:
       - '0'
 complexity:
   LongParameterList:
-    constructorThreshold: 10
-    functionThreshold: 10
+    constructorThreshold: 15
+    functionThreshold: 15
   LongMethod:
     active: false
   TooManyFunctions:

@@ -9,7 +9,7 @@ import io.ktor.server.plugins.swagger.*
 import io.ktor.server.resources.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import io.swagger.codegen.v3.generators.html.StaticHtmlCodegen
+import io.swagger.codegen.v3.generators.kotlin.KotlinServerCodegen
 
 fun Application.configureRouting() {
     install(Resources)
@@ -22,7 +22,7 @@ fun Application.configureRouting() {
             configLoaders
         }
         openAPI(path = "/api/openapi", swaggerFile = "openapi/documentation.yaml") {
-            codegen = StaticHtmlCodegen()
+            codegen = KotlinServerCodegen()
         }
 
         get("/api/health") {

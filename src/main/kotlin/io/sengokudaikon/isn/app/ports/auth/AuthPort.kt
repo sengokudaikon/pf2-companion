@@ -1,7 +1,7 @@
 package io.sengokudaikon.isn.app.ports.auth
 
 import arrow.core.Either
-import io.sengokudaikon.isn.app.domain.user.model.User
+import io.sengokudaikon.isn.app.domain.user.User
 import io.sengokudaikon.isn.app.operations.user.command.UserCommand
 
 interface AuthPort {

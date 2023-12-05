@@ -5,28 +5,54 @@ import io.ktor.server.application.*
 import io.ktor.server.plugins.*
 import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.response.*
+import org.koin.core.error.NoBeanDefFoundException
 
 fun Application.handleErrors() {
     install(StatusPages) {
+        exception<NoBeanDefFoundException> { call, cause ->
+            this@handleErrors.log.error(cause.localizedMessage)
+            call.respond(
+                HttpStatusCode.InternalServerError,
+                "500:" +
+                    cause.localizedMessage +
+                    "\n${cause.stackTraceToString()}",
+            )
+        }
         exception<InternalError> { call, cause ->
             this@handleErrors.log.error(cause.localizedMessage)
-            call.respondText(text = "500: ${cause.localizedMessage}", status = HttpStatusCode.InternalServerError)
+            call.respond(
+                HttpStatusCode.InternalServerError,
+                "500: ${cause.localizedMessage}" +
+                    "\n${cause.stackTraceToString()}",
+            )
         }
         exception<Throwable> { call, cause ->
             this@handleErrors.log.error(cause.localizedMessage)
-            call.respond(HttpStatusCode.InternalServerError, "500: ${cause.localizedMessage}")
+            call.respond(
+                HttpStatusCode.InternalServerError,
+                "500: ${cause.localizedMessage}" + "\n${cause.stackTraceToString()}",
+            )
         }
         exception<IllegalArgumentException> { call, cause ->
             this@handleErrors.log.error(cause.localizedMessage)
-            call.respondText(text = "400: ${cause.localizedMessage}", status = HttpStatusCode.BadRequest)
+            call.respond(
+                HttpStatusCode.BadRequest,
+                "400: ${cause.localizedMessage}" + "\n${cause.stackTraceToString()}",
+            )
         }
         exception<BadRequestException> { call, cause ->
             this@handleErrors.log.error(cause.localizedMessage)
-            call.respond(HttpStatusCode.BadRequest, "400: ${cause.localizedMessage}")
+            call.respond(
+                HttpStatusCode.BadRequest,
+                "400: ${cause.localizedMessage}" + "\n${cause.stackTraceToString()}",
+            )
         }
         exception<NotFoundException> { call, cause ->
             this@handleErrors.log.error(cause.localizedMessage)
-            call.respondText(text = "404: ${cause.localizedMessage}", status = HttpStatusCode.NotFound)
+            call.respond(
+                HttpStatusCode.NotFound,
+                "404: ${cause.localizedMessage}" + "\n${cause.stackTraceToString()}",
+            )
         }
     }
 }

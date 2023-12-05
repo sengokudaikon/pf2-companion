@@ -11,17 +11,15 @@ import org.koin.core.component.inject
 
 open class CachingUseCase : KoinComponent {
     private val cacheManager: CacheManager by inject()
+
+    @Suppress("unused")
     suspend fun <T : Any> withCache(
         cacheKey: String,
         serializer: KSerializer<T>,
         loaderFunc: suspend () -> T,
     ): T {
         val inMemoryCache = InMemoryCache(loaderFunc)
-        val cache = if (cacheManager.redisClient != null) {
-            cacheManager.createCompositeCache(serializer, loaderFunc, inMemoryCache)
-        } else {
-            inMemoryCache
-        }
+        val cache = cacheManager.createCompositeCache(serializer, loaderFunc, inMemoryCache)
         return runCatching {
             withContext(Dispatchers.IO) {
                 val result: T = cache.get(cacheKey) ?: loaderFunc()

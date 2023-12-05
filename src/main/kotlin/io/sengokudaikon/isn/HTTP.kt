@@ -11,10 +11,17 @@ import io.ktor.server.plugins.cors.routing.*
 import io.ktor.server.plugins.defaultheaders.*
 import io.ktor.server.plugins.hsts.*
 import io.ktor.server.plugins.partialcontent.*
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.modules.SerializersModule
+import kotlinx.serialization.modules.contextual
+import org.bson.codecs.kotlinx.BsonValueSerializer
+import org.bson.codecs.kotlinx.ObjectIdSerializer
 
 private const val MAX_RANGE: Int = 10
 private const val MAX_AGE_SECONDS: Int = 24 * 60 * 60
+
+@ExperimentalSerializationApi
 fun Application.configureHTTP() {
     install(CachingHeaders) {
         options { _, outgoingContent ->
@@ -55,6 +62,10 @@ fun Application.configureHTTP() {
                 prettyPrint = true
                 isLenient = true
                 ignoreUnknownKeys = true
+                serializersModule = SerializersModule {
+                    contextual(ObjectIdSerializer)
+                    contextual(BsonValueSerializer)
+                }
             },
         )
     }
