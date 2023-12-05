@@ -1,4 +1,4 @@
-FROM eclipse-temurin:17-jdk
+FROM eclipse-temurin:19-jdk
 WORKDIR /app
 
 # Copy the Gradle wrapper and build files to the container

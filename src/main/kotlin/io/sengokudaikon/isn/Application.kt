@@ -23,6 +23,8 @@ import kotlinx.serialization.ExperimentalSerializationApi
 import org.koin.dsl.module
 import org.koin.ksp.generated.module
 import org.koin.ktor.plugin.Koin
+import org.koin.logger.slf4jLogger
+
 val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
     println("Caught $throwable")
 }
@@ -80,6 +82,7 @@ suspend fun Application.exec() {
 
     FirebaseAdmin.init()
     install(Koin) {
+        slf4jLogger()
         modules(
             module {
                 single {
