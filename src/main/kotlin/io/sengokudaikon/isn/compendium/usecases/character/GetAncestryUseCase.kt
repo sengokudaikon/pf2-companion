@@ -13,9 +13,9 @@ class GetAncestryUseCase(
 ) : GetAncestryPort, CachingUseCase() {
     override suspend fun execute(query: AncestryQuery): Result<AncestryModel> {
         query as AncestryQuery.FindById
-        val cacheKey = "model_ancestry:${query.id}"
+        val cacheKey = "model_ancestry_id:${query.id}"
         return runCatching {
-            withCache(cacheKey, AncestryModel.serializer()) {
+            withCache(cacheKey) {
                 ancestryRepository.findById(query.id).getOrThrow()
             }
         }

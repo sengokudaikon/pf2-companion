@@ -40,13 +40,13 @@ class BackgroundRepository(
             actions
         }
 
-    override suspend fun findByName(name: String): Result<BackgroundModel> = find(BackgroundModel::name, name).map {
+    override suspend fun findByName(name: String): Result<BackgroundModel> = super.findByName(name).map {
         it.feats = findFeats(it).getOrDefault(emptyMap())
         it.actions = findActions(it).getOrDefault(emptyMap())
         it
     }
 
-    override suspend fun findById(id: String): Result<BackgroundModel> = find(BackgroundModel::id, id).map {
+    override suspend fun findById(id: String): Result<BackgroundModel> = super.findById(id).map {
         it.feats = findFeats(it).getOrDefault(emptyMap())
         it.actions = findActions(it).getOrDefault(emptyMap())
         it

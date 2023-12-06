@@ -5,7 +5,6 @@ import io.sengokudaikon.isn.compendium.domain.ancestry.repository.AncestryReposi
 import io.sengokudaikon.isn.compendium.operations.character.ancestry.query.AncestryQuery
 import io.sengokudaikon.isn.compendium.ports.character.ListAncestryPort
 import io.sengokudaikon.isn.compendium.usecases.CachingUseCase
-import kotlinx.serialization.builtins.ListSerializer
 import org.koin.core.annotation.Single
 
 @Single(binds = [ListAncestryPort::class])
@@ -16,8 +15,7 @@ class ListAncestryUseCase(
         query as AncestryQuery.FindAll
         val cacheKey = "model_ancestry:all:${query.page}:${query.limit}"
         return runCatching {
-            ancestryRepository.findAll(query.page, query.limit).getOrThrow()
-            withCache(cacheKey, ListSerializer(AncestryModel.serializer())) {
+            withCache(cacheKey) {
                 ancestryRepository.findAll(query.page, query.limit).getOrThrow()
             }
         }

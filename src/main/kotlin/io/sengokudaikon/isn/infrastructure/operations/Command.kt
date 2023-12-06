@@ -1,7 +1,14 @@
 package io.sengokudaikon.isn.infrastructure.operations
 
-interface Command<D, T> {
-    data class Create<D, T>(val dto: D) : Command<D, T>
-    data class Update<D, T>(val dto: D) : Command<D, T>
-    data class Delete<D, T>(val dto: D) : Command<D, T>
+import kotlinx.serialization.Serializable
+
+interface Command {
+    @Serializable
+    data class Create<D, T>(val dto: D) : Command
+
+    @Serializable
+    data class Update<D, T>(val dto: D) : Command
+
+    @Serializable
+    data class Delete<D, T>(val dto: D) : Command
 }

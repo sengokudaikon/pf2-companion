@@ -104,9 +104,15 @@ paths:
           content:
             application/json:
               schema: {}
-  /api/usecases:
+  /api/auth/signin:
     post:
       description: ""
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SignIn"
+        required: true
       responses:
         "500":
           description: "Internal Server Error"
@@ -128,7 +134,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Function1_? super Throwable"
+                $ref: "#/components/schemas/Map_String"
   /metrics-http:
     get:
       description: ""
@@ -563,6 +569,11 @@ components:
           $ref: "#/components/schemas/SystemResponse"
         ancestryFeatures:
           type: "string"
+    SignIn:
+      type: "object"
+      properties:
+        uid:
+          type: "string"
     Create:
       type: "object"
       properties:
@@ -586,16 +597,6 @@ components:
       properties: {}
     Map_String:
       type: "string"
-    Flow:
-      type: "object"
-      properties: {}
-    Flow_? extends SearchResult:
-      type: "object"
-    Function1:
-      type: "object"
-      properties: {}
-    Function1_? super Throwable:
-      type: "object"
     MetricSnapshot:
       type: "object"
       properties:

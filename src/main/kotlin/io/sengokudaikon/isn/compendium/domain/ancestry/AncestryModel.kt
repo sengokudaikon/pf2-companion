@@ -33,13 +33,14 @@ data class AncestryModel(
 ) : Model {
     override fun getSerializer(): KSerializer<*> = serializer()
     fun toResponse(): AncestryResponse {
-        return AncestryResponse(
+        val response = AncestryResponse(
             id = id.toHexString(),
             name = name,
             type = type,
             system = system.toResponse(),
             ancestryFeatures = ancestryFeatures.mapValues { it.value.toResponse() },
         )
+        return response
     }
     var ancestryFeatures: Map<String, AncestryFeatureModel> = emptyMap()
 

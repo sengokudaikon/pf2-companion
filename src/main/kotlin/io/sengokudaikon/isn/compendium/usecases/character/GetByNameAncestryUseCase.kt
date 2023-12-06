@@ -14,9 +14,9 @@ class GetByNameAncestryUseCase(
 
     override suspend fun execute(query: AncestryQuery): Result<AncestryModel> {
         query as AncestryQuery.FindByName
-        val cacheKey = "model_ancestry:${query.name}"
+        val cacheKey = "model_ancestry:name:${query.name}"
         return runCatching {
-            withCache(cacheKey, AncestryModel.serializer()) {
+            withCache(cacheKey) {
                 ancestryRepository.findByName(query.name).getOrThrow()
             }
         }

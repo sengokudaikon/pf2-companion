@@ -26,8 +26,9 @@ object RedisFactory {
                     logger.info("Successfully connected to Redis!")
                     return client
                 }
+        } else {
+            logger.info("No Redis credentials provided, skipping authentication...")
         }
-        logger.info("No Redis credentials provided, skipping authentication...")
         return client
     }
 }

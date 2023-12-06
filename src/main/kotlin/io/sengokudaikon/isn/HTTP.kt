@@ -46,6 +46,8 @@ fun Application.configureHTTP() {
         allowHeader(HttpHeaders.Accept)
         allowHeader(HttpHeaders.AcceptLanguage)
         allowCredentials = true
+        hosts.add("localhost:8081")
+        hosts.add("0.0.0.0:8081")
     }
     install(DefaultHeaders) {
         header("X-Engine", "Ktor")

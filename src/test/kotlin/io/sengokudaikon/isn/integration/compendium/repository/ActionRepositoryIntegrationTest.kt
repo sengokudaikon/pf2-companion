@@ -7,7 +7,7 @@ import io.sengokudaikon.isn.compendium.persistence.world.ActionRepository
 import io.sengokudaikon.isn.compendium.persistence.world.FeatEffectsRepository
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.runBlocking
-import kotlin.test.Test
+import org.junit.Test
 
 class ActionRepositoryIntegrationTest {
     private val client = MongoClient.create(ConnectionString("mongodb://localhost:27017"))

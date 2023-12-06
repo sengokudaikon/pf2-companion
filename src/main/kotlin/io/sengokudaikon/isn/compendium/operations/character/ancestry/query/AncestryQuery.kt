@@ -1,14 +1,15 @@
 package io.sengokudaikon.isn.compendium.operations.character.ancestry.query
 
-import kotlinx.serialization.Serializable
+import io.ktor.resources.*
+import io.sengokudaikon.isn.infrastructure.operations.Query
 
-interface AncestryQuery {
-    @Serializable
+interface AncestryQuery : Query {
+    @Resource("/api/ancestry/list/{page}/{limit}")
     data class FindAll(val page: Int, val limit: Int) : AncestryQuery
 
-    @Serializable
+    @Resource("/api/ancestry/{id}")
     data class FindById(val id: String) : AncestryQuery
 
-    @Serializable
+    @Resource("/api/ancestry/name/{name}")
     data class FindByName(val name: String) : AncestryQuery
 }

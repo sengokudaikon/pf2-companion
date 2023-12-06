@@ -20,10 +20,11 @@ class LogFmtEncoder : EncoderBase<ILoggingEvent>() {
         val stackTrace = if (event.throwableProxy != null) {
             event.throwableProxy.stackTraceElementProxyArray.joinToString("->") { it.toString() }
         } else {
-            ""
+            "none"
         }
 
-        val mdcData = MDC.getCopyOfContextMap().orEmpty().map { (key, value) -> "$key=$value" }.joinToString("\\n")
+        val mdcData = MDC.getCopyOfContextMap().orEmpty()
+            .map { (key, value) -> "$key=$value" }.joinToString("\\n")
 
         val message = "{level=${event.level}, logger=${event.loggerName}, message=${
             event.formattedMessage.replace(

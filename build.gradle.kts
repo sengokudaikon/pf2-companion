@@ -37,14 +37,13 @@ ktor {
 ksp {
     allowSourcesFromOtherPlugins = true
     arg("kapt.kotlin.generated", "build/generated/ksp/main/kotlin")
+    arg("KOIN_CONFIG_CHECK", "true")
 }
 dependencies {
-    // arrow & di
-    implementation("com.github.dimitark.ktor-annotations:annotations:0.0.3")
-    implementation("io.swagger.codegen.v3:swagger-codegen-generators:1.0.40")
+    // di
     implementation("io.github.cdimascio:dotenv-kotlin:6.4.1")
-    implementation("io.ktor:ktor-server-status-pages:$ktor_version")
     implementation("io.insert-koin:koin-ktor:$koin_version")
+    implementation("io.insert-koin:koin-core:$koin_version")
     implementation("io.insert-koin:koin-core-coroutines:$koin_version")
     implementation("io.insert-koin:koin-logger-slf4j:$koin_version")
     implementation("io.insert-koin:koin-test:$koin_version")
@@ -53,7 +52,7 @@ dependencies {
     // ktor
     api("io.ktor:ktor-server-core:$ktor_version")
     implementation("io.ktor:ktor-server-netty:$ktor_version")
-    implementation("org.mongodb:bson-kotlinx:4.11.0")
+    implementation("io.ktor:ktor-server-status-pages:$ktor_version")
     api("org.jetbrains.kotlin:kotlin-reflect:1.8.20-RC")
     api("io.ktor:ktor-server-auth:$ktor_version")
     api("io.ktor:ktor-server-auth-jwt:$ktor_version")
@@ -79,22 +78,34 @@ dependencies {
     implementation("io.ktor:ktor-server-content-negotiation:$ktor_version")
     implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
     implementation("ch.qos.logback:logback-classic:1.4.14")
+
+    // db
     implementation("com.github.ben-manes.caffeine:caffeine:3.1.8")
     implementation("io.github.crackthecodeabhi:kreds:0.9.0")
     implementation("com.google.firebase:firebase-admin:9.2.0")
     implementation("org.mongodb:mongodb-driver-kotlin-coroutine:4.11.0")
+    implementation("org.mongodb:bson-kotlinx:4.11.0")
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
-    implementation("io.mockk:mockk:1.13.5")
-    testImplementation("io.ktor:ktor-server-tests-jvm:2.3.0")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:1.8.20-RC")
+
     ksp("io.insert-koin:koin-ksp-compiler:1.2.2")
-    ksp("com.github.dimitark.ktor-annotations:processor:0.0.3")
 
     api("io.opentelemetry:opentelemetry-api:1.32.0")
     api("io.opentelemetry:opentelemetry-extension-kotlin:1.32.0")
     api("io.opentelemetry:opentelemetry-semconv:1.30.1-alpha")
     api("io.opentelemetry.instrumentation:opentelemetry-instrumentation-annotations:1.32.0")
-    implementation("io.github.microutils:kotlin-logging:4.0.0-beta-2")
+    implementation("io.github.microutils:kotlin-logging-jvm:4.0.0-beta-2")
+
+    // tests
+    implementation("io.mockk:mockk:1.13.5")
+    testImplementation("io.ktor:ktor-server-tests-jvm:2.3.0")
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:1.8.20-RC")
+    testImplementation("io.ktor:ktor-server-test-host-jvm:2.3.6")
+    testImplementation("com.google.guava:guava:31.1-jre")
+    testImplementation("io.kotest:kotest-runner-junit5-jvm:5.6.2")
+    testImplementation("io.kotest.extensions:kotest-assertions-ktor:2.0.0")
+    testImplementation("io.kotest:kotest-assertions-ktor-jvm:4.4.3")
+    testImplementation("io.kotest:kotest-property:5.6.2")
+    testImplementation("io.kotest.extensions:kotest-extensions-koin:1.1.0")
 }
 
 detekt {
@@ -113,4 +124,18 @@ tasks.withType<Test>().configureEach {
 
 tasks.shadowJar {
     isZip64 = true
+}
+configurations.all {
+    resolutionStrategy.capabilitiesResolution.withCapability("com.google.guava:listenablefuture") {
+        select("com.google.guava:guava:0")
+    }
+}
+tasks.analyzeClassesDependencies {
+    enabled = false
+}
+tasks.analyzeTestClassesDependencies {
+    enabled = false
+}
+tasks.analyzeDependencies {
+    enabled = false
 }

@@ -29,7 +29,7 @@ class AncestryRepository(
         }
 
     override suspend fun findByName(name: String): Result<AncestryModel> = runCatching {
-        val entity = find(AncestryModel::name, name).getOrThrow()
+        val entity = super.findByName(name).getOrThrow()
         entity.let {
             it.ancestryFeatures = fetchAncestryFeatures(it).getOrDefault(emptyMap())
         }
@@ -37,7 +37,7 @@ class AncestryRepository(
     }
 
     override suspend fun findById(id: String): Result<AncestryModel> = runCatching {
-        val entity = find(AncestryModel::id, id).getOrThrow()
+        val entity = super.findById(id).getOrThrow()
         entity.let {
             it.ancestryFeatures = fetchAncestryFeatures(it).getOrDefault(emptyMap())
         }
@@ -45,15 +45,11 @@ class AncestryRepository(
     }
 
     override suspend fun findAll(page: Int, limit: Int): Result<List<AncestryModel>> = runCatching {
-        val ancList = collection.find().skip((page - 1) * limit).limit(limit)
+        val ancList = super.findAll(page, limit).getOrThrow()
         ancList.map {
             it.ancestryFeatures = fetchAncestryFeatures(it).getOrDefault(emptyMap())
             it
         }.toList()
-    }
-
-    override suspend fun findAllNames(): Result<List<String>> = runCatching {
-        collection.find().map { it.name }.toList()
     }
 
     override suspend fun findByNames(names: List<String>): Result<List<AncestryModel>> {

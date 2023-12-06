@@ -1,6 +1,5 @@
 package io.sengokudaikon.isn
 
-import com.github.dimitark.ktor.routing.ktorRoutingAnnotationConfig
 import io.github.cdimascio.dotenv.dotenv
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
@@ -8,10 +7,7 @@ import io.ktor.server.netty.*
 import io.sengokudaikon.isn.infrastructure.CoreModule
 import io.sengokudaikon.isn.infrastructure.DatabaseFactory
 import io.sengokudaikon.isn.infrastructure.DbConfig
-import io.sengokudaikon.isn.infrastructure.RedisConfig
-import io.sengokudaikon.isn.infrastructure.RedisFactory
 import io.sengokudaikon.isn.infrastructure.auth.FirebaseAdmin
-import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.GlobalScope
@@ -20,18 +16,16 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.ExperimentalSerializationApi
-import org.koin.dsl.module
+import org.koin.core.context.startKoin
 import org.koin.ksp.generated.module
-import org.koin.ktor.plugin.Koin
+import org.koin.ktor.plugin.KoinApplicationStarted
+import org.koin.ktor.plugin.KoinApplicationStopPreparing
+import org.koin.ktor.plugin.KoinApplicationStopped
 import org.koin.logger.slf4jLogger
-
-val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
-    println("Caught $throwable")
-}
 
 @OptIn(DelicateCoroutinesApi::class)
 fun main() {
-    val server = GlobalScope.launch(exceptionHandler) {
+    val server = GlobalScope.launch() {
         embeddedServer(
             Netty,
             port = 8081,
@@ -60,47 +54,55 @@ suspend fun Application.exec() {
         port = dotenv["DB_PORT"].toInt(),
         name = dotenv["DB_NAME"],
     )
-    val redisConfig = RedisConfig(
-        host = dotenv["REDIS_HOST"],
-        port = dotenv["REDIS_PORT"].toInt(),
-        password = dotenv["REDIS_PASSWORD"],
-        user = dotenv["REDIS_USER"],
-    )
     val dbInit = coroutineScope {
         async(IO) {
             try {
                 DatabaseFactory.init(dbConfig = config)
             } catch (e: Exception) {
-                io.sengokudaikon.isn.infrastructure.logger.info(e.localizedMessage)
+                log.info(e.localizedMessage)
             }
         }
     }
     dbInit.await()
-    val redis = runBlocking {
-        RedisFactory.init(redisConfig = redisConfig)
-    }
-
-    FirebaseAdmin.init()
-    install(Koin) {
+    startKoin {
         slf4jLogger()
         modules(
-            module {
-                single {
-                    redis
-                }
-            },
             CoreModule().module,
         )
     }
+
+    FirebaseAdmin.init()
     configureSecurity()
     configureHTTP()
     configureMonitoring()
     configureRouting()
-    ktorRoutingAnnotationConfig()
+    configureTelemetry()
 
     coroutineScope {
         async(IO) {
             DatabaseFactory.createIndexes()
         }
+    }.await()
+}
+
+private fun Application.configureTelemetry() {
+    environment.monitor.subscribe(ApplicationStarting) {
+        log.info("Application starting...")
+    }
+    environment.monitor.subscribe(ApplicationStopping) {
+        log.info("Application stopping...")
+    }
+    environment.monitor.subscribe(ApplicationStarted) {
+        log.info("Application started")
+    }
+
+    environment.monitor.subscribe(KoinApplicationStarted) {
+        log.info("Koin started")
+    }
+    environment.monitor.subscribe(KoinApplicationStopPreparing) {
+        log.info("Koin stopping...")
+    }
+    environment.monitor.subscribe(KoinApplicationStopped) {
+        log.info("Koin stopped.")
     }
 }

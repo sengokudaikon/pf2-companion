@@ -6,8 +6,6 @@ import io.sengokudaikon.isn.compendium.domain.action.repository.ActionRepository
 import io.sengokudaikon.isn.compendium.domain.feat.FeatEffectModel
 import io.sengokudaikon.isn.infrastructure.getCollection
 import io.sengokudaikon.isn.infrastructure.repository.BaseRepository
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.toList
 import org.koin.core.annotation.Single
 
 @Single(binds = [ActionRepositoryPort::class])
@@ -22,25 +20,17 @@ class ActionRepository(
                 ?.let { effectRepositoryPort.findByName(it.name).getOrNull() }
             effect
         }
-    override suspend fun findByName(name: String): Result<ActionModel> = find(ActionModel::name, name).let {
+    override suspend fun findByName(name: String): Result<ActionModel> = super.findByName(name).let {
         it.map {
             it.effect = findEffects(it).getOrNull()
             it
         }
     }
 
-    override suspend fun findById(id: String): Result<ActionModel> = find(ActionModel::id, id).let {
+    override suspend fun findById(id: String): Result<ActionModel> = super.findById(id).let {
         it.map {
             it.effect = findEffects(it).getOrNull()
             it
         }
-    }
-
-    override suspend fun findAll(page: Int, limit: Int): Result<List<ActionModel>> = runCatching {
-        collection.find().skip((page - 1) * limit).limit(limit).toList()
-    }
-
-    override suspend fun findAllNames(): Result<List<String>> = runCatching {
-        collection.find().map { it.name }.toList()
     }
 }

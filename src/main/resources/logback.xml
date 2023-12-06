@@ -15,7 +15,7 @@
             <maxHistory>30</maxHistory>
         </rollingPolicy>
     </appender>
-    <root level="DEBUG">
+    <root level="INFO">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="ASYNC"/>
         <appender-ref ref="FILE"/>

@@ -10,7 +10,7 @@ import io.sengokudaikon.isn.compendium.persistence.world.FeatEffectsRepository
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
-import kotlin.test.Test
+import org.junit.Test
 
 class ActionRepositoryTest {
     private val mockCollection: MongoCollection<ActionModel> = mockk()

@@ -9,21 +9,20 @@ import io.sengokudaikon.isn.infrastructure.errors.UserException
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-abstract class Adapter : KoinComponent {
+abstract class CommandHandler : KoinComponent {
+    abstract suspend fun execute(call: ApplicationCall)
     private val authorization: AuthorizationService by inject()
-    protected suspend fun <T> authorize(
-        call: ApplicationCall,
+    protected suspend fun <T> ApplicationCall.authorize(
         requiredRoles: List<UserRole>,
         block: suspend () -> T,
     ) {
-        return authorization.authorize(call, requiredRoles, block)
+        return authorization.authorize(this, requiredRoles, block)
     }
 
-    protected suspend fun fromUid(call: ApplicationCall): String {
-        return authorization.getUserId(call)
+    protected suspend fun ApplicationCall.fromUid(): String {
+        return authorization.getUserId(this)
     }
-
-    fun uid(call: ApplicationCall): String {
-        return call.principal<FirebasePrincipal>()?.uid ?: throw UserException.Unauthorized("Unauthorized user")
-    }
+}
+fun ApplicationCall.uid(): String {
+    return this.principal<FirebasePrincipal>()?.uid ?: throw UserException.Unauthorized("Unauthorized user")
 }
