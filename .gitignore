@@ -37,3 +37,4 @@ out/
 /src/main/resources/data/
 /src/main/resources/data/ancestries/
 /src/main/resources/data/backgrounds/
+/.env.dev
