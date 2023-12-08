@@ -24,6 +24,8 @@ class UserRepository : UserRepositoryPort {
 
     override suspend fun findByUid(uid: String): Result<User> = find(User::uid, uid)
 
+    override suspend fun findByUsername(username: String): Result<User> = find(User::name, username)
+
     override suspend fun create(command: UserCommand): Result<User> = runCatching {
         command as UserCommand.Create
         val user = User(
@@ -31,7 +33,7 @@ class UserRepository : UserRepositoryPort {
             email = command.email,
             uid = command.uid,
             role = command.role,
-            name = command.name,
+            name = command.username,
         )
         collection.insertOne(user)
         user

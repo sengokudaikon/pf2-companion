@@ -11,15 +11,14 @@ interface UserCommand {
     data class Create(
         @ValidEmail val email: String,
         @ValidUsername val username: String,
-        val name: String,
         val uid: String,
         val role: UserRole = UserRole.USER,
-    ) : Command
+    ) : Command, UserCommand
 
     @Resource("/api/auth/signin")
     data class SignIn(
         val uid: String,
-    ) : Command
+    ) : Command, UserCommand
 
     @Resource("/api/user/update")
     data class Update(
@@ -27,10 +26,10 @@ interface UserCommand {
         val role: UserRole?,
         val email: String?,
         val username: String?,
-    ) : Command
+    ) : Command, UserCommand
 
     @Resource("/api/user/delete")
     data class Delete(
         val id: String,
-    ) : Command
+    ) : Command, UserCommand
 }

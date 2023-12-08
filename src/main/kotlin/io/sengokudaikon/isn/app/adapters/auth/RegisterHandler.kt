@@ -24,9 +24,8 @@ class RegisterHandler : CommandHandler() {
         } catch (e: IllegalArgumentException) {
             call.respond(AuthException.Invalid(e.message ?: "Error during registration", e))
         }
-
-        val userExists = authUseCase.checkIfMailExists(command.email) ||
-            authUseCase.checkIfExists(uid)
+        val userExists = authUseCase.checkIfMailExists(command.email).toString().toBooleanStrict() ||
+            authUseCase.findUserByUsername(uid).toString().toBooleanStrict()
         if (userExists) {
             throw UserException.AlreadyExists()
         }

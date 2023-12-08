@@ -33,6 +33,8 @@ fun Application.configureHTTP() {
     }
     install(ConditionalHeaders)
     install(CORS) {
+        allowMethod(HttpMethod.Get)
+        allowMethod(HttpMethod.Post)
         allowMethod(HttpMethod.Options)
         allowMethod(HttpMethod.Put)
         allowMethod(HttpMethod.Delete)
@@ -46,7 +48,10 @@ fun Application.configureHTTP() {
         allowHeader(HttpHeaders.Accept)
         allowHeader(HttpHeaders.AcceptLanguage)
         allowCredentials = true
+        allowSameOrigin = true
+        anyHost()
         hosts.add("localhost:8081")
+        hosts.add("localhost:8000")
         hosts.add("0.0.0.0:8081")
     }
     install(DefaultHeaders) {

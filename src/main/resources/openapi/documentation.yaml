@@ -7,134 +7,6 @@ servers:
   - url: "http://localhost:8081"
   - url: "https://pf2-companion.up.railway.app"
 paths:
-  /api/ancestry/{name}:
-    get:
-      description: ""
-      parameters:
-      - name: "name"
-        in: "path"
-        required: true
-        schema:
-          type: "string"
-      responses:
-        "400":
-          description: "Bad Request"
-          content:
-            application/json:
-              schema:
-                type: "string"
-        "200":
-          description: "OK"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/AncestryResponse"
-  /api/ancestry/list/{page}/{size}:
-    get:
-      description: ""
-      parameters:
-      - name: "page"
-        in: "path"
-        required: true
-        schema:
-          type: "string"
-      - name: "size"
-        in: "path"
-        required: true
-        schema:
-          type: "string"
-      responses:
-        "200":
-          description: "OK"
-          content:
-            application/json:
-              schema:
-                type: "array"
-                items:
-                  $ref: "#/components/schemas/AncestryResponse"
-  /api/register:
-    post:
-      description: ""
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Create"
-        required: true
-      responses:
-        "500":
-          description: "Internal Server Error"
-          content:
-            application/json:
-              schema:
-                type: "string"
-        "400":
-          description: "Bad Request"
-          content:
-            application/json:
-              schema:
-                type: "string"
-              examples:
-                Example#1:
-                  value: "User already exists"
-        "201":
-          description: "Created"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Map_String"
-  /api/search/{query}:
-    get:
-      description: ""
-      parameters:
-      - name: "query"
-        in: "path"
-        required: true
-        schema:
-          type: "string"
-      responses:
-        "400":
-          description: "Bad Request"
-          content:
-            application/json:
-              schema:
-                type: "string"
-        "200":
-          description: "OK"
-          content:
-            application/json:
-              schema: {}
-  /api/auth/signin:
-    post:
-      description: ""
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/SignIn"
-        required: true
-      responses:
-        "500":
-          description: "Internal Server Error"
-          content:
-            application/json:
-              schema:
-                type: "string"
-        "400":
-          description: "Bad Request"
-          content:
-            application/json:
-              schema:
-                type: "string"
-              examples:
-                Example#1:
-                  value: "User doesn't exist"
-        "200":
-          description: "OK"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Map_String"
   /metrics-http:
     get:
       description: ""
@@ -170,6 +42,201 @@ paths:
               examples:
                 Example#1:
                   value: "Hello World!"
+  /api/ancestry/{id}:
+    get:
+      description: ""
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        "400":
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                type: "string"
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AncestryResponse"
+        "500":
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                type: "string"
+  /api/ancestry/list/{page}/{limit}:
+    get:
+      description: ""
+      parameters:
+      - name: "page"
+        in: "path"
+        required: true
+        schema:
+          type: "integer"
+      - name: "limit"
+        in: "path"
+        required: true
+        schema:
+          type: "integer"
+      responses:
+        "400":
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                type: "string"
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/AncestryResponse"
+        "500":
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                type: "string"
+  /api/ancestry/name/{name}:
+    get:
+      description: ""
+      parameters:
+      - name: "name"
+        in: "path"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        "400":
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                type: "string"
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AncestryResponse"
+        "500":
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                type: "string"
+  /api/auth/doesEmailExist:
+    get:
+      description: ""
+      parameters:
+      - name: "email"
+        in: "query"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            text/plain:
+              schema:
+                type: "string"
+    options:
+      description: ""
+      parameters:
+      - name: "email"
+        in: "query"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            text/plain:
+              schema:
+                type: "object"
+  /api/auth/doesUserExist:
+    get:
+      description: ""
+      parameters:
+      - name: "identifier"
+        in: "query"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            text/plain:
+              schema:
+                type: "string"
+    options:
+      description: ""
+      parameters:
+      - name: "identifier"
+        in: "query"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            text/plain:
+              schema:
+                type: "object"
+  /api/auth/register:
+    post:
+      description: ""
+      parameters:
+      - name: "email"
+        in: "query"
+        required: true
+        schema:
+          type: "string"
+      - name: "username"
+        in: "query"
+        required: true
+        schema:
+          type: "string"
+      - name: "uid"
+        in: "query"
+        required: true
+        schema:
+          type: "string"
+      - name: "role"
+        in: "query"
+        required: false
+        schema:
+          type: "object"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Create"
+        required: true
+      responses:
+        "500":
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                type: "string"
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema: {}
   /api/health:
     get:
       description: ""
@@ -183,19 +250,40 @@ paths:
               examples:
                 Example#1:
                   value: "Healthy"
+  /api/search/{query}:
+    get:
+      description: ""
+      parameters:
+      - name: "query"
+        in: "path"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/SearchResult"
+        "500":
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                type: "string"
 components:
   schemas:
-    ObjectId:
+    MetricSnapshot:
       type: "object"
       properties:
-        timestamp:
-          type: "integer"
-          format: "int32"
-    DescriptionType:
-      type: "object"
-      properties:
-        value:
+        name:
           type: "string"
+        value:
+          type: "number"
+          format: "double"
     SubOption:
       type: "object"
       properties:
@@ -235,9 +323,6 @@ components:
             type: "string"
         uuid:
           type: "string"
-    BsonValue:
-      type: "object"
-      properties: {}
     Choice:
       type: "object"
       properties:
@@ -245,181 +330,6 @@ components:
           type: "string"
         value:
           type: "string"
-    GenericRule:
-      type: "object"
-      properties:
-        domain:
-          type: "string"
-        key:
-          type: "string"
-        label:
-          type: "string"
-        mode:
-          type: "string"
-        type:
-          type: "string"
-        option:
-          type: "string"
-        suboptions:
-          type: "array"
-          items:
-            $ref: "#/components/schemas/SubOption"
-        category:
-          type: "string"
-        toggleable:
-          type: "boolean"
-        damage:
-          $ref: "#/components/schemas/DamageType"
-        damageDice:
-          type: "string"
-        damageType:
-          type: "string"
-        overrides:
-          type: "array"
-          items:
-            type: "string"
-        adjustment:
-          type: "string"
-        effects:
-          type: "array"
-          items:
-            $ref: "#/components/schemas/RuleEffect"
-        range:
-          type: "string"
-        predicate:
-          $ref: "#/components/schemas/BsonValue"
-        hasHands:
-          type: "boolean"
-        selector:
-          type: "string"
-        slug:
-          type: "string"
-        choices:
-          type: "array"
-          items:
-            $ref: "#/components/schemas/Choice"
-        flag:
-          type: "string"
-        prompt:
-          type: "string"
-        value:
-          $ref: "#/components/schemas/BsonValue"
-    Traits:
-      type: "object"
-      properties:
-        otherTags:
-          type: "array"
-          items:
-            type: "string"
-        rarity:
-          type: "string"
-        value:
-          type: "array"
-          items:
-            type: "string"
-        selected:
-          $ref: "#/components/schemas/BsonValue"
-    Publication:
-      type: "object"
-      properties:
-        license:
-          type: "string"
-        remaster:
-          type: "boolean"
-        title:
-          type: "string"
-    Languages:
-      type: "object"
-      properties:
-        count:
-          type: "integer"
-          format: "int32"
-        custom:
-          type: "string"
-        value:
-          type: "array"
-          items:
-            type: "string"
-    SystemProperty:
-      type: "object"
-      properties:
-        description:
-          $ref: "#/components/schemas/DescriptionType"
-        rules:
-          type: "array"
-          items:
-            $ref: "#/components/schemas/GenericRule"
-        traits:
-          $ref: "#/components/schemas/Traits"
-        publication:
-          $ref: "#/components/schemas/Publication"
-        additionalLanguages:
-          $ref: "#/components/schemas/Languages"
-        boosts:
-          type: "string"
-        flaws:
-          type: "string"
-        hp:
-          type: "integer"
-          format: "int32"
-        languages:
-          $ref: "#/components/schemas/Languages"
-        reach:
-          type: "integer"
-          format: "int32"
-        size:
-          type: "string"
-        source:
-          type: "string"
-        speed:
-          type: "integer"
-          format: "int32"
-        items:
-          type: "string"
-        vision:
-          type: "string"
-        additionalSense:
-          type: "string"
-    AncestryModel:
-      type: "object"
-      properties:
-        id:
-          $ref: "#/components/schemas/ObjectId"
-        img:
-          type: "string"
-        name:
-          type: "string"
-        type:
-          type: "string"
-        system:
-          $ref: "#/components/schemas/SystemProperty"
-        ancestryFeatures:
-          type: "string"
-    StackTraceElement:
-      type: "object"
-      properties:
-        classLoaderName:
-          type: "string"
-        moduleName:
-          type: "string"
-        moduleVersion:
-          type: "string"
-        methodName:
-          type: "string"
-        fileName:
-          type: "string"
-        lineNumber:
-          type: "integer"
-          format: "int32"
-    Throwable:
-      type: "object"
-      properties:
-        cause:
-          $ref: "#/components/schemas/Throwable"
-        stackTrace:
-          type: "array"
-          items:
-            $ref: "#/components/schemas/StackTraceElement"
     RuleResponse:
       type: "object"
       properties:
@@ -494,6 +404,27 @@ components:
             type: "string"
         selected:
           type: "string"
+    Publication:
+      type: "object"
+      properties:
+        license:
+          type: "string"
+        remaster:
+          type: "boolean"
+        title:
+          type: "string"
+    Languages:
+      type: "object"
+      properties:
+        count:
+          type: "integer"
+          format: "int32"
+        custom:
+          type: "string"
+        value:
+          type: "array"
+          items:
+            type: "string"
     SystemResponse:
       type: "object"
       properties:
@@ -569,19 +500,12 @@ components:
           $ref: "#/components/schemas/SystemResponse"
         ancestryFeatures:
           type: "string"
-    SignIn:
-      type: "object"
-      properties:
-        uid:
-          type: "string"
     Create:
       type: "object"
       properties:
         email:
           type: "string"
         username:
-          type: "string"
-        name:
           type: "string"
         uid:
           type: "string"
@@ -592,16 +516,55 @@ components:
           - "GAMEMASTER"
           - "ADMIN"
           - "OWNER"
+    StackTraceElement:
+      type: "object"
+      properties:
+        classLoaderName:
+          type: "string"
+        moduleName:
+          type: "string"
+        moduleVersion:
+          type: "string"
+        methodName:
+          type: "string"
+        fileName:
+          type: "string"
+        lineNumber:
+          type: "integer"
+          format: "int32"
+    Throwable:
+      type: "object"
+      properties:
+        cause:
+          $ref: "#/components/schemas/Throwable"
+        stackTrace:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/StackTraceElement"
+    Invalid:
+      type: "object"
+      properties:
+        cause:
+          $ref: "#/components/schemas/Throwable"
+        stackTrace:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/StackTraceElement"
     Map:
       type: "object"
       properties: {}
     Map_String:
       type: "string"
-    MetricSnapshot:
+    SearchResult:
       type: "object"
       properties:
+        id:
+          type: "string"
+        img:
+          type: "string"
         name:
           type: "string"
-        value:
-          type: "number"
-          format: "double"
+        type:
+          type: "string"
+        description:
+          type: "string"

@@ -7,21 +7,21 @@ import io.ktor.server.plugins.swagger.*
 import io.ktor.server.resources.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import io.sengokudaikon.isn.app.adapters.CommandHandler
-import io.sengokudaikon.isn.app.adapters.QueryHandler
-import io.sengokudaikon.isn.app.adapters.auth.AuthHandler
+import io.sengokudaikon.isn.app.adapters.auth.EmailExistHandler
 import io.sengokudaikon.isn.app.adapters.auth.RegisterHandler
+import io.sengokudaikon.isn.app.adapters.auth.UserExistHandler
 import io.sengokudaikon.isn.app.operations.user.command.UserCommand
+import io.sengokudaikon.isn.app.operations.user.query.EmailExists
+import io.sengokudaikon.isn.app.operations.user.query.UserExists
 import io.sengokudaikon.isn.compendium.adapters.character.ancestry.AncestryIdHandler
 import io.sengokudaikon.isn.compendium.adapters.character.ancestry.AncestryListHandler
 import io.sengokudaikon.isn.compendium.adapters.character.ancestry.AncestryNameHandler
 import io.sengokudaikon.isn.compendium.adapters.world.SearchHandler
 import io.sengokudaikon.isn.compendium.operations.character.ancestry.query.AncestryQuery
 import io.sengokudaikon.isn.compendium.operations.search.query.SearchQuery
-import io.sengokudaikon.isn.infrastructure.operations.Command
-import io.sengokudaikon.isn.infrastructure.operations.Query
-import org.koin.ktor.ext.inject
+import io.ktor.server.resources.get as getResource
 import io.ktor.server.resources.post as postResource
+
 fun Application.configureRouting() {
     install(Resources)
     routing {
@@ -37,24 +37,18 @@ fun Application.configureRouting() {
             call.respond(HttpStatusCode.OK, "Healthy")
         }
 
-        query<AncestryQuery.FindAll, AncestryListHandler>()
-        query<AncestryQuery.FindById, AncestryIdHandler>()
-        query<AncestryQuery.FindByName, AncestryNameHandler>()
-        query<SearchQuery, SearchHandler>()
-        command<UserCommand.Create, RegisterHandler>()
-        command<UserCommand.SignIn, AuthHandler>()
-    }
-}
-
-inline fun <reified Q : Query, reified H : QueryHandler> Routing.query() {
-    val handler: H by inject()
-    get<Q> {
-        handler.handle(call)
-    }
-}
-inline fun <reified C : Command, reified H : CommandHandler> Routing.command() {
-    val handler: H by inject()
-    postResource<C> {
-        handler.execute(call)
+        getResource<AncestryQuery.FindAll> { AncestryListHandler().handle(call) }
+        getResource<AncestryQuery.FindById> { AncestryIdHandler().handle(call) }
+        getResource<AncestryQuery.FindByName> { AncestryNameHandler().handle(call) }
+        getResource<SearchQuery> { SearchHandler().handle(call) }
+        postResource<UserCommand.Create> { RegisterHandler().execute(call) }
+        getResource<EmailExists> {
+            EmailExistHandler().execute(call)
+        }
+        options<EmailExists> { call.respondNullable(HttpStatusCode.OK) }
+        getResource<UserExists> {
+            UserExistHandler().execute(call)
+        }
+        options<UserExists> { call.respondNullable(HttpStatusCode.OK) }
     }
 }
