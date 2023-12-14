@@ -2,8 +2,8 @@ package io.sengokudaikon.isn.app.adapters.auth
 
 import io.ktor.server.application.*
 import io.ktor.server.response.*
-import io.sengokudaikon.isn.app.adapters.CommandHandler
 import io.sengokudaikon.isn.app.ports.auth.AuthPort
+import io.sengokudaikon.isn.infrastructure.adapters.CommandHandler
 import org.koin.core.annotation.Single
 import org.koin.core.component.inject
 

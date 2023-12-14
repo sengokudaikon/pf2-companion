@@ -1,8 +1,8 @@
 package io.sengokudaikon.isn.compendium.domain.action
 
-import io.sengokudaikon.isn.compendium.domain.Model
 import io.sengokudaikon.isn.compendium.domain.feat.FeatEffectModel
 import io.sengokudaikon.isn.compendium.domain.system.ActionSystem
+import io.sengokudaikon.isn.infrastructure.domain.FeatureModel
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerialName
@@ -19,7 +19,7 @@ data class ActionModel(
     override val name: String,
     override val type: String,
     override val system: ActionSystem,
-) : Model {
+) : FeatureModel {
     var effect: FeatEffectModel? = null
     override fun getSerializer(): KSerializer<ActionModel> = serializer()
 }

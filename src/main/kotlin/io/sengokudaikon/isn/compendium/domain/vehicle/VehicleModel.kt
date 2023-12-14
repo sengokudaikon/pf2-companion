@@ -1,15 +1,18 @@
 package io.sengokudaikon.isn.compendium.domain.vehicle
 
-import io.sengokudaikon.isn.compendium.domain.Model
 import io.sengokudaikon.isn.compendium.domain.system.DescriptionType
 import io.sengokudaikon.isn.compendium.domain.system.GenericRule
 import io.sengokudaikon.isn.compendium.domain.system.Publication
 import io.sengokudaikon.isn.compendium.domain.system.SystemModel
 import io.sengokudaikon.isn.compendium.domain.system.Traits
+import io.sengokudaikon.isn.infrastructure.domain.Model
 import kotlinx.serialization.Contextual
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonObject
+import org.bson.BsonValue
+import org.bson.codecs.kotlinx.BsonValueSerializer
 import org.bson.types.ObjectId
 
 @Serializable
@@ -35,11 +38,12 @@ data class VehicleModel(
         val details: Details,
         val saves: Saves,
     ) : SystemModel {
+        @OptIn(ExperimentalSerializationApi::class)
         @Serializable
         data class Attributes(
             val ac: AC,
-            val collisionDC: JsonObject,
-            val collisionDamage: JsonObject,
+            @Serializable(with = BsonValueSerializer::class) val collisionDC: BsonValue,
+            @Serializable(with = BsonValueSerializer::class) val collisionDamage: BsonValue,
             val hardness: Int,
             val hp: HP,
             val immunities: List<Immunity>,
@@ -65,13 +69,14 @@ data class VehicleModel(
             )
         }
 
+        @OptIn(ExperimentalSerializationApi::class)
         @Serializable
         @Suppress("ConstructorParameterNaming")
         data class Details(
             val AC: Int,
             val crew: String,
             val description: JsonObject,
-            val level: JsonObject,
+            @Serializable(with = BsonValueSerializer::class) val level: BsonValue,
             val passengers: String,
             val pilotingCheck: String,
             val price: Int,
@@ -112,18 +117,19 @@ data class VehicleModel(
     ) : Model {
         override fun getSerializer() = serializer()
 
+        @OptIn(ExperimentalSerializationApi::class)
         @Serializable
         data class SystemProperty(
             override val description: DescriptionType,
             override val publication: Publication,
             override val traits: Traits,
             override val rules: List<GenericRule>,
-            val actionType: JsonObject,
-            val actions: JsonObject?,
-            val category: JsonObject,
-            val requirements: JsonObject?,
-            val slug: JsonObject?,
-            val trigger: JsonObject?,
+            @Serializable(with = BsonValueSerializer::class)val actionType: BsonValue,
+            @Serializable(with = BsonValueSerializer::class)val actions: BsonValue?,
+            @Serializable(with = BsonValueSerializer::class)val category: BsonValue,
+            @Serializable(with = BsonValueSerializer::class)val requirements: BsonValue?,
+            @Serializable(with = BsonValueSerializer::class)val slug: BsonValue?,
+            @Serializable(with = BsonValueSerializer::class)val trigger: BsonValue?,
             val type: String,
         ) : SystemModel
     }

@@ -1,6 +1,5 @@
 package io.sengokudaikon.isn.compendium.domain.ancestry
 
-import io.sengokudaikon.isn.compendium.domain.Model
 import io.sengokudaikon.isn.compendium.domain.system.DescriptionType
 import io.sengokudaikon.isn.compendium.domain.system.GenericRule
 import io.sengokudaikon.isn.compendium.domain.system.Item
@@ -10,8 +9,7 @@ import io.sengokudaikon.isn.compendium.domain.system.SystemModel
 import io.sengokudaikon.isn.compendium.domain.system.Traits
 import io.sengokudaikon.isn.compendium.enums.Ability
 import io.sengokudaikon.isn.compendium.enums.fromShortName
-import io.sengokudaikon.isn.compendium.operations.character.ancestry.response.AncestryResponse
-import io.sengokudaikon.isn.compendium.operations.global.response.SystemResponse
+import io.sengokudaikon.isn.infrastructure.domain.Model
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerialName
@@ -32,16 +30,6 @@ data class AncestryModel(
     override val system: SystemProperty,
 ) : Model {
     override fun getSerializer(): KSerializer<*> = serializer()
-    fun toResponse(): AncestryResponse {
-        val response = AncestryResponse(
-            id = id.toHexString(),
-            name = name,
-            type = type,
-            system = system.toResponse(),
-            ancestryFeatures = ancestryFeatures.mapValues { it.value.toResponse() },
-        )
-        return response
-    }
     var ancestryFeatures: Map<String, AncestryFeatureModel> = emptyMap()
 
     @Serializable
@@ -63,27 +51,6 @@ data class AncestryModel(
         val vision: String,
         val additionalSense: String?,
     ) : SystemModel {
-        fun toResponse(): SystemResponse {
-            return SystemResponse(
-                description = description.value,
-                rules = rules.map { it.toResponse() },
-                traits = traits.toResponse(),
-                publication = publication,
-                additionalLanguages = additionalLanguages,
-                boosts = boosts.toAbilityList(),
-                flaws = flaws.toAbilityList(),
-                hp = hp,
-                languages = languages,
-                reach = reach,
-                size = size,
-                source = source,
-                speed = speed,
-                items = items.mapValues { it.value.toResponse() },
-                vision = vision,
-                additionalSense = additionalSense,
-            )
-        }
-
         @Serializable
         data class AbilityScore(
             val value: List<String>,
@@ -98,11 +65,5 @@ data class AncestryModel(
                 }
             }
         }
-    }
-}
-
-private fun Map<String, AncestryModel.SystemProperty.AbilityScore>.toAbilityList(): List<Ability> {
-    return this.map {
-        it.value.toAbility()
     }
 }

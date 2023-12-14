@@ -1,7 +1,7 @@
 package io.sengokudaikon.isn.compendium.domain.macro
 
-import io.sengokudaikon.isn.compendium.domain.Model
 import io.sengokudaikon.isn.compendium.domain.system.SystemModel
+import io.sengokudaikon.isn.infrastructure.domain.Model
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

@@ -3,7 +3,7 @@ package io.sengokudaikon.isn.infrastructure.repository
 import com.mongodb.client.model.Filters.eq
 import com.mongodb.client.model.Filters.`in`
 import com.mongodb.kotlin.client.coroutine.MongoCollection
-import io.sengokudaikon.isn.compendium.domain.Model
+import io.sengokudaikon.isn.infrastructure.domain.Model
 import io.sengokudaikon.isn.infrastructure.errors.DatabaseException
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map

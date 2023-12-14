@@ -1,5 +1,7 @@
 package io.sengokudaikon.isn.infrastructure.ports
 
-interface ReadPort<in Q, out R> {
+import io.sengokudaikon.isn.infrastructure.operations.Query
+
+interface ReadPort<in Q : Query, out R> {
     suspend fun execute(query: Q): Result<R>
 }

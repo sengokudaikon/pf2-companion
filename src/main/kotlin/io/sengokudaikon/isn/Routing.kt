@@ -37,10 +37,10 @@ fun Application.configureRouting() {
             call.respond(HttpStatusCode.OK, "Healthy")
         }
 
-        getResource<AncestryQuery.FindAll> { AncestryListHandler().handle(call) }
-        getResource<AncestryQuery.FindById> { AncestryIdHandler().handle(call) }
-        getResource<AncestryQuery.FindByName> { AncestryNameHandler().handle(call) }
-        getResource<SearchQuery> { SearchHandler().handle(call) }
+        getResource<AncestryQuery.All> { AncestryListHandler().handle(call) }
+        getResource<AncestryQuery.ById> { AncestryIdHandler().handle(call) }
+        getResource<AncestryQuery.ByName> { AncestryNameHandler().handle(call) }
+        postResource<SearchQuery> { SearchHandler().execute(call) }
         postResource<UserCommand.Create> { RegisterHandler().execute(call) }
         getResource<EmailExists> {
             EmailExistHandler().execute(call)

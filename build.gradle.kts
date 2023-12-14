@@ -86,6 +86,10 @@ dependencies {
     implementation("org.mongodb:mongodb-driver-kotlin-coroutine:4.11.0")
     implementation("org.mongodb:bson-kotlinx:4.11.0")
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
+    implementation("io.cucumber:cucumber-gherkin:7.13.0")
+    implementation("io.cucumber:cucumber-junit:7.13.0")
+    implementation("io.cucumber:cucumber-java8:7.13.0")
+    implementation("io.cucumber:cucumber-java:7.13.0")
 
     ksp("io.insert-koin:koin-ksp-compiler:1.2.2")
 
@@ -97,6 +101,7 @@ dependencies {
 
     // tests
     implementation("io.mockk:mockk:1.13.5")
+    implementation("io.cucumber:cucumber-jvm:7.13.0")
     testImplementation("io.ktor:ktor-server-tests-jvm:2.3.0")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:1.8.20-RC")
     testImplementation("io.ktor:ktor-server-test-host-jvm:2.3.6")

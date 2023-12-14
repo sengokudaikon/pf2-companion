@@ -7,10 +7,13 @@ import io.sengokudaikon.isn.compendium.domain.system.SystemModel
 import io.sengokudaikon.isn.compendium.domain.system.TokenIcon
 import io.sengokudaikon.isn.compendium.domain.system.Traits
 import io.sengokudaikon.isn.compendium.domain.system.Value
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.JsonObject
+import org.bson.BsonValue
+import org.bson.codecs.kotlinx.BsonValueSerializer
 
 @Serializable
+@OptIn(ExperimentalSerializationApi::class)
 data class EffectSystem(
     override val description: DescriptionType,
     override val publication: Publication,
@@ -18,7 +21,7 @@ data class EffectSystem(
     override val rules: List<GenericRule>,
     val badge: Badge? = null,
     val duration: EffectDuration,
-    val level: JsonObject,
+    @Serializable(with = BsonValueSerializer::class) val level: BsonValue,
     val start: EffectStart,
     val tokenIcon: TokenIcon,
 ) : SystemModel {

@@ -1,7 +1,7 @@
 package io.sengokudaikon.isn.compendium.domain.background
 
-import io.sengokudaikon.isn.compendium.domain.Model
 import io.sengokudaikon.isn.compendium.domain.action.ActionModel
+import io.sengokudaikon.isn.compendium.domain.ancestry.AncestryModel
 import io.sengokudaikon.isn.compendium.domain.feat.FeatModel
 import io.sengokudaikon.isn.compendium.domain.system.DescriptionType
 import io.sengokudaikon.isn.compendium.domain.system.GenericRule
@@ -9,11 +9,12 @@ import io.sengokudaikon.isn.compendium.domain.system.Item
 import io.sengokudaikon.isn.compendium.domain.system.Publication
 import io.sengokudaikon.isn.compendium.domain.system.SystemModel
 import io.sengokudaikon.isn.compendium.domain.system.Traits
+import io.sengokudaikon.isn.compendium.enums.Skills
+import io.sengokudaikon.isn.infrastructure.domain.Model
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.JsonObject
 import org.bson.types.ObjectId
 
 @Suppress("ConstructorParameterNaming")
@@ -37,9 +38,18 @@ data class BackgroundModel(
         override val rules: List<GenericRule>,
         override val publication: Publication,
         override val traits: Traits,
-        val boosts: JsonObject,
+        val boosts: Map<String, AncestryModel.SystemProperty.AbilityScore>,
         val items: Map<String, Item>,
         val trainedLore: String,
-        val trainedSkills: JsonObject,
-    ) : SystemModel
+        val trainedSkills: SkillField,
+    ) : SystemModel {
+        @Serializable
+        data class SkillField(
+            val value: List<String>
+        ) {
+            fun toSkillList(): List<Skills> {
+                return value.map { Skills.from(it) }
+            }
+        }
+    }
 }

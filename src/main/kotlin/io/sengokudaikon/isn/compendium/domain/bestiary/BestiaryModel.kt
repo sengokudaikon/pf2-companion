@@ -1,7 +1,7 @@
 package io.sengokudaikon.isn.compendium.domain.bestiary
 
-import io.sengokudaikon.isn.compendium.domain.Model
 import io.sengokudaikon.isn.compendium.domain.system.SystemModel
+import io.sengokudaikon.isn.infrastructure.domain.Model
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerialName
@@ -18,5 +18,5 @@ data class BestiaryModel(
     override val type: String,
     override val system: SystemModel,
 ) : Model {
-    override fun getSerializer(): KSerializer<*> = serializer()
+    override fun getSerializer(): KSerializer<BestiaryModel> = serializer()
 }

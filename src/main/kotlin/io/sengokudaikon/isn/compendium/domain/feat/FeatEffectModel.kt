@@ -1,7 +1,7 @@
 package io.sengokudaikon.isn.compendium.domain.feat
 
-import io.sengokudaikon.isn.compendium.domain.Model
 import io.sengokudaikon.isn.compendium.domain.effects.model.EffectSystem
+import io.sengokudaikon.isn.infrastructure.domain.EffectModel
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerialName
@@ -18,6 +18,6 @@ data class FeatEffectModel(
     override val name: String,
     override val type: String,
     override val system: EffectSystem,
-) : Model {
+) : EffectModel {
     override fun getSerializer(): KSerializer<*> = serializer()
 }

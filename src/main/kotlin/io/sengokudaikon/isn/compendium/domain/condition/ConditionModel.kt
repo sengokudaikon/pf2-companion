@@ -1,16 +1,18 @@
 package io.sengokudaikon.isn.compendium.domain.condition
 
-import io.sengokudaikon.isn.compendium.domain.Model
 import io.sengokudaikon.isn.compendium.domain.system.DescriptionType
 import io.sengokudaikon.isn.compendium.domain.system.GenericRule
 import io.sengokudaikon.isn.compendium.domain.system.Publication
 import io.sengokudaikon.isn.compendium.domain.system.SystemModel
 import io.sengokudaikon.isn.compendium.domain.system.Traits
+import io.sengokudaikon.isn.infrastructure.domain.Model
 import kotlinx.serialization.Contextual
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.JsonObject
+import org.bson.BsonValue
+import org.bson.codecs.kotlinx.BsonValueSerializer
 import org.bson.types.ObjectId
 
 @Serializable
@@ -25,9 +27,9 @@ data class ConditionModel(
     override val system: SystemProperty,
 ) : Model {
     @Serializable
-    data class SystemProperty(
+    data class SystemProperty @OptIn(ExperimentalSerializationApi::class) constructor(
         override val description: DescriptionType,
-        val duration: JsonObject,
+        @Serializable(with = BsonValueSerializer::class) val duration: BsonValue,
         val group: String,
         val overrides: List<String>,
         override val publication: Publication,

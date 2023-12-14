@@ -12,7 +12,7 @@ class SearchAnythingUseCase(
 ) : SearchPort {
     override suspend fun execute(query: SearchQuery): Result<List<SearchResult>> {
         return runCatching {
-            query.query?.let { repository.searchAnything(it) } ?: emptyList()
+            query.let { repository.searchAnything(it) }
         }
     }
 }

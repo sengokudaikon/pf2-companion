@@ -26,7 +26,7 @@ fun BsonValue.transform(): String? {
         BsonType.DB_POINTER -> transformDbPointer()
         BsonType.SYMBOL -> transformSymbol()
         BsonType.DECIMAL128 -> transformDecimal128()
-        BsonType.MIN_KEY -> transformMinKey()
+        BsonType.MIN_KEY -> transformMinKey().toString()
         else -> transformDefault().toString()
     }
 }

@@ -1,7 +1,7 @@
 package io.sengokudaikon.isn.compendium.domain.kingmaker.model
 
-import io.sengokudaikon.isn.compendium.domain.Model
 import io.sengokudaikon.isn.compendium.domain.effects.model.EffectSystem
+import io.sengokudaikon.isn.infrastructure.domain.Model
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

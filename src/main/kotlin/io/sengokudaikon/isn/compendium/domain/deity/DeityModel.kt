@@ -1,11 +1,11 @@
 package io.sengokudaikon.isn.compendium.domain.deity
 
-import io.sengokudaikon.isn.compendium.domain.Model
 import io.sengokudaikon.isn.compendium.domain.system.DescriptionType
 import io.sengokudaikon.isn.compendium.domain.system.GenericRule
 import io.sengokudaikon.isn.compendium.domain.system.Publication
 import io.sengokudaikon.isn.compendium.domain.system.SystemModel
 import io.sengokudaikon.isn.compendium.domain.system.Traits
+import io.sengokudaikon.isn.infrastructure.domain.Model
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerialName

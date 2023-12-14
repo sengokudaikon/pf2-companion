@@ -70,7 +70,7 @@ paths:
             application/json:
               schema:
                 type: "string"
-  /api/ancestry/list/{page}/{limit}:
+  /api/ancestry/list/{page}/{size}:
     get:
       description: ""
       parameters:

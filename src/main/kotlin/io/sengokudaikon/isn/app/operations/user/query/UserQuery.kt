@@ -4,10 +4,10 @@ import io.ktor.resources.*
 import io.sengokudaikon.isn.infrastructure.operations.Query
 
 interface UserQuery : Query {
-    @Resource("/api/user/list/{page}/{limit}")
+    @Resource("/api/user/list/{page}/{size}")
     data class FindAll(
         val page: Int,
-        val limit: Int,
+        val size: Int,
     ) : Query
 
     @Resource("/api/user/{id}")

@@ -4,7 +4,7 @@ import io.sengokudaikon.isn.app.domain.user.User
 import io.sengokudaikon.isn.app.domain.user.repository.UserRepositoryPort
 import io.sengokudaikon.isn.app.operations.user.command.UserCommand
 import io.sengokudaikon.isn.app.ports.auth.AuthPort
-import io.sengokudaikon.isn.compendium.usecases.CachingUseCase
+import io.sengokudaikon.isn.infrastructure.usecases.CachingUseCase
 import org.koin.core.annotation.Single
 
 @Single(binds = [AuthPort::class])
