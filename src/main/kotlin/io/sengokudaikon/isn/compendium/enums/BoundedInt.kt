@@ -9,12 +9,13 @@ import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 
 @Serializable(with = BoundedIntSerializer::class)
-class BoundedInt(var initial: Int, private var upperLimit: Int) {
-    var value = initial.coerceIn(0..upperLimit)
+class BoundedInt(private var initial: Int = 0, private var upperLimit: Int = 4) {
+    var value = initial
         set(value) {
-            field = value.coerceIn(0..upperLimit)
+            field = value.coerceIn(initial..upperLimit)
         }
 }
+
 object BoundedIntSerializer : KSerializer<BoundedInt> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("BoundedInt", PrimitiveKind.INT)
 

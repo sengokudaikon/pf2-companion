@@ -63,7 +63,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/AncestryResponse"
+                $ref: "#/components/schemas/Response_Model"
         "500":
           description: "Internal Server Error"
           content:
@@ -79,7 +79,7 @@ paths:
         required: true
         schema:
           type: "integer"
-      - name: "limit"
+      - name: "size"
         in: "path"
         required: true
         schema:
@@ -98,7 +98,7 @@ paths:
               schema:
                 type: "array"
                 items:
-                  $ref: "#/components/schemas/AncestryResponse"
+                  $ref: "#/components/schemas/Response"
         "500":
           description: "Internal Server Error"
           content:
@@ -126,7 +126,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/AncestryResponse"
+                $ref: "#/components/schemas/Response_Model"
         "500":
           description: "Internal Server Error"
           content:
@@ -250,15 +250,41 @@ paths:
               examples:
                 Example#1:
                   value: "Healthy"
-  /api/search/{query}:
-    get:
+  /api/search:
+    post:
       description: ""
       parameters:
       - name: "query"
-        in: "path"
-        required: true
+        in: "query"
+        required: false
         schema:
           type: "string"
+      - name: "type"
+        in: "query"
+        required: false
+        schema:
+          type: "string"
+      - name: "rarity"
+        in: "query"
+        required: false
+        schema:
+          type: "string"
+      - name: "traits"
+        in: "query"
+        required: false
+        schema:
+          type: "object"
+      - name: "numbers"
+        in: "query"
+        required: false
+        schema:
+          type: "object"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SearchQuery"
+        required: true
       responses:
         "200":
           description: "OK"
@@ -284,222 +310,15 @@ components:
         value:
           type: "number"
           format: "double"
-    SubOption:
+      required:
+      - "name"
+    Model:
       type: "object"
-      properties:
-        label:
-          type: "string"
-        value:
-          type: "string"
-    DamageTypeInner:
+      properties: {}
+    Response:
       type: "object"
-      properties:
-        damageType:
-          type: "string"
-        dice:
-          type: "integer"
-          format: "int32"
-        die:
-          type: "string"
-    DamageType:
-      type: "object"
-      properties:
-        base:
-          $ref: "#/components/schemas/DamageTypeInner"
-    RuleEffect:
-      type: "object"
-      properties:
-        affects:
-          type: "string"
-        events:
-          type: "array"
-          items:
-            type: "string"
-        includesSelf:
-          type: "boolean"
-        predicate:
-          type: "array"
-          items:
-            type: "string"
-        uuid:
-          type: "string"
-    Choice:
-      type: "object"
-      properties:
-        label:
-          type: "string"
-        value:
-          type: "string"
-    RuleResponse:
-      type: "object"
-      properties:
-        domain:
-          type: "string"
-        key:
-          type: "string"
-        label:
-          type: "string"
-        mode:
-          type: "string"
-        type:
-          type: "string"
-        option:
-          type: "string"
-        suboptions:
-          type: "array"
-          items:
-            $ref: "#/components/schemas/SubOption"
-        category:
-          type: "string"
-        toggleable:
-          type: "boolean"
-        damage:
-          $ref: "#/components/schemas/DamageType"
-        damageDice:
-          type: "string"
-        damageType:
-          type: "string"
-        overrides:
-          type: "array"
-          items:
-            type: "string"
-        adjustment:
-          type: "string"
-        effects:
-          type: "array"
-          items:
-            $ref: "#/components/schemas/RuleEffect"
-        range:
-          type: "string"
-        predicate:
-          type: "string"
-        hasHands:
-          type: "boolean"
-        selector:
-          type: "string"
-        slug:
-          type: "string"
-        choices:
-          type: "array"
-          items:
-            $ref: "#/components/schemas/Choice"
-        flag:
-          type: "string"
-        prompt:
-          type: "string"
-        value:
-          type: "string"
-    TraitsResponse:
-      type: "object"
-      properties:
-        otherTags:
-          type: "array"
-          items:
-            type: "string"
-        rarity:
-          type: "string"
-        value:
-          type: "array"
-          items:
-            type: "string"
-        selected:
-          type: "string"
-    Publication:
-      type: "object"
-      properties:
-        license:
-          type: "string"
-        remaster:
-          type: "boolean"
-        title:
-          type: "string"
-    Languages:
-      type: "object"
-      properties:
-        count:
-          type: "integer"
-          format: "int32"
-        custom:
-          type: "string"
-        value:
-          type: "array"
-          items:
-            type: "string"
-    SystemResponse:
-      type: "object"
-      properties:
-        description:
-          type: "string"
-        rules:
-          type: "array"
-          items:
-            $ref: "#/components/schemas/RuleResponse"
-        traits:
-          $ref: "#/components/schemas/TraitsResponse"
-        publication:
-          $ref: "#/components/schemas/Publication"
-        additionalLanguages:
-          $ref: "#/components/schemas/Languages"
-        boosts:
-          type: "array"
-          items:
-            type: "string"
-            enum:
-            - "None"
-            - "Anything"
-            - "Strength"
-            - "Dexterity"
-            - "Constitution"
-            - "Intelligence"
-            - "Wisdom"
-            - "Charisma"
-        flaws:
-          type: "array"
-          items:
-            type: "string"
-            enum:
-            - "None"
-            - "Anything"
-            - "Strength"
-            - "Dexterity"
-            - "Constitution"
-            - "Intelligence"
-            - "Wisdom"
-            - "Charisma"
-        hp:
-          type: "integer"
-          format: "int32"
-        languages:
-          $ref: "#/components/schemas/Languages"
-        reach:
-          type: "integer"
-          format: "int32"
-        size:
-          type: "string"
-        source:
-          type: "string"
-        speed:
-          type: "integer"
-          format: "int32"
-        items:
-          type: "string"
-        vision:
-          type: "string"
-        additionalSense:
-          type: "string"
-    AncestryResponse:
-      type: "object"
-      properties:
-        id:
-          type: "string"
-        name:
-          type: "string"
-        type:
-          type: "string"
-        system:
-          $ref: "#/components/schemas/SystemResponse"
-        ancestryFeatures:
-          type: "string"
+      properties: {}
+    Response_Model: {}
     Create:
       type: "object"
       properties:
@@ -516,6 +335,11 @@ components:
           - "GAMEMASTER"
           - "ADMIN"
           - "OWNER"
+      required:
+      - "email"
+      - "username"
+      - "uid"
+      - "role"
     StackTraceElement:
       type: "object"
       properties:
@@ -555,6 +379,33 @@ components:
       properties: {}
     Map_String:
       type: "string"
+    NumericFilter:
+      type: "object"
+      properties:
+        type:
+          type: "string"
+        value:
+          type: "integer"
+          format: "int32"
+      required:
+      - "type"
+    SearchQuery:
+      type: "object"
+      properties:
+        query:
+          type: "string"
+        type:
+          type: "string"
+        rarity:
+          type: "string"
+        traits:
+          type: "array"
+          items:
+            type: "string"
+        numbers:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/NumericFilter"
     SearchResult:
       type: "object"
       properties:

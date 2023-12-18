@@ -48,7 +48,9 @@ data class ClassModel(
         @Serializable(with = BsonValueSerializer::class) val keyAbility: BsonValue,
         @Serializable(with = BsonValueSerializer::class) val skillFeatLevels: BsonValue,
         @Serializable(with = BsonValueSerializer::class) val skillIncreaseLevels: BsonValue,
-    ) : SystemModel
+    ) : SystemModel {
+        lateinit var classFeatures: List<ClassFeatureModel>
+    }
 
     @Serializable
     data class Attacks(

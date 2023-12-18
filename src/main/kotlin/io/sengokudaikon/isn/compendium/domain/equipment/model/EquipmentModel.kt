@@ -40,15 +40,15 @@ data class EquipmentModel(
         @Serializable(with = BsonValueSerializer::class) override val equippedBulk: BsonValue,
         override val hardness: Int,
         override val hp: HP,
-        @Serializable(with = BsonValueSerializer::class)override val level: BsonValue,
+        @Serializable(with = BsonValueSerializer::class) override val level: BsonValue,
         override val material: Material?,
-        @Serializable(with = BsonValueSerializer::class)override val negateBulk: BsonValue,
+        @Serializable(with = BsonValueSerializer::class) override val negateBulk: BsonValue,
         override val price: Price,
         override val quantity: Int,
         override val size: String,
         override val stackGroup: String?,
         @Serializable(with = BsonValueSerializer::class) override val usage: BsonValue,
-        @Serializable(with = BsonValueSerializer::class)override val weight: BsonValue,
+        @Serializable(with = BsonValueSerializer::class) override val weight: BsonValue,
     ) : EquipmentSystemModel
 
     override fun getSerializer(): KSerializer<*> = serializer()

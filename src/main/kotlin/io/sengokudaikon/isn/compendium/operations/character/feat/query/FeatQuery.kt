@@ -7,22 +7,23 @@ import io.sengokudaikon.isn.infrastructure.operations.Query
 interface FeatQuery : Query {
     interface Skill : FeatQuery {
         @Resource("/api/feats/skill/list/{page}/{size}")
-        data class All(val page: Int, val size: Int) : FeatQuery.Skill
+        data class All(val page: Int, val size: Int) : Skill
 
         @Resource("/api/feats/skill/{id}")
-        data class ById(val id: String) : FeatQuery.Skill
+        data class ById(val id: String) : Skill
 
         @Resource("/api/feats/skill/name/{name}")
-        data class ByName(val name: String) : FeatQuery.Skill
+        data class ByName(val name: String) : Skill
     }
+
     interface General : FeatQuery {
         @Resource("/api/feats/general/list/{page}/{size}")
-        data class All(override val page: Int, override val size: Int) : FeatQuery.General, Query.All<List<FeatModel>>
+        data class All(override val page: Int, override val size: Int) : General, Query.All<List<FeatModel>>
 
         @Resource("/api/feats/general/{id}")
-        data class ById(override val id: String) : FeatQuery.General, Query.ById<FeatModel>
+        data class ById(override val id: String) : General, Query.ById<FeatModel>
 
         @Resource("/api/feats/general/name/{name}")
-        data class ByName(override val name: String) : FeatQuery.General, Query.ByName<FeatModel>
+        data class ByName(override val name: String) : General, Query.ByName<FeatModel>
     }
 }

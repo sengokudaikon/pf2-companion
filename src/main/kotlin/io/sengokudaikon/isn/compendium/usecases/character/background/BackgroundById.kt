@@ -6,7 +6,8 @@ import io.sengokudaikon.isn.compendium.operations.character.background.query.Bac
 import io.sengokudaikon.isn.compendium.ports.character.ByIdBackgroundPort
 import io.sengokudaikon.isn.infrastructure.usecases.GetById
 
-class BackgroundById(override val repository: BackgroundRepositoryPort) : GetById<BackgroundQuery, BackgroundModel, BackgroundRepositoryPort>(), ByIdBackgroundPort {
+class BackgroundById(override val repository: BackgroundRepositoryPort) :
+    GetById<BackgroundQuery, BackgroundModel, BackgroundRepositoryPort>(), ByIdBackgroundPort {
     override fun getCacheKey(query: BackgroundQuery): String {
         query as BackgroundQuery.ById
         return "model_background:id:${query.id}"

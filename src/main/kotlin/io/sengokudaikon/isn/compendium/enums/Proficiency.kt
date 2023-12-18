@@ -12,10 +12,10 @@ enum class Proficiency {
         fun valueOf(value: Int): Proficiency {
             return when (value) {
                 0 -> UNTRAINED
-                1 -> TRAINED
-                2 -> EXPERT
-                3 -> MASTER
-                4 -> LEGENDARY
+                2 -> TRAINED
+                4 -> EXPERT
+                6 -> MASTER
+                8 -> LEGENDARY
                 else -> throw IllegalArgumentException("Invalid value for Proficiency: $value")
             }
         }

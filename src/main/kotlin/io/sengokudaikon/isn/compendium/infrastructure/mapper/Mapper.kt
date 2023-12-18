@@ -11,6 +11,7 @@ import kotlinx.serialization.json.jsonPrimitive
 interface Mapper<T : Model> {
     fun toResponse(model: T): Response<T>
 }
+
 fun String?.extractValue(): String? {
     return this?.let {
         val jsonObject = Json.parseToJsonElement(it) as JsonObject

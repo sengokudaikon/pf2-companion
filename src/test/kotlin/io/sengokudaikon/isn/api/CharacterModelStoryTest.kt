@@ -7,4 +7,4 @@ import org.junit.platform.suite.api.Suite
 @Suite
 @IncludeEngines("cucumber")
 @SelectClasspathResource("io/sengokudaikon/isn/api/story")
-class CharacterStoryTest
+class CharacterModelStoryTest

@@ -124,12 +124,12 @@ data class VehicleModel(
             override val publication: Publication,
             override val traits: Traits,
             override val rules: List<GenericRule>,
-            @Serializable(with = BsonValueSerializer::class)val actionType: BsonValue,
-            @Serializable(with = BsonValueSerializer::class)val actions: BsonValue?,
-            @Serializable(with = BsonValueSerializer::class)val category: BsonValue,
-            @Serializable(with = BsonValueSerializer::class)val requirements: BsonValue?,
-            @Serializable(with = BsonValueSerializer::class)val slug: BsonValue?,
-            @Serializable(with = BsonValueSerializer::class)val trigger: BsonValue?,
+            @Serializable(with = BsonValueSerializer::class) val actionType: BsonValue,
+            @Serializable(with = BsonValueSerializer::class) val actions: BsonValue?,
+            @Serializable(with = BsonValueSerializer::class) val category: BsonValue,
+            @Serializable(with = BsonValueSerializer::class) val requirements: BsonValue?,
+            @Serializable(with = BsonValueSerializer::class) val slug: BsonValue?,
+            @Serializable(with = BsonValueSerializer::class) val trigger: BsonValue?,
             val type: String,
         ) : SystemModel
     }

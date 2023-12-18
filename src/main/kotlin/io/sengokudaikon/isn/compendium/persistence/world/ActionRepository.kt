@@ -20,6 +20,7 @@ class ActionRepository(
                 ?.let { effectRepositoryPort.findByName(it.name).getOrNull() }
             effect
         }
+
     override suspend fun findByName(name: String): Result<ActionModel> = super.findByName(name).let {
         it.map {
             it.effect = findEffects(it).getOrNull()

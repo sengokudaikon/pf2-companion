@@ -42,6 +42,7 @@ sealed class Value {
             val value: kotlin.Int,
         )
     }
+
     object ValueSerializer : JsonContentPolymorphicSerializer<Value>(Value::class) {
         override fun selectDeserializer(element: JsonElement): DeserializationStrategy<Value> {
             return when (element) {
@@ -51,15 +52,18 @@ sealed class Value {
                     element.intOrNull != null -> Int.serializer()
                     else -> throw IllegalArgumentException("Unknown value type: $element")
                 }
+
                 is JsonObject -> when {
                     "greater" in element && "lesser" in element -> LesserGreater.serializer()
                     else -> String.serializer()
                 }
+
                 is JsonArray -> when {
                     element.jsonArray.all { it is JsonPrimitive && it.isString } -> StringList.serializer()
                     element.jsonArray.all { it is JsonPrimitive && it.intOrNull != null } -> IntList.serializer()
                     else -> throw IllegalArgumentException("Unknown value type: $element")
                 }
+
                 else -> throw IllegalArgumentException("Unknown value type: $element")
             }
         }
