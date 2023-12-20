@@ -10,7 +10,6 @@ import io.sengokudaikon.isn.compendium.domain.feat.FeatModel
 import io.sengokudaikon.isn.compendium.domain.heritage.HeritageModel
 import io.sengokudaikon.isn.compendium.domain.spell.SpellModel
 import io.sengokudaikon.isn.compendium.domain.system.DescriptionType
-import io.sengokudaikon.isn.compendium.domain.system.GenericRule
 import io.sengokudaikon.isn.compendium.domain.system.Publication
 import io.sengokudaikon.isn.compendium.domain.system.SystemModel
 import io.sengokudaikon.isn.compendium.domain.system.Traits
@@ -20,9 +19,10 @@ import io.sengokudaikon.isn.compendium.enums.Proficiency
 import io.sengokudaikon.isn.compendium.enums.SaveType
 import io.sengokudaikon.isn.infrastructure.domain.Model
 import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import org.bson.BsonValue
+import org.bson.codecs.kotlinx.BsonValueSerializer
 import org.bson.codecs.kotlinx.ObjectIdSerializer
 import org.bson.types.ObjectId
 
@@ -37,13 +37,14 @@ data class CharacterModel(
     override val type: String = "character",
     val playerName: String,
     override val system: CharacterSystem,
-): Model {
+) : Model {
     @Serializable
     data class CharacterSystem(
         override val description: DescriptionType,
         override val traits: Traits? = null,
         override val publication: Publication = Publication("ORC", true, "Inner Sea Navigator"),
-        override val rules: List<GenericRule> = listOf(),
+        @OptIn(ExperimentalSerializationApi::class)
+        @Serializable(with = BsonValueSerializer::class) override val rules: BsonValue? = null,
         val level: Int,
         val currentExp: Int,
         val heroPoints: Int,
@@ -74,7 +75,8 @@ data class CharacterModel(
         val formula: List<String>,
         val pets: List<AnimalCompanionModel>,
         val familiars: List<FamiliarModel>,
-    ): SystemModel
+    ) : SystemModel
+
     @Serializable
     data class SpellCasting(
         val origin: String,
@@ -183,6 +185,7 @@ data class CharacterModel(
             return value
         }
     }
+
     @Serializable
     data class Speed(
         val value: Int,
@@ -238,8 +241,4 @@ data class CharacterModel(
         val dying: BoundedInt = BoundedInt(0),
         val wounded: BoundedInt = BoundedInt(0)
     )
-
-    override fun getSerializer(): KSerializer<*> = serializer()
-
-
 }

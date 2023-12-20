@@ -5,7 +5,9 @@ import io.sengokudaikon.isn.compendium.domain.background.repository.BackgroundRe
 import io.sengokudaikon.isn.compendium.operations.character.background.query.BackgroundQuery
 import io.sengokudaikon.isn.compendium.ports.character.ListBackgroundPort
 import io.sengokudaikon.isn.infrastructure.usecases.GetList
+import org.koin.core.annotation.Single
 
+@Single(binds = [ListBackgroundPort::class])
 class BackgroundList(override val repository: BackgroundRepositoryPort) :
     GetList<BackgroundQuery, BackgroundModel, List<BackgroundModel>, BackgroundRepositoryPort>(), ListBackgroundPort {
     override fun getCacheKey(query: BackgroundQuery): String {

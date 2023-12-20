@@ -1,47 +1,47 @@
 package io.sengokudaikon.isn.compendium.enums
 
 enum class Skills {
-    ANY,
-    ACROBATICS,
-    ARCANA,
-    ATHLETICS,
-    CRAFTING,
-    DECEPTION,
-    DIPLOMACY,
-    INTIMIDATION,
-    MEDICINE,
-    NATURE,
-    OCCULTISM,
-    PERFORMANCE,
-    RELIGION,
-    SOCIETY,
-    STEALTH,
-    SURVIVAL,
-    THIEVERY,
-    LORE,
+    Any,
+    Acrobatics,
+    Arcana,
+    Athletics,
+    Crafting,
+    Deception,
+    Diplomacy,
+    Intimidation,
+    Medicine,
+    Nature,
+    Occultism,
+    Performance,
+    Religion,
+    Society,
+    Stealth,
+    Survival,
+    Thievery,
+    Lore,
     ;
 
     companion object {
         fun from(value: String): Skills {
             return when (value) {
-                "acr" -> ACROBATICS
-                "arc" -> ARCANA
-                "ath" -> ATHLETICS
-                "cra" -> CRAFTING
-                "dec" -> DECEPTION
-                "dip" -> DIPLOMACY
-                "int" -> INTIMIDATION
-                "med" -> MEDICINE
-                "nat" -> NATURE
-                "occ" -> OCCULTISM
-                "per" -> PERFORMANCE
-                "rel" -> RELIGION
-                "soc" -> SOCIETY
-                "ste" -> STEALTH
-                "sur" -> SURVIVAL
-                "thi" -> THIEVERY
-                "lor" -> LORE
-                else -> ANY
+                "acr" -> Acrobatics
+                "arc" -> Arcana
+                "ath" -> Athletics
+                "cra" -> Crafting
+                "dec" -> Deception
+                "dip" -> Diplomacy
+                "int" -> Intimidation
+                "med" -> Medicine
+                "nat" -> Nature
+                "occ" -> Occultism
+                "per" -> Performance
+                "rel" -> Religion
+                "soc" -> Society
+                "ste" -> Stealth
+                "sur" -> Survival
+                "thi" -> Thievery
+                "lor" -> Lore
+                else -> Any
             }
         }
     }

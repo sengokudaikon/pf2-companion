@@ -99,7 +99,7 @@ class PathbuilderConverter(
                             description = DescriptionType("Imported from Pathbuilder"),
                             publication = Publication("ORC", true, "Inner Sea Navigator"),
                             traits = null,
-                            rules = listOf(),
+                            rules = null,
                             equipment = it.equipment,
                             specific = it.specific,
                         )
@@ -114,10 +114,10 @@ class PathbuilderConverter(
                 hp = CharacterModel.HP(
                     dying = BoundedInt(0),
                     wounded = BoundedInt(0),
-                    max = import.attributes.classHp + import.attributes.ancestryHp + import.attributes.bonusHp
-                            + import.level * import.attributes.bonusHpPerLevel,
-                    current = import.attributes.classHp + import.attributes.ancestryHp + import.attributes.bonusHp
-                            + import.level * import.attributes.bonusHpPerLevel,
+                    max = import.attributes.classHp + import.attributes.ancestryHp + import.attributes.bonusHp +
+                        import.level * import.attributes.bonusHpPerLevel,
+                    current = import.attributes.classHp + import.attributes.ancestryHp + import.attributes.bonusHp +
+                        import.level * import.attributes.bonusHpPerLevel,
                     temporary = 0
                 ),
                 languages = import.languages,
@@ -143,7 +143,7 @@ class PathbuilderConverter(
                             description = DescriptionType("Imported from Pathbuilder"),
                             publication = Publication("ORC", true, "Inner Sea Navigator"),
                             traits = null,
-                            rules = listOf(),
+                            rules = null,
                             equipment = it.equipment,
                             armor = it.armor,
                             specializations = it.specializations,
@@ -205,10 +205,11 @@ class PathbuilderConverter(
         return strikes
     }
 
+    @Suppress("CyclomaticComplexMethod")
     private fun getSkills(import: PathbuilderCharacter): List<CharacterModel.Skill> {
         val skills = mutableListOf(
             CharacterModel.Skill(
-                name = Skills.ARCANA.name,
+                name = Skills.Arcana.name,
                 proficiency = Proficiency.valueOf(import.proficiencies.arcana),
                 fromProficiency = import.proficiencies.arcana,
                 fromAttribute = import.abilities.intelligence,
@@ -216,7 +217,7 @@ class PathbuilderConverter(
                 fromLevel = import.level,
             ).apply { modifier = this.calculate() },
             CharacterModel.Skill(
-                name = Skills.ATHLETICS.name,
+                name = Skills.Athletics.name,
                 proficiency = Proficiency.valueOf(import.proficiencies.athletics),
                 fromProficiency = import.proficiencies.athletics,
                 fromAttribute = import.abilities.strength,
@@ -224,7 +225,7 @@ class PathbuilderConverter(
                 fromLevel = import.level,
             ).apply { modifier = this.calculate() },
             CharacterModel.Skill(
-                name = Skills.CRAFTING.name,
+                name = Skills.Crafting.name,
                 proficiency = Proficiency.valueOf(import.proficiencies.crafting),
                 fromProficiency = import.proficiencies.crafting,
                 fromAttribute = import.abilities.intelligence,
@@ -232,7 +233,7 @@ class PathbuilderConverter(
                 fromLevel = import.level,
             ).apply { modifier = this.calculate() },
             CharacterModel.Skill(
-                name = Skills.ACROBATICS.name,
+                name = Skills.Acrobatics.name,
                 proficiency = Proficiency.valueOf(import.proficiencies.acrobatics),
                 fromProficiency = import.proficiencies.acrobatics,
                 fromAttribute = import.abilities.strength,
@@ -240,7 +241,7 @@ class PathbuilderConverter(
                 fromLevel = import.level,
             ).apply { modifier = this.calculate() },
             CharacterModel.Skill(
-                name = Skills.DECEPTION.name,
+                name = Skills.Deception.name,
                 proficiency = Proficiency.valueOf(import.proficiencies.deception),
                 fromProficiency = import.proficiencies.deception,
                 fromAttribute = import.abilities.charisma,
@@ -248,7 +249,7 @@ class PathbuilderConverter(
                 fromLevel = import.level,
             ).apply { modifier = this.calculate() },
             CharacterModel.Skill(
-                name = Skills.DIPLOMACY.name,
+                name = Skills.Diplomacy.name,
                 proficiency = Proficiency.valueOf(import.proficiencies.diplomacy),
                 fromProficiency = import.proficiencies.diplomacy,
                 fromAttribute = import.abilities.charisma,
@@ -256,7 +257,7 @@ class PathbuilderConverter(
                 fromLevel = import.level,
             ).apply { modifier = this.calculate() },
             CharacterModel.Skill(
-                name = Skills.INTIMIDATION.name,
+                name = Skills.Intimidation.name,
                 proficiency = Proficiency.valueOf(import.proficiencies.intimidation),
                 fromProficiency = import.proficiencies.intimidation,
                 fromAttribute = import.abilities.charisma,
@@ -264,7 +265,7 @@ class PathbuilderConverter(
                 fromLevel = import.level,
             ).apply { modifier = this.calculate() },
             CharacterModel.Skill(
-                name = Skills.MEDICINE.name,
+                name = Skills.Medicine.name,
                 proficiency = Proficiency.valueOf(import.proficiencies.medicine),
                 fromProficiency = import.proficiencies.medicine,
                 fromAttribute = import.abilities.wisdom,
@@ -272,7 +273,7 @@ class PathbuilderConverter(
                 fromLevel = import.level,
             ).apply { modifier = this.calculate() },
             CharacterModel.Skill(
-                name = Skills.NATURE.name,
+                name = Skills.Nature.name,
                 proficiency = Proficiency.valueOf(import.proficiencies.nature),
                 fromProficiency = import.proficiencies.nature,
                 fromAttribute = import.abilities.wisdom,
@@ -280,7 +281,7 @@ class PathbuilderConverter(
                 fromLevel = import.level,
             ).apply { modifier = this.calculate() },
             CharacterModel.Skill(
-                name = Skills.OCCULTISM.name,
+                name = Skills.Occultism.name,
                 proficiency = Proficiency.valueOf(import.proficiencies.occultism),
                 fromProficiency = import.proficiencies.occultism,
                 fromAttribute = import.abilities.intelligence,
@@ -288,7 +289,7 @@ class PathbuilderConverter(
                 fromLevel = import.level,
             ).apply { modifier = this.calculate() },
             CharacterModel.Skill(
-                name = Skills.PERFORMANCE.name,
+                name = Skills.Performance.name,
                 proficiency = Proficiency.valueOf(import.proficiencies.performance),
                 fromProficiency = import.proficiencies.performance,
                 fromAttribute = import.abilities.charisma,
@@ -296,7 +297,7 @@ class PathbuilderConverter(
                 fromLevel = import.level,
             ).apply { modifier = this.calculate() },
             CharacterModel.Skill(
-                name = Skills.RELIGION.name,
+                name = Skills.Religion.name,
                 proficiency = Proficiency.valueOf(import.proficiencies.religion),
                 fromProficiency = import.proficiencies.religion,
                 fromAttribute = import.abilities.wisdom,
@@ -304,7 +305,7 @@ class PathbuilderConverter(
                 fromLevel = import.level,
             ).apply { modifier = this.calculate() },
             CharacterModel.Skill(
-                name = Skills.SOCIETY.name,
+                name = Skills.Society.name,
                 proficiency = Proficiency.valueOf(import.proficiencies.society),
                 fromProficiency = import.proficiencies.society,
                 fromAttribute = import.abilities.intelligence,
@@ -312,7 +313,7 @@ class PathbuilderConverter(
                 fromLevel = import.level,
             ).apply { modifier = this.calculate() },
             CharacterModel.Skill(
-                name = Skills.STEALTH.name,
+                name = Skills.Stealth.name,
                 proficiency = Proficiency.valueOf(import.proficiencies.stealth),
                 fromProficiency = import.proficiencies.stealth,
                 fromAttribute = import.abilities.dexterity,
@@ -320,7 +321,7 @@ class PathbuilderConverter(
                 fromLevel = import.level,
             ).apply { modifier = this.calculate() },
             CharacterModel.Skill(
-                name = Skills.SURVIVAL.name,
+                name = Skills.Survival.name,
                 proficiency = Proficiency.valueOf(import.proficiencies.survival),
                 fromProficiency = import.proficiencies.survival,
                 fromAttribute = import.abilities.wisdom,
@@ -328,7 +329,7 @@ class PathbuilderConverter(
                 fromLevel = import.level,
             ).apply { modifier = this.calculate() },
             CharacterModel.Skill(
-                name = Skills.THIEVERY.name,
+                name = Skills.Thievery.name,
                 proficiency = Proficiency.valueOf(import.proficiencies.thievery),
                 fromProficiency = import.proficiencies.thievery,
                 fromAttribute = import.abilities.dexterity,
@@ -351,7 +352,7 @@ class PathbuilderConverter(
         return skills
     }
 
-    private suspend fun getSaves(import: PathbuilderCharacter): List<CharacterModel.Save> {
+    private fun getSaves(import: PathbuilderCharacter): List<CharacterModel.Save> {
         return listOf(
             CharacterModel.Save(
                 type = SaveType.FORTITUDE,
@@ -501,5 +502,4 @@ class PathbuilderConverter(
         abilityScores.add(CharacterModel.AbilityScore("Charisma", attributes.charisma))
         return abilityScores
     }
-
 }

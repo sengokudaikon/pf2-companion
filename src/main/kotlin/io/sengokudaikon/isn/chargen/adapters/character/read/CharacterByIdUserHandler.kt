@@ -13,12 +13,12 @@ import org.koin.core.annotation.Single
 import org.koin.core.component.inject
 
 @Single(binds = [QueryHandler::class])
-class CharacterByIdUserHandler: ByIdHandler<CharacterModel, CharacterQuery.ByIdAndUser, ByIdUserCharacterPort>() {
+class CharacterByIdUserHandler : ByIdHandler<CharacterModel, CharacterQuery.ByIdAndUser, ByIdUserCharacterPort>() {
     override val useCase: ByIdUserCharacterPort by inject()
-    override suspend fun handle(call: ApplicationCall)  {
+    override suspend fun handle(call: ApplicationCall) {
         val userId = call.uid()
         val id = call.parameters["id"] ?: throw IllegalArgumentException("Missing id")
-        val query = createQuery(id).apply { this.userId = userId }
+        val query = createQuery(id, null).apply { this.userId = userId }
         val result = useCase.execute(query)
         call.respond(
             result.fold(
@@ -28,7 +28,7 @@ class CharacterByIdUserHandler: ByIdHandler<CharacterModel, CharacterQuery.ByIdA
         )
     }
 
-    override fun createQuery(id: String): CharacterQuery.ByIdAndUser {
+    override fun createQuery(id: String, secondaryId: String?): CharacterQuery.ByIdAndUser {
         return CharacterQuery.ByIdAndUser(id)
     }
 }

@@ -25,7 +25,7 @@ import org.koin.logger.slf4jLogger
 
 @OptIn(DelicateCoroutinesApi::class)
 fun main() {
-    val server = GlobalScope.launch() {
+    val server = GlobalScope.launch {
         embeddedServer(
             Netty,
             port = 8081,

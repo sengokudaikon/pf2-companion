@@ -6,7 +6,7 @@ import io.sengokudaikon.isn.PrivateAPI
 import io.sengokudaikon.isn.chargen.domain.model.CharacterModel
 import io.sengokudaikon.isn.infrastructure.operations.Query
 
-interface CharacterQuery: Query {
+interface CharacterQuery : Query {
     @Resource("/api/character/list/{page}/{size}")
     @PrivateAPI
     data class All(

@@ -5,7 +5,11 @@ import io.sengokudaikon.isn.compendium.domain.equipment.model.EquipmentModel
 import io.sengokudaikon.isn.compendium.domain.equipment.repository.EquipmentRepositoryPort
 import io.sengokudaikon.isn.infrastructure.getCollection
 import io.sengokudaikon.isn.infrastructure.repository.BaseRepository
+import org.koin.core.annotation.Single
+import kotlin.reflect.KClass
 
-class EquipmentRepository : BaseRepository<EquipmentModel>(EquipmentModel::class), EquipmentRepositoryPort {
+@Single(binds = [EquipmentRepositoryPort::class])
+class EquipmentRepository : BaseRepository<EquipmentModel>(), EquipmentRepositoryPort {
+    override val modelClass: KClass<EquipmentModel> = EquipmentModel::class
     override val collection: MongoCollection<EquipmentModel> = getCollection("equipment")
 }

@@ -12,6 +12,6 @@ import org.koin.core.component.inject
 class ClassFeatListHandler : ListHandler<List<ClassFeatureModel>, ClassFeatureQuery.All, ListClassFeatPort>() {
     override val useCase: ListClassFeatPort by inject()
     override fun createQuery(page: Int, size: Int, id: String?): ClassFeatureQuery.All {
-        return ClassFeatureQuery.All(id!!, page, size)
+        return ClassFeatureQuery.All(page, size)
     }
 }

@@ -7,6 +7,8 @@ import io.sengokudaikon.isn.infrastructure.repository.RepositoryOutputPort
 
 abstract class GetById<Q : Query, R : Model, S : RepositoryOutputPort<R>> : ReadPort<Q, R>, CachingUseCase() {
     abstract val repository: S
+
+    @Suppress("UNCHECKED_CAST")
     override suspend fun execute(query: Q): Result<R> {
         query as Query.ById<R>
         val cacheKey = getCacheKey(query)
@@ -16,5 +18,6 @@ abstract class GetById<Q : Query, R : Model, S : RepositoryOutputPort<R>> : Read
             }
         }
     }
+
     abstract fun getCacheKey(query: Q): String
 }

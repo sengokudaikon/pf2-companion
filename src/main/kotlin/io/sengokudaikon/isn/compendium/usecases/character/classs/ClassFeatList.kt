@@ -5,7 +5,9 @@ import io.sengokudaikon.isn.compendium.domain.classs.repository.ClassFeatureRepo
 import io.sengokudaikon.isn.compendium.operations.character.classs.query.ClassFeatureQuery
 import io.sengokudaikon.isn.compendium.ports.character.ListClassFeatPort
 import io.sengokudaikon.isn.infrastructure.usecases.GetList
+import org.koin.core.annotation.Single
 
+@Single(binds = [ListClassFeatPort::class])
 class ClassFeatList(override val repository: ClassFeatureRepositoryPort) :
     GetList<ClassFeatureQuery, ClassFeatureModel, List<ClassFeatureModel>, ClassFeatureRepositoryPort>(),
     ListClassFeatPort {

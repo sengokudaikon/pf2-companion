@@ -44,7 +44,7 @@ import io.sengokudaikon.isn.compendium.adapters.character.feat.GeneralFeatNameHa
 import io.sengokudaikon.isn.compendium.adapters.character.heritage.HeritageIdHandler
 import io.sengokudaikon.isn.compendium.adapters.character.heritage.HeritageListHandler
 import io.sengokudaikon.isn.compendium.adapters.character.heritage.HeritageNameHandler
-import io.sengokudaikon.isn.compendium.adapters.world.SearchHandler
+import io.sengokudaikon.isn.compendium.adapters.search.SearchHandler
 import io.sengokudaikon.isn.compendium.adapters.world.action.ActionIdHandler
 import io.sengokudaikon.isn.compendium.adapters.world.action.ActionListHandler
 import io.sengokudaikon.isn.compendium.adapters.world.action.ActionNameHandler
@@ -128,7 +128,7 @@ fun Application.configureRouting() {
         getResource<ClassFeatureQuery.All> { classFeatListHandler.handle(call) }
         getResource<ClassFeatureQuery.ByName> { classFeatNameHandler.handle(call) }
         getResource<ArmorQuery.All> { armorListHandler.handle(call) }
-        getResource<ArmorQuery.ByName> { armorNameHandler.handle(call)}
+        getResource<ArmorQuery.ByName> { armorNameHandler.handle(call) }
         getResource<WeaponQuery.All> { weaponListHandler.handle(call) }
         getResource<WeaponQuery.ByName> { weaponNameHandler.handle(call) }
         getResource<EquipmentQuery.All> { equipmentListHandler.handle(call) }
@@ -171,7 +171,8 @@ fun Application.configureRouting() {
         }
     }
 }
-suspend inline fun <reified T: Any> authorize(call: ApplicationCall, crossinline handler: suspend () -> Unit) {
+
+suspend inline fun <reified T : Any> authorize(call: ApplicationCall, crossinline handler: suspend () -> Unit) {
     val requiredRoles = T::class.getRequiredRoles()
         ?: return call.respond(HttpStatusCode.Forbidden, "Resource requires authentication.")
 
@@ -195,8 +196,9 @@ suspend fun <T> ApplicationCall.authorize(
     block: suspend () -> Unit,
 ) {
     val user = principal<FirebasePrincipal>()?.uid ?: throw UserException.Unauthorized("Unauthorized user")
-    val userRepository : UserRepositoryPort by inject()
-    val userRole = userRepository.findByUid(user).getOrNull()?.role ?: throw UserException.Unauthorized("Unauthorized user")
+    val userRepository: UserRepositoryPort by inject()
+    val userRole =
+        userRepository.findByUid(user).getOrNull()?.role ?: throw UserException.Unauthorized("Unauthorized user")
     if (userRole in requiredRoles) {
         block()
     } else {

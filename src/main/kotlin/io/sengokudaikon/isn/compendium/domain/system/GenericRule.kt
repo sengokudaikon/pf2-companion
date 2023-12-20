@@ -1,9 +1,8 @@
 package io.sengokudaikon.isn.compendium.domain.system
 
+import io.sengokudaikon.isn.compendium.infrastructure.mapper.extractValue
 import io.sengokudaikon.isn.compendium.operations.global.dto.DamageType
-import io.sengokudaikon.isn.compendium.operations.global.response.RuleResponse
-import io.sengokudaikon.isn.compendium.operations.global.vo.Choice
-import io.sengokudaikon.isn.compendium.operations.global.vo.SubOption
+import io.sengokudaikon.isn.infrastructure.operations.response.RuleResponse
 import io.sengokudaikon.isn.infrastructure.operations.transform
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.Serializable
@@ -19,52 +18,53 @@ data class GenericRule(
     val mode: String? = null,
     val type: String? = null,
     val option: String? = null,
-    val suboptions: List<SubOption>? = emptyList(),
+    @Serializable(with = BsonValueSerializer::class) val suboptions: BsonValue? = null,
     val category: String? = null,
     val toggleable: Boolean? = null,
     val damage: DamageType? = null,
     val damageDice: String? = null,
     val damageType: String? = null,
-    val overrides: List<String>? = emptyList(),
-    val adjustment: Map<String, String>? = emptyMap(),
-    val effects: List<RuleEffect>? = emptyList(),
+    @Serializable(with = BsonValueSerializer::class) val overrides: BsonValue? = null,
+    @Serializable(with = BsonValueSerializer::class) val adjustment: BsonValue? = null,
+    @Serializable(with = BsonValueSerializer::class) val effects: BsonValue? = null,
     val range: String? = null,
     @Serializable(with = BsonValueSerializer::class) val predicate: BsonValue? = null,
     val hasHands: Boolean? = null,
-    val selector: String? = null,
+    @Serializable(with = BsonValueSerializer::class) val selector: BsonValue? = null,
     val slug: String? = null,
-    val choices: List<Choice> = listOf(),
+    @Serializable(with = BsonValueSerializer::class) val choices: BsonValue? = null,
     val flag: String? = null,
     val prompt: String? = null,
     @Serializable(with = BsonValueSerializer::class) val value: BsonValue? = null,
 ) {
     fun toResponse(): RuleResponse {
-        return RuleResponse(
+        val response = RuleResponse(
             domain = domain,
             key = key,
             label = label,
             mode = mode,
             type = type,
             option = option,
-            suboptions = suboptions,
+            suboptions = suboptions?.transform().extractValue(),
             category = category,
             toggleable = toggleable,
             damage = damage,
             damageDice = damageDice,
             damageType = damageType,
-            overrides = overrides,
-            adjustment = adjustment,
-            effects = effects,
+            overrides = overrides?.transform().extractValue(),
+            adjustment = adjustment?.transform().extractValue(),
+            effects = effects?.transform().extractValue(),
             range = range,
-            predicate = predicate?.transform(),
+            predicate = predicate?.transform().extractValue(),
             hasHands = hasHands,
-            selector = selector,
+            selector = selector?.transform(),
             slug = slug,
-            choices = choices,
+            choices = choices?.transform().extractValue(),
             flag = flag,
             prompt = prompt,
-            value = value?.transform(),
+            value = value?.transform().extractValue(),
         )
+        return response
     }
 
     @Serializable

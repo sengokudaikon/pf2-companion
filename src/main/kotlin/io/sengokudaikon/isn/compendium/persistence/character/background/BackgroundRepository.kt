@@ -8,37 +8,42 @@ import io.sengokudaikon.isn.compendium.domain.background.repository.BackgroundRe
 import io.sengokudaikon.isn.compendium.domain.feat.FeatModel
 import io.sengokudaikon.isn.compendium.domain.feat.repository.FeatRepositoryPort
 import io.sengokudaikon.isn.infrastructure.DatabaseFactory
-import io.sengokudaikon.isn.infrastructure.errors.DatabaseException
+import io.sengokudaikon.isn.infrastructure.domain.Model
 import io.sengokudaikon.isn.infrastructure.repository.BaseRepository
+import io.sengokudaikon.isn.infrastructure.repository.RepositoryOutputPort
 import org.koin.core.annotation.Single
+import kotlin.reflect.KClass
 
 @Single(binds = [BackgroundRepositoryPort::class])
 class BackgroundRepository(
     private val featRepository: FeatRepositoryPort,
     private val actionRepository: ActionRepositoryPort,
-) : BaseRepository<BackgroundModel>(kClass = BackgroundModel::class), BackgroundRepositoryPort {
+) : BaseRepository<BackgroundModel>(), BackgroundRepositoryPort {
+    override val modelClass: KClass<BackgroundModel> = BackgroundModel::class
     override val collection: MongoCollection<BackgroundModel> =
         DatabaseFactory.database.getCollection<BackgroundModel>("backgrounds")
 
-    private suspend fun findFeats(background: BackgroundModel): Result<Map<String, FeatModel>> =
+    private suspend fun <T : Model> findItems(
+        background: BackgroundModel,
+        uuidKeyword: String,
+        repository: RepositoryOutputPort<T>
+    ): Result<Map<String, T>> =
         runCatching {
-            val featNames = background.system.items.values.filter { it.uuid.contains("Compendium.pf2.feats-*") }
+            val itemNames = background.system.items.values.filter { it.uuid.contains(uuidKeyword) }
                 .map { it.name }
-            val feats = featRepository.findByNames(featNames).getOrNull()?.associateBy { it.name }
-                ?: throw DatabaseException.NotFound(FeatModel::class.qualifiedName)
 
-            feats
+            if (itemNames.isEmpty()) {
+                return@runCatching emptyMap()
+            }
+            val items = repository.findByNames(itemNames).getOrDefault(emptyList()).associateBy { it.name }
+            items
         }
+
+    private suspend fun findFeats(background: BackgroundModel): Result<Map<String, FeatModel>> =
+        findItems(background, "feats", featRepository)
 
     private suspend fun findActions(background: BackgroundModel): Result<Map<String, ActionModel>> =
-        runCatching {
-            val actions = background.system.items.values
-                .map { item ->
-                    actionRepository.findByName(item.name).getOrNull()
-                        ?: throw DatabaseException.NotFound(ActionModel::class.qualifiedName)
-                }.associateBy { it.name }
-            actions
-        }
+        findItems(background, "actions", actionRepository)
 
     override suspend fun findByName(name: String): Result<BackgroundModel> = super.findByName(name).map {
         it.feats = findFeats(it).getOrDefault(emptyMap())
@@ -50,5 +55,14 @@ class BackgroundRepository(
         it.feats = findFeats(it).getOrDefault(emptyMap())
         it.actions = findActions(it).getOrDefault(emptyMap())
         it
+    }
+
+    override suspend fun findAll(page: Int, limit: Int): Result<List<BackgroundModel>> = runCatching {
+        val backgrounds = super.findAll(page, limit).getOrDefault(emptyList())
+        backgrounds.map {
+            it.feats = findFeats(it).getOrDefault(emptyMap())
+            it.actions = findActions(it).getOrDefault(emptyMap())
+            it
+        }.toList()
     }
 }

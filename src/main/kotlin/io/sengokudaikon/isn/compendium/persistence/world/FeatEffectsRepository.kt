@@ -6,8 +6,10 @@ import io.sengokudaikon.isn.compendium.domain.feat.repository.FeatEffectsReposit
 import io.sengokudaikon.isn.infrastructure.getCollection
 import io.sengokudaikon.isn.infrastructure.repository.BaseRepository
 import org.koin.core.annotation.Single
+import kotlin.reflect.KClass
 
-@Single
-class FeatEffectsRepository : BaseRepository<FeatEffectModel>(FeatEffectModel::class), FeatEffectsRepositoryPort {
+@Single(binds = [FeatEffectsRepositoryPort::class])
+class FeatEffectsRepository : BaseRepository<FeatEffectModel>(), FeatEffectsRepositoryPort {
+    override val modelClass: KClass<FeatEffectModel> = FeatEffectModel::class
     override val collection: MongoCollection<FeatEffectModel> = getCollection<FeatEffectModel>("featEffects")
 }

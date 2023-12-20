@@ -18,5 +18,6 @@ abstract class GetList<Q : Query, R : Model, L : List<R>, S : RepositoryOutputPo
             }
         }
     }
+
     abstract fun getCacheKey(query: Q): String
 }

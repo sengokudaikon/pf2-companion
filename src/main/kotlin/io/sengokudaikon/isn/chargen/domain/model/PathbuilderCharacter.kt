@@ -65,11 +65,13 @@ data class PathbuilderCharacter(
         val specializations: List<String>,
         val armor: String
     )
+
     @Serializable
     data class Formula(
         val type: String,
         val known: List<String>
     )
+
     @Serializable
     data class ACTotal(
         val acProfBonus: Int,
@@ -78,6 +80,7 @@ data class PathbuilderCharacter(
         val acTotal: Int,
         val shieldBonus: Int,
     )
+
     @Serializable
     data class FocusSpellcasting(
         val abilityBonus: Int,
@@ -86,6 +89,7 @@ data class PathbuilderCharacter(
         val focusCantrips: List<String>,
         val focusSpells: List<String>,
     )
+
     @Serializable
     data class SpellCaster(
         val name: String,
@@ -106,6 +110,7 @@ data class PathbuilderCharacter(
             val list: List<String>,
         )
     }
+
     @Serializable
     data class Money(
         val cp: Int,
@@ -126,6 +131,7 @@ data class PathbuilderCharacter(
         val worn: Boolean,
         val runes: List<String>,
     )
+
     @Serializable
     data class Weapon(
         val name: String,
@@ -142,12 +148,14 @@ data class PathbuilderCharacter(
         val damageBonus: String,
         val extraDamage: List<String>,
     )
+
     @Serializable
     data class Container(
         val containerName: String,
         val bagOfHolding: Boolean,
         val backpack: Boolean,
     )
+
     @Serializable
     data class Abilities(
         val strength: Int,

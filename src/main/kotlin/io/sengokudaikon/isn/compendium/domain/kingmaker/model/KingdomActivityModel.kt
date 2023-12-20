@@ -3,7 +3,6 @@ package io.sengokudaikon.isn.compendium.domain.kingmaker.model
 import io.sengokudaikon.isn.compendium.domain.system.SystemModel
 import io.sengokudaikon.isn.infrastructure.domain.Model
 import kotlinx.serialization.Contextual
-import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId
@@ -17,6 +16,4 @@ class KingdomActivityModel(
     override val name: String,
     override val type: String,
     override val system: SystemModel,
-) : Model {
-    override fun getSerializer(): KSerializer<*> = serializer()
-}
+) : Model

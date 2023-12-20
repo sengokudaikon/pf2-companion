@@ -23,6 +23,7 @@ abstract class CommandHandler : KoinComponent {
         return authorization.getUserId(this)
     }
 }
+
 fun ApplicationCall.uid(): String {
     return this.principal<FirebasePrincipal>()?.uid ?: throw UserException.Unauthorized("Unauthorized user")
 }

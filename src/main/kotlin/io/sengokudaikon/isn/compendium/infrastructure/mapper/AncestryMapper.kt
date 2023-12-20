@@ -2,11 +2,13 @@ package io.sengokudaikon.isn.compendium.infrastructure.mapper
 
 import io.sengokudaikon.isn.compendium.domain.ancestry.AncestryModel
 import io.sengokudaikon.isn.compendium.enums.Ability
-import io.sengokudaikon.isn.compendium.operations.character.ancestry.response.AncestryResponse
+import io.sengokudaikon.isn.infrastructure.operations.response.AncestryResponse
 import org.koin.core.annotation.Single
 
-@Single(binds = [Mapper::class])
-class AncestryMapper : Mapper<AncestryModel> {
+@Single
+class AncestryMapper(
+    private val ancestryFeatureMapper: AncestryFeatureMapper,
+) : Mapper<AncestryModel> {
     override fun toResponse(model: AncestryModel): AncestryResponse {
         return with(model) {
             AncestryResponse(
@@ -14,7 +16,7 @@ class AncestryMapper : Mapper<AncestryModel> {
                 name = name,
                 type = type,
                 description = system.description.value,
-                rules = system.rules.map { it.toResponse() },
+                rules = system.rules?.let { rulesToJson(it.asArray()) },
                 traits = system.traits.toResponse(),
                 publication = system.publication,
                 additionalLanguages = system.additionalLanguages,
@@ -29,14 +31,14 @@ class AncestryMapper : Mapper<AncestryModel> {
                 items = system.items.mapValues { it.value.toResponse() },
                 vision = system.vision,
                 additionalSense = system.additionalSense,
-                ancestryFeatures = ancestryFeatures.mapValues { it.value.toResponse() },
+                ancestryFeatures = ancestryFeatures.mapValues { ancestryFeatureMapper.toResponse(it.value) },
             )
         }
     }
 
     fun Map<String, AncestryModel.SystemProperty.AbilityScore>.toAbilityList(): List<Ability> {
         return this.map {
-            it.value.toAbility()
-        }
+            it.value.toAbilityList()
+        }.flatten()
     }
 }

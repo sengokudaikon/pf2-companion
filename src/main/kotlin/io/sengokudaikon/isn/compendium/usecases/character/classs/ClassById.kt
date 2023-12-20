@@ -5,7 +5,9 @@ import io.sengokudaikon.isn.compendium.domain.classs.repository.ClassRepositoryP
 import io.sengokudaikon.isn.compendium.operations.character.classs.query.ClassQuery
 import io.sengokudaikon.isn.compendium.ports.character.ByIdClassPort
 import io.sengokudaikon.isn.infrastructure.usecases.GetById
+import org.koin.core.annotation.Single
 
+@Single(binds = [ByIdClassPort::class])
 class ClassById(override val repository: ClassRepositoryPort) :
     GetById<ClassQuery, ClassModel, ClassRepositoryPort>(),
     ByIdClassPort {

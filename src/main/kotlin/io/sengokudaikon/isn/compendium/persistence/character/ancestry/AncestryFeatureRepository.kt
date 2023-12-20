@@ -6,11 +6,13 @@ import io.sengokudaikon.isn.compendium.domain.ancestry.repository.AncestryFeatur
 import io.sengokudaikon.isn.infrastructure.DatabaseFactory
 import io.sengokudaikon.isn.infrastructure.repository.BaseRepository
 import org.koin.core.annotation.Single
+import kotlin.reflect.KClass
 
 @Single(binds = [AncestryFeatureRepositoryPort::class])
 class AncestryFeatureRepository :
-    BaseRepository<AncestryFeatureModel>(AncestryFeatureModel::class),
+    BaseRepository<AncestryFeatureModel>(),
     AncestryFeatureRepositoryPort {
+    override val modelClass: KClass<AncestryFeatureModel> = AncestryFeatureModel::class
     override val collection: MongoCollection<AncestryFeatureModel> =
         DatabaseFactory.database.getCollection<AncestryFeatureModel>("ancestryfeatures")
 }

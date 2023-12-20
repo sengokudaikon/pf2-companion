@@ -1,3 +1,6 @@
+formatting:
+  NoWildcardImports:
+    active: false
 style:
   DestructuringDeclarationWithTooManyEntries:
     active: false

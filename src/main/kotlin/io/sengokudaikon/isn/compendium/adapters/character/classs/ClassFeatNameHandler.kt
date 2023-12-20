@@ -12,6 +12,6 @@ import org.koin.core.component.inject
 class ClassFeatNameHandler : ByNameHandler<ClassFeatureModel, ClassFeatureQuery.ByName, ByNameClassFeatPort>() {
     override val useCase: ByNameClassFeatPort by inject()
     override fun createQuery(name: String, id: String?): ClassFeatureQuery.ByName {
-        return ClassFeatureQuery.ByName(id!!, name)
+        return ClassFeatureQuery.ByName(name)
     }
 }

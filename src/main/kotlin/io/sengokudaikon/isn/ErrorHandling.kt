@@ -5,19 +5,9 @@ import io.ktor.server.application.*
 import io.ktor.server.plugins.*
 import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.response.*
-import org.koin.core.error.NoBeanDefFoundException
 
 fun Application.handleErrors() {
     install(StatusPages) {
-        exception<NoBeanDefFoundException> { call, cause ->
-            this@handleErrors.log.error(cause.localizedMessage)
-            call.respond(
-                HttpStatusCode.InternalServerError,
-                "500:" +
-                    cause.localizedMessage +
-                    "\n${cause.stackTraceToString()}",
-            )
-        }
         exception<InternalError> { call, cause ->
             this@handleErrors.log.error(cause.localizedMessage)
             call.respond(

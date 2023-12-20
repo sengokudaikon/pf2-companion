@@ -11,7 +11,8 @@ data class ActionSystem(
     override val description: DescriptionType,
     override val publication: Publication,
     override val traits: Traits,
-    override val rules: List<GenericRule>,
+    @OptIn(ExperimentalSerializationApi::class)
+    @Serializable(with = BsonValueSerializer::class) override val rules: BsonValue? = null,
     val frequency: Frequency?,
     val category: String,
     val selfEffect: SelfEffect?,

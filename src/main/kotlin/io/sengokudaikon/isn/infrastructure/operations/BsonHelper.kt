@@ -37,11 +37,13 @@ private fun BsonValue.transformDocument() = this.asDocument().toJson()
 private fun BsonValue.transformArray() = this.asArray().map {
     it.transform()
 }.joinToString(", ")
+
 private fun BsonValue.transformBinary() = this.asBinary().data.toString()
 private fun transformUndefined(): Unit? {
     logger.warn("Undefined value found")
     return null
 }
+
 private fun BsonValue.transformObjectId() = this.asObjectId().value.toString()
 private fun BsonValue.transformInt32() = this.asInt32().value.toString()
 private fun BsonValue.transformInt64() = this.asInt64().value.toString()
@@ -52,6 +54,7 @@ private fun transformNull(): Unit? {
     logger.warn("Null value found")
     return null
 }
+
 private fun BsonValue.transformRegularExpression() = this.asRegularExpression().pattern
 private fun BsonValue.transformDbPointer() = this.asDBPointer().id.toString()
 private fun BsonValue.transformSymbol() = this.asSymbol().symbol

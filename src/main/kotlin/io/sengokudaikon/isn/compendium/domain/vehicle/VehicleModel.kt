@@ -1,7 +1,6 @@
 package io.sengokudaikon.isn.compendium.domain.vehicle
 
 import io.sengokudaikon.isn.compendium.domain.system.DescriptionType
-import io.sengokudaikon.isn.compendium.domain.system.GenericRule
 import io.sengokudaikon.isn.compendium.domain.system.Publication
 import io.sengokudaikon.isn.compendium.domain.system.SystemModel
 import io.sengokudaikon.isn.compendium.domain.system.Traits
@@ -26,14 +25,14 @@ data class VehicleModel(
     override val system: SystemProperty,
     val items: List<ItemModel>,
 ) : Model {
-    override fun getSerializer() = serializer()
 
     @Serializable
     data class SystemProperty(
         override val description: DescriptionType,
         override val publication: Publication,
         override val traits: Traits,
-        override val rules: List<GenericRule>,
+        @OptIn(ExperimentalSerializationApi::class)
+        @Serializable(with = BsonValueSerializer::class) override val rules: BsonValue? = null,
         val attributes: Attributes,
         val details: Details,
         val saves: Saves,
@@ -73,7 +72,8 @@ data class VehicleModel(
         @Serializable
         @Suppress("ConstructorParameterNaming")
         data class Details(
-            val AC: Int,
+            @SerialName("AC")
+            val ac: Int,
             val crew: String,
             val description: JsonObject,
             @Serializable(with = BsonValueSerializer::class) val level: BsonValue,
@@ -115,7 +115,6 @@ data class VehicleModel(
         override val img: String,
         override val system: SystemProperty,
     ) : Model {
-        override fun getSerializer() = serializer()
 
         @OptIn(ExperimentalSerializationApi::class)
         @Serializable
@@ -123,7 +122,8 @@ data class VehicleModel(
             override val description: DescriptionType,
             override val publication: Publication,
             override val traits: Traits,
-            override val rules: List<GenericRule>,
+            @OptIn(ExperimentalSerializationApi::class)
+            @Serializable(with = BsonValueSerializer::class) override val rules: BsonValue? = null,
             @Serializable(with = BsonValueSerializer::class) val actionType: BsonValue,
             @Serializable(with = BsonValueSerializer::class) val actions: BsonValue?,
             @Serializable(with = BsonValueSerializer::class) val category: BsonValue,

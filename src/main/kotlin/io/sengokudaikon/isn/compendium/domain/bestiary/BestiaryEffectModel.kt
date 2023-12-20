@@ -3,7 +3,6 @@ package io.sengokudaikon.isn.compendium.domain.bestiary
 import io.sengokudaikon.isn.compendium.domain.effects.model.EffectSystem
 import io.sengokudaikon.isn.infrastructure.domain.EffectModel
 import kotlinx.serialization.Contextual
-import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId
@@ -17,6 +16,4 @@ data class BestiaryEffectModel(
     override val name: String,
     override val type: String,
     override val system: EffectSystem,
-) : EffectModel {
-    override fun getSerializer(): KSerializer<*> = serializer()
-}
+) : EffectModel

@@ -5,7 +5,9 @@ import io.sengokudaikon.isn.compendium.domain.equipment.repository.ArmorReposito
 import io.sengokudaikon.isn.compendium.operations.character.equipment.query.ArmorQuery
 import io.sengokudaikon.isn.compendium.ports.character.ListArmorPort
 import io.sengokudaikon.isn.infrastructure.usecases.GetList
+import org.koin.core.annotation.Single
 
+@Single(binds = [ListArmorPort::class])
 class ArmorList(override val repository: ArmorRepositoryPort) :
     GetList<ArmorQuery, ArmorModel, List<ArmorModel>, ArmorRepositoryPort>(), ListArmorPort {
     override fun getCacheKey(query: ArmorQuery): String {

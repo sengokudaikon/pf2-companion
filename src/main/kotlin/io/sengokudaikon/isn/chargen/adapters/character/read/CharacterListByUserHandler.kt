@@ -12,7 +12,7 @@ import org.koin.core.annotation.Single
 import org.koin.core.component.inject
 
 @Single(binds = [QueryHandler::class])
-class CharacterListByUserHandler:
+class CharacterListByUserHandler :
     ListHandler<List<CharacterModel>, CharacterQuery.ListByUser, ListUserCharactersPort>() {
     override val useCase: ListUserCharactersPort by inject()
     override suspend fun handle(call: ApplicationCall) {

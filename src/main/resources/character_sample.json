@@ -1,0 +1,859 @@
+{
+  "success": true,
+  "build": {
+    "name": "Threads ?",
+    "class": "Magus",
+    "dualClass": null,
+    "level": 10,
+    "ancestry": "Kitsune",
+    "heritage": "Tiefling",
+    "background": "Returned",
+    "alignment": "5,4",
+    "gender": "F",
+    "age": "20",
+    "deity": "?",
+    "size": 2,
+    "sizeName": "Medium",
+    "keyability": "str",
+    "languages": [
+      "Anadi",
+      "Common",
+      "Fey",
+      "Sakvroth"
+    ],
+    "rituals": [],
+    "resistances": [],
+    "attributes": {
+      "ancestryhp": 8,
+      "classhp": 8,
+      "bonushp": 0,
+      "bonushpPerLevel": 1,
+      "speed": 25,
+      "speedBonus": 15
+    },
+    "abilities": {
+      "str": 20,
+      "dex": 14,
+      "con": 18,
+      "int": 14,
+      "wis": 16,
+      "cha": 10,
+      "breakdown": {
+        "ancestryFree": [
+          "Str",
+          "Int"
+        ],
+        "ancestryBoosts": [],
+        "ancestryFlaws": [],
+        "backgroundBoosts": [
+          "Con",
+          "Str"
+        ],
+        "classBoosts": [
+          "Str"
+        ],
+        "mapLevelledBoosts": {
+          "1": [
+            "Str",
+            "Wis",
+            "Int",
+            "Con"
+          ],
+          "5": [
+            "Con",
+            "Str",
+            "Wis",
+            "Dex"
+          ],
+          "10": [
+            "Con",
+            "Wis",
+            "Str",
+            "Dex"
+          ]
+        }
+      }
+    },
+    "proficiencies": {
+      "classDC": 4,
+      "perception": 4,
+      "fortitude": 4,
+      "reflex": 4,
+      "will": 6,
+      "heavy": 0,
+      "medium": 2,
+      "light": 2,
+      "unarmored": 2,
+      "advanced": 0,
+      "martial": 4,
+      "simple": 4,
+      "unarmed": 4,
+      "castingArcane": 4,
+      "castingDivine": 2,
+      "castingOccult": 2,
+      "castingPrimal": 0,
+      "acrobatics": 2,
+      "arcana": 6,
+      "athletics": 4,
+      "crafting": 6,
+      "deception": 2,
+      "diplomacy": 2,
+      "intimidation": 0,
+      "medicine": 2,
+      "nature": 2,
+      "occultism": 4,
+      "performance": 0,
+      "religion": 2,
+      "society": 2,
+      "stealth": 6,
+      "survival": 0,
+      "thievery": 2
+    },
+    "mods": {
+      "Reflex": {
+        "Item Bonus": 1
+      },
+      "Athletics": {
+        "Item Bonus": 2
+      },
+      "Stealth": {
+        "Item Bonus": 1
+      },
+      "Will": {
+        "Item Bonus": 1
+      },
+      "Arcana": {
+        "Item Bonus": 1
+      },
+      "Fortitude": {
+        "Item Bonus": 1
+      }
+    },
+    "feats": [
+      [
+        "Diehard",
+        null,
+        "Awarded Feat",
+        1
+      ],
+      [
+        "Tiefling",
+        null,
+        "Heritage",
+        1
+      ],
+      [
+        "Nimble Hooves",
+        null,
+        "Ancestry Feat",
+        1
+      ],
+      [
+        "Alchemical Crafting",
+        null,
+        "Skill Feat",
+        2
+      ],
+      [
+        "Investigator Dedication",
+        null,
+        "Class Feat",
+        2
+      ],
+      [
+        "Psychic Dedication",
+        null,
+        "Archetype Feat",
+        2
+      ],
+      [
+        "Adopted Ancestry",
+        "Human",
+        "General Feat",
+        3
+      ],
+      [
+        "Collegiate Attendant Dedication",
+        null,
+        "Class Feat",
+        3
+      ],
+      [
+        "Ambush Tactics",
+        null,
+        "Skill Feat",
+        4
+      ],
+      [
+        "Investigator's Stratagem",
+        null,
+        "Archetype Feat",
+        4
+      ],
+      [
+        "Toughness",
+        null,
+        "General Feat",
+        4
+      ],
+      [
+        "Spirit Sheath",
+        null,
+        "Class Feat",
+        4
+      ],
+      [
+        "Malicious Bane",
+        null,
+        "Ancestry Feat",
+        5
+      ],
+      [
+        "Psi Development",
+        null,
+        "Archetype Feat",
+        6
+      ],
+      [
+        "Halcyon Speaker Dedication",
+        null,
+        "Class Feat",
+        6
+      ],
+      [
+        "Quiet Allies",
+        null,
+        "Skill Feat",
+        6
+      ],
+      [
+        "Attack of Opportunity",
+        null,
+        "Class Feat",
+        6
+      ],
+      [
+        "Cascade Bearer's Flexibility ",
+        null,
+        "Class Feat",
+        7
+      ],
+      [
+        "Numb To Death",
+        null,
+        "General Feat",
+        7
+      ],
+      [
+        "Spell Swipe",
+        null,
+        "Class Feat",
+        8
+      ],
+      [
+        "Rogue Dedication",
+        null,
+        "Archetype Feat",
+        8
+      ],
+      [
+        "Swift Sneak",
+        null,
+        "Skill Feat",
+        8
+      ],
+      [
+        "Foil Senses",
+        null,
+        "Skill Feat",
+        8
+      ],
+      [
+        "Fleet",
+        null,
+        "General Feat",
+        8
+      ],
+      [
+        "Multitalented",
+        null,
+        "Ancestry Feat",
+        9
+      ],
+      [
+        "Wizard Dedication",
+        null,
+        "Archetype Feat",
+        9
+      ],
+      [
+        "Assurance",
+        "Crafting",
+        "General Feat",
+        9
+      ],
+      [
+        "Dimensional Disappearance",
+        null,
+        "Class Feat",
+        10
+      ],
+      [
+        "Uncanny Dodge",
+        null,
+        "Archetype Feat",
+        10
+      ],
+      [
+        "Armored Stealth",
+        null,
+        "Skill Feat",
+        10
+      ]
+    ],
+    "specials": [
+      "Conflux Spells",
+      "Spellbook",
+      "Change Shape (Kitsune)",
+      "Spellstrike",
+      "Laughing Shadow",
+      "Arcane Cascade",
+      "Darkvision",
+      "Spellstrike Specifics",
+      "Low-Light Vision",
+      "Intelligence",
+      "Clue In",
+      "On the Case",
+      "Standard Cantrip: Shield (Amped)",
+      "Pursue a Lead",
+      "The Tangible Dream",
+      "Arcane",
+      "Arcana",
+      "Arcane Affiliation",
+      "Devise a Stratagem",
+      "Weapon Expertise",
+      "Lightning Reflexes",
+      "Magus",
+      "Unique Cantrip: Imaginary Weapon",
+      "Studious Spells",
+      "Weapon Specialization",
+      "Surprise Attack",
+      "Alertness",
+      "Expert Spellcaster",
+      "School of the Boundary",
+      "Arcane School",
+      "Resolve",
+      "Deny Advantage",
+      "Tiefling"
+    ],
+    "lores": [
+      [
+        "Fishing",
+        0
+      ],
+      [
+        "Warfare",
+        2
+      ],
+      [
+        "Four Gates",
+        2
+      ],
+      [
+        "Boneyard",
+        6
+      ],
+      [
+        "Academia",
+        2
+      ]
+    ],
+    "equipmentContainers": {
+      "36d12d93-c01e-4ee8-88df-67bb4e2e3a01": {
+        "containerName": "Backpack",
+        "bagOfHolding": false,
+        "backpack": true
+      }
+    },
+    "equipment": [
+      [
+        "Backpack",
+        1,
+        "Invested"
+      ],
+      [
+        "Bedroll",
+        1,
+        "36d12d93-c01e-4ee8-88df-67bb4e2e3a01",
+        "Invested"
+      ],
+      [
+        "Chalk",
+        10,
+        "36d12d93-c01e-4ee8-88df-67bb4e2e3a01",
+        "Invested"
+      ],
+      [
+        "Flint and Steel",
+        1,
+        "36d12d93-c01e-4ee8-88df-67bb4e2e3a01",
+        "Invested"
+      ],
+      [
+        "Rope",
+        1,
+        "36d12d93-c01e-4ee8-88df-67bb4e2e3a01",
+        "Invested"
+      ],
+      [
+        "Rations",
+        2,
+        "36d12d93-c01e-4ee8-88df-67bb4e2e3a01",
+        "Invested"
+      ],
+      [
+        "Torch",
+        5,
+        "36d12d93-c01e-4ee8-88df-67bb4e2e3a01",
+        "Invested"
+      ],
+      [
+        "Waterskin",
+        1,
+        "36d12d93-c01e-4ee8-88df-67bb4e2e3a01",
+        "Invested"
+      ],
+      [
+        "Soap",
+        1,
+        "36d12d93-c01e-4ee8-88df-67bb4e2e3a01",
+        "Invested"
+      ],
+      [
+        "Ring of Wizardry (Type I)",
+        1,
+        "Invested"
+      ],
+      [
+        "Detective's,Kit",
+        1,
+        "Invested"
+      ],
+      [
+        "Flaming Star (Greater)",
+        1,
+        "Invested"
+      ],
+      [
+        "Boots of Bounding",
+        1,
+        "Invested"
+      ],
+      [
+        "Armbands of Athleticism",
+        1,
+        "Invested"
+      ]
+    ],
+    "specificProficiencies": {
+      "trained": [],
+      "expert": [],
+      "master": [],
+      "legendary": []
+    },
+    "weapons": [
+      {
+        "name": "Katana",
+        "qty": 1,
+        "prof": "martial",
+        "die": "d10",
+        "pot": 2,
+        "str": "striking",
+        "mat": "Orichalcum",
+        "display": "+2 Striking Shock Decaying Orichalcum Katana (2h)",
+        "runes": [
+          "Shock",
+          "Decaying"
+        ],
+        "damageType": "S",
+        "attack": 21,
+        "damageBonus": 7,
+        "extraDamage": [
+          "1d6 Electricity",
+          "1d4 Void"
+        ]
+      }
+    ],
+    "money": {
+      "cp": 0,
+      "sp": 0,
+      "gp": 386,
+      "pp": 0
+    },
+    "armor": [
+      {
+        "name": "Leopard's Armor",
+        "qty": 1,
+        "prof": "medium",
+        "pot": 2,
+        "res": "resilient",
+        "mat": null,
+        "display": "+2 Resilient Invisibility Shadow Leopard's Armor",
+        "worn": true,
+        "runes": [
+          "Invisibility",
+          "Shadow"
+        ]
+      },
+      {
+        "name": "Buckler",
+        "qty": 1,
+        "prof": "shield",
+        "pot": 0,
+        "res": "",
+        "mat": null,
+        "display": "",
+        "worn": true,
+        "runes": []
+      }
+    ],
+    "spellCasters": [
+      {
+        "name": "Archetype Wizard",
+        "magicTradition": "arcane",
+        "spellcastingType": "prepared",
+        "ability": "int",
+        "proficiency": 4,
+        "focusPoints": 0,
+        "innate": false,
+        "perDay": [
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "spells": [
+          {
+            "spellLevel": 0,
+            "list": [
+              "Spout",
+              "Warp Step"
+            ]
+          }
+        ],
+        "prepared": [
+          {
+            "spellLevel": 0,
+            "list": [
+              "Spout",
+              "Warp Step"
+            ]
+          }
+        ],
+        "blendedSpells": []
+      },
+      {
+        "name": "Archetype Halcyon Speaker",
+        "magicTradition": "arcane",
+        "spellcastingType": "spontaneous",
+        "ability": "int",
+        "proficiency": 4,
+        "focusPoints": 0,
+        "innate": false,
+        "perDay": [
+          2,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "spells": [
+          {
+            "spellLevel": 0,
+            "list": [
+              "Timber",
+              "Slashing Gust"
+            ]
+          },
+          {
+            "spellLevel": 1,
+            "list": [
+              "Sure Strike"
+            ]
+          }
+        ],
+        "prepared": [],
+        "blendedSpells": []
+      },
+      {
+        "name": "Magus",
+        "magicTradition": "arcane",
+        "spellcastingType": "prepared",
+        "ability": "int",
+        "proficiency": 4,
+        "focusPoints": 0,
+        "innate": false,
+        "perDay": [
+          5,
+          2,
+          2,
+          2,
+          4,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "spells": [
+          {
+            "spellLevel": 0,
+            "list": [
+              "Gouging Claw",
+              "Electric Arc",
+              "Telekinetic Projectile",
+              "Warp Step",
+              "Ignition",
+              "Time Sense",
+              "Frostbite",
+              "Ignition"
+            ]
+          },
+          {
+            "spellLevel": 1,
+            "list": [
+              "Shocking Grasp",
+              "Admonishing Ray",
+              "Tailwind",
+              "Mystic Armor",
+              "Force Barrage",
+              "Runic Weapon",
+              "Sure Strike"
+            ]
+          },
+          {
+            "spellLevel": 2,
+            "list": [
+              "Invisibility",
+              "Acid Arrow",
+              "Dispel Magic",
+              "Mirror Image",
+              "Web",
+              "Sudden Bolt",
+              "Revealing Light"
+            ]
+          },
+          {
+            "spellLevel": 3,
+            "list": [
+              "Haste",
+              "Time Jump",
+              "Web of Eyes",
+              "Wooden Double"
+            ]
+          },
+          {
+            "spellLevel": 4,
+            "list": [
+              "Chromatic Ray",
+              "Mountain Resilience"
+            ]
+          }
+        ],
+        "prepared": [
+          {
+            "spellLevel": 0,
+            "list": [
+              "Gouging Claw",
+              "Electric Arc",
+              "Ignition",
+              "Time Sense",
+              "Ray of Frost"
+            ]
+          },
+          {
+            "spellLevel": 1,
+            "list": [
+              "Sure Strike",
+              "Longstrider"
+            ]
+          },
+          {
+            "spellLevel": 2,
+            "list": [
+              "Sure Strike",
+              "Sure Strike"
+            ]
+          },
+          {
+            "spellLevel": 3,
+            "list": []
+          },
+          {
+            "spellLevel": 4,
+            "list": [
+              "Stoneskin",
+              "Invisibility"
+            ]
+          },
+          {
+            "spellLevel": 5,
+            "list": [
+              "Shocking Grasp",
+              "Rewinding Step"
+            ]
+          }
+        ],
+        "blendedSpells": []
+      },
+      {
+        "name": "Malicious Bane",
+        "magicTradition": "divine",
+        "spellcastingType": "prepared",
+        "ability": "cha",
+        "proficiency": 2,
+        "focusPoints": 0,
+        "innate": true,
+        "perDay": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "spells": [
+          {
+            "spellLevel": 0,
+            "list": []
+          },
+          {
+            "spellLevel": 1,
+            "list": [
+              "Bane"
+            ]
+          }
+        ],
+        "prepared": [],
+        "blendedSpells": []
+      },
+      {
+        "name": "Archetype Psychic",
+        "magicTradition": "occult",
+        "spellcastingType": "spontaneous",
+        "ability": "int",
+        "proficiency": 2,
+        "focusPoints": 0,
+        "innate": false,
+        "perDay": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "spells": [
+          {
+            "spellLevel": 0,
+            "list": []
+          }
+        ],
+        "prepared": [],
+        "blendedSpells": []
+      },
+      {
+        "name": "Collegiate Attendant",
+        "magicTradition": "arcane",
+        "spellcastingType": "prepared",
+        "ability": "int",
+        "proficiency": 4,
+        "focusPoints": 0,
+        "innate": false,
+        "perDay": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "spells": [
+          {
+            "spellLevel": 0,
+            "list": [
+              "Needle Darts"
+            ]
+          }
+        ],
+        "prepared": [],
+        "blendedSpells": []
+      }
+    ],
+    "focusPoints": 3,
+    "focus": {
+      "occult": {
+        "int": {
+          "abilityBonus": 2,
+          "proficiency": 2,
+          "itemBonus": 0,
+          "focusCantrips": [
+            "Shield (Amped)",
+            "Imaginary Weapon"
+          ],
+          "focusSpells": []
+        }
+      },
+      "arcane": {
+        "int": {
+          "abilityBonus": 2,
+          "proficiency": 4,
+          "itemBonus": 0,
+          "focusCantrips": [],
+          "focusSpells": [
+            "Dimensional Assault"
+          ]
+        }
+      }
+    },
+    "formula": [],
+    "acTotal": {
+      "acProfBonus": 12,
+      "acAbilityBonus": 1,
+      "acItemBonus": 6,
+      "acTotal": 29,
+      "shieldBonus": "1"
+    },
+    "pets": [],
+    "familiars": []
+  }
+}

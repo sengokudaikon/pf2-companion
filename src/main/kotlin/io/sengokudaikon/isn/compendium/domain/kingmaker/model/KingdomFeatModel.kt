@@ -16,6 +16,4 @@ data class KingdomFeatModel(
     override val name: String,
     override val type: String,
     override val system: SystemModel,
-) : Model {
-    override fun getSerializer() = serializer()
-}
+) : Model

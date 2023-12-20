@@ -8,7 +8,7 @@ import io.sengokudaikon.isn.chargen.ports.CharacterCreationPort
 import io.sengokudaikon.isn.infrastructure.adapters.CommandHandler
 import org.koin.core.component.inject
 
-class CharacterCreationHandler: CommandHandler() {
+class CharacterCreationHandler : CommandHandler() {
     private val useCase: CharacterCreationPort by inject()
     override suspend fun execute(call: ApplicationCall) {
         call.authorize(listOf(UserRole.USER)) {

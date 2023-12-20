@@ -9,8 +9,9 @@ interface CharacterCommand {
         val description: String,
         val userId: String,
     ) : CharacterCommand
+
     @Resource("/api/character/{id}")
     data class Update(
         val id: String,
-    ): CharacterCommand
+    ) : CharacterCommand
 }

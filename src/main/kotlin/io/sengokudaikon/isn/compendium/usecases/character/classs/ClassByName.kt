@@ -5,7 +5,9 @@ import io.sengokudaikon.isn.compendium.domain.classs.repository.ClassRepositoryP
 import io.sengokudaikon.isn.compendium.operations.character.classs.query.ClassQuery
 import io.sengokudaikon.isn.compendium.ports.character.ByNameClassPort
 import io.sengokudaikon.isn.infrastructure.usecases.GetByName
+import org.koin.core.annotation.Single
 
+@Single(binds = [ByNameClassPort::class])
 class ClassByName(override val repository: ClassRepositoryPort) :
     GetByName<ClassQuery, ClassModel, ClassRepositoryPort>(), ByNameClassPort {
     override fun getCacheKey(query: ClassQuery): String {

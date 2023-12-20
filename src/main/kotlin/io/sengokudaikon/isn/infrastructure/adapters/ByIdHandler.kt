@@ -11,7 +11,8 @@ abstract class ByIdHandler<R : Model, Q : Query.ById<R>, P : ReadPort<Q, R>> : Q
 
     override suspend fun handle(call: ApplicationCall) {
         val id = call.parameters["id"] ?: throw IllegalArgumentException("Missing id")
-        val query = createQuery(id)
+        val secondaryId = call.parameters["secondaryId"]
+        val query = createQuery(id, secondaryId)
         val result = useCase.execute(query)
         call.respond(
             result.fold(
@@ -21,5 +22,5 @@ abstract class ByIdHandler<R : Model, Q : Query.ById<R>, P : ReadPort<Q, R>> : Q
         )
     }
 
-    abstract fun createQuery(id: String): Q
+    abstract fun createQuery(id: String, secondaryId: String?): Q
 }

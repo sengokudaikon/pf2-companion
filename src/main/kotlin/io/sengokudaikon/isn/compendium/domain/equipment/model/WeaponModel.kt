@@ -5,13 +5,11 @@ import io.sengokudaikon.isn.compendium.domain.equipment.dto.Material
 import io.sengokudaikon.isn.compendium.domain.equipment.dto.Price
 import io.sengokudaikon.isn.compendium.domain.system.DescriptionType
 import io.sengokudaikon.isn.compendium.domain.system.EquipmentSystemModel
-import io.sengokudaikon.isn.compendium.domain.system.GenericRule
 import io.sengokudaikon.isn.compendium.domain.system.Publication
 import io.sengokudaikon.isn.compendium.domain.system.Traits
 import io.sengokudaikon.isn.infrastructure.domain.Model
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.bson.BsonValue
@@ -32,7 +30,8 @@ data class WeaponModel(
     @Serializable
     data class WeaponSystemProperty(
         override val description: DescriptionType,
-        override val rules: List<GenericRule>,
+        @OptIn(ExperimentalSerializationApi::class)
+        @Serializable(with = BsonValueSerializer::class) override val rules: BsonValue? = null,
         override val traits: Traits,
         override val publication: Publication,
         override val baseItem: String?,
@@ -85,6 +84,4 @@ data class WeaponModel(
             )
         }
     }
-
-    override fun getSerializer(): KSerializer<*> = serializer()
 }

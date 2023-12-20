@@ -12,7 +12,7 @@ import org.koin.core.component.inject
 class BackgroundIdHandler :
     ByIdHandler<BackgroundModel, BackgroundQuery.ById, ByIdBackgroundPort>() {
     override val useCase: ByIdBackgroundPort by inject()
-    override fun createQuery(id: String): BackgroundQuery.ById {
+    override fun createQuery(id: String, secondaryId: String?): BackgroundQuery.ById {
         return BackgroundQuery.ById(id)
     }
 }

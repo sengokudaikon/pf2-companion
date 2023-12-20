@@ -5,7 +5,7 @@ import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.server.testing.*
-import io.sengokudaikon.isn.compendium.operations.character.ancestry.response.AncestryResponse
+import io.sengokudaikon.isn.infrastructure.operations.response.AncestryResponse
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.TestScope

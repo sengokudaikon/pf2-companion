@@ -11,7 +11,7 @@ abstract class ListHandler<R : Collection<Model>, Q : Query.All<R>, P : ReadPort
     override suspend fun handle(call: ApplicationCall) {
         val id = call.parameters["id"]
         val page = call.parameters["page"]?.toInt() ?: throw IllegalArgumentException("Missing page")
-        val size = call.parameters["limit"]?.toInt() ?: throw IllegalArgumentException("Missing size")
+        val size = call.parameters["size"]?.toInt() ?: throw IllegalArgumentException("Missing size")
         val query = createQuery(page, size, id)
         val result = useCase.execute(query)
         call.respond(

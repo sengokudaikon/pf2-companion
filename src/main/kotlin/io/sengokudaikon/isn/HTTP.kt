@@ -68,6 +68,7 @@ fun Application.configureHTTP() {
             Json {
                 prettyPrint = true
                 isLenient = true
+                encodeDefaults = false
                 ignoreUnknownKeys = true
                 serializersModule = SerializersModule {
                     contextual(ObjectIdSerializer)

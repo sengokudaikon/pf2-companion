@@ -42,9 +42,11 @@ paths:
               examples:
                 Example#1:
                   value: "Hello World!"
-  /api/ancestry/{id}:
+  /api/actions/{id}:
     get:
-      description: ""
+      tags:
+        - "Action"
+      description: "Action by id"
       parameters:
       - name: "id"
         in: "path"
@@ -63,7 +65,104 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Response_Model"
+                $ref: "#/components/schemas/Response_? extends Model"
+        "500":
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                type: "string"
+  /api/actions/list/{page}/{size}:
+    get:
+      tags:
+        - "Action"
+      description: "Action list"
+      parameters:
+      - name: "page"
+        in: "path"
+        required: true
+        schema:
+          type: "integer"
+      - name: "size"
+        in: "path"
+        required: true
+        schema:
+          type: "integer"
+      responses:
+        "400":
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                type: "string"
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Response"
+        "500":
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                type: "string"
+  /api/actions/name/{name}:
+    get:
+      tags:
+        - "Action"
+      description: "Action by name"
+      parameters:
+      - name: "name"
+        in: "path"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        "400":
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                type: "string"
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Response_? extends Model"
+        "500":
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                type: "string"
+  /api/ancestry/{id}:
+    get:
+      tags:
+        - "Ancestry"
+      description: "Ancestry by id"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        "400":
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                type: "string"
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Response_? extends Model"
         "500":
           description: "Internal Server Error"
           content:
@@ -72,7 +171,9 @@ paths:
                 type: "string"
   /api/ancestry/list/{page}/{size}:
     get:
-      description: ""
+      tags:
+        - "Ancestry"
+      description: "Ancestry list"
       parameters:
       - name: "page"
         in: "path"
@@ -107,7 +208,9 @@ paths:
                 type: "string"
   /api/ancestry/name/{name}:
     get:
-      description: ""
+      tags:
+        - "Ancestry"
+      description: "Ancestry by name"
       parameters:
       - name: "name"
         in: "path"
@@ -126,7 +229,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Response_Model"
+                $ref: "#/components/schemas/Response_? extends Model"
         "500":
           description: "Internal Server Error"
           content:
@@ -135,7 +238,9 @@ paths:
                 type: "string"
   /api/auth/doesEmailExist:
     get:
-      description: ""
+      tags:
+        - "Auth"
+      description: "Is email registered"
       parameters:
       - name: "email"
         in: "query"
@@ -150,6 +255,8 @@ paths:
               schema:
                 type: "string"
     options:
+      tags:
+        - "Auth"
       description: ""
       parameters:
       - name: "email"
@@ -166,7 +273,9 @@ paths:
                 type: "object"
   /api/auth/doesUserExist:
     get:
-      description: ""
+      tags:
+        - "Auth"
+      description: "Is user registered"
       parameters:
       - name: "identifier"
         in: "query"
@@ -181,6 +290,8 @@ paths:
               schema:
                 type: "string"
     options:
+      tags:
+        - "Auth"
       description: ""
       parameters:
       - name: "identifier"
@@ -197,7 +308,9 @@ paths:
                 type: "object"
   /api/auth/register:
     post:
-      description: ""
+      tags:
+        - "Auth"
+      description: "Register"
       parameters:
       - name: "email"
         in: "query"
@@ -237,6 +350,733 @@ paths:
           content:
             application/json:
               schema: {}
+  /api/background/{id}:
+    get:
+      tags:
+        - "Background"
+      description: "Background by id"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        "400":
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                type: "string"
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Response_? extends Model"
+        "500":
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                type: "string"
+  /api/background/list/{page}/{size}:
+    get:
+      tags:
+        - "Background"
+      description: "Background list"
+      parameters:
+      - name: "page"
+        in: "path"
+        required: true
+        schema:
+          type: "integer"
+      - name: "size"
+        in: "path"
+        required: true
+        schema:
+          type: "integer"
+      responses:
+        "400":
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                type: "string"
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Response"
+        "500":
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                type: "string"
+  /api/background/name/{name}:
+    get:
+      tags:
+        - "Background"
+      description: "Background by name"
+      parameters:
+      - name: "name"
+        in: "path"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        "400":
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                type: "string"
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Response_? extends Model"
+        "500":
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                type: "string"
+  /api/character/{id}:
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - "Character"
+      description: "Character by id"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        "403":
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                type: "string"
+              examples:
+                Example#1:
+                  value: "You do not have the required role to access this resource."
+                Example#2:
+                  value: "Resource requires authentication."
+        "500":
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                type: "string"
+        "400":
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                type: "string"
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Response_? extends Model"
+  /api/character/list/{page}/{size}:
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - "Character"
+      description: "Character list"
+      parameters:
+      - name: "page"
+        in: "path"
+        required: true
+        schema:
+          type: "integer"
+      - name: "size"
+        in: "path"
+        required: true
+        schema:
+          type: "integer"
+      responses:
+        "403":
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                type: "string"
+              examples:
+                Example#1:
+                  value: "You do not have the required role to access this resource."
+                Example#2:
+                  value: "Resource requires authentication."
+        "500":
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                type: "string"
+        "400":
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                type: "string"
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Response"
+  /api/class/{id}:
+    get:
+      tags:
+        - "Class"
+      description: "Class by id"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        "400":
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                type: "string"
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Response_? extends Model"
+        "500":
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                type: "string"
+  /api/class/list/{page}/{size}:
+    get:
+      tags:
+        - "Class"
+      description: "Class list"
+      parameters:
+      - name: "page"
+        in: "path"
+        required: true
+        schema:
+          type: "integer"
+      - name: "size"
+        in: "path"
+        required: true
+        schema:
+          type: "integer"
+      responses:
+        "400":
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                type: "string"
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Response"
+        "500":
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                type: "string"
+  /api/class/name/{name}:
+    get:
+      tags:
+        - "Class"
+      description: "Class by name"
+      parameters:
+      - name: "name"
+        in: "path"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        "400":
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                type: "string"
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Response_? extends Model"
+        "500":
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                type: "string"
+  /api/classfeats/{name}:
+    get:
+      tags:
+        - "Class"
+        - "Feat"
+      description: "Class feat by name"
+      parameters:
+      - name: "name"
+        in: "path"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        "400":
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                type: "string"
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Response_? extends Model"
+        "500":
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                type: "string"
+  /api/classfeats/{page}/{size}:
+    get:
+      tags:
+        - "Class"
+        - "Feat"
+      description: "Class feat list"
+      parameters:
+      - name: "page"
+        in: "path"
+        required: true
+        schema:
+          type: "integer"
+      - name: "size"
+        in: "path"
+        required: true
+        schema:
+          type: "integer"
+      responses:
+        "400":
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                type: "string"
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Response"
+        "500":
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                type: "string"
+  /api/equipment/armor/list/{page}/{size}:
+    get:
+      tags:
+        - "Equipment"
+        - "Armor"
+      description: "Armor list"
+      parameters:
+      - name: "page"
+        in: "path"
+        required: true
+        schema:
+          type: "integer"
+      - name: "size"
+        in: "path"
+        required: true
+        schema:
+          type: "integer"
+      responses:
+        "400":
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                type: "string"
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Response"
+        "500":
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                type: "string"
+  /api/equipment/armor/name/{name}:
+    get:
+      tags:
+        - "Equipment"
+        - "Armor"
+      description: "Armor by name"
+      parameters:
+      - name: "name"
+        in: "path"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        "400":
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                type: "string"
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Response_? extends Model"
+        "500":
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                type: "string"
+  /api/equipment/list/{page}/{size}:
+    get:
+      tags:
+        - "Equipment"
+      description: "Equipment list"
+      parameters:
+      - name: "page"
+        in: "path"
+        required: true
+        schema:
+          type: "integer"
+      - name: "size"
+        in: "path"
+        required: true
+        schema:
+          type: "integer"
+      responses:
+        "400":
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                type: "string"
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Response"
+        "500":
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                type: "string"
+  /api/equipment/name/{name}:
+    get:
+      tags:
+        - "Equipment"
+      description: "Equipment by name"
+      parameters:
+      - name: "name"
+        in: "path"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        "400":
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                type: "string"
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Response_? extends Model"
+        "500":
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                type: "string"
+  /api/equipment/shield/list/{page}/{size}:
+    get:
+      tags:
+        - "Equipment"
+        - "Shield"
+      description: "Shield list"
+      parameters:
+      - name: "page"
+        in: "path"
+        required: true
+        schema:
+          type: "integer"
+      - name: "size"
+        in: "path"
+        required: true
+        schema:
+          type: "integer"
+      responses:
+        "400":
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                type: "string"
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Response"
+        "500":
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                type: "string"
+  /api/equipment/shield/name/{name}:
+    get:
+      tags:
+        - "Equipment"
+        - "Shield"
+      description: "Shield by name"
+      parameters:
+      - name: "name"
+        in: "path"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        "400":
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                type: "string"
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Response_? extends Model"
+        "500":
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                type: "string"
+  /api/equipment/weapon/list/{page}/{size}:
+    get:
+      tags:
+        - "Equipment"
+        - "Weapon"
+      description: "Weapon list"
+      parameters:
+      - name: "page"
+        in: "path"
+        required: true
+        schema:
+          type: "integer"
+      - name: "size"
+        in: "path"
+        required: true
+        schema:
+          type: "integer"
+      responses:
+        "400":
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                type: "string"
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Response"
+        "500":
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                type: "string"
+  /api/equipment/weapon/name/{name}:
+    get:
+      tags:
+        - "Equipment"
+        - "Weapon"
+      description: "Weapon by name"
+      parameters:
+      - name: "name"
+        in: "path"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        "400":
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                type: "string"
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Response_? extends Model"
+        "500":
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                type: "string"
+  /api/feats/general/{id}:
+    get:
+      tags:
+        - "Feat"
+      description: "General feat by id"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        "400":
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                type: "string"
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Response_? extends Model"
+        "500":
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                type: "string"
+  /api/feats/general/list/{page}/{size}:
+    get:
+      tags:
+        - "Feat"
+      description: "General feat list"
+      parameters:
+      - name: "page"
+        in: "path"
+        required: true
+        schema:
+          type: "integer"
+      - name: "size"
+        in: "path"
+        required: true
+        schema:
+          type: "integer"
+      responses:
+        "400":
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                type: "string"
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Response"
+        "500":
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                type: "string"
+  /api/feats/general/name/{name}:
+    get:
+      tags:
+        - "Feat"
+      description: "General feat by name"
+      parameters:
+      - name: "name"
+        in: "path"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        "400":
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                type: "string"
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Response_? extends Model"
+        "500":
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                type: "string"
   /api/health:
     get:
       description: ""
@@ -250,9 +1090,108 @@ paths:
               examples:
                 Example#1:
                   value: "Healthy"
+  /api/heritage/{id}:
+    get:
+      tags:
+        - "Heritage"
+      description: "Heritage by id"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        "400":
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                type: "string"
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Response_? extends Model"
+        "500":
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                type: "string"
+  /api/heritage/list/{page}/{size}:
+    get:
+      tags:
+        - "Heritage"
+      description: "Heritage list"
+      parameters:
+      - name: "page"
+        in: "path"
+        required: true
+        schema:
+          type: "integer"
+      - name: "size"
+        in: "path"
+        required: true
+        schema:
+          type: "integer"
+      responses:
+        "400":
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                type: "string"
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Response"
+        "500":
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                type: "string"
+  /api/heritage/name/{name}:
+    get:
+      tags:
+        - "Heritage"
+      description: "Heritage by name"
+      parameters:
+      - name: "name"
+        in: "path"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        "400":
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                type: "string"
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Response_? extends Model"
+        "500":
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                type: "string"
   /api/search:
     post:
-      description: ""
+      tags:
+        - "Search"
+      description: "API search"
       parameters:
       - name: "query"
         in: "query"
@@ -312,13 +1251,11 @@ components:
           format: "double"
       required:
       - "name"
-    Model:
-      type: "object"
-      properties: {}
     Response:
       type: "object"
       properties: {}
-    Response_Model: {}
+    Response_? extends Model:
+      type: "object"
     Create:
       type: "object"
       properties:

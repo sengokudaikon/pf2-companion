@@ -19,7 +19,9 @@ fun Application.configureSecurity() {
         }
     }
 }
+
 @Target(AnnotationTarget.FUNCTION, AnnotationTarget.CLASS)
 annotation class AuthenticatedAPI
+
 @Target(AnnotationTarget.FUNCTION, AnnotationTarget.CLASS)
 annotation class PrivateAPI

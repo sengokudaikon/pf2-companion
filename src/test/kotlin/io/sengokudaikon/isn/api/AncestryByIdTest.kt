@@ -9,7 +9,9 @@ class AncestryByIdTest : FunSpec({
 
     test("ancestryById") {
         testApplication {
-            client.get("/api/ancestry/id/{id}").apply {
+            client.get("/api/ancestry/id") {
+                parameter("id", "1")
+            }.apply {
                 this.status.value shouldBe 200
             }
         }

@@ -12,3 +12,6 @@ interface ByNameClassPort : ReadPort<ClassQuery, ClassModel>
 interface ListClassFeatPort : ReadPort<ClassFeatureQuery, List<ClassFeatureModel>>
 interface ByIdClassFeatPort : ReadPort<ClassFeatureQuery, ClassFeatureModel>
 interface ByNameClassFeatPort : ReadPort<ClassFeatureQuery, ClassFeatureModel>
+interface ListClassFeatByClassIdPort : ReadPort<ClassFeatureQuery.ByClass, List<ClassFeatureModel>>
+interface ByIdClassFeatByClassIdPort : ReadPort<ClassFeatureQuery.ByClass, ClassFeatureModel>
+interface ByNameClassFeatByClassIdPort : ReadPort<ClassFeatureQuery.ByClass, ClassFeatureModel>

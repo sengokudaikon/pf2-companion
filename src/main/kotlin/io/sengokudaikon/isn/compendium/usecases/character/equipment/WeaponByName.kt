@@ -5,7 +5,9 @@ import io.sengokudaikon.isn.compendium.domain.equipment.repository.WeaponReposit
 import io.sengokudaikon.isn.compendium.operations.character.equipment.query.WeaponQuery
 import io.sengokudaikon.isn.compendium.ports.character.ByNameWeaponPort
 import io.sengokudaikon.isn.infrastructure.usecases.GetByName
+import org.koin.core.annotation.Single
 
+@Single(binds = [ByNameWeaponPort::class])
 class WeaponByName(override val repository: WeaponRepositoryPort) :
     GetByName<WeaponQuery, WeaponModel, WeaponRepositoryPort>(), ByNameWeaponPort {
     override fun getCacheKey(query: WeaponQuery): String {

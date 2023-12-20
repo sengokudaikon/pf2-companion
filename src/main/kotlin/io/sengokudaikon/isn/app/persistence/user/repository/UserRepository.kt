@@ -9,7 +9,6 @@ import io.sengokudaikon.isn.infrastructure.DatabaseFactory
 import io.sengokudaikon.isn.infrastructure.errors.DatabaseException
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
 import org.bson.types.ObjectId
 import org.koin.core.annotation.Single
@@ -60,10 +59,6 @@ class UserRepository : UserRepositoryPort {
 
     override suspend fun findAll(page: Int, limit: Int): Result<List<User>> = runCatching {
         collection.find().skip((page - 1) * limit).limit(limit).toList()
-    }
-
-    override suspend fun findAllNames(): Result<List<String>> = runCatching {
-        collection.find().map { it.name }.toList()
     }
 
     override suspend fun findByNames(names: List<String>): Result<List<User>> = runCatching {

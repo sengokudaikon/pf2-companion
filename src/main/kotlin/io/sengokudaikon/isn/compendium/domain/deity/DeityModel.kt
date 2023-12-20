@@ -1,15 +1,16 @@
 package io.sengokudaikon.isn.compendium.domain.deity
 
 import io.sengokudaikon.isn.compendium.domain.system.DescriptionType
-import io.sengokudaikon.isn.compendium.domain.system.GenericRule
 import io.sengokudaikon.isn.compendium.domain.system.Publication
 import io.sengokudaikon.isn.compendium.domain.system.SystemModel
 import io.sengokudaikon.isn.compendium.domain.system.Traits
 import io.sengokudaikon.isn.infrastructure.domain.Model
 import kotlinx.serialization.Contextual
-import kotlinx.serialization.KSerializer
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import org.bson.BsonValue
+import org.bson.codecs.kotlinx.BsonValueSerializer
 import org.bson.types.ObjectId
 
 @Serializable
@@ -26,7 +27,8 @@ data class DeityModel(
     data class DeitySystemProperty(
         override val description: DescriptionType,
         override val publication: Publication,
-        override val rules: List<GenericRule>,
+        @OptIn(ExperimentalSerializationApi::class)
+        @Serializable(with = BsonValueSerializer::class) override val rules: BsonValue? = null,
         override val traits: Traits? = null,
         val ability: List<String>,
         val alignment: Alignment,
@@ -56,6 +58,4 @@ data class DeityModel(
             val level9: String,
         )
     }
-
-    override fun getSerializer(): KSerializer<*> = serializer()
 }

@@ -5,7 +5,9 @@ import io.sengokudaikon.isn.compendium.domain.equipment.repository.ShieldReposit
 import io.sengokudaikon.isn.compendium.operations.character.equipment.query.ShieldQuery
 import io.sengokudaikon.isn.compendium.ports.character.ListShieldPort
 import io.sengokudaikon.isn.infrastructure.usecases.GetList
+import org.koin.core.annotation.Single
 
+@Single(binds = [ListShieldPort::class])
 class ShieldList(override val repository: ShieldRepositoryPort) :
     GetList<ShieldQuery, ShieldModel, List<ShieldModel>, ShieldRepositoryPort>(), ListShieldPort {
     override fun getCacheKey(query: ShieldQuery): String {

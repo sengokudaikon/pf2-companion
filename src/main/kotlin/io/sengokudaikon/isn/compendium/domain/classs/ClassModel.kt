@@ -1,7 +1,6 @@
 package io.sengokudaikon.isn.compendium.domain.classs
 
 import io.sengokudaikon.isn.compendium.domain.system.DescriptionType
-import io.sengokudaikon.isn.compendium.domain.system.GenericRule
 import io.sengokudaikon.isn.compendium.domain.system.Item
 import io.sengokudaikon.isn.compendium.domain.system.Publication
 import io.sengokudaikon.isn.compendium.domain.system.SystemModel
@@ -9,7 +8,6 @@ import io.sengokudaikon.isn.compendium.domain.system.Traits
 import io.sengokudaikon.isn.infrastructure.domain.Model
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.bson.BsonValue
@@ -28,29 +26,30 @@ data class ClassModel(
     override val system: SystemProperty,
     override val type: String,
 ) : Model {
+    var features: List<ClassFeatureModel> = emptyList()
+
     @Serializable
     data class SystemProperty(
         override val description: DescriptionType,
         override val publication: Publication,
-        override val rules: List<GenericRule>,
+        @OptIn(ExperimentalSerializationApi::class)
+        @Serializable(with = BsonValueSerializer::class) override val rules: BsonValue? = null,
         override val traits: Traits,
         val attacks: Attacks,
-        val classDC: Int,
         val defenses: Defenses,
         val hp: Int,
         val items: Map<String, Item>,
         val perception: Int,
         val savingThrows: SavingThrows,
         val trainedSkills: TrainedSkills,
+        val spellcasting: Int,
         @Serializable(with = BsonValueSerializer::class) val ancestryFeatLevels: BsonValue,
         @Serializable(with = BsonValueSerializer::class) val classFeatLevels: BsonValue,
         @Serializable(with = BsonValueSerializer::class) val generalFeatLevels: BsonValue,
         @Serializable(with = BsonValueSerializer::class) val keyAbility: BsonValue,
         @Serializable(with = BsonValueSerializer::class) val skillFeatLevels: BsonValue,
         @Serializable(with = BsonValueSerializer::class) val skillIncreaseLevels: BsonValue,
-    ) : SystemModel {
-        lateinit var classFeatures: List<ClassFeatureModel>
-    }
+    ) : SystemModel
 
     @Serializable
     data class Attacks(
@@ -87,6 +86,4 @@ data class ClassModel(
         val additional: Int,
         val value: List<String>,
     )
-
-    override fun getSerializer(): KSerializer<*> = serializer()
 }

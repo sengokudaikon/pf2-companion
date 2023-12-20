@@ -5,7 +5,9 @@ import io.sengokudaikon.isn.compendium.domain.equipment.repository.EquipmentRepo
 import io.sengokudaikon.isn.compendium.operations.character.equipment.query.EquipmentQuery
 import io.sengokudaikon.isn.compendium.ports.character.ByNameEquipmentPort
 import io.sengokudaikon.isn.infrastructure.usecases.GetByName
+import org.koin.core.annotation.Single
 
+@Single(binds = [ByNameEquipmentPort::class])
 class EquipmentByName(override val repository: EquipmentRepositoryPort) :
     GetByName<EquipmentQuery, EquipmentModel, EquipmentRepositoryPort>(), ByNameEquipmentPort {
     override fun getCacheKey(query: EquipmentQuery): String {

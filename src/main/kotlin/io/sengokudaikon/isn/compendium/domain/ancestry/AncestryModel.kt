@@ -1,7 +1,6 @@
 package io.sengokudaikon.isn.compendium.domain.ancestry
 
 import io.sengokudaikon.isn.compendium.domain.system.DescriptionType
-import io.sengokudaikon.isn.compendium.domain.system.GenericRule
 import io.sengokudaikon.isn.compendium.domain.system.Item
 import io.sengokudaikon.isn.compendium.domain.system.Languages
 import io.sengokudaikon.isn.compendium.domain.system.Publication
@@ -11,9 +10,10 @@ import io.sengokudaikon.isn.compendium.enums.Ability
 import io.sengokudaikon.isn.compendium.enums.fromShortName
 import io.sengokudaikon.isn.infrastructure.domain.Model
 import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import org.bson.BsonValue
+import org.bson.codecs.kotlinx.BsonValueSerializer
 import org.bson.codecs.kotlinx.ObjectIdSerializer
 import org.bson.types.ObjectId
 
@@ -29,13 +29,13 @@ data class AncestryModel(
     override val type: String,
     override val system: SystemProperty,
 ) : Model {
-    override fun getSerializer(): KSerializer<*> = serializer()
     var ancestryFeatures: Map<String, AncestryFeatureModel> = emptyMap()
 
     @Serializable
     data class SystemProperty(
         override val description: DescriptionType,
-        override val rules: List<GenericRule>,
+        @OptIn(ExperimentalSerializationApi::class)
+        @Serializable(with = BsonValueSerializer::class) override val rules: BsonValue? = null,
         override val traits: Traits,
         override val publication: Publication,
         val additionalLanguages: Languages,
@@ -55,13 +55,11 @@ data class AncestryModel(
         data class AbilityScore(
             val value: List<String>,
         ) {
-            fun toAbility(): Ability {
-                return if (value.size > 1) {
-                    Ability.Anything
-                } else if (value.isEmpty()) {
-                    Ability.None
-                } else {
-                    fromShortName(value.first())
+            fun toAbilityList(): List<Ability> {
+                return when {
+                    value.size > 2 -> listOf(Ability.Anything)
+                    value.isEmpty() -> listOf(Ability.None)
+                    else -> value.map { fromShortName(it) }
                 }
             }
         }

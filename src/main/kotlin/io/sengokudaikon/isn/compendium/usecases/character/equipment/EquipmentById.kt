@@ -5,7 +5,9 @@ import io.sengokudaikon.isn.compendium.domain.equipment.repository.EquipmentRepo
 import io.sengokudaikon.isn.compendium.operations.character.equipment.query.EquipmentQuery
 import io.sengokudaikon.isn.compendium.ports.character.ByIdEquipmentPort
 import io.sengokudaikon.isn.infrastructure.usecases.GetById
+import org.koin.core.annotation.Single
 
+@Single(binds = [ByIdEquipmentPort::class])
 class EquipmentById(override val repository: EquipmentRepositoryPort) :
     GetById<EquipmentQuery, EquipmentModel, EquipmentRepositoryPort>(),
     ByIdEquipmentPort {

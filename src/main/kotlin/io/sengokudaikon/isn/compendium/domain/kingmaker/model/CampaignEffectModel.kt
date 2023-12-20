@@ -16,6 +16,4 @@ data class CampaignEffectModel(
     override val name: String,
     override val type: String,
     override val system: EffectSystem,
-) : Model {
-    override fun getSerializer() = serializer()
-}
+) : Model

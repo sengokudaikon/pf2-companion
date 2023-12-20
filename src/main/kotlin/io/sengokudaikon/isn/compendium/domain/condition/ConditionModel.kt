@@ -1,14 +1,12 @@
 package io.sengokudaikon.isn.compendium.domain.condition
 
 import io.sengokudaikon.isn.compendium.domain.system.DescriptionType
-import io.sengokudaikon.isn.compendium.domain.system.GenericRule
 import io.sengokudaikon.isn.compendium.domain.system.Publication
 import io.sengokudaikon.isn.compendium.domain.system.SystemModel
 import io.sengokudaikon.isn.compendium.domain.system.Traits
 import io.sengokudaikon.isn.infrastructure.domain.Model
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.bson.BsonValue
@@ -27,14 +25,17 @@ data class ConditionModel(
     override val system: SystemProperty,
 ) : Model {
     @Serializable
-    data class SystemProperty @OptIn(ExperimentalSerializationApi::class) constructor(
+    data class SystemProperty
+    @OptIn(ExperimentalSerializationApi::class)
+    constructor(
         override val description: DescriptionType,
         @Serializable(with = BsonValueSerializer::class) val duration: BsonValue,
         val group: String,
         val overrides: List<String>,
         override val publication: Publication,
         val references: References,
-        override val rules: List<GenericRule>,
+        @OptIn(ExperimentalSerializationApi::class)
+        @Serializable(with = BsonValueSerializer::class) override val rules: BsonValue? = null,
         override val traits: Traits,
     ) : SystemModel {
 
@@ -46,6 +47,4 @@ data class ConditionModel(
             val overrides: List<String>,
         )
     }
-
-    override fun getSerializer(): KSerializer<*> = serializer()
 }

@@ -5,7 +5,9 @@ import io.sengokudaikon.isn.compendium.domain.classs.repository.ClassRepositoryP
 import io.sengokudaikon.isn.compendium.operations.character.classs.query.ClassQuery
 import io.sengokudaikon.isn.compendium.ports.character.ListClassPort
 import io.sengokudaikon.isn.infrastructure.usecases.GetList
+import org.koin.core.annotation.Single
 
+@Single(binds = [ListClassPort::class])
 class ClassList(override val repository: ClassRepositoryPort) :
     GetList<ClassQuery, ClassModel, List<ClassModel>, ClassRepositoryPort>(), ListClassPort {
     override fun getCacheKey(query: ClassQuery): String {

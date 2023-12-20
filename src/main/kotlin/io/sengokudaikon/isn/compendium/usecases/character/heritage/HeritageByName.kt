@@ -5,7 +5,9 @@ import io.sengokudaikon.isn.compendium.domain.heritage.repository.HeritageReposi
 import io.sengokudaikon.isn.compendium.operations.character.heritage.query.HeritageQuery
 import io.sengokudaikon.isn.compendium.ports.character.ByNameHeritagePort
 import io.sengokudaikon.isn.infrastructure.usecases.GetByName
+import org.koin.core.annotation.Single
 
+@Single(binds = [ByNameHeritagePort::class])
 class HeritageByName(override val repository: HeritageRepositoryPort) :
     GetByName<HeritageQuery, HeritageModel, HeritageRepositoryPort>(), ByNameHeritagePort {
     override fun getCacheKey(query: HeritageQuery): String {

@@ -5,7 +5,11 @@ import io.sengokudaikon.isn.compendium.domain.bestiary.BestiaryModel
 import io.sengokudaikon.isn.compendium.domain.bestiary.repository.BestiaryRepositoryPort
 import io.sengokudaikon.isn.infrastructure.getCollection
 import io.sengokudaikon.isn.infrastructure.repository.BaseRepository
+import org.koin.core.annotation.Single
+import kotlin.reflect.KClass
 
-class BestiaryRepository : BaseRepository<BestiaryModel>(BestiaryModel::class), BestiaryRepositoryPort {
+@Single(binds = [BestiaryRepositoryPort::class])
+class BestiaryRepository : BaseRepository<BestiaryModel>(), BestiaryRepositoryPort {
+    override val modelClass: KClass<BestiaryModel> = BestiaryModel::class
     override val collection: MongoCollection<BestiaryModel> = getCollection("bestiary")
 }

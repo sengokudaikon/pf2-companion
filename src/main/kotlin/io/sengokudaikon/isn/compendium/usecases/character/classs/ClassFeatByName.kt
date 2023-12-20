@@ -5,7 +5,9 @@ import io.sengokudaikon.isn.compendium.domain.classs.repository.ClassFeatureRepo
 import io.sengokudaikon.isn.compendium.operations.character.classs.query.ClassFeatureQuery
 import io.sengokudaikon.isn.compendium.ports.character.ByNameClassFeatPort
 import io.sengokudaikon.isn.infrastructure.usecases.GetByName
+import org.koin.core.annotation.Single
 
+@Single(binds = [ByNameClassFeatPort::class])
 class ClassFeatByName(override val repository: ClassFeatureRepositoryPort) :
     GetByName<ClassFeatureQuery, ClassFeatureModel, ClassFeatureRepositoryPort>(), ByNameClassFeatPort {
     override fun getCacheKey(query: ClassFeatureQuery): String {

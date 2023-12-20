@@ -2,13 +2,15 @@ package io.sengokudaikon.isn.compendium.infrastructure.mapper
 
 import io.sengokudaikon.isn.compendium.domain.classs.ClassFeatureModel
 import io.sengokudaikon.isn.compendium.enums.ActionTypes
-import io.sengokudaikon.isn.compendium.operations.global.response.FeatureResponse
+import io.sengokudaikon.isn.infrastructure.operations.response.ClassFeatureResponse
 import io.sengokudaikon.isn.infrastructure.operations.transform
+import org.koin.core.annotation.Single
 
+@Single
 class ClassFeatureMapper : Mapper<ClassFeatureModel> {
-    override fun toResponse(model: ClassFeatureModel): FeatureResponse<ClassFeatureModel> {
+    override fun toResponse(model: ClassFeatureModel): ClassFeatureResponse {
         return with(model) {
-            FeatureResponse(
+            ClassFeatureResponse(
                 id = id.toString(),
                 img = img,
                 name = name,
@@ -16,19 +18,14 @@ class ClassFeatureMapper : Mapper<ClassFeatureModel> {
                 description = system.description,
                 publication = system.publication,
                 traits = system.traits.toResponse(),
-                rules = system.rules.map { it.toResponse() },
-                frequency = system.frequency,
-                isDefault = system.isDefault?.transform(),
-                actionType = ActionTypes.valueOf(
-                    system.actionType?.transform().extractValue()?.uppercase() ?: ActionTypes.NONE.name,
+                rules = system.rules?.let { rulesToJson(it.asArray()) },
+                actionType = ActionTypes.fromString(
+                    system.actionType?.transform().extractValue()?.toString()?.uppercase() ?: ActionTypes.NONE.name,
                 ),
                 actions = system.actions?.transform().extractValue(),
                 category = system.category,
-                level = system.level?.transform().extractValue()?.toInt(),
-                maxTakable = system.maxTakable?.transform(),
+                level = system.level?.transform().extractValue()?.toString()?.toInt(),
                 prerequisites = system.prerequisites?.transform().extractValue(),
-                trigger = system.trigger?.transform(),
-                effects = null,
             )
         }
     }

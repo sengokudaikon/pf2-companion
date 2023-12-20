@@ -5,7 +5,11 @@ import io.sengokudaikon.isn.compendium.domain.effects.model.OtherEffectsModel
 import io.sengokudaikon.isn.compendium.domain.effects.repository.OtherEffectsRepositoryPort
 import io.sengokudaikon.isn.infrastructure.getCollection
 import io.sengokudaikon.isn.infrastructure.repository.BaseRepository
+import org.koin.core.annotation.Single
+import kotlin.reflect.KClass
 
-class OtherEffectsRepository : BaseRepository<OtherEffectsModel>(OtherEffectsModel::class), OtherEffectsRepositoryPort {
+@Single(binds = [OtherEffectsRepositoryPort::class])
+class OtherEffectsRepository : BaseRepository<OtherEffectsModel>(), OtherEffectsRepositoryPort {
+    override val modelClass: KClass<OtherEffectsModel> = OtherEffectsModel::class
     override val collection: MongoCollection<OtherEffectsModel> = getCollection("other-effects")
 }

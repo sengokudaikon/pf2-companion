@@ -6,8 +6,10 @@ import io.sengokudaikon.isn.compendium.domain.spell.repository.SpellEffectReposi
 import io.sengokudaikon.isn.infrastructure.getCollection
 import io.sengokudaikon.isn.infrastructure.repository.BaseRepository
 import org.koin.core.annotation.Single
+import kotlin.reflect.KClass
 
 @Single(binds = [SpellEffectRepositoryPort::class])
-class SpellEffectRepository : BaseRepository<SpellEffectModel>(SpellEffectModel::class), SpellEffectRepositoryPort {
+class SpellEffectRepository : BaseRepository<SpellEffectModel>(), SpellEffectRepositoryPort {
+    override val modelClass: KClass<SpellEffectModel> = SpellEffectModel::class
     override val collection: MongoCollection<SpellEffectModel> = getCollection<SpellEffectModel>("spell-effects")
 }

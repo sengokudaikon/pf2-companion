@@ -1,9 +1,12 @@
 package io.sengokudaikon.isn.compendium.infrastructure.mapper
 
 import io.sengokudaikon.isn.compendium.domain.equipment.model.WeaponModel
-import io.sengokudaikon.isn.compendium.operations.character.equipment.response.WeaponResponse
-import io.sengokudaikon.isn.infrastructure.operations.Response
+import io.sengokudaikon.isn.infrastructure.operations.response.Response
+import io.sengokudaikon.isn.infrastructure.operations.response.WeaponResponse
+import io.sengokudaikon.isn.infrastructure.operations.transform
+import org.koin.core.annotation.Single
 
+@Single
 class WeaponMapper : Mapper<WeaponModel> {
     override fun toResponse(model: WeaponModel): Response<WeaponModel> {
         return with(model) {
@@ -20,7 +23,7 @@ class WeaponMapper : Mapper<WeaponModel> {
                 propertyRune3 = system.propertyRune3.toString(),
                 propertyRune4 = system.propertyRune4.toString(),
                 description = system.description,
-                rules = system.rules.map { it.toResponse() },
+                rules = system.rules?.transform().extractValue()?.toString().toString(),
                 traits = system.traits,
                 publication = system.publication,
                 baseItem = system.baseItem,

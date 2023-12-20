@@ -12,11 +12,13 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
 import org.koin.core.annotation.Single
+import kotlin.reflect.KClass
 
 @Single(binds = [AncestryRepositoryPort::class])
 class AncestryRepository(
     private val ancestryFeatureRepository: AncestryFeatureRepositoryPort,
-) : BaseRepository<AncestryModel>(AncestryModel::class), AncestryRepositoryPort {
+) : BaseRepository<AncestryModel>(), AncestryRepositoryPort {
+    override val modelClass: KClass<AncestryModel> = AncestryModel::class
     override val collection: MongoCollection<AncestryModel> =
         DatabaseFactory.database.getCollection<AncestryModel>("ancestries")
 

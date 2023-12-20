@@ -5,7 +5,9 @@ import io.sengokudaikon.isn.compendium.domain.equipment.repository.EquipmentRepo
 import io.sengokudaikon.isn.compendium.operations.character.equipment.query.EquipmentQuery
 import io.sengokudaikon.isn.compendium.ports.character.ListEquipmentPort
 import io.sengokudaikon.isn.infrastructure.usecases.GetList
+import org.koin.core.annotation.Single
 
+@Single(binds = [ListEquipmentPort::class])
 class EquipmentList(override val repository: EquipmentRepositoryPort) :
     GetList<EquipmentQuery, EquipmentModel, List<EquipmentModel>, EquipmentRepositoryPort>(), ListEquipmentPort {
     override fun getCacheKey(query: EquipmentQuery): String {

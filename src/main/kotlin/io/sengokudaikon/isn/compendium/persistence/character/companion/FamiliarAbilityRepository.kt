@@ -5,9 +5,13 @@ import io.sengokudaikon.isn.compendium.domain.familiar.FamiliarAbilityModel
 import io.sengokudaikon.isn.compendium.domain.familiar.repository.FamiliarAbilityRepositoryPort
 import io.sengokudaikon.isn.infrastructure.getCollection
 import io.sengokudaikon.isn.infrastructure.repository.BaseRepository
+import org.koin.core.annotation.Single
+import kotlin.reflect.KClass
 
+@Single(binds = [FamiliarAbilityRepositoryPort::class])
 class FamiliarAbilityRepository :
-    BaseRepository<FamiliarAbilityModel>(FamiliarAbilityModel::class),
+    BaseRepository<FamiliarAbilityModel>(),
     FamiliarAbilityRepositoryPort {
+    override val modelClass: KClass<FamiliarAbilityModel> = FamiliarAbilityModel::class
     override val collection: MongoCollection<FamiliarAbilityModel> = getCollection("familiar-abilities")
 }
