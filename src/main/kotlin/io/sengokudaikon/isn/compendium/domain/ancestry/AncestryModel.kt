@@ -1,5 +1,6 @@
 package io.sengokudaikon.isn.compendium.domain.ancestry
 
+import io.sengokudaikon.isn.compendium.domain.heritage.HeritageModel
 import io.sengokudaikon.isn.compendium.domain.system.DescriptionType
 import io.sengokudaikon.isn.compendium.domain.system.Item
 import io.sengokudaikon.isn.compendium.domain.system.Languages
@@ -7,7 +8,7 @@ import io.sengokudaikon.isn.compendium.domain.system.Publication
 import io.sengokudaikon.isn.compendium.domain.system.SystemModel
 import io.sengokudaikon.isn.compendium.domain.system.Traits
 import io.sengokudaikon.isn.compendium.enums.Ability
-import io.sengokudaikon.isn.compendium.enums.fromShortName
+import io.sengokudaikon.isn.compendium.enums.Ability.Companion.fromShortName
 import io.sengokudaikon.isn.infrastructure.domain.Model
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerialName
@@ -30,7 +31,7 @@ data class AncestryModel(
     override val system: SystemProperty,
 ) : Model {
     var ancestryFeatures: Map<String, AncestryFeatureModel> = emptyMap()
-
+    var heritages: Map<String, HeritageModel> = emptyMap()
     @Serializable
     data class SystemProperty(
         override val description: DescriptionType,

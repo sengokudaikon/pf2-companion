@@ -9,7 +9,7 @@ import org.koin.core.annotation.Single
 
 @Single(binds = [ListFeatPort::class])
 class GeneralFeatList(override val repository: FeatRepositoryPort) :
-    GetList<FeatQuery.General, FeatModel, List<FeatModel>, FeatRepositoryPort>(), ListFeatPort {
+    GetList<FeatQuery.General, FeatModel>(), ListFeatPort {
     override fun getCacheKey(query: FeatQuery.General): String {
         query as FeatQuery.General.All
         return "model_feat:all:${query.page}:${query.size}"

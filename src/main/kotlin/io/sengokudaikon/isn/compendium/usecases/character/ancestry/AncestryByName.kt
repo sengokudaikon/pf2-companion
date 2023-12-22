@@ -10,7 +10,7 @@ import org.koin.core.annotation.Single
 @Single(binds = [ByNameAncestryPort::class])
 class AncestryByName(
     override val repository: AncestryRepositoryPort,
-) : ByNameAncestryPort, GetByName<AncestryQuery, AncestryModel, AncestryRepositoryPort>() {
+) : ByNameAncestryPort, GetByName<AncestryQuery, AncestryModel>() {
     override fun getCacheKey(query: AncestryQuery): String {
         query as AncestryQuery.ByName
         return "model_ancestry:name:${query.name}"

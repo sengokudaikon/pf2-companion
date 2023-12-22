@@ -9,7 +9,7 @@ import org.koin.core.annotation.Single
 
 @Single(binds = [ByIdArmorPort::class])
 class ArmorById(override val repository: ArmorRepositoryPort) :
-    GetById<ArmorQuery, ArmorModel, ArmorRepositoryPort>(), ByIdArmorPort {
+    GetById<ArmorQuery, ArmorModel>(), ByIdArmorPort {
     override fun getCacheKey(query: ArmorQuery): String {
         query as ArmorQuery.ById
         return "model_model.armormodel:id:${query.id}"

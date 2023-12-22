@@ -9,7 +9,7 @@ import org.koin.core.annotation.Single
 
 @Single(binds = [ListArmorPort::class])
 class ArmorList(override val repository: ArmorRepositoryPort) :
-    GetList<ArmorQuery, ArmorModel, List<ArmorModel>, ArmorRepositoryPort>(), ListArmorPort {
+    GetList<ArmorQuery, ArmorModel>(), ListArmorPort {
     override fun getCacheKey(query: ArmorQuery): String {
         query as ArmorQuery.All
         return "model_armor:all:${query.page}:${query.size}"

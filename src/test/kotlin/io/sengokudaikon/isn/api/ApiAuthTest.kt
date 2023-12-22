@@ -8,9 +8,10 @@ import io.ktor.server.testing.*
 class ApiAuthTest : FunSpec({
     test("auth") {
         testApplication {
-            client.get("/api/auth").apply {
+            client.get("/api/auth/register").apply {
                 this.status.value shouldBe 200
             }
         }
     }
 })
+

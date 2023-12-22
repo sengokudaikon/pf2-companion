@@ -9,7 +9,7 @@ import org.koin.core.annotation.Single
 
 @Single(binds = [ByIdEquipmentPort::class])
 class EquipmentById(override val repository: EquipmentRepositoryPort) :
-    GetById<EquipmentQuery, EquipmentModel, EquipmentRepositoryPort>(),
+    GetById<EquipmentQuery, EquipmentModel>(),
     ByIdEquipmentPort {
     override fun getCacheKey(query: EquipmentQuery): String {
         query as EquipmentQuery.ById

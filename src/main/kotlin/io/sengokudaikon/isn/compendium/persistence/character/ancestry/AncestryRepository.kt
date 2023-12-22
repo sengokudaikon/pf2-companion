@@ -5,6 +5,8 @@ import io.sengokudaikon.isn.compendium.domain.ancestry.AncestryFeatureModel
 import io.sengokudaikon.isn.compendium.domain.ancestry.AncestryModel
 import io.sengokudaikon.isn.compendium.domain.ancestry.repository.AncestryFeatureRepositoryPort
 import io.sengokudaikon.isn.compendium.domain.ancestry.repository.AncestryRepositoryPort
+import io.sengokudaikon.isn.compendium.domain.heritage.HeritageModel
+import io.sengokudaikon.isn.compendium.domain.heritage.repository.HeritageRepositoryPort
 import io.sengokudaikon.isn.infrastructure.DatabaseFactory
 import io.sengokudaikon.isn.infrastructure.errors.DatabaseException
 import io.sengokudaikon.isn.infrastructure.repository.BaseRepository
@@ -17,6 +19,7 @@ import kotlin.reflect.KClass
 @Single(binds = [AncestryRepositoryPort::class])
 class AncestryRepository(
     private val ancestryFeatureRepository: AncestryFeatureRepositoryPort,
+    private val heritageRepository: HeritageRepositoryPort,
 ) : BaseRepository<AncestryModel>(), AncestryRepositoryPort {
     override val modelClass: KClass<AncestryModel> = AncestryModel::class
     override val collection: MongoCollection<AncestryModel> =
@@ -29,11 +32,19 @@ class AncestryRepository(
                 ?: throw DatabaseException.NotFound(AncestryFeatureModel::class.qualifiedName)
             features
         }
+    
+    private suspend fun fetchHeritages(ancestry: AncestryModel): Result<Map<String, HeritageModel>> =
+        runCatching {
+            val heritages = heritageRepository.findAllByAncestry(ancestry.name).getOrNull()
+                ?: throw DatabaseException.NotFound(HeritageModel::class.qualifiedName)
+            heritages.associateBy { it.name }
+        }
 
     override suspend fun findByName(name: String): Result<AncestryModel> = runCatching {
         val entity = super.findByName(name).getOrThrow()
         entity.let {
             it.ancestryFeatures = fetchAncestryFeatures(it).getOrDefault(emptyMap())
+            it.heritages = fetchHeritages(it).getOrDefault(emptyMap())
         }
         entity
     }
@@ -42,6 +53,7 @@ class AncestryRepository(
         val entity = super.findById(id).getOrThrow()
         entity.let {
             it.ancestryFeatures = fetchAncestryFeatures(it).getOrDefault(emptyMap())
+            it.heritages = fetchHeritages(it).getOrDefault(emptyMap())
         }
         entity
     }
@@ -50,6 +62,7 @@ class AncestryRepository(
         val ancList = super.findAll(page, limit).getOrThrow()
         ancList.map {
             it.ancestryFeatures = fetchAncestryFeatures(it).getOrDefault(emptyMap())
+            it.heritages = fetchHeritages(it).getOrDefault(emptyMap())
             it
         }.toList()
     }
@@ -58,6 +71,7 @@ class AncestryRepository(
         return runCatching {
             val ancList = collection.find().filter { names.contains(it.name) }.map {
                 it.ancestryFeatures = fetchAncestryFeatures(it).getOrDefault(emptyMap())
+                it.heritages = fetchHeritages(it).getOrDefault(emptyMap())
                 it
             }.toList()
             ancList

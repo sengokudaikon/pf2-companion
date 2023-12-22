@@ -9,7 +9,7 @@ import org.koin.core.annotation.Single
 
 @Single(binds = [ByIdClassPort::class])
 class ClassById(override val repository: ClassRepositoryPort) :
-    GetById<ClassQuery, ClassModel, ClassRepositoryPort>(),
+    GetById<ClassQuery, ClassModel>(),
     ByIdClassPort {
     override fun getCacheKey(query: ClassQuery): String {
         query as ClassQuery.ById

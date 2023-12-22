@@ -6,15 +6,15 @@ import io.sengokudaikon.isn.infrastructure.ports.ReadPort
 import io.sengokudaikon.isn.infrastructure.repository.RepositoryOutputPort
 
 @Suppress("UNCHECKED_CAST")
-abstract class GetList<Q : Query, R : Model, L : List<R>, S : RepositoryOutputPort<R>> :
-    ReadPort<Q, L>, CachingUseCase() {
-    abstract val repository: S
-    override suspend fun execute(query: Q): Result<L> {
+abstract class GetList<Q : Query, R : Model> :
+    ReadPort<Q, List<R>>, CachingUseCase() {
+    abstract val repository: RepositoryOutputPort<R>
+    override suspend fun execute(query: Q): Result<List<R>> {
         query as Query.All<R>
         val cacheKey = getCacheKey(query)
         return runCatching {
             withCache(cacheKey) {
-                repository.findAll(query.page, query.size).getOrThrow() as L
+                repository.findAll(query.page, query.size).getOrThrow() as List<R>
             }
         }
     }

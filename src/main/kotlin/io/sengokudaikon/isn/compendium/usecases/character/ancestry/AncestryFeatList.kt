@@ -11,7 +11,7 @@ import org.koin.core.annotation.Single
 class AncestryFeatList(
     override val repository: AncestryFeatureRepositoryPort,
 ) : ListAncestryFeatPort,
-    GetList<AncestryFeatsQuery, AncestryFeatureModel, List<AncestryFeatureModel>, AncestryFeatureRepositoryPort>() {
+    GetList<AncestryFeatsQuery, AncestryFeatureModel>() {
     override fun getCacheKey(query: AncestryFeatsQuery): String {
         query as AncestryFeatsQuery.All
         return "model_ancestry_feat:all:${query.page}:${query.size}"

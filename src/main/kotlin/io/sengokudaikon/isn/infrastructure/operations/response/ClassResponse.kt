@@ -1,7 +1,6 @@
 package io.sengokudaikon.isn.infrastructure.operations.response
 
 import io.sengokudaikon.isn.compendium.domain.classs.ClassModel
-import io.sengokudaikon.isn.compendium.domain.system.DescriptionType
 import io.sengokudaikon.isn.compendium.domain.system.Publication
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -14,21 +13,22 @@ data class ClassResponse(
     val name: String,
     @SerialName("type_")
     val type: String,
-    val description: DescriptionType,
+    val rarity: String?,
+    val description: String,
     val publication: Publication,
     val rules: JsonElement?,
-    val traits: TraitsResponse,
-    val ancestryFeatLevels: String?,
+    val traits: List<String>,
+    val ancestryFeatLevels: JsonElement?,
     val attacks: ClassModel.Attacks,
     val defenses: ClassModel.Defenses,
     val hp: Int,
-    val items: Map<String, ItemResponse>,
     val perception: Int,
     val savingThrows: ClassModel.SavingThrows,
+    val features: List<ClassFeatureResponse>,
     val trainedSkills: ClassModel.TrainedSkills,
-    val skillFeatLevels: String?,
-    val skillIncreaseLevels: String?,
-    val classFeatLevels: String?,
-    val generalFeatLevels: String?,
-    val keyAbility: String?
+    val skillFeatLevels: JsonElement?,
+    val skillIncreaseLevels: JsonElement?,
+    val classFeatLevels: JsonElement?,
+    val generalFeatLevels: JsonElement?,
+    val keyAbility: JsonElement?
 ) : Response<ClassModel>()

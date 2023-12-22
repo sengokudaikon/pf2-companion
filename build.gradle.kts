@@ -94,7 +94,7 @@ dependencies {
     implementation("io.cucumber:cucumber-java:7.13.0")
     implementation("io.swagger.core.v3:swagger-annotations:2.2.15")
 
-    ksp("io.insert-koin:koin-ksp-compiler:1.2.2")
+    ksp("io.insert-koin:koin-ksp-compiler:1.3.0")
 
     api("io.opentelemetry:opentelemetry-api:1.32.0")
     api("io.opentelemetry:opentelemetry-extension-kotlin:1.32.0")
@@ -104,16 +104,16 @@ dependencies {
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.23.4")
     // tests
     implementation("io.mockk:mockk:1.13.5")
-    implementation("io.cucumber:cucumber-jvm:7.13.0")
+    implementation("io.cucumber:cucumber-jvm:7.15.0")
     testImplementation("io.ktor:ktor-server-tests-jvm:2.3.0")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:1.9.20")
     testImplementation("io.ktor:ktor-server-test-host-jvm:2.3.6")
-    testImplementation("com.google.guava:guava:31.1-jre")
-    testImplementation("io.kotest:kotest-runner-junit5-jvm:5.6.2")
+    testImplementation("com.google.guava:guava:33.0.0-jre")
+    testImplementation("io.kotest:kotest-property:5.8.0")
+    testImplementation("io.kotest:kotest-runner-junit5-jvm:5.8.0")
     testImplementation("io.kotest.extensions:kotest-assertions-ktor:2.0.0")
     testImplementation("io.kotest:kotest-assertions-ktor-jvm:4.4.3")
-    testImplementation("io.kotest:kotest-property:5.6.2")
-    testImplementation("io.kotest.extensions:kotest-extensions-koin:1.1.0")
+    testImplementation("io.kotest.extensions:kotest-extensions-koin:1.3.0")
 }
 
 detekt {

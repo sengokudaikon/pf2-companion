@@ -3,7 +3,6 @@ package io.sengokudaikon.isn.compendium.infrastructure.mapper
 import io.sengokudaikon.isn.compendium.domain.equipment.model.WeaponModel
 import io.sengokudaikon.isn.infrastructure.operations.response.Response
 import io.sengokudaikon.isn.infrastructure.operations.response.WeaponResponse
-import io.sengokudaikon.isn.infrastructure.operations.transform
 import org.koin.core.annotation.Single
 
 @Single
@@ -22,8 +21,8 @@ class WeaponMapper : Mapper<WeaponModel> {
                 propertyRune2 = system.propertyRune2.toString(),
                 propertyRune3 = system.propertyRune3.toString(),
                 propertyRune4 = system.propertyRune4.toString(),
-                description = system.description,
-                rules = system.rules?.transform().extractValue()?.toString().toString(),
+                description = system.description.value,
+                rules = system.rules?.let { rulesToJson(it.asArray()) },
                 traits = system.traits,
                 publication = system.publication,
                 baseItem = system.baseItem,

@@ -9,7 +9,7 @@ import org.koin.core.annotation.Single
 
 @Single(binds = [ListEquipmentPort::class])
 class EquipmentList(override val repository: EquipmentRepositoryPort) :
-    GetList<EquipmentQuery, EquipmentModel, List<EquipmentModel>, EquipmentRepositoryPort>(), ListEquipmentPort {
+    GetList<EquipmentQuery, EquipmentModel>(), ListEquipmentPort {
     override fun getCacheKey(query: EquipmentQuery): String {
         query as EquipmentQuery.All
         return "model_equipment:all:${query.page}:${query.size}"

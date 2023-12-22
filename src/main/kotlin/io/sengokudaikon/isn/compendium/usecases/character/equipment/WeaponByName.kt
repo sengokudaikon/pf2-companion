@@ -9,7 +9,7 @@ import org.koin.core.annotation.Single
 
 @Single(binds = [ByNameWeaponPort::class])
 class WeaponByName(override val repository: WeaponRepositoryPort) :
-    GetByName<WeaponQuery, WeaponModel, WeaponRepositoryPort>(), ByNameWeaponPort {
+    GetByName<WeaponQuery, WeaponModel>(), ByNameWeaponPort {
     override fun getCacheKey(query: WeaponQuery): String {
         query as WeaponQuery.ByName
         return "model_weapon:name:${query.name}"

@@ -3,8 +3,8 @@ package io.sengokudaikon.isn.integration.compendium.repository
 import com.mongodb.ConnectionString
 import com.mongodb.kotlin.client.coroutine.MongoClient
 import io.sengokudaikon.isn.compendium.domain.action.ActionModel
-import io.sengokudaikon.isn.compendium.persistence.world.ActionRepository
-import io.sengokudaikon.isn.compendium.persistence.world.FeatEffectsRepository
+import io.sengokudaikon.isn.compendium.persistence.character.action.ActionRepository
+import io.sengokudaikon.isn.compendium.persistence.character.feat.FeatEffectsRepository
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.runBlocking
 import org.junit.Test

@@ -9,7 +9,7 @@ import org.koin.core.annotation.Single
 
 @Single(binds = [ByIdHeritagePort::class])
 class HeritageById(override val repository: HeritageRepositoryPort) :
-    GetById<HeritageQuery, HeritageModel, HeritageRepositoryPort>(), ByIdHeritagePort {
+    GetById<HeritageQuery, HeritageModel>(), ByIdHeritagePort {
     override fun getCacheKey(query: HeritageQuery): String {
         query as HeritageQuery.ById
         return "model_heritage:id:${query.id}"

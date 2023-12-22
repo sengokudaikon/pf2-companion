@@ -59,7 +59,7 @@ import io.sengokudaikon.isn.compendium.operations.character.equipment.query.Weap
 import io.sengokudaikon.isn.compendium.operations.character.feat.query.FeatQuery
 import io.sengokudaikon.isn.compendium.operations.character.heritage.query.HeritageQuery
 import io.sengokudaikon.isn.compendium.operations.search.query.SearchQuery
-import io.sengokudaikon.isn.compendium.operations.world.action.query.ActionQuery
+import io.sengokudaikon.isn.compendium.operations.character.action.query.ActionQuery
 import io.sengokudaikon.isn.infrastructure.auth.FirebasePrincipal
 import io.sengokudaikon.isn.infrastructure.errors.UserException
 import org.koin.ktor.ext.inject

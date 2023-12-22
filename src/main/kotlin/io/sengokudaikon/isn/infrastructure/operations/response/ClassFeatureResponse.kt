@@ -1,9 +1,7 @@
 package io.sengokudaikon.isn.infrastructure.operations.response
 
 import io.sengokudaikon.isn.compendium.domain.classs.ClassFeatureModel
-import io.sengokudaikon.isn.compendium.domain.system.DescriptionType
 import io.sengokudaikon.isn.compendium.domain.system.Publication
-import io.sengokudaikon.isn.compendium.enums.ActionTypes
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonElement
@@ -15,13 +13,14 @@ data class ClassFeatureResponse(
     val name: String,
     @SerialName("type_")
     val type: String,
-    val description: DescriptionType,
+    val rarity: String?,
+    val description: String,
     val publication: Publication,
-    val traits: TraitsResponse,
+    val traits: List<String>,
     val rules: JsonElement?,
-    val actionType: ActionTypes,
+    val actionType: JsonElement?,
     val actions: JsonElement?,
-    val category: String,
+    val category: String?,
     val level: Int?,
     val prerequisites: JsonElement?,
 ) : Response<ClassFeatureModel>()

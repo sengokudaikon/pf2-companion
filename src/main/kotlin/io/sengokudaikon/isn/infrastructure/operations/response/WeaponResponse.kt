@@ -4,11 +4,11 @@ import io.sengokudaikon.isn.compendium.domain.equipment.dto.HP
 import io.sengokudaikon.isn.compendium.domain.equipment.dto.Material
 import io.sengokudaikon.isn.compendium.domain.equipment.dto.Price
 import io.sengokudaikon.isn.compendium.domain.equipment.model.WeaponModel
-import io.sengokudaikon.isn.compendium.domain.system.DescriptionType
 import io.sengokudaikon.isn.compendium.domain.system.Publication
 import io.sengokudaikon.isn.compendium.domain.system.Traits
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonElement
 
 @Serializable
 data class WeaponResponse(
@@ -24,8 +24,8 @@ data class WeaponResponse(
     val propertyRune2: String,
     val propertyRune3: String,
     val propertyRune4: String,
-    val description: DescriptionType,
-    val rules: String?,
+    val description: String,
+    val rules: JsonElement?,
     val traits: Traits,
     val publication: Publication,
     val baseItem: String?,

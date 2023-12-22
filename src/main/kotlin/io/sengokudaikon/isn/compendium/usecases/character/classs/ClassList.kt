@@ -9,7 +9,7 @@ import org.koin.core.annotation.Single
 
 @Single(binds = [ListClassPort::class])
 class ClassList(override val repository: ClassRepositoryPort) :
-    GetList<ClassQuery, ClassModel, List<ClassModel>, ClassRepositoryPort>(), ListClassPort {
+    GetList<ClassQuery, ClassModel>(), ListClassPort {
     override fun getCacheKey(query: ClassQuery): String {
         query as ClassQuery.All
         return "model_class:all:${query.page}:${query.size}"

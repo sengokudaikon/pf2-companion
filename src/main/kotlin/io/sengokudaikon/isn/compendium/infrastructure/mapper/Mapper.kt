@@ -1,5 +1,7 @@
 package io.sengokudaikon.isn.compendium.infrastructure.mapper
 
+import io.sengokudaikon.isn.compendium.domain.ancestry.AncestryModel
+import io.sengokudaikon.isn.compendium.enums.Ability
 import io.sengokudaikon.isn.infrastructure.domain.Model
 import io.sengokudaikon.isn.infrastructure.operations.response.Response
 import kotlinx.serialization.SerializationException
@@ -43,6 +45,11 @@ fun String?.extractValue(): JsonElement? {
             JsonNull
         }
     }
+}
+fun Map<String, AncestryModel.SystemProperty.AbilityScore>.toAbilityList(): List<Ability> {
+    return this.map {
+        it.value.toAbilityList()
+    }.flatten()
 }
 
 fun rulesToJson(bsonValue: BsonArray): JsonElement {

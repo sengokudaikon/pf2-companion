@@ -9,7 +9,7 @@ import org.koin.core.annotation.Single
 
 @Single(binds = [ByNameShieldPort::class])
 class ShieldByName(override val repository: ShieldRepositoryPort) :
-    GetByName<ShieldQuery, ShieldModel, ShieldRepositoryPort>(), ByNameShieldPort {
+    GetByName<ShieldQuery, ShieldModel>(), ByNameShieldPort {
     override fun getCacheKey(query: ShieldQuery): String {
         query as ShieldQuery.ByName
         return "model_shield:name:${query.name}"

@@ -1,6 +1,8 @@
 package io.sengokudaikon.isn.compendium.domain.system
 
+import io.sengokudaikon.isn.compendium.infrastructure.mapper.extractValue
 import io.sengokudaikon.isn.infrastructure.operations.response.TraitsResponse
+import io.sengokudaikon.isn.infrastructure.operations.transform
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.Serializable
 import org.bson.BsonValue
@@ -20,7 +22,7 @@ data class Traits(
             otherTags = otherTags,
             rarity = rarity,
             value = value,
-            selected = selected.toString(),
+            selected = selected?.transform().extractValue(),
         )
     }
 }

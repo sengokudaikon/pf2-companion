@@ -9,7 +9,7 @@ import org.koin.core.annotation.Single
 
 @Single(binds = [ByNameBackgroundPort::class])
 class BackgroundByName(override val repository: BackgroundRepositoryPort) :
-    GetByName<BackgroundQuery, BackgroundModel, BackgroundRepositoryPort>(), ByNameBackgroundPort {
+    GetByName<BackgroundQuery, BackgroundModel>(), ByNameBackgroundPort {
     override fun getCacheKey(query: BackgroundQuery): String {
         query as BackgroundQuery.ByName
         return "model_background:name:${query.name}"

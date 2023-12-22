@@ -9,7 +9,7 @@ import org.koin.core.annotation.Single
 
 @Single(binds = [ListHeritagePort::class])
 class HeritageList(override val repository: HeritageRepositoryPort) :
-    GetList<HeritageQuery, HeritageModel, List<HeritageModel>, HeritageRepositoryPort>(), ListHeritagePort {
+    GetList<HeritageQuery, HeritageModel>(), ListHeritagePort {
     override fun getCacheKey(query: HeritageQuery): String {
         query as HeritageQuery.All
         return "model_heritage:all:${query.page}:${query.size}"

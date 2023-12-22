@@ -2,9 +2,9 @@ package io.sengokudaikon.isn.infrastructure.operations.response
 
 import io.sengokudaikon.isn.compendium.domain.ancestry.AncestryFeatureModel
 import io.sengokudaikon.isn.compendium.domain.ancestry.AncestryModel
+import io.sengokudaikon.isn.compendium.domain.heritage.HeritageModel
 import io.sengokudaikon.isn.compendium.domain.system.Languages
 import io.sengokudaikon.isn.compendium.domain.system.Publication
-import io.sengokudaikon.isn.compendium.enums.Ability
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonElement
@@ -15,14 +15,15 @@ data class AncestryResponse(
     val name: String,
     @SerialName("type_")
     val type: String,
+    val rarity: String?,
     val description: String,
     val rules: JsonElement?,
-    val traits: TraitsResponse,
+    val traits: List<String>,
     val publication: Publication,
     val items: Map<String, ItemResponse>,
-    val boosts: List<Ability>,
+    val boosts: String,
     val additionalLanguages: Languages,
-    val flaws: List<Ability>,
+    val flaws: String,
     val hp: Int,
     val languages: Languages,
     val reach: Int,
@@ -32,4 +33,5 @@ data class AncestryResponse(
     val vision: String,
     val additionalSense: String?,
     val ancestryFeatures: Map<String, Response<AncestryFeatureModel>>,
+    val heritages: Map<String, Response<HeritageModel>>,
 ) : Response<AncestryModel>()

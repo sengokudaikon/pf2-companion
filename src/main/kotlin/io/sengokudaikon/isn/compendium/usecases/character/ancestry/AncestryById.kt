@@ -10,7 +10,7 @@ import org.koin.core.annotation.Single
 @Single(binds = [ByIdAncestryPort::class])
 class AncestryById(
     override val repository: AncestryRepositoryPort,
-) : GetById<AncestryQuery, AncestryModel, AncestryRepositoryPort>(), ByIdAncestryPort {
+) : GetById<AncestryQuery, AncestryModel>(), ByIdAncestryPort {
     override fun getCacheKey(query: AncestryQuery): String {
         query as AncestryQuery.ById
         return "model_ancestry:id:${query.id}"

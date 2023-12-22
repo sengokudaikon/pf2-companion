@@ -14,7 +14,7 @@ data class ActionSystem(
     @OptIn(ExperimentalSerializationApi::class)
     @Serializable(with = BsonValueSerializer::class) override val rules: BsonValue? = null,
     val frequency: Frequency?,
-    val category: String,
+    val category: String? = null,
     val selfEffect: SelfEffect?,
     @Serializable(with = BsonValueSerializer::class) val prerequisites: BsonValue? = null,
     @Serializable(with = BsonValueSerializer::class) val isDefault: BsonValue? = null,
@@ -25,4 +25,5 @@ data class ActionSystem(
     var selectedChoice: String? = null,
     @Serializable(with = BsonValueSerializer::class) val maxTakable: BsonValue? = null,
     @Serializable(with = BsonValueSerializer::class) val trigger: BsonValue? = null,
+    @Serializable(with = BsonValueSerializer::class) val weapon: BsonValue? = null,
 ) : SystemModel

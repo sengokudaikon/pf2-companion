@@ -1,8 +1,6 @@
 package io.sengokudaikon.isn.compendium.infrastructure.mapper
 
-import io.sengokudaikon.isn.compendium.domain.ancestry.AncestryModel
 import io.sengokudaikon.isn.compendium.domain.background.BackgroundModel
-import io.sengokudaikon.isn.compendium.enums.Ability
 import io.sengokudaikon.isn.compendium.enums.Skills
 import io.sengokudaikon.isn.infrastructure.operations.response.BackgroundResponse
 import io.sengokudaikon.isn.infrastructure.operations.response.Response
@@ -20,24 +18,19 @@ class BackgroundMapper(
                 img = img,
                 name = name,
                 type = type,
+                rarity = system.traits.rarity,
                 feats = feats.mapValues { featMapper.toResponse(it.value) },
                 actions = actions.mapValues { actionMapper.toResponse(it.value) },
                 description = system.description.value,
-                rules = system.rules?.asDocument()?.toJson(),
+                rules = system.rules?.let { rulesToJson(it.asArray()) },
                 publication = system.publication,
-                traits = system.traits.toResponse(),
-                boosts = system.boosts.toAbilityList(),
+                traits = system.traits.value,
+                boosts = system.boosts.toAbilityList().joinToString("/"),
                 trainedLore = system.trainedLore,
                 trainedSkills = system.trainedSkills.value.map {
                     Skills.from(it)
                 },
             )
         }
-    }
-
-    fun Map<String, AncestryModel.SystemProperty.AbilityScore>.toAbilityList(): List<Ability> {
-        return this.map {
-            it.value.toAbilityList()
-        }.flatten()
     }
 }

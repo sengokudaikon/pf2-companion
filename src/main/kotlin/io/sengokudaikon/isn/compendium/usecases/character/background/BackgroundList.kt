@@ -9,7 +9,7 @@ import org.koin.core.annotation.Single
 
 @Single(binds = [ListBackgroundPort::class])
 class BackgroundList(override val repository: BackgroundRepositoryPort) :
-    GetList<BackgroundQuery, BackgroundModel, List<BackgroundModel>, BackgroundRepositoryPort>(), ListBackgroundPort {
+    GetList<BackgroundQuery, BackgroundModel>(), ListBackgroundPort {
     override fun getCacheKey(query: BackgroundQuery): String {
         query as BackgroundQuery.All
         return "model_background:all:${query.page}:${query.size}"

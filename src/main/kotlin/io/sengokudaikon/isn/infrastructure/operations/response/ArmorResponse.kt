@@ -4,7 +4,6 @@ import io.sengokudaikon.isn.compendium.domain.equipment.dto.HP
 import io.sengokudaikon.isn.compendium.domain.equipment.dto.Material
 import io.sengokudaikon.isn.compendium.domain.equipment.dto.Price
 import io.sengokudaikon.isn.compendium.domain.equipment.model.ArmorModel
-import io.sengokudaikon.isn.compendium.domain.system.DescriptionType
 import io.sengokudaikon.isn.compendium.domain.system.Publication
 import io.sengokudaikon.isn.compendium.domain.system.Traits
 import kotlinx.serialization.SerialName
@@ -18,6 +17,7 @@ data class ArmorResponse(
     val name: String,
     @SerialName("type_")
     val type: String,
+    val rarity: String?,
     val group: String,
     val resiliencyRune: JsonElement?,
     val specific: ArmorModel.SystemProperty.Specific?,
@@ -33,7 +33,7 @@ data class ArmorResponse(
     val propertyRune2: JsonElement?,
     val propertyRune3: JsonElement?,
     val propertyRune4: JsonElement?,
-    val description: DescriptionType,
+    val description: String,
     val rules: JsonElement,
     val traits: Traits,
     val publication: Publication,

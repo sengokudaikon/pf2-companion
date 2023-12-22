@@ -9,7 +9,9 @@ class ApiSearchQueryTest : FunSpec({
 
     test("searchQuery") {
         testApplication {
-            client.get("/api/search/{query}").apply {
+            client.get("/api/search/"){
+                parameter("query", "test")
+            }.apply {
                 this.status.value shouldBe 200
             }
         }

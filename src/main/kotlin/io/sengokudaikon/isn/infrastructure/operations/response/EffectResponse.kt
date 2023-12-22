@@ -1,9 +1,5 @@
 package io.sengokudaikon.isn.infrastructure.operations.response
 
-import io.sengokudaikon.isn.compendium.domain.effects.model.EffectDuration
-import io.sengokudaikon.isn.compendium.domain.effects.model.EffectStart
-import io.sengokudaikon.isn.compendium.domain.effects.model.EffectSystem
-import io.sengokudaikon.isn.compendium.domain.system.DescriptionType
 import io.sengokudaikon.isn.compendium.domain.system.Publication
 import io.sengokudaikon.isn.compendium.domain.system.TokenIcon
 import io.sengokudaikon.isn.infrastructure.domain.EffectModel
@@ -18,13 +14,14 @@ data class EffectResponse<T : EffectModel>(
     val name: String,
     @SerialName("type_")
     val type: String,
-    val description: DescriptionType,
+    val rarity: String?,
+    val description: String,
     val publication: Publication,
-    val traits: TraitsResponse,
+    val traits: List<String>,
     val rules: JsonElement?,
-    val badge: EffectSystem.Badge?,
-    val duration: EffectDuration,
+    val badge: JsonElement?,
+    val duration: JsonElement?,
     val level: Int,
-    val start: EffectStart,
+    val start: JsonElement?,
     val tokenIcon: TokenIcon
 ) : Response<T>()

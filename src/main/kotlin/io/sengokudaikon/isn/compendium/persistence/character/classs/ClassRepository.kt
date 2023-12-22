@@ -19,10 +19,11 @@ class ClassRepository(
     private suspend fun withFeats(classModel: ClassModel): ClassModel {
         val featNames = classModel.system.items.values.filter {
             it.uuid.contains("classfeatures")
-        }.map { it.name }
+        }.map { it.uuid.split(".").last() }
         val features = featureRepository.findByNames(
             featNames
         ).getOrDefault(emptyList())
+        require(features.size == featNames.size)
         classModel.features = features
         return classModel
     }

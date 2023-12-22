@@ -1,8 +1,8 @@
 package io.sengokudaikon.isn.compendium.adapters.world.spell
 
 import io.sengokudaikon.isn.compendium.domain.spell.SpellModel
-import io.sengokudaikon.isn.compendium.operations.world.spell.query.SpellQuery
-import io.sengokudaikon.isn.compendium.ports.world.ByNameSpellPort
+import io.sengokudaikon.isn.compendium.operations.character.spell.query.SpellQuery
+import io.sengokudaikon.isn.compendium.ports.character.ByNameSpellPort
 import io.sengokudaikon.isn.infrastructure.adapters.ByNameHandler
 import io.sengokudaikon.isn.infrastructure.adapters.QueryHandler
 import org.koin.core.annotation.Single

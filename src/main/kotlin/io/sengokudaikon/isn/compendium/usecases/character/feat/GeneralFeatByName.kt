@@ -9,7 +9,7 @@ import org.koin.core.annotation.Single
 
 @Single(binds = [ByNameFeatPort::class])
 class GeneralFeatByName(override val repository: FeatRepositoryPort) :
-    GetByName<FeatQuery.General, FeatModel, FeatRepositoryPort>(),
+    GetByName<FeatQuery.General, FeatModel>(),
     ByNameFeatPort {
     override fun getCacheKey(query: FeatQuery.General): String {
         query as FeatQuery.General.ByName

@@ -17,12 +17,11 @@ data class EffectSystem(
     override val description: DescriptionType,
     override val publication: Publication,
     override val traits: Traits,
-    @OptIn(ExperimentalSerializationApi::class)
     @Serializable(with = BsonValueSerializer::class) override val rules: BsonValue? = null,
-    val badge: Badge? = null,
-    val duration: EffectDuration,
+    @Serializable(with = BsonValueSerializer::class) val badge: BsonValue? = null,
+    @Serializable(with = BsonValueSerializer::class) val duration: BsonValue? = null,
     @Serializable(with = BsonValueSerializer::class) val level: BsonValue,
-    val start: EffectStart,
+    @Serializable(with = BsonValueSerializer::class) val start: BsonValue? = null,
     val tokenIcon: TokenIcon,
 ) : SystemModel {
     @Serializable

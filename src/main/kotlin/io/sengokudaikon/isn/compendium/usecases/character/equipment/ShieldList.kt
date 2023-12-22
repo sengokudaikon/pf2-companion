@@ -9,7 +9,7 @@ import org.koin.core.annotation.Single
 
 @Single(binds = [ListShieldPort::class])
 class ShieldList(override val repository: ShieldRepositoryPort) :
-    GetList<ShieldQuery, ShieldModel, List<ShieldModel>, ShieldRepositoryPort>(), ListShieldPort {
+    GetList<ShieldQuery, ShieldModel>(), ListShieldPort {
     override fun getCacheKey(query: ShieldQuery): String {
         query as ShieldQuery.All
         return "model_shield:all:${query.page}:${query.size}"

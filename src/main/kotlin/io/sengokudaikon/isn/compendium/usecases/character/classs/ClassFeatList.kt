@@ -9,7 +9,7 @@ import org.koin.core.annotation.Single
 
 @Single(binds = [ListClassFeatPort::class])
 class ClassFeatList(override val repository: ClassFeatureRepositoryPort) :
-    GetList<ClassFeatureQuery, ClassFeatureModel, List<ClassFeatureModel>, ClassFeatureRepositoryPort>(),
+    GetList<ClassFeatureQuery, ClassFeatureModel>(),
     ListClassFeatPort {
     override fun getCacheKey(query: ClassFeatureQuery): String {
         query as ClassFeatureQuery.All

@@ -5,8 +5,8 @@ import com.mongodb.kotlin.client.coroutine.MongoCollection
 import io.mockk.every
 import io.mockk.mockk
 import io.sengokudaikon.isn.compendium.domain.action.ActionModel
-import io.sengokudaikon.isn.compendium.persistence.world.ActionRepository
-import io.sengokudaikon.isn.compendium.persistence.world.FeatEffectsRepository
+import io.sengokudaikon.isn.compendium.persistence.character.action.ActionRepository
+import io.sengokudaikon.isn.compendium.persistence.character.feat.FeatEffectsRepository
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking

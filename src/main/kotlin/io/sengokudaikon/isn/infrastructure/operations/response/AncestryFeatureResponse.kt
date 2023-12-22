@@ -8,6 +8,7 @@ import io.sengokudaikon.isn.compendium.domain.system.SelfEffect
 import io.sengokudaikon.isn.compendium.enums.ActionTypes
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonElement
 
 @Serializable
 data class AncestryFeatureResponse(
@@ -17,8 +18,8 @@ data class AncestryFeatureResponse(
     val type: String,
     val description: DescriptionType,
     val publication: Publication,
-    val traits: TraitsResponse,
-    val rules: String?,
+    val traits: List<String>,
+    val rules: JsonElement?,
     val frequency: Frequency?,
     val isDefault: String?,
     val actionType: ActionTypes,
