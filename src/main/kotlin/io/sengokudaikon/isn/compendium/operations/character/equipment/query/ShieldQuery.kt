@@ -6,7 +6,7 @@ import io.sengokudaikon.isn.infrastructure.operations.Query
 
 interface ShieldQuery : EquipmentQuery {
     @Resource("/api/equipment/shield/list/{page}/{size}")
-    data class All(override val page: Int, override val size: Int) : ShieldQuery, Query.All<List<ShieldModel>>
+    data class All(override val page: Int, override val size: Int, override val filters: String?) : ShieldQuery, Query.All<List<ShieldModel>>
 
     @Resource("/api/equipment/shield/{id}")
     data class ById(override val id: String) : ShieldQuery, Query.ById<ShieldModel>

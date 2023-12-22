@@ -5,6 +5,7 @@ import io.sengokudaikon.isn.compendium.domain.action.ActionModel
 import io.sengokudaikon.isn.compendium.domain.action.repository.ActionRepositoryPort
 import io.sengokudaikon.isn.compendium.domain.feat.FeatEffectModel
 import io.sengokudaikon.isn.compendium.domain.feat.repository.FeatEffectsRepositoryPort
+import io.sengokudaikon.isn.compendium.operations.search.dto.Filter
 import io.sengokudaikon.isn.infrastructure.getCollection
 import io.sengokudaikon.isn.infrastructure.repository.BaseRepository
 import org.koin.core.annotation.Single
@@ -38,8 +39,8 @@ class ActionRepository(
         }
     }
 
-    override suspend fun findAll(page: Int, limit: Int): Result<List<ActionModel>> = runCatching{
-        val actionList = super.findAll(page, limit).getOrThrow()
+    override suspend fun findAll(page: Int, limit: Int, filters: List<Filter>): Result<List<ActionModel>> = runCatching{
+        val actionList = super.findAll(page, limit, filters).getOrThrow()
         actionList.map {
             it.effect = findEffects(it).getOrNull()
             it

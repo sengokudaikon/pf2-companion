@@ -9,6 +9,7 @@ interface UserQuery : Query {
     data class All(
         override val page: Int,
         override val size: Int,
+        override val filters: String? = null,
     ) : Query.All<List<User>>, UserQuery
 
     @Resource("/api/user/{id}")

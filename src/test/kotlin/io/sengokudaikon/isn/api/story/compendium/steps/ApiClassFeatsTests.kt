@@ -1,4 +1,4 @@
-package io.sengokudaikon.isn.api
+package io.sengokudaikon.isn.api.story.compendium.steps
 
 import io.kotest.core.spec.style.FunSpec
 import io.ktor.client.request.*

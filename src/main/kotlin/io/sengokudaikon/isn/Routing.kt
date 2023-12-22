@@ -48,6 +48,7 @@ import io.sengokudaikon.isn.compendium.adapters.search.SearchHandler
 import io.sengokudaikon.isn.compendium.adapters.world.action.ActionIdHandler
 import io.sengokudaikon.isn.compendium.adapters.world.action.ActionListHandler
 import io.sengokudaikon.isn.compendium.adapters.world.action.ActionNameHandler
+import io.sengokudaikon.isn.compendium.operations.character.action.query.ActionQuery
 import io.sengokudaikon.isn.compendium.operations.character.ancestry.query.AncestryQuery
 import io.sengokudaikon.isn.compendium.operations.character.background.query.BackgroundQuery
 import io.sengokudaikon.isn.compendium.operations.character.classs.query.ClassFeatureQuery
@@ -59,7 +60,6 @@ import io.sengokudaikon.isn.compendium.operations.character.equipment.query.Weap
 import io.sengokudaikon.isn.compendium.operations.character.feat.query.FeatQuery
 import io.sengokudaikon.isn.compendium.operations.character.heritage.query.HeritageQuery
 import io.sengokudaikon.isn.compendium.operations.search.query.SearchQuery
-import io.sengokudaikon.isn.compendium.operations.character.action.query.ActionQuery
 import io.sengokudaikon.isn.infrastructure.auth.FirebasePrincipal
 import io.sengokudaikon.isn.infrastructure.errors.UserException
 import org.koin.ktor.ext.inject
@@ -115,55 +115,87 @@ fun Application.configureRouting() {
             call.respond(HttpStatusCode.OK, "Healthy")
         }
 
-        // compendium - character
+        // Ancestries
         getResource<AncestryQuery.All> { ancestryListHandler.handle(call) }
+        // Ancestry by ID
         getResource<AncestryQuery.ById> { ancestryIdHandler.handle(call) }
+        // Ancestry by Name
         getResource<AncestryQuery.ByName> { ancestryNameHandler.handle(call) }
+        // Backgrounds
         getResource<BackgroundQuery.All> { backgroundListHandler.handle(call) }
+        // Background by ID
         getResource<BackgroundQuery.ById> { backgroundIdHandler.handle(call) }
+        // Background by Name
         getResource<BackgroundQuery.ByName> { backgroundNameHandler.handle(call) }
+        // Classes
         getResource<ClassQuery.All> { classListHandler.handle(call) }
+        // Class by ID
         getResource<ClassQuery.ById> { classIdHandler.handle(call) }
+        // Class by Name
         getResource<ClassQuery.ByName> { classNameHandler.handle(call) }
+        // Class Features
         getResource<ClassFeatureQuery.All> { classFeatListHandler.handle(call) }
+        // Class Feature by ID
+        getResource<ClassFeatureQuery.ById> { classFeatNameHandler.handle(call) }
+        // Class Feature by Name
         getResource<ClassFeatureQuery.ByName> { classFeatNameHandler.handle(call) }
+        // Armors
         getResource<ArmorQuery.All> { armorListHandler.handle(call) }
+        // Armor by Name
         getResource<ArmorQuery.ByName> { armorNameHandler.handle(call) }
+        // Weapons
         getResource<WeaponQuery.All> { weaponListHandler.handle(call) }
+        // Weapon by Name
         getResource<WeaponQuery.ByName> { weaponNameHandler.handle(call) }
+        // Equipment
         getResource<EquipmentQuery.All> { equipmentListHandler.handle(call) }
+        // Equipment by Name
         getResource<EquipmentQuery.ByName> { equipmentNameHandler.handle(call) }
+        // Shields
         getResource<ShieldQuery.All> { shieldListHandler.handle(call) }
+        // Shield by Name
         getResource<ShieldQuery.ByName> { shieldNameHandler.handle(call) }
+        // General Feats
         getResource<FeatQuery.General.All> { generalFeatListHandler.handle(call) }
+        // General Feat by ID
         getResource<FeatQuery.General.ById> { generalFeatIdHandler.handle(call) }
+        // General Feat by Name
         getResource<FeatQuery.General.ByName> { generalFeatNameHandler.handle(call) }
+        // Heritages
         getResource<HeritageQuery.All> { heritageListHandler.handle(call) }
+        // Heritage by ID
         getResource<HeritageQuery.ById> { heritageIdHandler.handle(call) }
+        // Heritage by Name
         getResource<HeritageQuery.ByName> { heritageNameHandler.handle(call) }
 
-        // compendium - world
+        // Actions
         getResource<ActionQuery.All> { actionListHandler.handle(call) }
+        // Action by ID
         getResource<ActionQuery.ById> { actionIdHandler.handle(call) }
+        // Action by Name
         getResource<ActionQuery.ByName> { actionNameHandler.handle(call) }
-        // base
+        // Search
         postResource<SearchQuery> { searchHandler.execute(call) }
+        // Register
         postResource<UserCommand.Create> { registerHandler.execute(call) }
+        // Does email exist
         getResource<EmailExists> {
             emailExistHandler.execute(call)
         }
         options<EmailExists> { call.respondNullable(HttpStatusCode.OK) }
+        // Does user exist
         getResource<UserExists> {
             userExistHandler.execute(call)
         }
         options<UserExists> { call.respondNullable(HttpStatusCode.OK) }
 
-        // character
+        // Characters
         getResource<CharacterQuery.All> {
             authorize<CharacterQuery.All>(call) {
                 CharacterListDebugHandler().handle(call)
             }
         }
+        // Character by ID
         getResource<CharacterQuery.ById> {
             authorize<CharacterQuery.ById>(call) {
                 CharacterByIdHandler().handle(call)

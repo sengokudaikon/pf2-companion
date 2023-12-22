@@ -6,7 +6,7 @@ import io.sengokudaikon.isn.infrastructure.operations.Query
 
 interface BoonCurseQuery : Query {
     @Resource("/api/boonCurses/list/{page}/{size}")
-    data class All(override val page: Int, override val size: Int) : Query.All<List<BoonCurseModel>>, BoonCurseQuery
+    data class All(override val page: Int, override val size: Int, override val filters: String?) : Query.All<List<BoonCurseModel>>, BoonCurseQuery
 
     @Resource("/api/boonCurses/{id}")
     data class ById(override val id: String) : Query.ById<BoonCurseModel>, BoonCurseQuery

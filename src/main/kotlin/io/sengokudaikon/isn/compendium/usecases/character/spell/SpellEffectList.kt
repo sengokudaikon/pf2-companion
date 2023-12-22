@@ -12,7 +12,6 @@ class SpellEffectList(override val repository: SpellEffectRepositoryPort) :
     GetList<SpellEffectQuery.All, SpellEffectModel>(),
     ListSpellEffectPort {
     override fun getCacheKey(query: SpellEffectQuery.All): String {
-        query
         return "model_spelleffect:all:${query.page}:${query.size}"
     }
 }

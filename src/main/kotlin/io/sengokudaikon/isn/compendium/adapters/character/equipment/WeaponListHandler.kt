@@ -11,7 +11,7 @@ import org.koin.core.component.inject
 @Single(binds = [QueryHandler::class])
 class WeaponListHandler : ListHandler<List<WeaponModel>, WeaponQuery.All, ListWeaponPort>() {
     override val useCase: ListWeaponPort by inject()
-    override fun createQuery(page: Int, size: Int, id: String?): WeaponQuery.All {
-        return WeaponQuery.All(page, size)
+    override fun createQuery(page: Int, size: Int, filters: String?, id: String?): WeaponQuery.All {
+        return WeaponQuery.All(page, size, filters)
     }
 }

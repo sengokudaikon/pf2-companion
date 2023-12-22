@@ -20,7 +20,6 @@ data class AncestryResponse(
     val rules: JsonElement?,
     val traits: List<String>,
     val publication: Publication,
-    val items: Map<String, ItemResponse>,
     val boosts: String,
     val additionalLanguages: Languages,
     val flaws: String,

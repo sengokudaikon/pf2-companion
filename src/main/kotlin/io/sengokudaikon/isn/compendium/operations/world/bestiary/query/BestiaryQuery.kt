@@ -6,7 +6,7 @@ import io.sengokudaikon.isn.infrastructure.operations.Query
 
 interface BestiaryQuery : Query {
     @Resource("/api/bestiary/list/{page}/{size}")
-    data class All(override val page: Int, override val size: Int) : Query.All<List<BestiaryModel>>, BestiaryQuery
+    data class All(override val page: Int, override val size: Int, override val filters: String?) : Query.All<List<BestiaryModel>>, BestiaryQuery
 
     @Resource("/api/bestiary/{id}")
     data class ById(override val id: String) : Query.ById<BestiaryModel>, BestiaryQuery

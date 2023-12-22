@@ -1,22 +1,78 @@
 # Created by daniil at 12.12.2023
-Feature: Ancestry Fetching
+Feature: Action testing
+  Scenario: Get Action by ID
+    Given actions API endpoint
+    When a GET request is made with a valid ID
+    Then the response status should be 200
 
+  Scenario: Get Action by Name
+    Given actions API endpoint
+    When a GET request is made with a valid name
+    Then the response status should be 200
+
+  Scenario: Get list of Actions
+    Given actions API endpoint
+    When a GET request is made to List with page and size parameters
+    Then the response status should be 200
+
+  Scenario: Get action by ID with invalid ID
+    Given actions API endpoint
+    When a GET request is made with an invalid ID
+    Then the response status should be 404
+
+  Scenario: Get action by Name with invalid Name
+    Given actions API endpoint
+    When a GET request is made with an invalid name
+    Then the response status should be 404
+
+Feature: Ancestry testing
   Scenario: Get Ancestry by ID
-    When a GET request is made with a valid ancestry ID
-    Then return a 200 status code and send back the ancestry
+    Given ancestry API endpoint
+    When a GET request is made with a valid ID
+    Then the response status should be 200
 
   Scenario: Get Ancestry by Name
-    When a GET request is made with a valid ancestry name
-    Then return a 200 status code and send back the ancestry
+    Given ancestry API endpoint
+    When a GET request is made with a valid name
+    Then the response status should be 200
 
   Scenario: Get list of Ancestries
-    When a GET request is made to the list endpoint
-    Then return a 200 status code and send back the list of ancestries
+    Given ancestry API endpoint
+    When a GET request is made to List with page and size parameters
+    Then the response status should be 200
 
   Scenario: Get ancestry by ID with invalid ID
-    When a GET request is made with an invalid ancestry ID
-    Then return a 404 status code
+    Given ancestry API endpoint
+    When a GET request is made with an invalid ID
+    Then the response status should be 404
 
   Scenario: Get ancestry by Name with invalid Name
-    When a GET request is made with an invalid ancestry name
-    Then return a 404 status code
+    Given ancestry API endpoint
+    When a GET request is made with an invalid name
+    Then the response status should be 404
+
+Feature: Background testing
+  Scenario: Get Background by ID
+    Given background API endpoint
+    When a GET request is made with a valid ID
+    Then the response status should be 200
+
+  Scenario: Get Background by Name
+    Given background API endpoint
+    When a GET request is made with a valid name
+    Then the response status should be 200
+
+  Scenario: Get list of Backgrounds
+    Given background API endpoint
+    When a GET request is made to List with page and size parameters
+    Then the response status should be 200
+
+  Scenario: Get background by ID with invalid ID
+    Given background API endpoint
+    When a GET request is made with an invalid ID
+    Then the response status should be 404
+
+  Scenario: Get background by Name with invalid Name
+    Given background API endpoint
+    When a GET request is made with an invalid name
+    Then the response status should be 404

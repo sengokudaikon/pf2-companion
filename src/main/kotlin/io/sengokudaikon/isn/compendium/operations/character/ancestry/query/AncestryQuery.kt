@@ -10,7 +10,7 @@ interface AncestryQuery : Query {
     @Resource("/api/ancestry/list/{page}/{size}")
     @Schema(name = "AncestryList", description = "List of ancestries")
     @Tag(name = "Ancestry")
-    data class All(override val page: Int, override val size: Int) : Query.All<List<AncestryModel>>, AncestryQuery
+    data class All(override val page: Int, override val size: Int, override val filters: String?) : Query.All<List<AncestryModel>>, AncestryQuery
 
     @Resource("/api/ancestry/{id}")
     @Schema(name = "AncestryById", description = "Ancestry by id")

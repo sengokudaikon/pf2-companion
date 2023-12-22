@@ -6,7 +6,7 @@ import io.sengokudaikon.isn.infrastructure.operations.Query
 
 interface AncestryFeatsQuery : Query {
     @Resource("/api/ancestry/{id}/feats/{page}/{size}")
-    data class All(val id: String, override val page: Int, override val size: Int) :
+    data class All(val id: String, override val page: Int, override val size: Int, override val filters: String?) :
         Query.All<List<AncestryFeatureModel>>, AncestryFeatsQuery
 
     @Resource("/api/ancestry/{id}/feats/{name}")

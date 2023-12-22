@@ -7,6 +7,7 @@ import io.sengokudaikon.isn.compendium.domain.ancestry.repository.AncestryFeatur
 import io.sengokudaikon.isn.compendium.domain.ancestry.repository.AncestryRepositoryPort
 import io.sengokudaikon.isn.compendium.domain.heritage.HeritageModel
 import io.sengokudaikon.isn.compendium.domain.heritage.repository.HeritageRepositoryPort
+import io.sengokudaikon.isn.compendium.operations.search.dto.Filter
 import io.sengokudaikon.isn.infrastructure.DatabaseFactory
 import io.sengokudaikon.isn.infrastructure.errors.DatabaseException
 import io.sengokudaikon.isn.infrastructure.repository.BaseRepository
@@ -58,8 +59,8 @@ class AncestryRepository(
         entity
     }
 
-    override suspend fun findAll(page: Int, limit: Int): Result<List<AncestryModel>> = runCatching {
-        val ancList = super.findAll(page, limit).getOrThrow()
+    override suspend fun findAll(page: Int, limit: Int, filters: List<Filter>): Result<List<AncestryModel>> = runCatching {
+        val ancList = super.findAll(page, limit, filters).getOrThrow()
         ancList.map {
             it.ancestryFeatures = fetchAncestryFeatures(it).getOrDefault(emptyMap())
             it.heritages = fetchHeritages(it).getOrDefault(emptyMap())

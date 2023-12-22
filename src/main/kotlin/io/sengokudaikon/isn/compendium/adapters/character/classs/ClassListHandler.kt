@@ -12,7 +12,7 @@ import org.koin.core.component.inject
 class ClassListHandler :
     ListHandler<List<ClassModel>, ClassQuery.All, ListClassPort>() {
     override val useCase: ListClassPort by inject()
-    override fun createQuery(page: Int, size: Int, id: String?): ClassQuery.All {
-        return ClassQuery.All(page, size)
+    override fun createQuery(page: Int, size: Int, filters: String?, id: String?): ClassQuery.All {
+        return ClassQuery.All(page, size, filters)
     }
 }

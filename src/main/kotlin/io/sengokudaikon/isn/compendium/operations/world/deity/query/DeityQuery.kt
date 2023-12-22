@@ -6,7 +6,7 @@ import io.sengokudaikon.isn.infrastructure.operations.Query
 
 interface DeityQuery : Query {
     @Resource("/api/deity/list/{page}/{size}")
-    data class All(override val page: Int, override val size: Int) : Query.All<List<DeityModel>>, DeityQuery
+    data class All(override val page: Int, override val size: Int, override val filters: String?) : Query.All<List<DeityModel>>, DeityQuery
 
     @Resource("/api/deity/{id}")
     data class ById(override val id: String) : Query.ById<DeityModel>, DeityQuery

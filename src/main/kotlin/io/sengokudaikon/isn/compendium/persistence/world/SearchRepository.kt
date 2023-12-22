@@ -1,8 +1,8 @@
 package io.sengokudaikon.isn.compendium.persistence.world
 
-import com.mongodb.client.model.Projections.fields
-import com.mongodb.client.model.Projections.include
+import com.mongodb.client.model.Filters.*
 import io.sengokudaikon.isn.compendium.domain.world.model.SearchResult
+import io.sengokudaikon.isn.compendium.operations.search.dto.Comparison
 import io.sengokudaikon.isn.compendium.operations.search.query.SearchQuery
 import io.sengokudaikon.isn.infrastructure.DatabaseFactory
 import io.sengokudaikon.isn.infrastructure.exceptionLogger
@@ -31,20 +31,67 @@ class SearchRepository {
         val searchResults = mutableListOf<SearchResult>()
         collections.asFlow().buffer(1000).flatMapMerge { collection ->
             val col = db.getCollection<Document>(collection)
-            val filters = mutableListOf<Bson>()
-            query.type?.let { filters.add(Document("type", it)) }
-            query.traits?.let { filters.add(Document("system.traits.value", Document("\$all", it))) }
-            query.rarity?.let { filters.add(Document("system.traits.rarity", Document("\$all", it))) }
-            val filter: Bson = Document("\$and", filters)
-            val projection: Bson = fields(include("_id", "name", "img", "type", "system"))
-            col.find(filter).projection(projection).limit(100).toCollection(mutableListOf()).asFlow()
+            val bsonFilters = mutableListOf<Bson>()
+            query.filters.forEach {
+                val bsonFilter = when(it.comparison) {
+                    Comparison.EQUALS -> eq(it.key.name.lowercase(), it.value)
+                    Comparison.NOT_EQUALS -> ne(it.key.name.lowercase(), it.value)
+                    Comparison.GREATER_THAN -> gt(it.key.name.lowercase(), it.value)
+                    Comparison.LESS_THAN -> lt(it.key.name.lowercase(), it.value)
+                    Comparison.GREATER_THAN_OR_EQUAL_TO -> gte(it.key.name.lowercase(), it.value)
+                    Comparison.LESS_THAN_OR_EQUAL_TO -> lte(it.key.name.lowercase(), it.value)
+                    Comparison.IN -> `in`(it.key.name.lowercase(), it.value)
+                }
+                bsonFilters.add(bsonFilter)
+            }
+            val matchStage = if (bsonFilters.isEmpty()) null else Document("\$match", and(bsonFilters))
+            val pipeline = mutableListOf<Document>().apply {
+                matchStage?.let { add(it) }
+                add(
+                    Document.parse(
+                        """
+                {
+                    ${'$'}search: {
+                        index: "default",
+                        text: {
+                            query: "${query.query}",
+                            path: {
+                                wildcard: "*"
+                            },
+                        }
+                    }
+                }
+                """
+                    )
+                )
+                add(
+                    Document.parse(
+                        """
+                {
+                    ${"$"}project: {
+                        "score": { ${"$"}meta: "searchScore" },
+                        "_id": 1,
+                        "img": 1,
+                        "name": 1,
+                        "type": 1,
+                        "system": 1,
+                    }
+                }
+                """
+                    )
+                )
+            }
+            col.aggregate(pipeline).toCollection(mutableListOf()).asFlow()
         }.map { document ->
             val json = document.toJson()
             val jsonObject = Json.decodeFromString<JsonObject>(json)
-            decodeFromJsonElement(SearchResult.serializer(), jsonObject)
+            searchResults.add(decodeFromJsonElement(SearchResult.serializer(), jsonObject))
         }.catch {
             exceptionLogger.error("Error searching for $query", it)
         }.toList()
+        val preferred = listOf("ancestry", "background", "class", "feat")
+
+        searchResults.sortWith(compareBy<SearchResult>( { !preferred.contains(it.type) }, { it.type }, { -it.score!! }))
 
         return searchResults.toList()
     }

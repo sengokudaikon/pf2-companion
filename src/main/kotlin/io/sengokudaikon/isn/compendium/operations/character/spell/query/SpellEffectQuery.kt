@@ -6,7 +6,7 @@ import io.sengokudaikon.isn.infrastructure.operations.Query
 
 interface SpellEffectQuery : Query {
     @Resource("/api/spellseffects/list/{page}/{size}")
-    data class All(override val page: Int, override val size: Int) :
+    data class All(override val page: Int, override val size: Int, override val filters: String?) :
         Query.All<List<SpellEffectModel>>,
         SpellEffectQuery
 

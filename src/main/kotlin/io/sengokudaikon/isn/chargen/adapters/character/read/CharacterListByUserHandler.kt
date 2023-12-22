@@ -19,7 +19,7 @@ class CharacterListByUserHandler :
         val uid = call.uid()
         val page = call.parameters["page"]?.toInt() ?: throw IllegalArgumentException("Missing page")
         val size = call.parameters["size"]?.toInt() ?: throw IllegalArgumentException("Missing size")
-        val query = createQuery(page, size, uid)
+        val query = createQuery(page, size,null, uid)
         val result = useCase.execute(query)
         call.respond(
             result.fold(
@@ -29,7 +29,7 @@ class CharacterListByUserHandler :
         )
     }
 
-    override fun createQuery(page: Int, size: Int, id: String?): CharacterQuery.ListByUser {
+    override fun createQuery(page: Int, size: Int, filters: String?, id: String?): CharacterQuery.ListByUser {
         return CharacterQuery.ListByUser(page, size).apply { this.userId = id!! }
     }
 }

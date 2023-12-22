@@ -11,7 +11,7 @@ import org.koin.core.component.inject
 @Single(binds = [QueryHandler::class])
 class GeneralFeatListHandler : ListHandler<List<FeatModel>, FeatQuery.General.All, ListFeatPort>() {
     override val useCase: ListFeatPort by inject()
-    override fun createQuery(page: Int, size: Int, id: String?): FeatQuery.General.All {
-        return FeatQuery.General.All(page, size)
+    override fun createQuery(page: Int, size: Int, filters: String?, id: String?): FeatQuery.General.All {
+        return FeatQuery.General.All(page, size, filters)
     }
 }

@@ -28,7 +28,7 @@ fun main() {
     val server = GlobalScope.launch {
         embeddedServer(
             Netty,
-            port = 8081,
+            port = 8083,
             host = "0.0.0.0",
         ) {
             launch { exec() }
@@ -49,9 +49,13 @@ suspend fun Application.exec() {
         "prod" -> dotenv { filename = ".env.prod" }
         else -> dotenv { filename = ".env" }
     }
+    val url = if (env == "local") {
+        dotenv["DB_URL"] + ":" + dotenv["DB_PORT"].toInt()
+    } else {
+        dotenv["DB_URL"]
+    }
     val config = DbConfig(
-        host = dotenv["DB_HOST"],
-        port = dotenv["DB_PORT"].toInt(),
+        url = url,
         name = dotenv["DB_NAME"],
     )
     val dbInit = coroutineScope {

@@ -12,7 +12,7 @@ import org.koin.core.component.inject
 class SpellListHandler :
     ListHandler<List<SpellModel>, SpellQuery.All, ListSpellPort>() {
     override val useCase: ListSpellPort by inject()
-    override fun createQuery(page: Int, size: Int, id: String?): SpellQuery.All {
-        return SpellQuery.All(page, size)
+    override fun createQuery(page: Int, size: Int, filters: String?, id: String?): SpellQuery.All {
+        return SpellQuery.All(page, size, filters)
     }
 }

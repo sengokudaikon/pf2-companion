@@ -4,6 +4,7 @@ import com.mongodb.kotlin.client.coroutine.MongoCollection
 import io.sengokudaikon.isn.compendium.domain.classs.ClassModel
 import io.sengokudaikon.isn.compendium.domain.classs.repository.ClassFeatureRepositoryPort
 import io.sengokudaikon.isn.compendium.domain.classs.repository.ClassRepositoryPort
+import io.sengokudaikon.isn.compendium.operations.search.dto.Filter
 import io.sengokudaikon.isn.infrastructure.getCollection
 import io.sengokudaikon.isn.infrastructure.repository.BaseRepository
 import org.koin.core.annotation.Single
@@ -28,8 +29,8 @@ class ClassRepository(
         return classModel
     }
 
-    override suspend fun findAll(page: Int, limit: Int): Result<List<ClassModel>> = runCatching {
-        val classes = super.findAll(page, limit).getOrDefault(emptyList())
+    override suspend fun findAll(page: Int, limit: Int, filters: List<Filter>): Result<List<ClassModel>> = runCatching {
+        val classes = super.findAll(page, limit, filters).getOrDefault(emptyList())
         classes.map {
             withFeats(it)
         }.toList()

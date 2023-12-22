@@ -11,7 +11,7 @@ import org.junit.Test
 
 class ActionRepositoryIntegrationTest {
     private val client = MongoClient.create(ConnectionString("mongodb://localhost:27017"))
-    private val database = client.getDatabase("testDatabase")
+    private val database = client.getDatabase("test")
     private val testCollection = database.getCollection<ActionModel>("actions")
     private val effectRepository = FeatEffectsRepository() // Assuming FeatEffectsRepository doesn't need any setup
     private val repository = ActionRepository(effectRepository).apply {

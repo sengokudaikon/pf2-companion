@@ -17,10 +17,7 @@ object DatabaseFactory {
     lateinit var database: MongoDatabase
     fun init(dbConfig: DbConfig) {
         val uri = StringBuilder()
-            .append("mongodb://")
-            .append(dbConfig.host)
-            .append(":")
-            .append(dbConfig.port)
+            .append(dbConfig.url)
             .append("/")
             .append(dbConfig.name)
             .toString()
@@ -38,15 +35,6 @@ object DatabaseFactory {
         collections.forEach { collection ->
             val col = database.getCollection<Document>(collection)
             val indexInfo = col.listIndexes().toList()
-            val indexExists = indexInfo.any { index ->
-                index["key"] == Document(
-                    mapOf("_id" to 1, "name" to 1, "img" to 1, "type" to 1, "system.description" to 1),
-                )
-            }
-            if (!indexExists) {
-                col.createIndex(Indexes.ascending("_id", "name", "img", "type", "system.description"))
-            }
-
             val fullTextIndexExists = indexInfo.any { index ->
                 index["key"] == Document(mapOf("$**" to "text"))
             }

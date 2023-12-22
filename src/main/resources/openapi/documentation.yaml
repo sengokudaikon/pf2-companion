@@ -4,7 +4,7 @@ info:
   description: "pf2_companion_backend API"
   version: "1.0.0"
 servers:
-  - url: "http://localhost:8081"
+  - url: "http://localhost:8083"
   - url: "https://pf2-companion.up.railway.app"
 paths:
   /metrics-http:
@@ -1192,32 +1192,6 @@ paths:
       tags:
         - "Search"
       description: "API search"
-      parameters:
-      - name: "query"
-        in: "query"
-        required: false
-        schema:
-          type: "string"
-      - name: "type"
-        in: "query"
-        required: false
-        schema:
-          type: "string"
-      - name: "rarity"
-        in: "query"
-        required: false
-        schema:
-          type: "string"
-      - name: "traits"
-        in: "query"
-        required: false
-        schema:
-          type: "object"
-      - name: "numbers"
-        in: "query"
-        required: false
-        schema:
-          type: "object"
       requestBody:
         content:
           application/json:
@@ -1316,33 +1290,11 @@ components:
       properties: {}
     Map_String:
       type: "string"
-    NumericFilter:
-      type: "object"
-      properties:
-        type:
-          type: "string"
-        value:
-          type: "integer"
-          format: "int32"
-      required:
-      - "type"
     SearchQuery:
       type: "object"
       properties:
         query:
           type: "string"
-        type:
-          type: "string"
-        rarity:
-          type: "string"
-        traits:
-          type: "array"
-          items:
-            type: "string"
-        numbers:
-          type: "array"
-          items:
-            $ref: "#/components/schemas/NumericFilter"
     SearchResult:
       type: "object"
       properties:

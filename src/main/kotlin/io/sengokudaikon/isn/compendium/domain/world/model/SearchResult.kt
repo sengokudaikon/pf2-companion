@@ -14,6 +14,7 @@ import kotlinx.serialization.json.JsonEncoder
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.contentOrNull
+import kotlinx.serialization.json.doubleOrNull
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import kotlinx.serialization.json.put
@@ -21,6 +22,7 @@ import kotlinx.serialization.json.put
 @OptIn(ExperimentalSerializationApi::class)
 @Serializable(with = SearchResult.SearchResultSerializer::class)
 data class SearchResult(
+    val score: Double? = null,
     val id: String? = null,
     val img: String? = null,
     val name: String? = null,
@@ -29,6 +31,7 @@ data class SearchResult(
 ) {
     object SearchResultSerializer : KSerializer<SearchResult> {
         override val descriptor: SerialDescriptor = buildClassSerialDescriptor("SearchResult") {
+            element<Double?>("score")
             element<String?>("id")
             element<String?>("img")
             element<String?>("name")
@@ -40,6 +43,7 @@ data class SearchResult(
             val jsonEncoder = encoder as? JsonEncoder
                 ?: throw SerializationException("This class can be saved only by Json")
             val jsonObject = buildJsonObject {
+                put("score", value.score)
                 put("id", value.id)
                 put("img", value.img)
                 put("name", value.name)
@@ -54,7 +58,7 @@ data class SearchResult(
                 ?: throw SerializationException("This class can be loaded only by Json")
             val jsonObject = jsonDecoder.decodeJsonElement() as? JsonObject
                 ?: throw SerializationException("Expected JsonObject")
-
+            val score = jsonObject["score"]?.jsonPrimitive?.doubleOrNull
             val id = jsonObject["_id"]?.jsonObject?.get("\$oid")?.jsonPrimitive?.contentOrNull
             val img = jsonObject["img"]?.jsonPrimitive?.contentOrNull
             val name = jsonObject["name"]?.jsonPrimitive?.contentOrNull
@@ -63,6 +67,7 @@ data class SearchResult(
                 ?.get("description")?.jsonObject
                 ?.get("value")?.jsonPrimitive?.contentOrNull
             return SearchResult(
+                score = score,
                 id = id,
                 img = img,
                 name = name,

@@ -5,6 +5,7 @@ import com.mongodb.kotlin.client.coroutine.MongoCollection
 import io.sengokudaikon.isn.app.domain.user.User
 import io.sengokudaikon.isn.app.domain.user.repository.UserRepositoryPort
 import io.sengokudaikon.isn.app.operations.user.command.UserCommand
+import io.sengokudaikon.isn.compendium.operations.search.dto.Filter
 import io.sengokudaikon.isn.infrastructure.DatabaseFactory
 import io.sengokudaikon.isn.infrastructure.errors.DatabaseException
 import kotlinx.coroutines.flow.filter
@@ -57,7 +58,7 @@ class UserRepository : UserRepositoryPort {
 
     override suspend fun findByName(name: String): Result<User> = find(User::name, name)
 
-    override suspend fun findAll(page: Int, limit: Int): Result<List<User>> = runCatching {
+    override suspend fun findAll(page: Int, limit: Int, filters: List<Filter>): Result<List<User>> = runCatching {
         collection.find().skip((page - 1) * limit).limit(limit).toList()
     }
 

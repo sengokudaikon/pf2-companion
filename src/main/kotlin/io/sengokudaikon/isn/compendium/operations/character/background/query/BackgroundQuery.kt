@@ -6,7 +6,7 @@ import io.sengokudaikon.isn.infrastructure.operations.Query
 
 interface BackgroundQuery : Query {
     @Resource("/api/background/list/{page}/{size}")
-    data class All(override val page: Int, override val size: Int) : BackgroundQuery, Query.All<List<BackgroundModel>>
+    data class All(override val page: Int, override val size: Int, override val filters: String?) : BackgroundQuery, Query.All<List<BackgroundModel>>
 
     @Resource("/api/background/{id}")
     data class ById(override val id: String) : BackgroundQuery, Query.ById<BackgroundModel>

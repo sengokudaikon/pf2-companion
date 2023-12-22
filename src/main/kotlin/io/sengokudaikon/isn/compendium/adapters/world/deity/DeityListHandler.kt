@@ -12,7 +12,7 @@ import org.koin.core.component.inject
 class DeityListHandler :
     ListHandler<List<DeityModel>, DeityQuery.All, ListDeityPort>() {
     override val useCase: ListDeityPort by inject()
-    override fun createQuery(page: Int, size: Int, id: String?): DeityQuery.All {
-        return DeityQuery.All(page, size)
+    override fun createQuery(page: Int, size: Int, filters: String?, id: String?): DeityQuery.All {
+        return DeityQuery.All(page, size, filters)
     }
 }

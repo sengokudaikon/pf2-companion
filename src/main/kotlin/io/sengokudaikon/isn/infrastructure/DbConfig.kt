@@ -1,8 +1,7 @@
 package io.sengokudaikon.isn.infrastructure
 
 class DbConfig(
-    val host: String,
-    val port: Int,
+    val url: String? = null,
     val name: String,
     val username: String? = null,
     val password: String? = null

@@ -11,7 +11,7 @@ interface CharacterQuery : Query {
     @PrivateAPI
     data class All(
         override val page: Int,
-        override val size: Int,
+        override val size: Int, override val filters: String?,
     ) : Query.All<List<CharacterModel>>, CharacterQuery
 
     @Resource("/api/character/{id}")
@@ -31,6 +31,7 @@ interface CharacterQuery : Query {
     data class ListByUser(
         override val page: Int,
         override val size: Int,
+        override val filters: String? = null,
     ) : CharacterQuery, Query.All<List<CharacterModel>> {
         lateinit var userId: String
     }

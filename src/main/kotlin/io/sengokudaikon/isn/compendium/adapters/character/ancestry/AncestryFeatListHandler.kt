@@ -13,7 +13,7 @@ class AncestryFeatListHandler :
     ListHandler<List<AncestryFeatureModel>, AncestryFeatsQuery.All, ListAncestryFeatPort>() {
     override val useCase: ListAncestryFeatPort by inject()
 
-    override fun createQuery(page: Int, size: Int, id: String?): AncestryFeatsQuery.All {
-        return AncestryFeatsQuery.All(id!!, page, size)
+    override fun createQuery(page: Int, size: Int, filters: String?, id: String?): AncestryFeatsQuery.All {
+        return AncestryFeatsQuery.All(id!!, page, size, filters)
     }
 }

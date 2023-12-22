@@ -3,6 +3,7 @@ package io.sengokudaikon.isn.compendium.persistence.character.equipment
 import com.mongodb.kotlin.client.coroutine.MongoCollection
 import io.sengokudaikon.isn.compendium.domain.equipment.model.ArmorModel
 import io.sengokudaikon.isn.compendium.domain.equipment.repository.ArmorRepositoryPort
+import io.sengokudaikon.isn.compendium.operations.search.dto.Filter
 import io.sengokudaikon.isn.infrastructure.getCollection
 import io.sengokudaikon.isn.infrastructure.repository.BaseRepository
 import org.koin.core.annotation.Single
@@ -21,7 +22,7 @@ class ArmorRepository: ArmorRepositoryPort, BaseRepository<ArmorModel>() {
         TODO("Not yet implemented")
     }
 
-    override suspend fun findAll(page: Int, limit: Int): Result<List<ArmorModel>> {
+    override suspend fun findAll(page: Int, limit: Int, filters: List<Filter>): Result<List<ArmorModel>> {
         TODO("Not yet implemented")
     }
 

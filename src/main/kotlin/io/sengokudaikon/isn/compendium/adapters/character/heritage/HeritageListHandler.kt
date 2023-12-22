@@ -11,7 +11,7 @@ import org.koin.core.component.inject
 @Single(binds = [QueryHandler::class])
 class HeritageListHandler : ListHandler<List<HeritageModel>, HeritageQuery.All, ListHeritagePort>() {
     override val useCase: ListHeritagePort by inject()
-    override fun createQuery(page: Int, size: Int, id: String?): HeritageQuery.All {
-        return HeritageQuery.All(page, size)
+    override fun createQuery(page: Int, size: Int, filters: String?, id: String?): HeritageQuery.All {
+        return HeritageQuery.All(page, size, filters)
     }
 }

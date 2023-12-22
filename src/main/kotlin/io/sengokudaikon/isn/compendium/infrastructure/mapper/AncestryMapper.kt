@@ -29,7 +29,6 @@ class AncestryMapper(
                 size = system.size,
                 source = system.source,
                 speed = system.speed,
-                items = system.items.mapValues { it.value.toResponse() },
                 vision = system.vision,
                 additionalSense = system.additionalSense,
                 ancestryFeatures = ancestryFeatures.mapValues { ancestryFeatureMapper.toResponse(it.value) },

@@ -13,7 +13,7 @@ data class Item(
     fun toResponse(): ItemResponse {
         return ItemResponse(
             img = img,
-            level = level.toString(),
+            level = level,
             name = name,
             uuid = uuid,
         )

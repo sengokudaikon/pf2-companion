@@ -12,7 +12,8 @@ abstract class ListHandler<R : Collection<Model>, Q : Query.All<R>, P : ReadPort
         val id = call.parameters["id"]
         val page = call.parameters["page"]?.toInt() ?: throw IllegalArgumentException("Missing page")
         val size = call.parameters["size"]?.toInt() ?: throw IllegalArgumentException("Missing size")
-        val query = createQuery(page, size, id)
+        val filterQuery = call.parameters["filter"]
+        val query = createQuery(page, size, filterQuery, id)
         val result = useCase.execute(query)
         call.respond(
             result.fold(
@@ -22,5 +23,5 @@ abstract class ListHandler<R : Collection<Model>, Q : Query.All<R>, P : ReadPort
         )
     }
 
-    abstract fun createQuery(page: Int, size: Int, id: String? = null): Q
+    abstract fun createQuery(page: Int, size: Int, filters: String?, id: String? = null): Q
 }

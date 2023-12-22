@@ -18,7 +18,7 @@ interface FeatQuery : Query {
 
     interface General : FeatQuery {
         @Resource("/api/feats/general/list/{page}/{size}")
-        data class All(override val page: Int, override val size: Int) : General, Query.All<List<FeatModel>>
+        data class All(override val page: Int, override val size: Int, override val filters: String?) : General, Query.All<List<FeatModel>>
 
         @Resource("/api/feats/general/{id}")
         data class ById(override val id: String) : General, Query.ById<FeatModel>

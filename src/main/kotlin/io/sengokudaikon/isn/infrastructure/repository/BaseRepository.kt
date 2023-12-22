@@ -1,12 +1,14 @@
 package io.sengokudaikon.isn.infrastructure.repository
 
-import com.mongodb.client.model.Filters.eq
-import com.mongodb.client.model.Filters.`in`
+import com.mongodb.client.model.Filters.*
 import com.mongodb.kotlin.client.coroutine.MongoCollection
+import io.sengokudaikon.isn.compendium.operations.search.dto.Comparison
+import io.sengokudaikon.isn.compendium.operations.search.dto.Filter
 import io.sengokudaikon.isn.infrastructure.domain.Model
 import io.sengokudaikon.isn.infrastructure.errors.DatabaseException
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.toList
+import org.bson.conversions.Bson
 import org.bson.types.ObjectId
 import kotlin.reflect.KCallable
 import kotlin.reflect.KClass
@@ -24,8 +26,26 @@ abstract class BaseRepository<T : Model> : RepositoryOutputPort<T> {
         result ?: return Result.failure(DatabaseException.NotFound(modelClass.qualifiedName))
     }
 
-    override suspend fun findAll(page: Int, limit: Int): Result<List<T>> = runCatching {
-        collection.find().skip((page - 1) * limit).limit(limit).toList()
+    override suspend fun findAll(page: Int, limit: Int, filters: List<Filter>): Result<List<T>> = runCatching {
+        val bsonFilters = mutableListOf<Bson>()
+        filters.forEach {
+            val bsonFilter = when(it.comparison) {
+                Comparison.EQUALS -> eq(it.key.name.lowercase(), it.value)
+                Comparison.NOT_EQUALS -> ne(it.key.name.lowercase(), it.value)
+                Comparison.GREATER_THAN -> gt(it.key.name.lowercase(), it.value)
+                Comparison.LESS_THAN -> lt(it.key.name.lowercase(), it.value)
+                Comparison.GREATER_THAN_OR_EQUAL_TO -> gte(it.key.name.lowercase(), it.value)
+                Comparison.LESS_THAN_OR_EQUAL_TO -> lte(it.key.name.lowercase(), it.value)
+                Comparison.IN -> `in`(it.key.name.lowercase(), it.value)
+            }
+            bsonFilters.add(bsonFilter)
+        }
+        val query = if (bsonFilters.isEmpty()) {
+            collection.find()
+        } else {
+            collection.find(and(bsonFilters))
+        }
+        query.skip((page - 1) * limit).limit(limit).toList()
     }
 
     override suspend fun findByNames(names: List<String>): Result<List<T>> {

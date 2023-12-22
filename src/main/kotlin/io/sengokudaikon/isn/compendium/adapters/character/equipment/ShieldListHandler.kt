@@ -11,7 +11,7 @@ import org.koin.core.component.inject
 @Single(binds = [QueryHandler::class])
 class ShieldListHandler : ListHandler<List<ShieldModel>, ShieldQuery.All, ListShieldPort>() {
     override val useCase: ListShieldPort by inject()
-    override fun createQuery(page: Int, size: Int, id: String?): ShieldQuery.All {
-        return ShieldQuery.All(page, size)
+    override fun createQuery(page: Int, size: Int, filters: String?, id: String?): ShieldQuery.All {
+        return ShieldQuery.All(page, size, filters)
     }
 }

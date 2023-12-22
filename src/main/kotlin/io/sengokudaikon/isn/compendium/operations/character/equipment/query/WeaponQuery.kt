@@ -6,7 +6,7 @@ import io.sengokudaikon.isn.infrastructure.operations.Query
 
 interface WeaponQuery : EquipmentQuery {
     @Resource("/api/equipment/weapon/list/{page}/{size}")
-    data class All(override val page: Int, override val size: Int) : WeaponQuery, Query.All<List<WeaponModel>>
+    data class All(override val page: Int, override val size: Int, override val filters: String?) : WeaponQuery, Query.All<List<WeaponModel>>
 
     @Resource("/api/equipment/weapon/{id}")
     data class ById(override val id: String) : WeaponQuery, Query.ById<WeaponModel>
