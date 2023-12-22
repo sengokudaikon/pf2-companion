@@ -9,7 +9,7 @@ import org.koin.core.annotation.Single
 import kotlin.reflect.KClass
 
 @Single(binds = [ConditionRepositoryPort::class])
-class ConditionRepository: BaseRepository<ConditionModel>(), ConditionRepositoryPort {
+class ConditionRepository : BaseRepository<ConditionModel>(), ConditionRepositoryPort {
     override val collection: MongoCollection<ConditionModel> = getCollection("conditions")
     override val modelClass: KClass<ConditionModel> = ConditionModel::class
 }

@@ -6,14 +6,15 @@ import io.sengokudaikon.isn.infrastructure.domain.Model
 import io.sengokudaikon.isn.infrastructure.operations.Query
 import io.sengokudaikon.isn.infrastructure.ports.ReadPort
 
-abstract class ListHandler<R : Collection<Model>, Q : Query.All<R>, P : ReadPort<Q, R>> : QueryHandler() {
+abstract class ListHandler<R : Model, Q : Query.All<List<R>>, P : ReadPort<Q, List<R>>> : QueryHandler() {
     abstract override val useCase: P
     override suspend fun handle(call: ApplicationCall) {
         val id = call.parameters["id"]
-        val page = call.parameters["page"]?.toInt() ?: throw IllegalArgumentException("Missing page")
-        val size = call.parameters["size"]?.toInt() ?: throw IllegalArgumentException("Missing size")
-        val filterQuery = call.parameters["filter"]
-        val query = createQuery(page, size, filterQuery, id)
+        val page = call.parameters["page"]?.toInt() ?: 1
+        val size = call.parameters["size"]?.toInt() ?: 10
+        val filterQuery = call.parameters["filters"]
+        val sort = call.parameters["sort"]
+        val query = createQuery(page, size, filterQuery, sort, id)
         val result = useCase.execute(query)
         call.respond(
             result.fold(
@@ -23,5 +24,5 @@ abstract class ListHandler<R : Collection<Model>, Q : Query.All<R>, P : ReadPort
         )
     }
 
-    abstract fun createQuery(page: Int, size: Int, filters: String?, id: String? = null): Q
+    abstract fun createQuery(page: Int, size: Int, filters: String?, sort: String?, id: String? = null): Q
 }

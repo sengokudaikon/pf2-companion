@@ -11,7 +11,7 @@ import org.koin.core.annotation.Single
 import kotlin.reflect.KClass
 
 @Single(binds = [HeritageRepositoryPort::class])
-class HeritageRepository: BaseRepository<HeritageModel>(), HeritageRepositoryPort {
+class HeritageRepository : BaseRepository<HeritageModel>(), HeritageRepositoryPort {
     override suspend fun findAllByAncestry(name: String): Result<List<HeritageModel>> = runCatching {
         collection.find(eq(HeritageModel::system::name.name, name)).toList()
     }

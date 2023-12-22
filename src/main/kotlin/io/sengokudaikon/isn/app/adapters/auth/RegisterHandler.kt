@@ -18,18 +18,20 @@ class RegisterHandler : CommandHandler() {
     private val authUseCase: AuthPort by inject()
     override suspend fun execute(call: ApplicationCall) {
         val uid = call.uid()
-        val command: UserCommand.Create = call.receive()
+        val command = call.receive<UserCommand.Auth.Register>()
         try {
             validate(command)
         } catch (e: IllegalArgumentException) {
             call.respond(AuthException.Invalid(e.message ?: "Error during registration", e))
         }
-        val userExists = authUseCase.checkIfMailExists(command.email).toString().toBooleanStrict() ||
-            authUseCase.findUserByUsername(uid).toString().toBooleanStrict()
-        if (userExists) {
+        require(
+            !authUseCase.checkIfMailExists(command.email).getOrThrow()
+                    && !authUseCase.checkIfUsernameExists(command.username).getOrThrow()
+                    && !authUseCase.checkIfUidExists(uid).getOrThrow()
+        ) {
             throw UserException.AlreadyExists()
         }
-        val result = authUseCase.register(command)
+        val result = authUseCase.register(command, uid)
         result.fold(
             onFailure = { error ->
                 call.respond(AuthException.Invalid(error.localizedMessage ?: "Error during registration", error))

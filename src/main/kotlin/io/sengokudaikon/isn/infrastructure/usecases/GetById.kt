@@ -5,7 +5,7 @@ import io.sengokudaikon.isn.infrastructure.operations.Query
 import io.sengokudaikon.isn.infrastructure.ports.ReadPort
 import io.sengokudaikon.isn.infrastructure.repository.RepositoryOutputPort
 
-abstract class GetById<Q : Query, R : Model> : ReadPort<Q, R>, CachingUseCase() {
+abstract class GetById<Q : Query, R : Model> : ReadPort<Q, R>, Caching {
     abstract val repository: RepositoryOutputPort<R>
 
     @Suppress("UNCHECKED_CAST")

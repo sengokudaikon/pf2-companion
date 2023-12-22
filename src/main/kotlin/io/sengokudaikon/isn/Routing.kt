@@ -41,6 +41,9 @@ import io.sengokudaikon.isn.compendium.adapters.character.equipment.WeaponNameHa
 import io.sengokudaikon.isn.compendium.adapters.character.feat.GeneralFeatIdHandler
 import io.sengokudaikon.isn.compendium.adapters.character.feat.GeneralFeatListHandler
 import io.sengokudaikon.isn.compendium.adapters.character.feat.GeneralFeatNameHandler
+import io.sengokudaikon.isn.compendium.adapters.character.feat.SkillFeatIdHandler
+import io.sengokudaikon.isn.compendium.adapters.character.feat.SkillFeatListHandler
+import io.sengokudaikon.isn.compendium.adapters.character.feat.SkillFeatNameHandler
 import io.sengokudaikon.isn.compendium.adapters.character.heritage.HeritageIdHandler
 import io.sengokudaikon.isn.compendium.adapters.character.heritage.HeritageListHandler
 import io.sengokudaikon.isn.compendium.adapters.character.heritage.HeritageNameHandler
@@ -90,6 +93,9 @@ fun Application.configureRouting() {
     val generalFeatListHandler: GeneralFeatListHandler by inject()
     val generalFeatIdHandler: GeneralFeatIdHandler by inject()
     val generalFeatNameHandler: GeneralFeatNameHandler by inject()
+    val skillFeatListHandler: SkillFeatListHandler by inject()
+    val skillFeatIdHandler: SkillFeatIdHandler by inject()
+    val skillFeatNameHandler: SkillFeatNameHandler by inject()
     val heritageListHandler: HeritageListHandler by inject()
     val heritageIdHandler: HeritageIdHandler by inject()
     val heritageNameHandler: HeritageNameHandler by inject()
@@ -161,6 +167,12 @@ fun Application.configureRouting() {
         getResource<FeatQuery.General.ById> { generalFeatIdHandler.handle(call) }
         // General Feat by Name
         getResource<FeatQuery.General.ByName> { generalFeatNameHandler.handle(call) }
+        // Skill Feats
+        getResource<FeatQuery.Skill.All> { skillFeatListHandler.handle(call) }
+        // Skill Feat by ID
+        getResource<FeatQuery.Skill.ById> { skillFeatIdHandler.handle(call) }
+        // Skill Feat by Name
+        getResource<FeatQuery.Skill.ByName> { skillFeatNameHandler.handle(call) }
         // Heritages
         getResource<HeritageQuery.All> { heritageListHandler.handle(call) }
         // Heritage by ID
@@ -175,9 +187,9 @@ fun Application.configureRouting() {
         // Action by Name
         getResource<ActionQuery.ByName> { actionNameHandler.handle(call) }
         // Search
-        postResource<SearchQuery> { searchHandler.execute(call) }
+        getResource<SearchQuery> { searchHandler.handle(call) }
         // Register
-        postResource<UserCommand.Create> { registerHandler.execute(call) }
+        postResource<UserCommand.Auth> { registerHandler.execute(call) }
         // Does email exist
         getResource<EmailExists> {
             emailExistHandler.execute(call)

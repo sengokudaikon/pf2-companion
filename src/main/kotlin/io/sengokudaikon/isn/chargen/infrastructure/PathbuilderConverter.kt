@@ -15,7 +15,7 @@ import io.sengokudaikon.isn.compendium.domain.classs.repository.ClassRepositoryP
 import io.sengokudaikon.isn.compendium.domain.equipment.repository.WeaponRepositoryPort
 import io.sengokudaikon.isn.compendium.domain.familiar.repository.FamiliarAbilityRepositoryPort
 import io.sengokudaikon.isn.compendium.domain.feat.FeatModel
-import io.sengokudaikon.isn.compendium.domain.feat.repository.FeatRepositoryPort
+import io.sengokudaikon.isn.compendium.domain.feat.repository.GeneralFeatRepositoryPort
 import io.sengokudaikon.isn.compendium.domain.heritage.repository.HeritageRepositoryPort
 import io.sengokudaikon.isn.compendium.domain.system.DescriptionType
 import io.sengokudaikon.isn.compendium.domain.system.Publication
@@ -33,7 +33,7 @@ class PathbuilderConverter(
     private val backgroundRepository: BackgroundRepositoryPort,
     private val classRepository: ClassRepositoryPort,
     private val classFeatRepository: ClassFeatureRepositoryPort,
-    private val featRepository: FeatRepositoryPort,
+    private val featRepository: GeneralFeatRepositoryPort,
     private val heritageRepository: HeritageRepositoryPort,
     private val familiarAbilityRepository: FamiliarAbilityRepositoryPort,
     private val weaponRepository: WeaponRepositoryPort,

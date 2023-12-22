@@ -9,7 +9,7 @@ import org.koin.core.annotation.Single
 import kotlin.reflect.KClass
 
 @Single(binds = [WeaponRepositoryPort::class])
-class WeaponRepository: BaseRepository<WeaponModel>(), WeaponRepositoryPort {
+class WeaponRepository : BaseRepository<WeaponModel>(), WeaponRepositoryPort {
     override val modelClass: KClass<WeaponModel> = WeaponModel::class
     override val collection: MongoCollection<WeaponModel> = getCollection("equipments")
 }

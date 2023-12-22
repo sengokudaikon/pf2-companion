@@ -32,7 +32,8 @@ data class HeritageModel(
         override val traits: Traits?,
         @Serializable(with = BsonValueSerializer::class) override val rules: BsonValue?,
         val ancestry: Ancestry,
-    ): SystemModel
+    ) : SystemModel
+
     @Serializable
     data class Ancestry(
         val name: String,

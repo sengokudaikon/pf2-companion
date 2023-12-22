@@ -7,12 +7,15 @@ import io.sengokudaikon.isn.chargen.domain.model.CharacterModel
 import io.sengokudaikon.isn.infrastructure.operations.Query
 
 interface CharacterQuery : Query {
-    @Resource("/api/character/list/{page}/{size}")
+    @Resource("/api/characters")
     @PrivateAPI
     data class All(
         override val page: Int,
-        override val size: Int, override val filters: String?,
-    ) : Query.All<List<CharacterModel>>, CharacterQuery
+        override val size: Int,
+    ) : Query.All<List<CharacterModel>>, CharacterQuery {
+        override var filters: String? = null
+        override var sort: String? = null
+    }
 
     @Resource("/api/character/{id}")
     @PrivateAPI
@@ -20,7 +23,7 @@ interface CharacterQuery : Query {
         override val id: String,
     ) : Query.ById<CharacterModel>, CharacterQuery
 
-    @Resource("/api/character/name/{name}")
+    @Resource("/api/character")
     @PrivateAPI
     data class ByName(
         override val name: String,
@@ -31,9 +34,10 @@ interface CharacterQuery : Query {
     data class ListByUser(
         override val page: Int,
         override val size: Int,
-        override val filters: String? = null,
     ) : CharacterQuery, Query.All<List<CharacterModel>> {
         lateinit var userId: String
+        override var filters: String? = null
+        override var sort: String? = null
     }
 
     @Resource("/api/user/characters/{id}")
@@ -44,7 +48,7 @@ interface CharacterQuery : Query {
         lateinit var userId: String
     }
 
-    @Resource("/api/user/characters/name/{name}")
+    @Resource("/api/user/characters")
     @AuthenticatedAPI
     data class ByNameAndUser(
         override val name: String,

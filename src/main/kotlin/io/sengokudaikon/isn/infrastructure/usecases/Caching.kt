@@ -5,7 +5,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.koin.core.component.KoinComponent
 
-open class CachingUseCase : KoinComponent {
+interface Caching : KoinComponent {
 
     @Suppress("unused")
     suspend fun <T : Any> withCache(

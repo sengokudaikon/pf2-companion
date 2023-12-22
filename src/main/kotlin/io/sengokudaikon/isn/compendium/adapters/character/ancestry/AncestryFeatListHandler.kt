@@ -10,10 +10,19 @@ import org.koin.core.component.inject
 
 @Single(binds = [QueryHandler::class])
 class AncestryFeatListHandler :
-    ListHandler<List<AncestryFeatureModel>, AncestryFeatsQuery.All, ListAncestryFeatPort>() {
+    ListHandler<AncestryFeatureModel, AncestryFeatsQuery.All, ListAncestryFeatPort>() {
     override val useCase: ListAncestryFeatPort by inject()
 
-    override fun createQuery(page: Int, size: Int, filters: String?, id: String?): AncestryFeatsQuery.All {
-        return AncestryFeatsQuery.All(id!!, page, size, filters)
+    override fun createQuery(
+        page: Int,
+        size: Int,
+        filters: String?,
+        sort: String?,
+        id: String?
+    ): AncestryFeatsQuery.All {
+        return AncestryFeatsQuery.All(id!!, page, size).apply {
+            this.filters = filters
+            this.sort = sort
+        }
     }
 }

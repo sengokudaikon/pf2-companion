@@ -10,9 +10,13 @@ import org.koin.core.component.inject
 
 @Single(binds = [QueryHandler::class])
 class VehicleListHandler :
-    ListHandler<List<VehicleModel>, VehicleQuery.All, ListVehiclePort>() {
+    ListHandler<VehicleModel, VehicleQuery.All, ListVehiclePort>() {
     override val useCase: ListVehiclePort by inject()
-    override fun createQuery(page: Int, size: Int, filters: String?, id: String?): VehicleQuery.All {
-        return VehicleQuery.All(page, size, filters)
+    override fun createQuery(page: Int, size: Int, filters: String?, sort: String?, id: String?): VehicleQuery.All {
+        return VehicleQuery.All(page, size).apply {
+            this.filters = filters
+            this.sort = sort
+        }
     }
+
 }

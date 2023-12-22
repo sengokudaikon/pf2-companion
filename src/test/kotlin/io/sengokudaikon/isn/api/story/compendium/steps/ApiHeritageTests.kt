@@ -14,14 +14,14 @@ class ApiHeritageTests : FunSpec({
 
     test("testGetApiHeritageListPageSize") {
         testApplication {
-            val response = client.get("/api/heritage/list/{page}/{size}")
+            val response = client.get("/api/heritage/list")
             // Add your assertions here
         }
     }
 
     test("testGetApiHeritageNameName") {
         testApplication {
-            val response = client.get("/api/heritage/name/{name}")
+            val response = client.get("/api/heritage")
             // Add your assertions here
         }
     }

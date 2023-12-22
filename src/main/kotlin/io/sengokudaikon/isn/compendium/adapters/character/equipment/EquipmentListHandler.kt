@@ -9,9 +9,12 @@ import org.koin.core.annotation.Single
 import org.koin.core.component.inject
 
 @Single(binds = [QueryHandler::class])
-class EquipmentListHandler : ListHandler<List<EquipmentModel>, EquipmentQuery.All, ListEquipmentPort>() {
+class EquipmentListHandler : ListHandler<EquipmentModel, EquipmentQuery.All, ListEquipmentPort>() {
     override val useCase: ListEquipmentPort by inject()
-    override fun createQuery(page: Int, size: Int, filters: String?, id: String?): EquipmentQuery.All {
-        return EquipmentQuery.All(page, size, filters)
+    override fun createQuery(page: Int, size: Int, filters: String?, sort: String?, id: String?): EquipmentQuery.All {
+        return EquipmentQuery.All(page, size).apply {
+            this.filters = filters
+        this.sort = sort
+        }
     }
 }

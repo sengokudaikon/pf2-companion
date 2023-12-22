@@ -14,7 +14,7 @@ class ApiCharacterTests : FunSpec({
 
     test("testGetApiCharacterListPageSize") {
         testApplication {
-            val response = client.get("/api/character/list/{page}/{size}")
+            val response = client.get("/api/character/list")
             // Add your assertions here
         }
     }

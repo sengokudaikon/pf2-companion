@@ -9,9 +9,12 @@ import org.koin.core.annotation.Single
 import org.koin.core.component.inject
 
 @Single(binds = [QueryHandler::class])
-class ArmorListHandler : ListHandler<List<ArmorModel>, ArmorQuery.All, ListArmorPort>() {
+class ArmorListHandler : ListHandler<ArmorModel, ArmorQuery.All, ListArmorPort>() {
     override val useCase: ListArmorPort by inject()
-    override fun createQuery(page: Int, size: Int, filters: String?, id: String?): ArmorQuery.All {
-        return ArmorQuery.All(page, size, filters)
+    override fun createQuery(page: Int, size: Int, filters: String?, sort: String?, id: String?): ArmorQuery.All {
+        return ArmorQuery.All(page, size).apply {
+            this.filters = filters
+        this.sort = sort
+        }
     }
 }

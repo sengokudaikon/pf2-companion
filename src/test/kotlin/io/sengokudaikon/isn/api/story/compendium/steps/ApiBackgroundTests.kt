@@ -14,14 +14,14 @@ class ApiBackgroundTests : FunSpec({
 
     test("testGetApiBackgroundListPageSize") {
         testApplication {
-            val response = client.get("/api/background/list/{page}/{size}")
+            val response = client.get("/api/background/list")
             // Add your assertions here
         }
     }
 
     test("testGetApiBackgroundNameName") {
         testApplication {
-            val response = client.get("/api/background/name/{name}")
+            val response = client.get("/api/background")
             // Add your assertions here
         }
     }

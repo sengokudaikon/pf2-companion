@@ -14,14 +14,14 @@ class ApiClassTests : FunSpec({
 
     test("testGetApiClassListPageSize") {
         testApplication {
-            val response = client.get("/api/class/list/{page}/{size}")
+            val response = client.get("/api/class/list")
             // Add your assertions here
         }
     }
 
     test("testGetApiClassNameName") {
         testApplication {
-            val response = client.get("/api/class/name/{name}")
+            val response = client.get("/api/class")
             // Add your assertions here
         }
     }

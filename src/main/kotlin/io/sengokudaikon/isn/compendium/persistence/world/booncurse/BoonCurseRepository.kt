@@ -9,7 +9,7 @@ import org.koin.core.annotation.Single
 import kotlin.reflect.KClass
 
 @Single(binds = [BoonCurseRepositoryPort::class])
-class BoonCurseRepository: BaseRepository<BoonCurseModel>(), BoonCurseRepositoryPort {
+class BoonCurseRepository : BaseRepository<BoonCurseModel>(), BoonCurseRepositoryPort {
     override val collection: MongoCollection<BoonCurseModel> = getCollection("booncurse")
     override val modelClass: KClass<BoonCurseModel>
         get() = TODO("Not yet implemented")

@@ -32,7 +32,7 @@ class ApiActionsTests : BehaviorSpec({
         }
 
         When("a GET request is made to List with page and size parameters") {
-            val response: HttpResponse = client.get("http://localhost:8083/api/actions/list/1/10") {
+            val response: HttpResponse = client.get("http://localhost:8083/api/actions/list") {
                 parameter("page", "1")
                 parameter("size", "10")
             }
@@ -43,7 +43,7 @@ class ApiActionsTests : BehaviorSpec({
         }
 
         When("a GET request is made with a valid name") {
-            val response: HttpResponse = client.get("http://localhost:8083/api/actions/name/{name}") {
+            val response: HttpResponse = client.get("http://localhost:8083/api/actions") {
                 parameter("name", "Reconnoiter")
             }
 

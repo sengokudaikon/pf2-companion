@@ -13,13 +13,13 @@ import org.koin.core.component.inject
 
 @Single(binds = [QueryHandler::class])
 class CharacterListByUserHandler :
-    ListHandler<List<CharacterModel>, CharacterQuery.ListByUser, ListUserCharactersPort>() {
+    ListHandler<CharacterModel, CharacterQuery.ListByUser, ListUserCharactersPort>() {
     override val useCase: ListUserCharactersPort by inject()
     override suspend fun handle(call: ApplicationCall) {
         val uid = call.uid()
         val page = call.parameters["page"]?.toInt() ?: throw IllegalArgumentException("Missing page")
         val size = call.parameters["size"]?.toInt() ?: throw IllegalArgumentException("Missing size")
-        val query = createQuery(page, size,null, uid)
+        val query = createQuery(page, size,null, null, uid)
         val result = useCase.execute(query)
         call.respond(
             result.fold(
@@ -29,7 +29,17 @@ class CharacterListByUserHandler :
         )
     }
 
-    override fun createQuery(page: Int, size: Int, filters: String?, id: String?): CharacterQuery.ListByUser {
-        return CharacterQuery.ListByUser(page, size).apply { this.userId = id!! }
+    override fun createQuery(
+        page: Int,
+        size: Int,
+        filters: String?,
+        sort: String?,
+        id: String?
+    ): CharacterQuery.ListByUser {
+        return CharacterQuery.ListByUser(page, size).apply {
+            this.userId = id!!
+            this.filters = filters
+            this.sort = sort
+        }
     }
 }

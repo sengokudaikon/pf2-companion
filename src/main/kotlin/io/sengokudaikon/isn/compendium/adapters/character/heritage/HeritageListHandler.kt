@@ -9,9 +9,12 @@ import org.koin.core.annotation.Single
 import org.koin.core.component.inject
 
 @Single(binds = [QueryHandler::class])
-class HeritageListHandler : ListHandler<List<HeritageModel>, HeritageQuery.All, ListHeritagePort>() {
+class HeritageListHandler : ListHandler<HeritageModel, HeritageQuery.All, ListHeritagePort>() {
     override val useCase: ListHeritagePort by inject()
-    override fun createQuery(page: Int, size: Int, filters: String?, id: String?): HeritageQuery.All {
-        return HeritageQuery.All(page, size, filters)
+    override fun createQuery(page: Int, size: Int, filters: String?, sort: String?, id: String?): HeritageQuery.All {
+        return HeritageQuery.All(page, size).apply {
+            this.filters = filters
+            this.sort = sort
+        }
     }
 }

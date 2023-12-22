@@ -14,7 +14,7 @@ class ApiClassFeatsTests : FunSpec({
 
     test("testGetApiClassfeatsPageSize") {
         testApplication {
-            val response = client.get("/api/classfeats/{page}/{size}")
+            val response = client.get("/api/classfeats")
             // Add your assertions here
         }
     }

@@ -9,7 +9,7 @@ import org.koin.core.annotation.Single
 import kotlin.reflect.KClass
 
 @Single(binds = [HazardRepositoryPort::class])
-class HazardRepository: BaseRepository<HazardModel>(), HazardRepositoryPort {
+class HazardRepository : BaseRepository<HazardModel>(), HazardRepositoryPort {
     override val collection: MongoCollection<HazardModel> = getCollection("hazards")
     override val modelClass: KClass<HazardModel> = HazardModel::class
 }

@@ -10,9 +10,12 @@ import org.koin.core.component.inject
 
 @Single(binds = [QueryHandler::class])
 class SpellEffectListHandler :
-    ListHandler<List<SpellEffectModel>, SpellEffectQuery.All, ListSpellEffectPort>() {
+    ListHandler<SpellEffectModel, SpellEffectQuery.All, ListSpellEffectPort>() {
     override val useCase: ListSpellEffectPort by inject()
-    override fun createQuery(page: Int, size: Int, filters: String?, id: String?): SpellEffectQuery.All {
-        return SpellEffectQuery.All(page, size, filters)
+    override fun createQuery(page: Int, size: Int, filters: String?, sort: String?, id: String?): SpellEffectQuery.All {
+        return SpellEffectQuery.All(page, size).apply {
+            this.filters = filters
+            this.sort = sort
+        }
     }
 }

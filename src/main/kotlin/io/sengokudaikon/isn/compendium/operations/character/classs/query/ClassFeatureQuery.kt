@@ -5,15 +5,18 @@ import io.sengokudaikon.isn.compendium.domain.classs.ClassFeatureModel
 import io.sengokudaikon.isn.infrastructure.operations.Query
 
 interface ClassFeatureQuery : Query {
-    @Resource("/api/classfeats/{page}/{size}")
-    data class All(override val page: Int, override val size: Int, override val filters: String?) :
-        ClassFeatureQuery, Query.All<List<ClassFeatureModel>>
+    @Resource("/api/class/{id}/feats")
+    data class All(override val page: Int, override val size: Int) :
+        ClassFeatureQuery, Query.All<List<ClassFeatureModel>> {
+        override var filters: String? = null
+        override var sort: String? = null
+    }
 
-    @Resource("/api/classfeats/{id}")
+    @Resource("/api/class/{id}/feat/{featId}")
     data class ById(
         override val id: String
     ) : ClassFeatureQuery, Query.ById<ClassFeatureModel>
 
-    @Resource("/api/classfeats/{name}")
+    @Resource("/api/class/{id}/feat")
     data class ByName(override val name: String) : ClassFeatureQuery, Query.ByName<ClassFeatureModel>
 }

@@ -5,6 +5,7 @@ import io.sengokudaikon.isn.compendium.domain.classs.ClassModel
 import io.sengokudaikon.isn.compendium.domain.classs.repository.ClassFeatureRepositoryPort
 import io.sengokudaikon.isn.compendium.domain.classs.repository.ClassRepositoryPort
 import io.sengokudaikon.isn.compendium.operations.search.dto.Filter
+import io.sengokudaikon.isn.compendium.operations.search.dto.Sort
 import io.sengokudaikon.isn.infrastructure.getCollection
 import io.sengokudaikon.isn.infrastructure.repository.BaseRepository
 import org.koin.core.annotation.Single
@@ -29,18 +30,23 @@ class ClassRepository(
         return classModel
     }
 
-    override suspend fun findAll(page: Int, limit: Int, filters: List<Filter>): Result<List<ClassModel>> = runCatching {
-        val classes = super.findAll(page, limit, filters).getOrDefault(emptyList())
+    override suspend fun findAll(
+        page: Int,
+        limit: Int,
+        filters: List<Filter>,
+        sort: List<Sort>
+    ): Result<List<ClassModel>> = runCatching {
+        val classes = super.findAll(page, limit, filters, sort).getOrDefault(emptyList())
         classes.map {
             withFeats(it)
         }.toList()
     }
 
-    override suspend fun findById(id: String): Result<ClassModel> {
-        return super.findById(id).map { withFeats(it) }
+    override suspend fun findById(id: String, filters: List<Filter>): Result<ClassModel> {
+        return super.findById(id, filters).map { withFeats(it) }
     }
 
-    override suspend fun findByName(name: String): Result<ClassModel> {
-        return super.findByName(name).map { withFeats(it) }
+    override suspend fun findByName(name: String, filters: List<Filter>): Result<ClassModel> {
+        return super.findByName(name, filters).map { withFeats(it) }
     }
 }

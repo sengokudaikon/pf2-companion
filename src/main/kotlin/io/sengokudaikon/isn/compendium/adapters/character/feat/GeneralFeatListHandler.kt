@@ -9,9 +9,18 @@ import org.koin.core.annotation.Single
 import org.koin.core.component.inject
 
 @Single(binds = [QueryHandler::class])
-class GeneralFeatListHandler : ListHandler<List<FeatModel>, FeatQuery.General.All, ListFeatPort>() {
+class GeneralFeatListHandler : ListHandler<FeatModel, FeatQuery.General.All, ListFeatPort>() {
     override val useCase: ListFeatPort by inject()
-    override fun createQuery(page: Int, size: Int, filters: String?, id: String?): FeatQuery.General.All {
-        return FeatQuery.General.All(page, size, filters)
+    override fun createQuery(
+        page: Int,
+        size: Int,
+        filters: String?,
+        sort: String?,
+        id: String?
+    ): FeatQuery.General.All {
+        return FeatQuery.General.All(page, size).apply {
+            this.filters = filters
+            this.sort = sort
+        }
     }
 }

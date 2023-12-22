@@ -8,6 +8,7 @@ import io.sengokudaikon.isn.compendium.domain.ancestry.repository.AncestryReposi
 import io.sengokudaikon.isn.compendium.domain.heritage.HeritageModel
 import io.sengokudaikon.isn.compendium.domain.heritage.repository.HeritageRepositoryPort
 import io.sengokudaikon.isn.compendium.operations.search.dto.Filter
+import io.sengokudaikon.isn.compendium.operations.search.dto.Sort
 import io.sengokudaikon.isn.infrastructure.DatabaseFactory
 import io.sengokudaikon.isn.infrastructure.errors.DatabaseException
 import io.sengokudaikon.isn.infrastructure.repository.BaseRepository
@@ -33,7 +34,7 @@ class AncestryRepository(
                 ?: throw DatabaseException.NotFound(AncestryFeatureModel::class.qualifiedName)
             features
         }
-    
+
     private suspend fun fetchHeritages(ancestry: AncestryModel): Result<Map<String, HeritageModel>> =
         runCatching {
             val heritages = heritageRepository.findAllByAncestry(ancestry.name).getOrNull()
@@ -41,8 +42,8 @@ class AncestryRepository(
             heritages.associateBy { it.name }
         }
 
-    override suspend fun findByName(name: String): Result<AncestryModel> = runCatching {
-        val entity = super.findByName(name).getOrThrow()
+    override suspend fun findByName(name: String, filters: List<Filter>): Result<AncestryModel> = runCatching {
+        val entity = super.findByName(name, filters).getOrThrow()
         entity.let {
             it.ancestryFeatures = fetchAncestryFeatures(it).getOrDefault(emptyMap())
             it.heritages = fetchHeritages(it).getOrDefault(emptyMap())
@@ -50,8 +51,8 @@ class AncestryRepository(
         entity
     }
 
-    override suspend fun findById(id: String): Result<AncestryModel> = runCatching {
-        val entity = super.findById(id).getOrThrow()
+    override suspend fun findById(id: String, filters: List<Filter>): Result<AncestryModel> = runCatching {
+        val entity = super.findById(id, filters).getOrThrow()
         entity.let {
             it.ancestryFeatures = fetchAncestryFeatures(it).getOrDefault(emptyMap())
             it.heritages = fetchHeritages(it).getOrDefault(emptyMap())
@@ -59,8 +60,13 @@ class AncestryRepository(
         entity
     }
 
-    override suspend fun findAll(page: Int, limit: Int, filters: List<Filter>): Result<List<AncestryModel>> = runCatching {
-        val ancList = super.findAll(page, limit, filters).getOrThrow()
+    override suspend fun findAll(
+        page: Int,
+        limit: Int,
+        filters: List<Filter>,
+        sort: List<Sort>
+    ): Result<List<AncestryModel>> = runCatching {
+        val ancList = super.findAll(page, limit, filters, sort).getOrThrow()
         ancList.map {
             it.ancestryFeatures = fetchAncestryFeatures(it).getOrDefault(emptyMap())
             it.heritages = fetchHeritages(it).getOrDefault(emptyMap())

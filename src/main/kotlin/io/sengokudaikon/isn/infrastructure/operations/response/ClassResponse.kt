@@ -2,11 +2,13 @@ package io.sengokudaikon.isn.infrastructure.operations.response
 
 import io.sengokudaikon.isn.compendium.domain.classs.ClassModel
 import io.sengokudaikon.isn.compendium.domain.system.Publication
+import io.swagger.v3.oas.annotations.responses.ApiResponse
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonElement
 
 @Serializable
+@ApiResponse(responseCode = "200", description = "Success")
 data class ClassResponse(
     val id: String,
     val img: String,

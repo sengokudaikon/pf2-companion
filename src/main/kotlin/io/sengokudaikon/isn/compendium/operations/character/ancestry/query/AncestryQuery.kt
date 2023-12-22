@@ -7,17 +7,20 @@ import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.tags.Tag
 
 interface AncestryQuery : Query {
-    @Resource("/api/ancestry/list/{page}/{size}")
+    @Resource("/api/ancestries")
     @Schema(name = "AncestryList", description = "List of ancestries")
     @Tag(name = "Ancestry")
-    data class All(override val page: Int, override val size: Int, override val filters: String?) : Query.All<List<AncestryModel>>, AncestryQuery
+    data class All(override val page: Int, override val size: Int) : Query.All<List<AncestryModel>>, AncestryQuery {
+        override var filters: String? = null
+        override var sort: String? = null
+    }
 
     @Resource("/api/ancestry/{id}")
     @Schema(name = "AncestryById", description = "Ancestry by id")
     @Tag(name = "Ancestry")
     data class ById(override val id: String) : Query.ById<AncestryModel>, AncestryQuery
 
-    @Resource("/api/ancestry/name/{name}")
+    @Resource("/api/ancestry")
     @Schema(name = "AncestryByName", description = "Ancestry by name")
     @Tag(name = "Ancestry")
     data class ByName(override val name: String) : Query.ByName<AncestryModel>, AncestryQuery

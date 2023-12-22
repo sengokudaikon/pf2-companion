@@ -5,25 +5,27 @@ import io.sengokudaikon.isn.app.domain.user.User
 import io.sengokudaikon.isn.infrastructure.operations.Query
 
 interface UserQuery : Query {
-    @Resource("/api/user/list/{page}/{size}")
+    @Resource("/api/users")
     data class All(
         override val page: Int,
         override val size: Int,
-        override val filters: String? = null,
-    ) : Query.All<List<User>>, UserQuery
+    ) : Query.All<List<User>>, UserQuery {
+        override var filters: String? = null
+        override var sort: String? = null
+    }
 
     @Resource("/api/user/{id}")
     data class ById(
         override val id: String,
     ) : Query.ById<User>, UserQuery
 
-    @Resource("/api/user/email/{email}")
+    @Resource("/api/user")
     data class ByEmail(
-        val email: String,
-    ) : UserQuery
+        val email: String?,
+    ) : UserQuery {}
 
-    @Resource("/api/user/username/{name}")
+    @Resource("/api/user")
     data class ByName(
-        override val name: String,
-    ) : Query.ByName<User>, UserQuery
+        val name: String,
+    ) :  UserQuery {}
 }

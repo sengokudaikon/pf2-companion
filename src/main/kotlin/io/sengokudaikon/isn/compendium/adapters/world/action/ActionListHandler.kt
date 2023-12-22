@@ -10,9 +10,12 @@ import org.koin.core.component.inject
 
 @Single(binds = [QueryHandler::class])
 class ActionListHandler :
-    ListHandler<List<ActionModel>, ActionQuery.All, ListActionPort>() {
+    ListHandler<ActionModel, ActionQuery.All, ListActionPort>() {
     override val useCase: ListActionPort by inject()
-    override fun createQuery(page: Int, size: Int, filters: String?, id: String?): ActionQuery.All {
-        return ActionQuery.All(page, size, filters)
+    override fun createQuery(page: Int, size: Int, filters: String?, sort: String?, id: String?): ActionQuery.All {
+        return ActionQuery.All(page, size).apply {
+            this.filters = filters
+            this.sort = sort
+        }
     }
 }

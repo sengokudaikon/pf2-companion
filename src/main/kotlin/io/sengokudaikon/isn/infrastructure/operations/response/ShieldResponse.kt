@@ -5,11 +5,13 @@ import io.sengokudaikon.isn.compendium.domain.equipment.dto.Material
 import io.sengokudaikon.isn.compendium.domain.equipment.dto.Price
 import io.sengokudaikon.isn.compendium.domain.equipment.model.ShieldModel
 import io.sengokudaikon.isn.compendium.domain.system.Publication
+import io.swagger.v3.oas.annotations.responses.ApiResponse
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonElement
 
 @Serializable
+@ApiResponse(responseCode = "200", description = "Success")
 data class ShieldResponse(
     val id: String,
     val img: String,

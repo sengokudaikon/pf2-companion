@@ -32,6 +32,7 @@ data class AncestryModel(
 ) : Model {
     var ancestryFeatures: Map<String, AncestryFeatureModel> = emptyMap()
     var heritages: Map<String, HeritageModel> = emptyMap()
+
     @Serializable
     data class SystemProperty(
         override val description: DescriptionType,

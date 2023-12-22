@@ -9,9 +9,12 @@ import org.koin.core.annotation.Single
 import org.koin.core.component.inject
 
 @Single(binds = [QueryHandler::class])
-class CharacterListDebugHandler : ListHandler<List<CharacterModel>, CharacterQuery.All, ListAllCharactersPort>() {
+class CharacterListDebugHandler : ListHandler<CharacterModel, CharacterQuery.All, ListAllCharactersPort>() {
     override val useCase: ListAllCharactersPort by inject()
-    override fun createQuery(page: Int, size: Int, filters: String?, id: String?): CharacterQuery.All {
-        return CharacterQuery.All(page, size, filters)
+    override fun createQuery(page: Int, size: Int, filters: String?, sort: String?, id: String?): CharacterQuery.All {
+        return CharacterQuery.All(page, size).apply {
+            this.filters = filters
+            this.sort = sort
+        }
     }
 }

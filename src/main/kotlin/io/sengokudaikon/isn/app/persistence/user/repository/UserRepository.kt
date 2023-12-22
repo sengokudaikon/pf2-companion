@@ -6,8 +6,9 @@ import io.sengokudaikon.isn.app.domain.user.User
 import io.sengokudaikon.isn.app.domain.user.repository.UserRepositoryPort
 import io.sengokudaikon.isn.app.operations.user.command.UserCommand
 import io.sengokudaikon.isn.compendium.operations.search.dto.Filter
-import io.sengokudaikon.isn.infrastructure.DatabaseFactory
+import io.sengokudaikon.isn.compendium.operations.search.dto.Sort
 import io.sengokudaikon.isn.infrastructure.errors.DatabaseException
+import io.sengokudaikon.isn.infrastructure.getCollection
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.toList
@@ -17,21 +18,21 @@ import kotlin.reflect.KCallable
 
 @Single
 class UserRepository : UserRepositoryPort {
-    override val collection: MongoCollection<User> = DatabaseFactory.database.getCollection<User>("users")
+    override val collection: MongoCollection<User> = getCollection<User>("users")
     override suspend fun findByEmail(email: String): Result<User> = find(User::email, email)
 
-    override suspend fun findById(id: String): Result<User> = find(User::id, id)
+    override suspend fun findById(id: String, filters: List<Filter>): Result<User> = find(User::id, id)
 
     override suspend fun findByUid(uid: String): Result<User> = find(User::uid, uid)
 
     override suspend fun findByUsername(username: String): Result<User> = find(User::name, username)
 
-    override suspend fun create(command: UserCommand): Result<User> = runCatching {
-        command as UserCommand.Create
+    override suspend fun create(command: UserCommand, uid: String): Result<User> = runCatching {
+        command as UserCommand.Auth.Register
         val user = User(
             id = ObjectId().toString(),
             email = command.email,
-            uid = command.uid,
+            uid = uid,
             role = command.role,
             name = command.username,
         )
@@ -39,8 +40,8 @@ class UserRepository : UserRepositoryPort {
         user
     }
 
-    override suspend fun update(command: UserCommand): Result<User> = runCatching {
-        command as UserCommand.Update
+    override suspend fun update(command: UserCommand, uid: String): Result<User> = runCatching {
+        command as UserCommand.Auth.Update
         val user = collection.find<User>(eq(User::id.name, command.id)).firstOrNull()
             ?: throw DatabaseException.NotFound(User::class.qualifiedName)
         val updatedUser = user.copy(
@@ -50,15 +51,15 @@ class UserRepository : UserRepositoryPort {
         updatedUser
     }
 
-    override suspend fun delete(command: UserCommand): Result<Boolean> = runCatching {
-        command as UserCommand.Delete
+    override suspend fun delete(command: UserCommand, uid: String): Result<Boolean> = runCatching {
+        command as UserCommand.Auth.Delete
         val deleteResult = collection.deleteOne(eq(User::id.name, command.id))
         (deleteResult.deletedCount > 0)
     }
 
-    override suspend fun findByName(name: String): Result<User> = find(User::name, name)
+    override suspend fun findByName(name: String, filters: List<Filter>): Result<User> = find(User::name, name)
 
-    override suspend fun findAll(page: Int, limit: Int, filters: List<Filter>): Result<List<User>> = runCatching {
+    override suspend fun findAll(page: Int, limit: Int, filters: List<Filter>, sort: List<Sort>): Result<List<User>> = runCatching {
         collection.find().skip((page - 1) * limit).limit(limit).toList()
     }
 

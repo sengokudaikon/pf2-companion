@@ -10,9 +10,12 @@ import org.koin.core.component.inject
 
 @Single(binds = [QueryHandler::class])
 class ConditionListHandler :
-    ListHandler<List<ConditionModel>, ConditionQuery.All, ListConditionPort>() {
+    ListHandler<ConditionModel, ConditionQuery.All, ListConditionPort>() {
     override val useCase: ListConditionPort by inject()
-    override fun createQuery(page: Int, size: Int, filters: String?, id: String?): ConditionQuery.All {
-        return ConditionQuery.All(page, size, filters)
+    override fun createQuery(page: Int, size: Int, filters: String?, sort: String?, id: String?): ConditionQuery.All {
+        return ConditionQuery.All(page, size).apply {
+            this.filters = filters
+            this.sort = sort
+        }
     }
 }

@@ -10,9 +10,12 @@ import org.koin.core.component.inject
 
 @Single(binds = [QueryHandler::class])
 class BoonCurseListHandler :
-    ListHandler<List<BoonCurseModel>, BoonCurseQuery.All, ListBoonCursePort>() {
+    ListHandler<BoonCurseModel, BoonCurseQuery.All, ListBoonCursePort>() {
     override val useCase: ListBoonCursePort by inject()
-    override fun createQuery(page: Int, size: Int, filters: String?, id: String?): BoonCurseQuery.All {
-        return BoonCurseQuery.All(page, size, filters)
+    override fun createQuery(page: Int, size: Int, filters: String?, sort: String?, id: String?): BoonCurseQuery.All {
+        return BoonCurseQuery.All(page, size).apply {
+            this.filters = filters
+            this.sort = sort
+        }
     }
 }

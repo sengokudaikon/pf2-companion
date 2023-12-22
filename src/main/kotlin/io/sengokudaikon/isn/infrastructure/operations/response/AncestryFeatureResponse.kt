@@ -6,11 +6,13 @@ import io.sengokudaikon.isn.compendium.domain.system.Frequency
 import io.sengokudaikon.isn.compendium.domain.system.Publication
 import io.sengokudaikon.isn.compendium.domain.system.SelfEffect
 import io.sengokudaikon.isn.compendium.enums.ActionTypes
+import io.swagger.v3.oas.annotations.responses.ApiResponse
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonElement
 
 @Serializable
+@ApiResponse(responseCode = "200", description = "Success")
 data class AncestryFeatureResponse(
     val id: String,
     val name: String,

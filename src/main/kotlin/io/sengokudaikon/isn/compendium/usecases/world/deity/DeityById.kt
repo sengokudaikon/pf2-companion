@@ -1,8 +1,8 @@
 package io.sengokudaikon.isn.compendium.usecases.world.deity
 
+import io.sengokudaikon.isn.compendium.domain.deity.DeityModel
 import io.sengokudaikon.isn.compendium.domain.deity.repository.DeityRepositoryPort
 import io.sengokudaikon.isn.compendium.operations.world.deity.query.DeityQuery
-import io.sengokudaikon.isn.compendium.domain.deity.DeityModel
 import io.sengokudaikon.isn.compendium.ports.world.ByIdDeityPort
 import io.sengokudaikon.isn.infrastructure.usecases.GetById
 import org.koin.core.annotation.Single

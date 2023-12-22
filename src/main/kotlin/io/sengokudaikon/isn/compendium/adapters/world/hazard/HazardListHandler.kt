@@ -10,9 +10,12 @@ import org.koin.core.component.inject
 
 @Single(binds = [QueryHandler::class])
 class HazardListHandler :
-    ListHandler<List<HazardModel>, HazardQuery.All, ListHazardPort>() {
+    ListHandler<HazardModel, HazardQuery.All, ListHazardPort>() {
     override val useCase: ListHazardPort by inject()
-    override fun createQuery(page: Int, size: Int, filters: String?, id: String?): HazardQuery.All {
-        return HazardQuery.All(page, size, filters)
+    override fun createQuery(page: Int, size: Int, filters: String?, sort: String?, id: String?): HazardQuery.All {
+        return HazardQuery.All(page, size).apply {
+            this.filters = filters
+            this.sort = sort
+        }
     }
 }

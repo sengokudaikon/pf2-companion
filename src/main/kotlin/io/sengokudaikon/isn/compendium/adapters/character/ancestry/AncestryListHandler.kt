@@ -9,9 +9,12 @@ import org.koin.core.annotation.Single
 import org.koin.core.component.inject
 
 @Single(binds = [QueryHandler::class])
-class AncestryListHandler : ListHandler<List<AncestryModel>, AncestryQuery.All, ListAncestryPort>() {
+class AncestryListHandler : ListHandler<AncestryModel, AncestryQuery.All, ListAncestryPort>() {
     override val useCase: ListAncestryPort by inject()
-    override fun createQuery(page: Int, size: Int, filters: String?, id: String?): AncestryQuery.All {
-        return AncestryQuery.All(page, size, filters)
+    override fun createQuery(page: Int, size: Int, filters: String?, sort: String?, id: String?): AncestryQuery.All {
+        return AncestryQuery.All(page, size).apply {
+            this.filters = filters
+            this.sort = sort
+        }
     }
 }

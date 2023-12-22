@@ -50,12 +50,14 @@ fun Application.configureHTTP() {
         allowCredentials = true
         allowSameOrigin = true
         anyHost()
-        hosts.add("localhost:8081")
+        hosts.add("localhost:8083")
         hosts.add("localhost:8000")
-        hosts.add("0.0.0.0:8081")
+        hosts.add("0.0.0.0:8083")
     }
     install(DefaultHeaders) {
         header("X-Engine", "Ktor")
+        header("Content-Type", "application/json")
+        header("accept", "application/json")
     }
     install(HSTS) {
         includeSubDomains = true

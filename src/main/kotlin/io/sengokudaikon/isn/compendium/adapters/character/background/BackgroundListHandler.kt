@@ -9,9 +9,12 @@ import org.koin.core.annotation.Single
 import org.koin.core.component.inject
 
 @Single(binds = [QueryHandler::class])
-class BackgroundListHandler : ListHandler<List<BackgroundModel>, BackgroundQuery.All, ListBackgroundPort>() {
+class BackgroundListHandler : ListHandler<BackgroundModel, BackgroundQuery.All, ListBackgroundPort>() {
     override val useCase: ListBackgroundPort by inject()
-    override fun createQuery(page: Int, size: Int, filters: String?, id: String?): BackgroundQuery.All {
-        return BackgroundQuery.All(page, size, filters)
+    override fun createQuery(page: Int, size: Int, filters: String?, sort: String?, id: String?): BackgroundQuery.All {
+        return BackgroundQuery.All(page, size).apply {
+            this.filters = filters
+            this.sort = sort
+        }
     }
 }

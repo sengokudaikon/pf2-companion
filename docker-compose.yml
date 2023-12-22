@@ -45,7 +45,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - ${APP_PORT}:8081
+      - ${APP_PORT}:8083
     environment:
       - DB_HOST=${DB_HOST}
       - DB_PORT=${DB_PORT}

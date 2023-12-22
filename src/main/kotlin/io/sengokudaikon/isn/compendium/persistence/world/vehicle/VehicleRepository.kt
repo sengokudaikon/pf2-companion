@@ -9,7 +9,7 @@ import org.koin.core.annotation.Single
 import kotlin.reflect.KClass
 
 @Single(binds = [VehicleRepositoryPort::class])
-class VehicleRepository: BaseRepository<VehicleModel>(), VehicleRepositoryPort {
+class VehicleRepository : BaseRepository<VehicleModel>(), VehicleRepositoryPort {
     override val collection: MongoCollection<VehicleModel> = getCollection("vehicles")
     override val modelClass: KClass<VehicleModel> = VehicleModel::class
 }

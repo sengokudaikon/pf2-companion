@@ -1,10 +1,12 @@
 package io.sengokudaikon.isn.infrastructure.operations.response
 
 import io.sengokudaikon.isn.compendium.operations.global.dto.DamageType
+import io.swagger.v3.oas.annotations.responses.ApiResponse
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonElement
 
 @Serializable
+@ApiResponse(responseCode = "200", description = "Success")
 data class RuleResponse(
     val domain: String? = null,
     val key: String? = null,

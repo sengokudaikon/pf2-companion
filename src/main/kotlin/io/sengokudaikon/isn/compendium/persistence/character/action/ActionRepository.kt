@@ -6,6 +6,7 @@ import io.sengokudaikon.isn.compendium.domain.action.repository.ActionRepository
 import io.sengokudaikon.isn.compendium.domain.feat.FeatEffectModel
 import io.sengokudaikon.isn.compendium.domain.feat.repository.FeatEffectsRepositoryPort
 import io.sengokudaikon.isn.compendium.operations.search.dto.Filter
+import io.sengokudaikon.isn.compendium.operations.search.dto.Sort
 import io.sengokudaikon.isn.infrastructure.getCollection
 import io.sengokudaikon.isn.infrastructure.repository.BaseRepository
 import org.koin.core.annotation.Single
@@ -25,22 +26,27 @@ class ActionRepository(
             effect
         }
 
-    override suspend fun findByName(name: String): Result<ActionModel> = super.findByName(name).let {
+    override suspend fun findByName(name: String, filters: List<Filter>): Result<ActionModel> = super.findByName(name, filters).let {
         it.map {
             it.effect = findEffects(it).getOrNull()
             it
         }
     }
 
-    override suspend fun findById(id: String): Result<ActionModel> = super.findById(id).let {
+    override suspend fun findById(id: String, filters: List<Filter>): Result<ActionModel> = super.findById(id, filters).let {
         it.map {
             it.effect = findEffects(it).getOrNull()
             it
         }
     }
 
-    override suspend fun findAll(page: Int, limit: Int, filters: List<Filter>): Result<List<ActionModel>> = runCatching{
-        val actionList = super.findAll(page, limit, filters).getOrThrow()
+    override suspend fun findAll(
+        page: Int,
+        limit: Int,
+        filters: List<Filter>,
+        sort: List<Sort>
+    ): Result<List<ActionModel>> = runCatching {
+        val actionList = super.findAll(page, limit, filters, sort).getOrThrow()
         actionList.map {
             it.effect = findEffects(it).getOrNull()
             it

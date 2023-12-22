@@ -9,9 +9,18 @@ import org.koin.core.annotation.Single
 import org.koin.core.component.inject
 
 @Single(binds = [QueryHandler::class])
-class ClassFeatListHandler : ListHandler<List<ClassFeatureModel>, ClassFeatureQuery.All, ListClassFeatPort>() {
+class ClassFeatListHandler : ListHandler<ClassFeatureModel, ClassFeatureQuery.All, ListClassFeatPort>() {
     override val useCase: ListClassFeatPort by inject()
-    override fun createQuery(page: Int, size: Int, filters: String?, id: String?): ClassFeatureQuery.All {
-        return ClassFeatureQuery.All(page, size, filters)
+    override fun createQuery(
+        page: Int,
+        size: Int,
+        filters: String?,
+        sort: String?,
+        id: String?
+    ): ClassFeatureQuery.All {
+        return ClassFeatureQuery.All(page, size).apply {
+            this.filters = filters
+            this.sort = sort
+        }
     }
 }

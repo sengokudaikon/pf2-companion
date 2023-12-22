@@ -6,8 +6,9 @@ import io.sengokudaikon.isn.compendium.domain.action.repository.ActionRepository
 import io.sengokudaikon.isn.compendium.domain.background.BackgroundModel
 import io.sengokudaikon.isn.compendium.domain.background.repository.BackgroundRepositoryPort
 import io.sengokudaikon.isn.compendium.domain.feat.FeatModel
-import io.sengokudaikon.isn.compendium.domain.feat.repository.FeatRepositoryPort
+import io.sengokudaikon.isn.compendium.domain.feat.repository.GeneralFeatRepositoryPort
 import io.sengokudaikon.isn.compendium.operations.search.dto.Filter
+import io.sengokudaikon.isn.compendium.operations.search.dto.Sort
 import io.sengokudaikon.isn.infrastructure.DatabaseFactory
 import io.sengokudaikon.isn.infrastructure.domain.Model
 import io.sengokudaikon.isn.infrastructure.repository.BaseRepository
@@ -17,7 +18,7 @@ import kotlin.reflect.KClass
 
 @Single(binds = [BackgroundRepositoryPort::class])
 class BackgroundRepository(
-    private val featRepository: FeatRepositoryPort,
+    private val featRepository: GeneralFeatRepositoryPort,
     private val actionRepository: ActionRepositoryPort,
 ) : BaseRepository<BackgroundModel>(), BackgroundRepositoryPort {
     override val modelClass: KClass<BackgroundModel> = BackgroundModel::class
@@ -46,20 +47,25 @@ class BackgroundRepository(
     private suspend fun findActions(background: BackgroundModel): Result<Map<String, ActionModel>> =
         findItems(background, "actions", actionRepository)
 
-    override suspend fun findByName(name: String): Result<BackgroundModel> = super.findByName(name).map {
+    override suspend fun findByName(name: String, filters: List<Filter>): Result<BackgroundModel> = super.findByName(name, filters).map {
         it.feats = findFeats(it).getOrDefault(emptyMap())
         it.actions = findActions(it).getOrDefault(emptyMap())
         it
     }
 
-    override suspend fun findById(id: String): Result<BackgroundModel> = super.findById(id).map {
+    override suspend fun findById(id: String, filters: List<Filter>): Result<BackgroundModel> = super.findById(id, filters).map {
         it.feats = findFeats(it).getOrDefault(emptyMap())
         it.actions = findActions(it).getOrDefault(emptyMap())
         it
     }
 
-    override suspend fun findAll(page: Int, limit: Int, filters: List<Filter>): Result<List<BackgroundModel>> = runCatching {
-        val backgrounds = super.findAll(page, limit, filters).getOrDefault(emptyList())
+    override suspend fun findAll(
+        page: Int,
+        limit: Int,
+        filters: List<Filter>,
+        sort: List<Sort>
+    ): Result<List<BackgroundModel>> = runCatching {
+        val backgrounds = super.findAll(page, limit, filters, sort).getOrDefault(emptyList())
         backgrounds.map {
             it.feats = findFeats(it).getOrDefault(emptyMap())
             it.actions = findActions(it).getOrDefault(emptyMap())

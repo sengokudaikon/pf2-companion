@@ -14,14 +14,14 @@ class ApiFeatsTests : FunSpec({
 
     test("testGetApiFeatsGeneralListPageSize") {
         testApplication {
-            val response = client.get("/api/feats/general/list/{page}/{size}")
+            val response = client.get("/api/feats/general/list")
             // Add your assertions here
         }
     }
 
     test("testGetApiFeatsGeneralNameName") {
         testApplication {
-            val response = client.get("/api/feats/general/name/{name}")
+            val response = client.get("/api/feats/general")
             // Add your assertions here
         }
     }

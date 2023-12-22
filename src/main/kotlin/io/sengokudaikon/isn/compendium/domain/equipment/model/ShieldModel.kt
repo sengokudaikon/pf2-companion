@@ -44,14 +44,14 @@ data class ShieldModel(
         val specific: Specific?,
         val speedPenalty: Int,
         override val traits: Traits,
-        @Serializable(with = BsonValueSerializer::class)override val usage: BsonValue,
-        @Serializable(with = BsonValueSerializer::class)override val equippedBulk: BsonValue? = null,
+        @Serializable(with = BsonValueSerializer::class) override val usage: BsonValue,
+        @Serializable(with = BsonValueSerializer::class) override val equippedBulk: BsonValue? = null,
         override val material: Material?,
-        @Serializable(with = BsonValueSerializer::class)override val negateBulk: BsonValue? = null,
+        @Serializable(with = BsonValueSerializer::class) override val negateBulk: BsonValue? = null,
         override val stackGroup: String?,
-        @Serializable(with = BsonValueSerializer::class)override val weight: BsonValue? = null,
+        @Serializable(with = BsonValueSerializer::class) override val weight: BsonValue? = null,
         override val publication: Publication,
-        @Serializable(with = BsonValueSerializer::class)override val rules: BsonValue?
+        @Serializable(with = BsonValueSerializer::class) override val rules: BsonValue?
     ) : EquipmentSystemModel {
         @Serializable
         data class Bulk(

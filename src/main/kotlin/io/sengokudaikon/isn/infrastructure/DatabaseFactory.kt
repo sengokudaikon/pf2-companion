@@ -1,6 +1,8 @@
 package io.sengokudaikon.isn.infrastructure
 
 import com.mongodb.MongoClientSettings
+import com.mongodb.ServerApi
+import com.mongodb.ServerApiVersion
 import com.mongodb.client.model.Indexes
 import com.mongodb.kotlin.client.coroutine.MongoClient
 import com.mongodb.kotlin.client.coroutine.MongoDatabase
@@ -19,11 +21,15 @@ object DatabaseFactory {
         val uri = StringBuilder()
             .append(dbConfig.url)
             .append("/")
-            .append(dbConfig.name)
+            .append("?retryWrites=true&w=majority")
             .toString()
+        val serverApi = ServerApi.builder()
+            .version(ServerApiVersion.V1)
+            .build()
         val clientSettings = MongoClientSettings.builder()
             .uuidRepresentation(UuidRepresentation.STANDARD)
             .applyConnectionString(com.mongodb.ConnectionString(uri))
+            .serverApi(serverApi)
             .codecRegistry(getCodecRegistry())
             .build()
         client = MongoClient.create(clientSettings)

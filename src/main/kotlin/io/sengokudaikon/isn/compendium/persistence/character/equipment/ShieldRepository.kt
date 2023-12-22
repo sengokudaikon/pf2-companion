@@ -9,7 +9,7 @@ import org.koin.core.annotation.Single
 import kotlin.reflect.KClass
 
 @Single(binds = [ShieldRepositoryPort::class])
-class ShieldRepository: BaseRepository<ShieldModel>(), ShieldRepositoryPort {
+class ShieldRepository : BaseRepository<ShieldModel>(), ShieldRepositoryPort {
     override val collection: MongoCollection<ShieldModel> = getCollection("equipments")
     override val modelClass: KClass<ShieldModel> = ShieldModel::class
 }

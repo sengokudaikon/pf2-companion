@@ -10,9 +10,12 @@ import org.koin.core.component.inject
 
 @Single(binds = [QueryHandler::class])
 class BestiaryListHandler :
-    ListHandler<List<BestiaryModel>, BestiaryQuery.All, ListBestiaryPort>() {
+    ListHandler<BestiaryModel, BestiaryQuery.All, ListBestiaryPort>() {
     override val useCase: ListBestiaryPort by inject()
-    override fun createQuery(page: Int, size: Int, filters: String?, id: String?): BestiaryQuery.All {
-        return BestiaryQuery.All(page, size, filters)
+    override fun createQuery(page: Int, size: Int, filters: String?, sort: String?, id: String?): BestiaryQuery.All {
+        return BestiaryQuery.All(page, size,).apply {
+            this.filters = filters
+            this.sort = sort
+        }
     }
 }

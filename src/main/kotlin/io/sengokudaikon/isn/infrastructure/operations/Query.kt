@@ -5,6 +5,7 @@ interface Query {
         val page: Int
         val size: Int
         val filters: String?
+        val sort: String?
     }
 
     interface ById<T> : Query {

@@ -9,7 +9,7 @@ import org.koin.core.annotation.Single
 import kotlin.reflect.KClass
 
 @Single(binds = [DeityRepositoryPort::class])
-class DeityRepository: BaseRepository<DeityModel>(), DeityRepositoryPort {
+class DeityRepository : BaseRepository<DeityModel>(), DeityRepositoryPort {
     override val collection: MongoCollection<DeityModel> = getCollection("deities")
     override val modelClass: KClass<DeityModel> = DeityModel::class
 }

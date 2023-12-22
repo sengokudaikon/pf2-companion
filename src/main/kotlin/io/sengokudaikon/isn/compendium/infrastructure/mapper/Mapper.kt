@@ -24,6 +24,15 @@ interface Mapper<T : Model> {
     fun toResponse(model: T): Response<out T>
 }
 
+class ModelMapper {
+    fun toResponse(model: Model): Response<out Model> {
+        val classname = model::class.simpleName?.substringBefore("Model")
+        val mapperClass = Class.forName("io.sengokudaikon.isn.compendium.infrastructure.mapper.${classname}Mapper")
+        val mapper = getKoin().get(mapperClass.kotlin) as Mapper<Model>
+        return mapper.toResponse(model)
+    }
+}
+
 fun String.escapeBackslashes(): String {
     return this.replace("\\", "\\\\")
 }
@@ -46,6 +55,7 @@ fun String?.extractValue(): JsonElement? {
         }
     }
 }
+
 fun Map<String, AncestryModel.SystemProperty.AbilityScore>.toAbilityList(): List<Ability> {
     return this.map {
         it.value.toAbilityList()
@@ -67,13 +77,4 @@ fun rulesToJson(bsonValue: BsonArray): JsonElement {
         }
     }
     return JsonArray(elements)
-}
-
-class ModelMapper {
-    fun toResponse(model: Model): Response<out Model> {
-        val classname = model::class.simpleName?.substringBefore("Model")
-        val mapperClass = Class.forName("io.sengokudaikon.isn.compendium.infrastructure.mapper.${classname}Mapper")
-        val mapper = getKoin().get(mapperClass.kotlin) as Mapper<Model>
-        return mapper.toResponse(model)
-    }
 }
