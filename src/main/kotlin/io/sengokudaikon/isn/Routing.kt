@@ -25,8 +25,6 @@ import io.sengokudaikon.isn.compendium.adapters.character.ancestry.AncestryNameH
 import io.sengokudaikon.isn.compendium.adapters.character.background.BackgroundIdHandler
 import io.sengokudaikon.isn.compendium.adapters.character.background.BackgroundListHandler
 import io.sengokudaikon.isn.compendium.adapters.character.background.BackgroundNameHandler
-import io.sengokudaikon.isn.compendium.adapters.character.classs.ClassFeatListHandler
-import io.sengokudaikon.isn.compendium.adapters.character.classs.ClassFeatNameHandler
 import io.sengokudaikon.isn.compendium.adapters.character.classs.ClassIdHandler
 import io.sengokudaikon.isn.compendium.adapters.character.classs.ClassListHandler
 import io.sengokudaikon.isn.compendium.adapters.character.classs.ClassNameHandler
@@ -51,10 +49,12 @@ import io.sengokudaikon.isn.compendium.adapters.search.SearchHandler
 import io.sengokudaikon.isn.compendium.adapters.world.action.ActionIdHandler
 import io.sengokudaikon.isn.compendium.adapters.world.action.ActionListHandler
 import io.sengokudaikon.isn.compendium.adapters.world.action.ActionNameHandler
+import io.sengokudaikon.isn.compendium.adapters.world.spell.SpellIdHandler
+import io.sengokudaikon.isn.compendium.adapters.world.spell.SpellListHandler
+import io.sengokudaikon.isn.compendium.adapters.world.spell.SpellNameHandler
 import io.sengokudaikon.isn.compendium.operations.character.action.query.ActionQuery
 import io.sengokudaikon.isn.compendium.operations.character.ancestry.query.AncestryQuery
 import io.sengokudaikon.isn.compendium.operations.character.background.query.BackgroundQuery
-import io.sengokudaikon.isn.compendium.operations.character.classs.query.ClassFeatureQuery
 import io.sengokudaikon.isn.compendium.operations.character.classs.query.ClassQuery
 import io.sengokudaikon.isn.compendium.operations.character.equipment.query.ArmorQuery
 import io.sengokudaikon.isn.compendium.operations.character.equipment.query.EquipmentQuery
@@ -62,6 +62,7 @@ import io.sengokudaikon.isn.compendium.operations.character.equipment.query.Shie
 import io.sengokudaikon.isn.compendium.operations.character.equipment.query.WeaponQuery
 import io.sengokudaikon.isn.compendium.operations.character.feat.query.FeatQuery
 import io.sengokudaikon.isn.compendium.operations.character.heritage.query.HeritageQuery
+import io.sengokudaikon.isn.compendium.operations.character.spell.query.SpellQuery
 import io.sengokudaikon.isn.compendium.operations.search.query.SearchQuery
 import io.sengokudaikon.isn.infrastructure.auth.FirebasePrincipal
 import io.sengokudaikon.isn.infrastructure.errors.UserException
@@ -80,8 +81,6 @@ fun Application.configureRouting() {
     val classListHandler: ClassListHandler by inject()
     val classIdHandler: ClassIdHandler by inject()
     val classNameHandler: ClassNameHandler by inject()
-    val classFeatListHandler: ClassFeatListHandler by inject()
-    val classFeatNameHandler: ClassFeatNameHandler by inject()
     val armorListHandler: ArmorListHandler by inject()
     val armorNameHandler: ArmorNameHandler by inject()
     val weaponListHandler: WeaponListHandler by inject()
@@ -102,6 +101,9 @@ fun Application.configureRouting() {
     val actionListHandler: ActionListHandler by inject()
     val actionIdHandler: ActionIdHandler by inject()
     val actionNameHandler: ActionNameHandler by inject()
+    val spellListHandler: SpellListHandler by inject()
+    val spellIdHandler: SpellIdHandler by inject()
+    val spellNameHandler: SpellNameHandler by inject()
     val searchHandler: SearchHandler by inject()
     val registerHandler: RegisterHandler by inject()
     val emailExistHandler: EmailExistHandler by inject()
@@ -139,12 +141,6 @@ fun Application.configureRouting() {
         getResource<ClassQuery.ById> { classIdHandler.handle(call) }
         // Class by Name
         getResource<ClassQuery.ByName> { classNameHandler.handle(call) }
-        // Class Features
-        getResource<ClassFeatureQuery.All> { classFeatListHandler.handle(call) }
-        // Class Feature by ID
-        getResource<ClassFeatureQuery.ById> { classFeatNameHandler.handle(call) }
-        // Class Feature by Name
-        getResource<ClassFeatureQuery.ByName> { classFeatNameHandler.handle(call) }
         // Armors
         getResource<ArmorQuery.All> { armorListHandler.handle(call) }
         // Armor by Name
@@ -179,7 +175,12 @@ fun Application.configureRouting() {
         getResource<HeritageQuery.ById> { heritageIdHandler.handle(call) }
         // Heritage by Name
         getResource<HeritageQuery.ByName> { heritageNameHandler.handle(call) }
-
+        // Spells
+        getResource<SpellQuery.All> { spellListHandler.handle(call) }
+        // Spell by ID
+        getResource<SpellQuery.ById> { spellIdHandler.handle(call) }
+        // Spell by Name
+        getResource<SpellQuery.ByName> { spellNameHandler.handle(call) }
         // Actions
         getResource<ActionQuery.All> { actionListHandler.handle(call) }
         // Action by ID

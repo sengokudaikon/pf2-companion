@@ -6,6 +6,7 @@ import kotlinx.serialization.Serializable
 sealed class FilterType(open val dbField: String, open val applicableTypes: List<String> = emptyList()) {
     data object Type : FilterType("type")
     data object Level : FilterType("system.level")
+    data object Description : FilterType("system.description.value")
     data object Rarity : FilterType("system.traits.rarity")
     data object Publication : FilterType("system.publication.title")
     data object Traits : FilterType("system.traits.value")

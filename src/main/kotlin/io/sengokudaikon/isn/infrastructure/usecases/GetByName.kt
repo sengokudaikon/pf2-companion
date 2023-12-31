@@ -3,6 +3,7 @@ package io.sengokudaikon.isn.infrastructure.usecases
 import io.sengokudaikon.isn.infrastructure.domain.Model
 import io.sengokudaikon.isn.infrastructure.operations.Query
 import io.sengokudaikon.isn.infrastructure.ports.ReadPort
+import io.sengokudaikon.isn.infrastructure.repository.Criteria
 import io.sengokudaikon.isn.infrastructure.repository.RepositoryOutputPort
 
 abstract class GetByName<Q : Query, R : Model> : ReadPort<Q, R>, Caching {
@@ -14,7 +15,7 @@ abstract class GetByName<Q : Query, R : Model> : ReadPort<Q, R>, Caching {
         val cacheKey = getCacheKey(query)
         return runCatching {
             withCache(cacheKey) {
-                repository.findByName(query.name).getOrThrow()
+                repository.findByName(query.name, Criteria()).getOrThrow()
             }
         }
     }
