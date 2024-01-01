@@ -44,25 +44,16 @@ data class WeaponModel(
         override val material: Material?,
         override val price: Price,
         override val quantity: Int,
-        val range: String?,
+        val range: Int?,
         override val size: String,
         val specific: Specific?,
-        override val stackGroup: String?,
         @Serializable(with = BsonValueSerializer::class) val bonus: BsonValue,
         @Serializable(with = BsonValueSerializer::class) val bonusDamage: BsonValue,
-        @Serializable(with = BsonValueSerializer::class) override val equippedBulk: BsonValue,
         @Serializable(with = BsonValueSerializer::class) override val level: BsonValue,
-        @Serializable(with = BsonValueSerializer::class) override val negateBulk: BsonValue,
-        @Serializable(with = BsonValueSerializer::class) val potencyRune: BsonValue,
-        @Serializable(with = BsonValueSerializer::class) val propertyRune1: BsonValue?,
-        @Serializable(with = BsonValueSerializer::class) val propertyRune2: BsonValue?,
-        @Serializable(with = BsonValueSerializer::class) val propertyRune3: BsonValue?,
-        @Serializable(with = BsonValueSerializer::class) val propertyRune4: BsonValue?,
-        @Serializable(with = BsonValueSerializer::class) val reload: BsonValue,
+        @Serializable(with = BsonValueSerializer::class) val reload: BsonValue?,
         @Serializable(with = BsonValueSerializer::class) val splashDamage: BsonValue?,
-        @Serializable(with = BsonValueSerializer::class) val strikingRune: BsonValue,
-        @Serializable(with = BsonValueSerializer::class) override val usage: BsonValue,
-        @Serializable(with = BsonValueSerializer::class) override val weight: BsonValue,
+        @Serializable(with = BsonValueSerializer::class) override val usage: BsonValue? = null,
+        @Serializable(with = BsonValueSerializer::class) override val bulk: BsonValue,
     ) : EquipmentSystemModel {
         @Serializable
         data class Damage(
@@ -75,12 +66,13 @@ data class WeaponModel(
         data class Specific(
             val material: Material?,
             val runes: Runes?,
-            val value: Boolean,
+            val value: Boolean? = null,
         ) {
             @Serializable
             data class Runes(
                 val potency: Int,
-                val striking: String,
+                val striking: Int,
+                val property: List<String>,
             )
         }
     }

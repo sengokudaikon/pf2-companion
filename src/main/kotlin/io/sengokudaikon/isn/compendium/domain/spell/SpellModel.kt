@@ -25,106 +25,26 @@ data class SpellModel(
     override val system: SystemProperty,
 ) : Model {
     var effects: List<SpellEffectModel> = listOf()
-
+    @OptIn(ExperimentalSerializationApi::class)
     @Serializable
     data class SystemProperty(
         override val description: DescriptionType,
         override val publication: Publication,
         override val traits: Traits?,
-        @OptIn(ExperimentalSerializationApi::class)
         @Serializable(with = BsonValueSerializer::class) override val rules: BsonValue? = null,
-        @Serializable(with = BsonValueSerializer::class) val ability: BsonValue,
-        val area: AreaFixture?,
-        @Serializable(with = BsonValueSerializer::class) val category: BsonValue,
-        val components: ComponentsFixture,
-        @Serializable(with = BsonValueSerializer::class) val cost: BsonValue,
-        val damage: DamageContainer?,
-        val overlays: Map<String, OverlayFixture>,
+        @Serializable(with = BsonValueSerializer::class) val area: BsonValue? = null,
+        @Serializable(with = BsonValueSerializer::class) val cost: BsonValue? = null,
+        val counteraction: Boolean,
+        @Serializable(with = BsonValueSerializer::class) val damage: BsonValue?,
+        @Serializable(with = BsonValueSerializer::class) val defense: BsonValue?,
         @Serializable(with = BsonValueSerializer::class) val duration: BsonValue,
-        @Serializable(with = BsonValueSerializer::class) val primaryCheck: BsonValue,
-        @Serializable(with = BsonValueSerializer::class) val secondaryCheck: BsonValue,
-        @Serializable(with = BsonValueSerializer::class) val secondaryCasters: BsonValue,
-        @Serializable(with = BsonValueSerializer::class) val hasCounteractCheck: BsonValue,
-        val heightening: HeighteningFixture,
         @Serializable(with = BsonValueSerializer::class) val level: BsonValue,
-        @Serializable(with = BsonValueSerializer::class) val materials: BsonValue,
-        @Serializable(with = BsonValueSerializer::class) val prepared: BsonValue,
         @Serializable(with = BsonValueSerializer::class) val range: BsonValue,
-        val save: SaveFixture,
-        @Serializable(with = BsonValueSerializer::class) val spellType: BsonValue,
-        @Serializable(with = BsonValueSerializer::class) val sustained: BsonValue,
+        val requirements: String,
         @Serializable(with = BsonValueSerializer::class) val target: BsonValue,
         @Serializable(with = BsonValueSerializer::class) val time: BsonValue,
-        val traditions: TraditionsFixture,
-    ) : SystemModel {
-        @Serializable
-        data class AreaFixture(
-            val details: String,
-            val type: String,
-            val value: Int,
-        )
-
-        @Serializable
-        data class ComponentsFixture(
-            @Serializable(with = BsonValueSerializer::class) val material: BsonValue? = null,
-            @Serializable(with = BsonValueSerializer::class) val somatic: BsonValue,
-            @Serializable(with = BsonValueSerializer::class) val verbal: BsonValue,
-        )
-
-        @Serializable
-        data class HeighteningFixture(
-            @Serializable(with = BsonValueSerializer::class) val damage: BsonValue,
-            val interval: Int,
-            val type: String,
-        )
-
-        @Serializable
-        data class SaveFixture(
-            val basic: String,
-            val value: String,
-        )
-
-        @Suppress("ConstructorParameterNaming")
-        @Serializable
-        data class OverlayFixture(
-            @SerialName("_id")
-            @Contextual
-            val id: ObjectId,
-            val overlayType: String,
-            val sort: Int,
-            val system: SystemProperty,
-        ) {
-            @Serializable
-            data class SystemProperty(
-                val heightening: HeighteningFixture?,
-                @Serializable(with = BsonValueSerializer::class) val time: BsonValue?,
-                @Serializable(with = BsonValueSerializer::class) val area: BsonValue?,
-            )
-        }
-
-        @Serializable
-        data class DamageContainer(
-            val value: Map<String, DamageFixture>,
-        ) {
-            @Serializable
-            data class DamageFixture(
-                val applyMod: Boolean,
-                val type: DamageTypeFixture,
-                val value: String,
-            ) {
-                @Serializable
-                data class DamageTypeFixture(
-                    val categories: List<String>,
-                    val subtype: String?,
-                    val value: String,
-                )
-            }
-        }
-
-        @Serializable
-        data class TraditionsFixture(
-            val custom: String,
-            val values: List<String>,
-        )
-    }
+        @Serializable(with = BsonValueSerializer::class) val ritual: BsonValue? = null,
+        @Serializable(with = BsonValueSerializer::class) val heightening: BsonValue? = null,
+        @Serializable(with = BsonValueSerializer::class) val overlays: BsonValue? = null,
+    ) : SystemModel
 }

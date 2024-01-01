@@ -31,7 +31,6 @@ data class ShieldModel(
     data class SystemProperty(
         val acBonus: Int,
         override val baseItem: String,
-        val bulk: Bulk,
         override val containerId: String?,
         override val description: DescriptionType,
         override val hardness: Int,
@@ -44,20 +43,12 @@ data class ShieldModel(
         val specific: Specific?,
         val speedPenalty: Int,
         override val traits: Traits,
-        @Serializable(with = BsonValueSerializer::class) override val usage: BsonValue,
-        @Serializable(with = BsonValueSerializer::class) override val equippedBulk: BsonValue? = null,
+        @Serializable(with = BsonValueSerializer::class) override val usage: BsonValue? = null,
         override val material: Material?,
-        @Serializable(with = BsonValueSerializer::class) override val negateBulk: BsonValue? = null,
-        override val stackGroup: String?,
-        @Serializable(with = BsonValueSerializer::class) override val weight: BsonValue? = null,
+        @Serializable(with = BsonValueSerializer::class) override val bulk: BsonValue? = null,
         override val publication: Publication,
         @Serializable(with = BsonValueSerializer::class) override val rules: BsonValue?
     ) : EquipmentSystemModel {
-        @Serializable
-        data class Bulk(
-            val value: Int
-        )
-
         @Serializable
         data class Specific(
             val integrated: String?,

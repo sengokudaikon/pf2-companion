@@ -1,12 +1,11 @@
 package io.sengokudaikon.isn.compendium.usecases.character.feat
 
+import com.mongodb.client.model.Filters
 import io.sengokudaikon.isn.compendium.domain.feat.FeatModel
 import io.sengokudaikon.isn.compendium.domain.feat.repository.SkillFeatRepositoryPort
 import io.sengokudaikon.isn.compendium.operations.character.feat.query.FeatQuery
-import io.sengokudaikon.isn.compendium.operations.search.dto.Comparison
-import io.sengokudaikon.isn.compendium.operations.search.dto.Filter
-import io.sengokudaikon.isn.compendium.operations.search.dto.FilterType
 import io.sengokudaikon.isn.compendium.ports.character.ListSkillFeatPort
+import io.sengokudaikon.isn.infrastructure.repository.Criteria
 import io.sengokudaikon.isn.infrastructure.usecases.GetList
 import org.koin.core.annotation.Single
 
@@ -16,23 +15,24 @@ class SkillFeatList(override val repository: SkillFeatRepositoryPort) :
         override suspend fun execute(query: FeatQuery.Skill): Result<List<FeatModel>> {
             query as FeatQuery.Skill.All
             val skillName = query.skillName
-            val filters: List<Filter>
             val skillProficiency = query.skillProficiency
-            filters = if (skillName.isNullOrEmpty()) {
-                emptyList()
-            } else if (skillProficiency.isNullOrEmpty()) {
-                listOf(
-                    Filter(FilterType.Skill, Comparison.CONTAINS, skillName)
-                )
-            } else {
-                listOf(
-                    Filter(FilterType.Skill, Comparison.CONTAINS, "$skillProficiency in $skillName"),
+            val criteria = Criteria()
+            if (skillName !== null) {
+                criteria.addCondition(
+                    if (skillProficiency.isNullOrEmpty()) {
+                        Filters.elemMatch("system.prerequisites.value", Filters.regex("value", skillName))
+                    } else {
+                        Filters.elemMatch(
+                            "system.prerequisites.value",
+                            Filters.regex("value", skillProficiency + "in" + skillName)
+                        )
+                    }
                 )
             }
             val cacheKey = getCacheKey(query)
             return runCatching {
                 withCache(cacheKey) {
-                    repository.findAll(query.page, query.size, filters).getOrThrow()
+                    repository.findAll(query.page, query.size, criteria).getOrThrow()
                 }
             }
         }

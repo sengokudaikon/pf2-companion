@@ -11,7 +11,7 @@ import org.koin.core.component.inject
 @Single(binds = [QueryHandler::class])
 class HeritageIdHandler : ByIdHandler<HeritageModel, HeritageQuery.ById, ByIdHeritagePort>() {
     override val useCase: ByIdHeritagePort by inject()
-    override fun createQuery(id: String, secondaryId: String?): HeritageQuery.ById {
+    override fun createQuery(id: String): HeritageQuery.ById {
         return HeritageQuery.ById(id)
     }
 }

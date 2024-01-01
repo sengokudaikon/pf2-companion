@@ -10,6 +10,7 @@ import kotlinx.serialization.json.JsonElement
 data class SpellResponse(
     val id: String,
     val name: String,
+    val img: String,
     @SerialName("type_")
     val type: String,
     val description: String,
@@ -17,4 +18,17 @@ data class SpellResponse(
     val publication: Publication,
     val traits: List<String>?,
     val rules: JsonElement?,
+    val area: JsonElement?,
+    val cost: JsonElement?,
+    val counteraction: Boolean,
+    val damage: JsonElement?,
+    val defense: JsonElement?,
+    val duration: JsonElement?,
+    val level: Int?,
+    val range: JsonElement?,
+    val requirements: String,
+    val target: JsonElement?,
+    val time: JsonElement?,
+    val heightening: JsonElement?,
+    val overlays: JsonElement?,
 ): Response<SpellModel>()

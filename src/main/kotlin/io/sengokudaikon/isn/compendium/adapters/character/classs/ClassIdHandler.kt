@@ -12,7 +12,7 @@ import org.koin.core.component.inject
 @Single(binds = [QueryHandler::class])
 class ClassIdHandler : ByIdHandler<ClassModel, ClassQuery.ById, ReadPort<ClassQuery, ClassModel>>() {
     override val useCase: ByIdClassPort by inject()
-    override fun createQuery(id: String, secondaryId: String?): ClassQuery.ById {
+    override fun createQuery(id: String): ClassQuery.ById {
         return ClassQuery.ById(id)
     }
 }

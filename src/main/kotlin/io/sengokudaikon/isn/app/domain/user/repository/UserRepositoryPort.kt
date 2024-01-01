@@ -10,5 +10,4 @@ interface UserRepositoryPort : RepositoryOutputPort<User> {
     suspend fun delete(command: UserCommand, uid: String): Result<Boolean>
     suspend fun findByEmail(email: String): Result<User>
     suspend fun findByUid(uid: String): Result<User>
-    suspend fun findByUsername(username: String): Result<User>
 }

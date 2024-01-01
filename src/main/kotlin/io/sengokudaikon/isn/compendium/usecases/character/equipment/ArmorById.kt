@@ -12,6 +12,6 @@ class ArmorById(override val repository: ArmorRepositoryPort) :
     GetById<ArmorQuery, ArmorModel>(), ByIdArmorPort {
     override fun getCacheKey(query: ArmorQuery): String {
         query as ArmorQuery.ById
-        return "model_model.armormodel:id:${query.id}"
+        return "model_armor:id:${query.id}"
     }
 }

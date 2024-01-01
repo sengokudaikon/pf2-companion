@@ -1,6 +1,5 @@
 package io.sengokudaikon.isn.chargen.infrastructure
 
-import io.sengokudaikon.isn.chargen.domain.model.AnimalCompanionModel
 import io.sengokudaikon.isn.chargen.domain.model.CharacterModel
 import io.sengokudaikon.isn.chargen.domain.model.DedicationModel
 import io.sengokudaikon.isn.chargen.domain.model.FamiliarModel
@@ -12,6 +11,7 @@ import io.sengokudaikon.isn.compendium.domain.background.repository.BackgroundRe
 import io.sengokudaikon.isn.compendium.domain.classs.ClassFeatureModel
 import io.sengokudaikon.isn.compendium.domain.classs.repository.ClassFeatureRepositoryPort
 import io.sengokudaikon.isn.compendium.domain.classs.repository.ClassRepositoryPort
+import io.sengokudaikon.isn.compendium.domain.companion.AnimalCompanionModel
 import io.sengokudaikon.isn.compendium.domain.equipment.repository.WeaponRepositoryPort
 import io.sengokudaikon.isn.compendium.domain.familiar.repository.FamiliarAbilityRepositoryPort
 import io.sengokudaikon.isn.compendium.domain.feat.FeatModel
@@ -144,10 +144,14 @@ class PathbuilderConverter(
                             publication = Publication("ORC", true, "Inner Sea Navigator"),
                             traits = null,
                             rules = null,
-                            equipment = it.equipment,
-                            armor = it.armor,
-                            specializations = it.specializations,
-                            maturity = if (it.mature) "Mature" else if (it.incredible) "Incredible" else "Young",
+                            emptyMap(),
+                            emptyMap(),
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null
                         )
                     )
                 },

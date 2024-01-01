@@ -1,0 +1,23 @@
+package io.sengokudaikon.isn.infrastructure.operations.response
+
+import io.sengokudaikon.isn.compendium.domain.equipment.dto.Price
+import io.sengokudaikon.isn.compendium.domain.equipment.model.KitModel
+import io.sengokudaikon.isn.compendium.domain.system.Publication
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonElement
+
+@Serializable
+data class KitResponse(
+    val id: String,
+    val img: String,
+    val name: String,
+    @SerialName("type_")
+    val type: String,
+    val description: String,
+    val price: Price,
+    val publication: Publication,
+    val rules: JsonElement?,
+    val traits: List<String>?,
+    val items: JsonElement?,
+): Response<KitModel>()

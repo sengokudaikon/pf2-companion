@@ -12,7 +12,7 @@ import org.koin.core.component.inject
 class BestiaryIdHandler :
     ByIdHandler<BestiaryModel, BestiaryQuery.ById, ByIdBestiaryPort>() {
     override val useCase: ByIdBestiaryPort by inject()
-    override fun createQuery(id: String, secondaryId: String?): BestiaryQuery.ById {
+    override fun createQuery(id: String): BestiaryQuery.ById {
         return BestiaryQuery.ById(id)
     }
 }

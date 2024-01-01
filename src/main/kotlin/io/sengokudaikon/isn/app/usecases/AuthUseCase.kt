@@ -19,7 +19,7 @@ class AuthUseCase(
         userRepository.findByUid(identifier)
 
     override suspend fun findUserByUsername(username: String): Result<User> =
-        userRepository.findByUsername(username)
+        userRepository.findByName(username)
 
     override suspend fun checkIfMailExists(email: String): Result<Boolean> = runCatching {
         userRepository.findByEmail(email).map { true }.getOrElse { false }
@@ -30,6 +30,6 @@ class AuthUseCase(
     }
 
     override suspend fun checkIfUsernameExists(username: String): Result<Boolean> = runCatching{
-        userRepository.findByUsername(username).map { true }.getOrElse { false }
+        userRepository.findByName(username).map { true }.getOrElse { false }
     }
 }

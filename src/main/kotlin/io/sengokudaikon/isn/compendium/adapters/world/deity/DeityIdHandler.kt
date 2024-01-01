@@ -12,7 +12,7 @@ import org.koin.core.component.inject
 class DeityIdHandler :
     ByIdHandler<DeityModel, DeityQuery.ById, ByIdDeityPort>() {
     override val useCase: ByIdDeityPort by inject()
-    override fun createQuery(id: String, secondaryId: String?): DeityQuery.ById {
+    override fun createQuery(id: String): DeityQuery.ById {
         return DeityQuery.ById(id)
     }
 }

@@ -19,13 +19,9 @@ data class WeaponResponse(
     val name: String,
     @SerialName("type_")
     val type: String,
+    val rarity: String?,
     val group: String,
     val specific: WeaponModel.WeaponSystemProperty.Specific?,
-    val potencyRune: String,
-    val propertyRune1: String,
-    val propertyRune2: String,
-    val propertyRune3: String,
-    val propertyRune4: String,
     val description: String,
     val rules: JsonElement?,
     val traits: Traits,
@@ -38,15 +34,11 @@ data class WeaponResponse(
     val price: Price,
     val quantity: Int,
     val size: String,
-    val stackGroup: String?,
-    val equippedBulk: String,
-    val negateBulk: String,
     val level: String,
-    val usage: String,
     val weight: String,
     val reload: String,
     val bonus: String,
-    val strikingRune: String,
     val damage: WeaponModel.WeaponSystemProperty.Damage,
-    val bonusDamage: String
+    val bonusDamage: String,
+    val range: Int?
 ) : Response<WeaponModel>()

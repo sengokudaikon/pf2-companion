@@ -15,6 +15,6 @@ interface BoonCurseQuery : Query {
     @Resource("/api/boonCurse/{id}")
     data class ById(override val id: String) : Query.ById<BoonCurseModel>, BoonCurseQuery
 
-    @Resource("/api/noonCurse")
+    @Resource("/api/boonCurse")
     data class ByName(override val name: String) : Query.ByName<BoonCurseModel>, BoonCurseQuery
 }

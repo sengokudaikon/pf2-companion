@@ -12,7 +12,7 @@ import org.koin.core.component.inject
 class ConditionIdHandler :
     ByIdHandler<ConditionModel, ConditionQuery.ById, ByIdConditionPort>() {
     override val useCase: ByIdConditionPort by inject()
-    override fun createQuery(id: String, secondaryId: String?): ConditionQuery.ById {
+    override fun createQuery(id: String): ConditionQuery.ById {
         return ConditionQuery.ById(id)
     }
 }

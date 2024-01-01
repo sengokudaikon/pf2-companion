@@ -1,6 +1,5 @@
 package io.sengokudaikon.isn.compendium.persistence.character.classs
 
-import com.mongodb.client.model.Filters.eq
 import com.mongodb.kotlin.client.coroutine.MongoCollection
 import io.sengokudaikon.isn.compendium.domain.classs.ClassModel
 import io.sengokudaikon.isn.compendium.domain.classs.repository.ClassFeatureRepositoryPort
@@ -18,50 +17,34 @@ class ClassRepository(
     override val modelClass: KClass<ClassModel> = ClassModel::class
     override val collection: MongoCollection<ClassModel> = getCollection("classes")
 
-    private val classFeatures= listOf(
-        AggregationParameter(
-            "classfeatures",
-            "items",
-            "name",
-            "features",
-            additionalFields = mapOf(
-                "items" to """
-                        {
-                            "${"$"}map": {
-                                "input": { "${"$"}objectToArray": "${"$"}system.items" },
-                                "as": "item",
-                                "in": {
-                                    "${'$'}cond": {
-                                        "if": { "${'$'}eq": [ { "${'$'}arrayElemAt": [ { "${'$'}split": ["${'$'}${'$'}item.v.uuid", "."] }, 1 ] }, "classfeatures" ] },
-                                        "then": { "${'$'}arrayElemAt": [ { "${'$'}split": ["${'$'}${'$'}item.v.uuid", "."] }, -1 ] },
-                                        "else": "${'$'}undefined"
-                                    }
-                                }
-                            }
-                        }
-                    """
-            )
-        )
-    )
+    private suspend fun withFeats(classModel: ClassModel): ClassModel {
+        val featNames = classModel.system.items.values.filter {
+            it.uuid.contains("classfeatures")
+        }.map { it.uuid.split(".").last() }
+        val features = featureRepository.findByNames(
+            featNames
+        ).getOrDefault(emptyList())
+        require(features.size == featNames.size)
+        classModel.features = features
+        return classModel
+    }
 
     override suspend fun findAll(
         page: Int,
         limit: Int,
-        criteria: Criteria
-    ): Result<List<ClassModel>> = aggregatedList(
-        classFeatures,
-        criteria,
-        page,
-        limit
-    )
+        criteria: Criteria,
+    ): Result<List<ClassModel>> = runCatching {
+        val classes = super.findAll(page, limit, criteria).getOrDefault(emptyList())
+        classes.map {
+            withFeats(it)
+        }.toList()
+    }
 
-    override suspend fun findById(id: String, criteria: Criteria): Result<ClassModel> = aggregatedFind(
-        classFeatures,
-        criteria.addCondition(eq("id", id))
-    )
+    override suspend fun findById(id: String,criteria: Criteria): Result<ClassModel> {
+        return super.findById(id, criteria).map { withFeats(it) }
+    }
 
-    override suspend fun findByName(name: String, criteria: Criteria): Result<ClassModel> = aggregatedFind(
-        classFeatures,
-        criteria.addCondition(eq("name", name))
-    )
+    override suspend fun findByName(name: String,criteria: Criteria): Result<ClassModel> {
+        return super.findByName(name, criteria).map { withFeats(it) }
+    }
 }

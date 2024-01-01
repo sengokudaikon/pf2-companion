@@ -12,7 +12,7 @@ import org.koin.core.component.inject
 class AncestryIdHandler : ByIdHandler<AncestryModel, AncestryQuery.ById, ByIdAncestryPort>() {
     override val useCase: ByIdAncestryPort by inject()
 
-    override fun createQuery(id: String, secondaryId: String?): AncestryQuery.ById {
+    override fun createQuery(id: String): AncestryQuery.ById {
         return AncestryQuery.ById(id)
     }
 }

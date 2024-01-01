@@ -18,7 +18,7 @@ class CharacterByIdUserHandler : ByIdHandler<CharacterModel, CharacterQuery.ById
     override suspend fun handle(call: ApplicationCall) {
         val userId = call.uid()
         val id = call.parameters["id"] ?: throw IllegalArgumentException("Missing id")
-        val query = createQuery(id, null).apply { this.userId = userId }
+        val query = createQuery(id).apply { this.userId = userId }
         val result = useCase.execute(query)
         call.respond(
             result.fold(
@@ -28,7 +28,7 @@ class CharacterByIdUserHandler : ByIdHandler<CharacterModel, CharacterQuery.ById
         )
     }
 
-    override fun createQuery(id: String, secondaryId: String?): CharacterQuery.ByIdAndUser {
+    override fun createQuery(id: String): CharacterQuery.ByIdAndUser {
         return CharacterQuery.ByIdAndUser(id)
     }
 }

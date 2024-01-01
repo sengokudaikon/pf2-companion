@@ -3,6 +3,7 @@ package io.sengokudaikon.isn.compendium.infrastructure.mapper
 import io.sengokudaikon.isn.compendium.domain.equipment.model.WeaponModel
 import io.sengokudaikon.isn.infrastructure.operations.response.Response
 import io.sengokudaikon.isn.infrastructure.operations.response.WeaponResponse
+import io.sengokudaikon.isn.infrastructure.operations.transform
 import org.koin.core.annotation.Single
 
 @Single
@@ -16,11 +17,7 @@ class WeaponMapper : Mapper<WeaponModel> {
                 type = type,
                 group = system.group,
                 specific = system.specific,
-                potencyRune = system.potencyRune.toString(),
-                propertyRune1 = system.propertyRune1.toString(),
-                propertyRune2 = system.propertyRune2.toString(),
-                propertyRune3 = system.propertyRune3.toString(),
-                propertyRune4 = system.propertyRune4.toString(),
+                rarity = system.traits.rarity,
                 description = system.description.value,
                 rules = system.rules?.let { rulesToJson(it.asArray()) },
                 traits = system.traits,
@@ -33,17 +30,13 @@ class WeaponMapper : Mapper<WeaponModel> {
                 price = system.price,
                 quantity = system.quantity,
                 size = system.size,
-                stackGroup = system.stackGroup,
-                equippedBulk = system.equippedBulk.toString(),
-                negateBulk = system.negateBulk.toString(),
-                level = system.level.toString(),
-                usage = system.usage.toString(),
-                weight = system.weight.toString(),
-                reload = system.reload.toString(),
-                bonus = system.bonus.toString(),
-                strikingRune = system.strikingRune.toString(),
+                range = system.range,
+                level = system.level.transform().extractValue().toString(),
+                weight = system.bulk.transform().extractValue().toString(),
+                reload = system.reload?.transform().extractValue().toString(),
+                bonus = system.bonus.transform().extractValue().toString(),
                 damage = system.damage,
-                bonusDamage = system.bonusDamage.toString(),
+                bonusDamage = system.bonusDamage.transform().extractValue().toString(),
             )
         }
     }

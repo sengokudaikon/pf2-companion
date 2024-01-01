@@ -2,12 +2,10 @@ package io.sengokudaikon.isn.compendium.persistence.world
 
 import com.mongodb.client.model.Filters.and
 import io.sengokudaikon.isn.compendium.domain.world.model.SearchResult
-import io.sengokudaikon.isn.compendium.operations.search.dto.Filter
-import io.sengokudaikon.isn.compendium.operations.search.dto.Sort
 import io.sengokudaikon.isn.compendium.operations.search.query.SearchQuery
 import io.sengokudaikon.isn.infrastructure.DatabaseFactory
 import io.sengokudaikon.isn.infrastructure.exceptionLogger
-import io.sengokudaikon.isn.infrastructure.repository.Filtered
+import io.sengokudaikon.isn.infrastructure.repository.Criteria
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.buffer
@@ -23,20 +21,20 @@ import org.bson.Document
 import org.koin.core.annotation.Single
 
 @Single
-class SearchRepository : Filtered {
+class SearchRepository {
     val db = DatabaseFactory.database
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    suspend fun searchAnything(query: SearchQuery, filters: List<Filter>, sorts: List<Sort>): List<SearchResult> {
+    suspend fun searchAnything(query: SearchQuery, criteria: Criteria): List<SearchResult> {
         val collections = db.listCollectionNames().toList()
         val searchResults = mutableListOf<SearchResult>()
-        val sortDocument = withSorts(sorts)
+        val sortDocument = criteria.getSort()
         collections.asFlow().buffer(1000).flatMapMerge { collection ->
             val col = db.getCollection<Document>(collection)
-            val bsonFilters = withFilters(filters, null)
-            val matchStage = if (bsonFilters.isEmpty()) null else Document("\$match", and(bsonFilters))
+            val bsonFilters = criteria.build()
+            val matchStage = Document("\$match", and(bsonFilters))
             val pipeline = mutableListOf<Document>().apply {
-                matchStage?.let { add(it) }
+                matchStage.let { add(it) }
                 add(
                     Document.parse(
                         """

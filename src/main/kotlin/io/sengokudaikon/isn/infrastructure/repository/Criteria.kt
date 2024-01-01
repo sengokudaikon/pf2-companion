@@ -24,7 +24,9 @@ class Criteria {
     }
 
     fun build(): Bson {
-        return if (conditions.isNotEmpty()) { and(conditions) } else BsonDocument()
+        return if (conditions.isNotEmpty()) {
+            if (conditions.size == 1) conditions.first() else and(conditions)
+        } else BsonDocument()
     }
 
     fun getSort(): Bson {
@@ -95,8 +97,20 @@ class Criteria {
         val comparison = part.substringBefore("(")
         val contents = part.substringAfter("(").removeSuffix(")")
         val field = contents.substringBefore(",")
-        val value = contents.substringAfter(",")
-
+        var value: Any? = contents.substringAfter(",")
+        if (value is String && value.matches(Regex("-?\\d+(\\.\\d+)?"))) {
+            // If the value is numeric, convert it to a number
+            value = value.toInt()
+        }
+        if (value is String) {
+            if (value == "true") {
+                value = true
+            } else if (value == "false") {
+                value = false
+            } else if (value == "null") {
+                value = null
+            }
+        }
         return when (comparison) {
             "eq" -> eq(field, value)
             "neq" -> ne(field, value)
@@ -106,8 +120,8 @@ class Criteria {
             "lte" -> lte(field, value)
             "in" -> `in`(field, value)
             "nin" -> nin(field, value)
-            "exists" -> exists(field, value.toBoolean())
-            "regex" -> regex(field, value)
+            "exists" -> exists(field, value as Boolean)
+            "regex" -> regex(field, value as String)
             "contains" -> elemMatch(field, regex("value", ".*$value*."))
             else -> throw IllegalArgumentException("Invalid comparison operator: $comparison")
         }
@@ -129,11 +143,8 @@ class Criteria {
     }
 
     private fun parseSort(sort: String): Bson {
-        val matchResult = Regex("\\((\\w+),(\\w+)\\)").matchEntire(sort)
-            ?: throw IllegalArgumentException("Invalid sort format: $sort")
-
-        val field = matchResult.groupValues[1]
-        val direction = matchResult.groupValues[2]
+        val sortWithoutParentheses = sort.removeSurrounding("(", ")")
+        val (field, direction) = sortWithoutParentheses.split(",").map { it.trim() }
 
         return if (direction.lowercase(Locale.getDefault()) == "asc") {
             Sorts.ascending(field)

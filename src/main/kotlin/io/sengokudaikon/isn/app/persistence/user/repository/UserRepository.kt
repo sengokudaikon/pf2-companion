@@ -5,10 +5,9 @@ import com.mongodb.kotlin.client.coroutine.MongoCollection
 import io.sengokudaikon.isn.app.domain.user.User
 import io.sengokudaikon.isn.app.domain.user.repository.UserRepositoryPort
 import io.sengokudaikon.isn.app.operations.user.command.UserCommand
-import io.sengokudaikon.isn.compendium.operations.search.dto.Filter
-import io.sengokudaikon.isn.compendium.operations.search.dto.Sort
 import io.sengokudaikon.isn.infrastructure.errors.DatabaseException
 import io.sengokudaikon.isn.infrastructure.getCollection
+import io.sengokudaikon.isn.infrastructure.repository.Criteria
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.toList
@@ -21,11 +20,7 @@ class UserRepository : UserRepositoryPort {
     override val collection: MongoCollection<User> = getCollection<User>("users")
     override suspend fun findByEmail(email: String): Result<User> = find(User::email, email)
 
-    override suspend fun findById(id: String, filters: List<Filter>): Result<User> = find(User::id, id)
-
     override suspend fun findByUid(uid: String): Result<User> = find(User::uid, uid)
-
-    override suspend fun findByUsername(username: String): Result<User> = find(User::name, username)
 
     override suspend fun create(command: UserCommand, uid: String): Result<User> = runCatching {
         command as UserCommand.Auth.Register
@@ -57,9 +52,10 @@ class UserRepository : UserRepositoryPort {
         (deleteResult.deletedCount > 0)
     }
 
-    override suspend fun findByName(name: String, filters: List<Filter>): Result<User> = find(User::name, name)
+    override suspend fun findByName(name: String, criteria: Criteria): Result<User> = find(User::name, name)
+    override suspend fun findById(id: String, criteria: Criteria): Result<User> = find(User::id, id)
 
-    override suspend fun findAll(page: Int, limit: Int, filters: List<Filter>, sort: List<Sort>): Result<List<User>> = runCatching {
+    override suspend fun findAll(page: Int, limit: Int, criteria: Criteria): Result<List<User>> = runCatching {
         collection.find().skip((page - 1) * limit).limit(limit).toList()
     }
 

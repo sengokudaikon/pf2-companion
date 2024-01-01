@@ -12,7 +12,7 @@ import org.koin.core.component.inject
 class BoonCurseIdHandler :
     ByIdHandler<BoonCurseModel, BoonCurseQuery.ById, ByIdBoonCursePort>() {
     override val useCase: ByIdBoonCursePort by inject()
-    override fun createQuery(id: String, secondaryId: String?): BoonCurseQuery.ById {
+    override fun createQuery(id: String): BoonCurseQuery.ById {
         return BoonCurseQuery.ById(id)
     }
 }

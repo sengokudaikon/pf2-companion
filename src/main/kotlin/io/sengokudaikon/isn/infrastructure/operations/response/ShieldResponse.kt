@@ -18,9 +18,10 @@ data class ShieldResponse(
     val name: String,
     @SerialName("type_")
     val type: String,
+    val rarity: String?,
     val acBonus: Int,
     val baseItem: String?,
-    val bulk: ShieldModel.SystemProperty.Bulk,
+    val bulk: String?,
     val containerId: String?,
     val description: String,
     val hardness: Int,
@@ -34,7 +35,5 @@ data class ShieldResponse(
     val size: String,
     val specific: ShieldModel.SystemProperty.Specific?,
     val speedPenalty: Int,
-    val stackGroup: String?,
     val traits: List<String>,
-    val usage: JsonElement?
 ) : Response<ShieldModel>()

@@ -27,7 +27,7 @@ class SkillFeatIdHandler :
             ),
         )
     }
-    override fun createQuery(id: String, secondaryId: String?): FeatQuery.Skill.ById {
-        TODO()
+    override fun createQuery(id: String): FeatQuery.Skill.ById {
+        return FeatQuery.Skill.ById(id, "", "")
     }
 }

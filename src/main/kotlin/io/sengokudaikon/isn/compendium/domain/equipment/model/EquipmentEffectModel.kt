@@ -8,7 +8,7 @@ import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId
 
 @Serializable
-class EquipmentEffectModel(
+data class EquipmentEffectModel(
     @SerialName("_id")
     @Contextual
     override val id: ObjectId,

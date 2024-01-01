@@ -15,7 +15,7 @@ interface FeatQuery : Query {
         }
 
         @Resource("/api/feats/skill/{id}")
-        data class ById(override val id: String, val skillName: String, val skillProficiency: String?) : Skill, Query.ById<FeatModel>
+        data class ById(override val id: String, var skillName: String, var skillProficiency: String?) : Skill, Query.ById<FeatModel>
 
         @Resource("/api/feats/skill")
         data class ByName(override val name: String, val skillName: String, val skillProficiency: String?) : Skill, Query.ByName<FeatModel>

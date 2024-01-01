@@ -12,7 +12,7 @@ import org.koin.core.component.inject
 class HazardIdHandler :
     ByIdHandler<HazardModel, HazardQuery.ById, ByIdHazardPort>() {
     override val useCase: ByIdHazardPort by inject()
-    override fun createQuery(id: String, secondaryId: String?): HazardQuery.ById {
+    override fun createQuery(id: String): HazardQuery.ById {
         return HazardQuery.ById(id)
     }
 }

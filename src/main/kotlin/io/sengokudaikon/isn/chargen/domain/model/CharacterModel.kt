@@ -5,6 +5,7 @@ import io.sengokudaikon.isn.compendium.domain.ancestry.AncestryModel
 import io.sengokudaikon.isn.compendium.domain.background.BackgroundModel
 import io.sengokudaikon.isn.compendium.domain.classs.ClassFeatureModel
 import io.sengokudaikon.isn.compendium.domain.classs.ClassModel
+import io.sengokudaikon.isn.compendium.domain.companion.AnimalCompanionModel
 import io.sengokudaikon.isn.compendium.domain.equipment.model.WeaponModel
 import io.sengokudaikon.isn.compendium.domain.feat.FeatModel
 import io.sengokudaikon.isn.compendium.domain.heritage.HeritageModel

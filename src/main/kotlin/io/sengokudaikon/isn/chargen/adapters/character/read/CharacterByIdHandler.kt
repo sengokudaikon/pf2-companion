@@ -11,7 +11,7 @@ import org.koin.core.component.inject
 @Single(binds = [QueryHandler::class])
 class CharacterByIdHandler : ByIdHandler<CharacterModel, CharacterQuery.ById, ByIdCharacterPort>() {
     override val useCase: ByIdCharacterPort by inject()
-    override fun createQuery(id: String, secondaryId: String?): CharacterQuery.ById {
+    override fun createQuery(id: String): CharacterQuery.ById {
         return CharacterQuery.ById(id)
     }
 }

@@ -1,6 +1,8 @@
-package io.sengokudaikon.isn.chargen.domain.model
+package io.sengokudaikon.isn.compendium.domain.companion
 
+import io.sengokudaikon.isn.compendium.domain.ancestry.AncestryModel
 import io.sengokudaikon.isn.compendium.domain.system.DescriptionType
+import io.sengokudaikon.isn.compendium.domain.system.Languages
 import io.sengokudaikon.isn.compendium.domain.system.Publication
 import io.sengokudaikon.isn.compendium.domain.system.SystemModel
 import io.sengokudaikon.isn.compendium.domain.system.Traits
@@ -22,19 +24,22 @@ class AnimalCompanionModel(
     override val img: String,
     override val name: String,
     override val type: String,
-    override val system: SystemModel
+    override val system: AnimalCompanionSystem
 ) : Model {
     @Serializable
     data class AnimalCompanionSystem(
         override val description: DescriptionType,
-        override val publication: Publication,
+        override val publication: Publication = Publication("ORC", false, "CRB"),
         override val traits: Traits?,
         @OptIn(ExperimentalSerializationApi::class)
         @Serializable(with = BsonValueSerializer::class) override val rules: BsonValue? = null,
-        val equipment: List<String>?,
-        val armor: String,
-        val specializations: List<String>,
-        val maturity: String,
-
-    ) : SystemModel
+        val boosts: Map<String, AncestryModel.SystemProperty.AbilityScore>,
+        val flaws: Map<String, AncestryModel.SystemProperty.AbilityScore>,
+        val reach: Int?,
+        val size: String?,
+        val speed: Int?,
+        val vision: String?,
+        val languages: Languages?,
+        val additionalLanguages: Languages?,
+        ) : SystemModel
 }

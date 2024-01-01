@@ -12,7 +12,7 @@ import org.koin.core.component.inject
 class VehicleIdHandler :
     ByIdHandler<VehicleModel, VehicleQuery.ById, ByIdVehiclePort>() {
     override val useCase: ByIdVehiclePort by inject()
-    override fun createQuery(id: String, secondaryId: String?): VehicleQuery.ById {
+    override fun createQuery(id: String): VehicleQuery.ById {
         return VehicleQuery.ById(id)
     }
 }

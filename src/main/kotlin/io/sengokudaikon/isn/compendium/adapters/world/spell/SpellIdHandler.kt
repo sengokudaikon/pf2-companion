@@ -12,7 +12,7 @@ import org.koin.core.component.inject
 class SpellIdHandler :
     ByIdHandler<SpellModel, SpellQuery.ById, ByIdSpellPort>() {
     override val useCase: ByIdSpellPort by inject()
-    override fun createQuery(id: String, secondaryId: String?): SpellQuery.ById {
+    override fun createQuery(id: String): SpellQuery.ById {
         return SpellQuery.ById(id)
     }
 }

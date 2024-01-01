@@ -43,38 +43,29 @@ data class ArmorModel(
         override val price: Price,
         override val quantity: Int,
         override val size: String,
-        override val stackGroup: String?,
-        val group: String,
+        val group: String?=null,
         val specific: Specific?,
         val speedPenalty: Int?,
         val acBonus: Int,
         val dexCap: Int,
         val category: String,
         val checkPenalty: Int,
-        val strength: Int,
-        @Serializable(with = BsonValueSerializer::class) override val equippedBulk: BsonValue,
-        @Serializable(with = BsonValueSerializer::class) override val negateBulk: BsonValue,
+        val strength: Int? = null,
         @Serializable(with = BsonValueSerializer::class) override val level: BsonValue,
-        @Serializable(with = BsonValueSerializer::class) override val usage: BsonValue,
-        @Serializable(with = BsonValueSerializer::class) override val weight: BsonValue,
-        @Serializable(with = BsonValueSerializer::class) val resiliencyRune: BsonValue?,
-        @Serializable(with = BsonValueSerializer::class) val potency: BsonValue?,
-        @Serializable(with = BsonValueSerializer::class) val potencyRune: BsonValue,
-        @Serializable(with = BsonValueSerializer::class) val propertyRune1: BsonValue?,
-        @Serializable(with = BsonValueSerializer::class) val propertyRune2: BsonValue?,
-        @Serializable(with = BsonValueSerializer::class) val propertyRune3: BsonValue?,
-        @Serializable(with = BsonValueSerializer::class) val propertyRune4: BsonValue?,
+        @Serializable(with = BsonValueSerializer::class) override val usage: BsonValue? = null,
+        @Serializable(with = BsonValueSerializer::class) override val bulk: BsonValue,
     ) : EquipmentSystemModel {
         @Serializable
         data class Specific(
             val material: Material?,
             val runes: Runes?,
-            val value: Boolean,
+            val value: Boolean? = null,
         ) {
             @Serializable
             data class Runes(
                 val potency: Int,
                 val resilient: Int,
+                val property: List<String> = listOf(),
             )
         }
     }
